@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./src/views/**/*.{html,js,ejs,jsx}", "./src/assets/integration/**/*.{html,js,ejs,jsx}", "./src/views/partials/**/*.ejs", "./src/assets/utils/**/*.js"],
+
+export default {
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme:{
       backgroundPosition: {
       bottom: 'bottom',
@@ -62,7 +63,7 @@ module.exports = {
           'body': ['"Noto Sans"', 'sans-serif']
         },
         backgroundImage: {
-          'unai': "url('../images/unai.webp')",
+          'unai': "url('./src/assets/images/unai.webp')",
         },
       }
     },
