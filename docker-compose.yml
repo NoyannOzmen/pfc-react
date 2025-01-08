@@ -1,0 +1,33 @@
+# ATTENTION !!! Rebuild les container s'il y a des changements dans le code ?
+# Dans un environnement de dev il faudrait lier un volume (probablement complètement séparer notre repo de travail ?)
+
+services:
+
+  db:
+    build:
+      context: .
+      dockerfile: postgres.Dockerfile
+    container_name: pfc-database
+    environment:
+      - POSTGRES_USER=pfcadmin
+      - POSTGRES_PASSWORD=pfc
+      - POSTGRES_DB=pfc
+    volumes: 
+      - ./src/database:/docker-entrypoint-initdb.d
+      - pg-pfc:/var/lib/postgresql/data
+
+  app:
+
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    
+    env_file: ".env"
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    container_name: pfc-application
+    
+volumes:
+  pg-pfc: 
