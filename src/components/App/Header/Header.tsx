@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom';
 function Header() {
   return (
   <>
-      <header id="top" className="w-screen flex flex-row bg-zoning shadow-xl flex-none">
+    <script defer src="../../src/assets/utils/menuBurger.js"></script>
+    <header id="top" className="w-screen flex flex-row bg-zoning shadow-xl flex-none">
     
     <Link to="/" className="flex flex-row grow-0 p-4">
       <img src="../../src/assets/images/logo.svg" alt="Logo de Pet Foster Connect" className="size-20" />
@@ -27,9 +28,9 @@ function Header() {
 
       <div className="flex flex-auto flex-col place-self-center w-full md:w-[625px] md:flex-row-reverse md:absolute md:top-0 md:right-0">
 
-{/*         <nav className="rounded-br-lg md:rounded-b-lg flex-auto  bg-accents2-dark text-fond p-3 text-base md:text-lg md:mr-4">
+        <nav className="rounded-br-lg md:rounded-b-lg flex-auto  bg-accents2-dark text-fond p-3 text-base md:text-lg md:mr-4">
           <ul className="flex flex-col md:flex-row flex-nowrap justify-around">
-            <!-- Login Navigation -->
+           {/*  <!-- Login Navigation -->
             <% if (locals.loggedIn) { %>
               <li className="border-2 border-accents2-dark max-[767px]:border-b-fond md:mr-4 md:border-r-fond px-4 max-[767px]:pb-2 place-self-center md:place-self-start pl-2">
                 <% if (locals.role==='association' ) { %>
@@ -58,7 +59,7 @@ function Header() {
                 <a href="/deconnexion" className="hover:text-accents1-light">Se Déconnecter</a>
               </li>
             <% } %>        
-            <% if (!locals.loggedIn) { %>
+            <% if (!locals.loggedIn) { %> */}
               <li id="log-in" className="border-2 border-accents2-dark max-[767px]:border-b-fond md:mr-4 md:border-r-fond px-4 max-[767px]:pb-2 place-self-center md:place-self-start pl-2">
                 <a href="/connexion" className="hover:text-accents1-light">Se Connecter</a>
               </li>
@@ -76,9 +77,9 @@ function Header() {
                   <a href="/association/inscription" className="hover:text-accents1-light">Association</a>
                 </li>
               </div>
-            <% } %>
+            {/* <% } %> */}
           </ul>           
-        </nav> */}
+        </nav>
                   
           {/* <!-- Social Media Navigation --> */}
           <nav className="flex flex-row flex-auto justify-center p-3 gap-2">

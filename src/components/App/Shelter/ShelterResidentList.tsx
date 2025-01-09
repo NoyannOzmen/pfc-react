@@ -108,7 +108,7 @@ function ShelterResidentList() {
       </section>
     </div>    
   </div>
-  {/* <script src="/utils/dashboardAssoListeAnimal.js"></script> */}
+  <script src="../../src/assets/utils/dashboardAssoListeAnimal.js"></script>
 </main>
 
 

@@ -97,7 +97,7 @@ function FosterProfile() {
       </section>
     </div>
   </div>
-  {/* <script src='/utils/editInputs.js' async></script> */}
+  <script src='../../src/assets/utils/editInputs.js' async></script>
 </main>
 
 

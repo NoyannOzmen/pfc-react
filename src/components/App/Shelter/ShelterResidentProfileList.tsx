@@ -153,7 +153,7 @@ function ShelterResidentProfileList() {
       </section>
     </div>
   </div> 
-  {/* <script src="/utils/dashboardAssoSuiviAccueil.js"></script> */}
+  <script src="../../src/assets/utils/dashboardAssoSuiviAccueil.js"></script>
 </main>
           
 

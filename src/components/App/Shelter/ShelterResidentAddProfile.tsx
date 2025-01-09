@@ -153,7 +153,7 @@ function ShelterResidentAddProfile() {
 </div>
 
 
-{/* <script src="/utils/dashboardAssoCreateAnimal.js"></script> */}
+<script src="../../src/assets/utils/dashboardAssoCreateAnimal.js"></script>
 
 </main>
       

@@ -223,7 +223,7 @@ function AnimalDetails() {
 
 	</section>
 
-  {/* <script async src="/utils/carousel.js"></script> */}
+  <script async src="../../src/assets/utils/carousel.js"></script>
 
 </main>
 

@@ -215,7 +215,7 @@ function AnimalList() {
       </div>
     <% }) %> 
   </div> */}
-  {/* <script src="/utils/deploySearch.js" async></script> */}
+  <script src="../../src/assets/utils/deploySearch.js" async></script>
 </main>
 
 

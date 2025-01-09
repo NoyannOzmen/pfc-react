@@ -138,7 +138,7 @@ function ShelterDetails() {
       
       </section> */}
   </section>
-	{/* <script async src="../..src/assets/utils/carousel.js"></script> */}
+	<script async src="../..src/assets/utils/carousel.js"></script>
 </main>
 
 

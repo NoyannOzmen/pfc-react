@@ -66,7 +66,7 @@ function FosterRequest() {
       </section>
     </div>
   </div>
-  {/* <script src="/utils/dashboardSuiviDemande.js"></script> */}
+  <script src="../../src/assets/utils/dashboardSuiviDemande.js"></script>
 </main>
  
   )

@@ -106,7 +106,7 @@ function ShelterDashboard() {
       </section>
     </div>
   </div>
-  {/* <script src='/utils/editShelterInputs.js' async></script> */}
+  <script src='../../src/assets/utils/editShelterInputs.js' async></script>
 </main>
   )
 }
