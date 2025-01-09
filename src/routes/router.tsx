@@ -4,9 +4,13 @@ import Root from './Root';
 import ErrorPage from './ErrorPage';
 
 import HomePage from '../components/App/HomePage/HomePage.tsx';
-/* import ProductPage from '../components/App/Products/ProductPage';
-import CategoryPage from '../components/App/Categories/CategoriesPage';
-import CartPage from '../components/App/CartPage/CartPage'; */
+import APropos from '../components/App/StaticPages/APropos.tsx';
+import Contact from '../components/App/StaticPages/Contact.tsx';
+import Faq from '../components/App/StaticPages/Faq.tsx';
+import InfosLegales from '../components/App/StaticPages/InfosLegales.tsx';
+import Rgpd from '../components/App/StaticPages/Rgpd.tsx';
+import DevenirFamille from '../components/App/StaticPages/DevenirFamille.tsx';
+import Plan from '../components/App/StaticPages/Plan.tsx';
 
 const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
   {
@@ -21,19 +25,34 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
         // je n'aurai plus rien à afficher comme j'envoie un tableau vide… Mais c'est une bonne nouvelle !
         element: <HomePage />,
       },
-      // route paramétrée pour les produits
-/*       {
-        path: '/product/:productId',
-        element: <ProductPage />,
+      {
+        path: '/a-propos',
+        element: <APropos />,
       },
       {
-        path: '/category/:categorySlug',
-        element: <CategoryPage />,
+        path: '/contact',
+        element: <Contact />,
       },
       {
-        path: '/cart',
-        element: <CartPage />,
-      }, */
+        path: '/faq',
+        element: <Faq />,
+      },
+      {
+        path: '/infos-legales',
+        element: <InfosLegales />,
+      },
+      {
+        path: '/rgpd',
+        element: <Rgpd />,
+      },
+      {
+        path: '/devenir-famille-d-accueil',
+        element: <DevenirFamille />,
+      },
+      {
+        path: '/Plan',
+        element: <Plan />,
+      },
     ],
   },
 ]);
