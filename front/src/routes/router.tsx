@@ -83,7 +83,7 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
         element: <ShelterList />
       },
       {
-        path: '/associations/:id(\\d)',
+        path: '/associations/:id(\\d+)',
         element: <ShelterDetails />
       },
       /* Animal Routes */
@@ -92,7 +92,7 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
         element: <AnimalList />,
       },
       {
-        path: '/animaux/:id(\\d)',
+        path: '/animaux/:id(\\d+)',
         element: <AnimalDetails />,
       },
       {

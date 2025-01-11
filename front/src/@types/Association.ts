@@ -1,3 +1,5 @@
+import { Media } from './Media';
+
 export type Association = {
   id: string;
   nom: string;
@@ -7,5 +9,6 @@ export type Association = {
   code_postal: string;
   pays: string;
   siret: string;
-  telephone: string
+  telephone: string;
+  logo: Media
 }

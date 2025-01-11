@@ -21,7 +21,7 @@ const associationController = {
         
         /* // Envoyer une réponse
         res.render("listeAssociations",{ associations, especes }); */
-        res.json(associations, especes)
+        res.json(associations)
     },
     
     //* Liste des associations RECHERCHEES

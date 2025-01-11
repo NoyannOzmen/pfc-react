@@ -1,7 +1,29 @@
 /* import { Link } from 'react-router-dom'; */
+import { useState, useEffect } from 'react';
+import { Association } from '../../../@types/Association';
+import ShelterCard from "./ShelterCard";
 
 function ShelterList() {
+  const [shelters, setShelters] = useState<Association[]>([]);
   
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/associations`);
+        const data = await response.json();
+        setShelters(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  const shelterItems = shelters.map((shelter) => (
+    <ShelterCard key={shelter.id} shelter={shelter} />
+  ))
+
   return (
     <main className="justify-self-stretch flex-1">
       
@@ -261,7 +283,7 @@ function ShelterList() {
       <div className="flex flex-wrap content-center justify-around my-8">
         <section className="mx-auto w-[80%]">
           <h2 className="font-grands text-3xl text-center my-2">Nos partenaires</h2>
-          <p className="mx-auto text-l font-body text-center">Pet Foster Connect a l'honneur de travailler main dans la main avec des refuges et associations de protection animale sur tout le territoire Français.
+          <p className="mx-auto text-l font-body text-center">Pet Foster Connect a l'honneur de travailler main dans la main avec des refuges et associations de protection Sheltere sur tout le territoire Français.
             <br />Retrouvez-les toutes ci-dessous. Vous pouvez également faire une recherche pour trouver les plus proches de chez vous !
           </p>
         </section>
@@ -272,27 +294,10 @@ function ShelterList() {
       <% } %> */}
       
       <div className="grid grid-cols-3 gap-3 m-3">       
-    {/*     <% associations.forEach(association => { %>        
-          <div className="bg-zoning rounded-lg shadow dark:bg-gray-800 flex flex-col">
-              <% if (association.images_association.length > 0) { %>
-                <div className="relative md:w-full flex justify-center items-center">
-                  <img className="font-body rounded-lg" src="<%= association.images_association[0].url %>" alt="Logo de <%= association.nom %>">
-                </div>
-                <% } %>
-                <div className="flex text-center flex-col">
-                  <div className="flex flex-wrap">
-                    <h3 className="flex-auto text-xl md:text-3xl font-semibold dark:text-gray-50"><%= association.nom %></h3>
-                    <hr>
-                    <p className="flex-none w-full mt-2 text-xs md:text-xl font-medium text-gray-500 dark:text-gray-300">Localisation : <%= association.code_postal %>&nbsp;<%= association.commune %></p>
-                  </div>
-                  <div className="flex text-sm font-medium justify-center items-end">
-                    <a className="my-2 bg-accents1-light text-fond w-[90%] transition ease-in duration-200 text-center text-xs md:text-2xl font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" href="/associations/<%= association.id %>">En savoir plus</a>
-                  </div>
-                </div>
-          </div>
-        <% }) %> */}
+        {shelterItems}
       </div>
     <script src="../../src/assets/utils/deploySearch.js" async></script>
+
     </main>
   )
 };

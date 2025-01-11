@@ -3,7 +3,7 @@ import { Espece } from './Espece';
 import { Association } from './Association';
 
 export type Animal = {
-  id: string;
+  id: number;
   nom: string;
   race: string;
   couleur: string;

@@ -1,17 +1,32 @@
 /* import { Link } from 'react-router-dom'; */
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Animal } from '../../../@types/Animal';
 
 function AnimalDetails() {
+	const { animalId } = useParams();
+	const [animals] = useState<Animal[]>([]);
+
+	const animal = animals.find(({ id }) => id === Number(animalId));
   
+	if (!animal) {
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
+    throw new Response('', {
+      status: 404,
+      statusText: 'Not Found',
+    });
+  }
+
   return (
     <main className="flex flex-wrap flex-col md:flex-row justify-self-stretch flex-1 w-full place-content-evenly 2xl:w-1/2 2xl:self-center">
   <section className="flex flex-col m-4 flex-1 max-[767px]:mx-4 md:ml-6 place-content-evenly">
-		{/* <h2 className="font-grands text-2xl md:text-3xl text-center w-full my-6"><%= animal.nom %></h2> */}
+		<h2 className="font-grands text-2xl md:text-3xl text-center w-full my-6">{animal.nom}</h2>
 
 {/* 		<!-- 		
 		<% if (animal.images_animal.length > 1) { %>
 		<div>
 			<% for( let i = 0; i < animal.images_animal.length; i++ ) { %>
-			<img src="<%= animal.images_animal[i].url %>" alt="Photo n° <%= i %> de <%= animal.nom %>">
+			<img src="<%= animal.images_animal[i].url %>" alt="Photo n° <%= i %> de {animal.nom}">
 			<% } %>
 		</div>
 		<% } %>
@@ -20,18 +35,20 @@ function AnimalDetails() {
 {/* 		<div className="font-body mx-auto w-[80%] bg-zoning rounded-lg shadow dark:bg-gray-800 my-4">
 			<% if (animal.images_animal.length > 0) { %>
 				<img className="mx-auto my-2"
-				src="<%= animal.images_animal[0].url %>" alt="Photo de <%= animal.nom %>">
+				src="<%= animal.images_animal[0].url %>" alt="Photo de {animal.nom}">
 			<% } else { %>
 					<img className="mx-auto my-2" src="/images/animal_empty.webp" alt="Photo à venir">
 			<% } %>
 		</div> */}
-
-{/* 		<article className="font-body mx-auto w-[80%] bg-zoning rounded-lg shadow dark:bg-gray-800 my-4">
+		<div className="font-body mx-auto w-[80%] bg-zoning rounded-lg shadow dark:bg-gray-800 my-4">
+						<img className="mx-auto my-2" src={`../../src/assets`+`${animal.photo}`} alt={`Photo de ${animal.nom}`} />
+		</div>
+		<article className="font-body mx-auto w-[80%] bg-zoning rounded-lg shadow dark:bg-gray-800 my-4">
 			<div className="text-center w-full py-2">
-				<h3 className="font-grands text-3xl text-center my-2 w-full">A propos de <%= animal.nom %></h3>
+				<h3 className="font-grands text-3xl text-center my-2 w-full">A propos de {animal.nom}</h3>
 			</div>
 
-			<% if (animal.tags.length > 0 ) { %>
+			{/* <% if (animal.tags.length > 0 ) { %>
 				<div className="text-center w-full py-2">
 					<% animal.tags.forEach(tag => { %>
 					<button className="group p-1 rounded-lg bg-accents1-dark text-fond text-center">
@@ -42,28 +59,28 @@ function AnimalDetails() {
 					</button>
 					<% }) %>
 				</div>
-			<% } %>
+			<% } %> */}
 			
 			<div className="text-center w-full py-2">
-				<p className="font-body text-texte">Nom : <%= animal.nom %></p>
-				<p className="font-body text-texte">Age : <%= animal.age %>&nbsp;ans</p>
-				<p className="font-body text-texte">Sexe : <%= animal.sexe %></p>
+				<p className="font-body text-texte">Nom : {animal.nom}</p>
+				<p className="font-body text-texte">Age : {animal.age}&nbsp;ans</p>
+				<p className="font-body text-texte">Sexe : {animal.sexe}</p>
 			</div>
 			<div className="text-center w-full py-2">
-				<p className="font-body text-texte">Espèce : <%= animal.espece.nom %></p>
-				<% if (animal.race) { %>
-				<p className="font-body text-texte">Race : <%= animal.race %></p>
-				<% } %>
-				<p className="font-body text-texte">Couleur : <%= animal.couleur %></p>
+				<p className="font-body text-texte">Espèce : {animal.espece.nom}</p>
+{/* 				<% if (animal.race) { %>
+				<p className="font-body text-texte">Race : {animal.race}</p>
+				<% } %> */}
+				<p className="font-body text-texte">Couleur : {animal.couleur}</p>
 			</div>
 			<div className="text-center w-full py-2">
-				<p className="font-body text-texte">Statut : <%= animal.statut %></p>
+				<p className="font-body text-texte">Statut : {animal.statut}</p>
 			</div>
 
 			<div className="text-center w-full py-2">
-				<p className="font-body text-texte">Son petit truc en plus :<br><%= animal.description %></p>
+				<p className="font-body text-texte">Son petit truc en plus :<br />{animal.description}</p>
 			</div>
-			<% if (locals.role==='famille') { %>
+{/* 			<% if (locals.role==='famille') { %>
 				<div className="text-center w-full py-2">
 					<% if(locals.message.erreur){ %>
 						<div>
@@ -79,37 +96,37 @@ function AnimalDetails() {
 					<button type="submit" className="mx-auto my-3 py-2 px-6 bg-accents1-light text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">Faire une demande</button>
 					</form>
 				</div>
-			<% } %>
-		</article> */}
+			<% } %> */}
+		</article>
 
 	</section>
 	
- 	{/* <!-- Mini association profile --> */}
-{/* 	<section className="flex flex-col md:my-8 flex-none  md:max-w-[50%] max-[767px]:mx-4 md:mr-6 md:mt-32 py-6">
+ 	{/* Mini association profile */}
+<section className="flex flex-col md:my-8 flex-none  md:max-w-[50%] max-[767px]:mx-4 md:mr-6 md:mt-32 py-6">
 		<article className="font-body mx-auto w-full bg-zoning rounded-lg shadow dark:bg-gray-800 my-4">
-			<h3 className="font-grands text-3xl text-center my-2 pt-5 w-full"><%= animal.nom %><br>vous attend chez<br /><%= animal.refuge.nom %></h3>
+			<h3 className="font-grands text-3xl text-center my-2 pt-5 w-full">{animal.nom}<br />vous attend chez<br />{animal.refuge.nom}</h3>
 
 
 			<div className="font-body mx-auto w-[80%] rounded-lg my-4">
-				<% if (animal.refuge.images_association) { %>
-					<img className="mx-auto" src="<%= animal.refuge.images_association[0].url %>" alt="Logo de <%= animal.refuge.nom %>">
-				<% } else { %>
+				{/* <% if (animal.refuge.images_association) { %> */}
+					<img className="mx-auto" src={`../../src/assets`+`${animal.refuge.logo}`} alt={`Logo de ${animal.refuge.nom}`} />
+{/* 				<% } else { %>
 				<img src="../..src/assets/images/Animal_empty.webp" alt="Logo de <%= animal.refuge.nom %> bientôt visible">
-				<% } %>
+				<% } %> */}
 			</div>
 
 			<div className="text-center w-full py-2">
-				<p className="font-body text-texte">Adresse : <%= animal.refuge.rue %>,<br /><%= animal.refuge.code_postal %>,&nbsp;<%= animal.refuge.commune%>,&nbsp;<%= animal.refuge.pays %></p>
-				<p className="font-body text-texte">Téléphone : <%= animal.refuge.telephone %></p>
-				<p className="font-body text-texte">E-mail : <%= animal.refuge.identifiant_association.email %></p>
-				<p className="hidden md:block font-body text-texte"><%= animal.refuge.identifiant_association.description %></p>
+				<p className="font-body text-texte">Adresse : {animal.refuge.rue},<br />{animal.refuge.code_postal},&nbsp;{animal.refuge.commune},&nbsp;{animal.refuge.pays}</p>
+				<p className="font-body text-texte">Téléphone : {animal.refuge.telephone}</p>
+				{/* <p className="font-body text-texte">E-mail : {animal.refuge.identifiant_association.email}</p>
+				<p className="hidden md:block font-body text-texte">{animal.refuge.identifiant_association.description}</p> */}
 			</div>
 				
 			<div className="text-center w-full py-2">
 				<a className="w-[60%] mx-auto my-3 py-2 px-4 bg-accents1-light text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" href="/associations/<%= animal.refuge.id %>">En savoir plus</a>
 			</div>
 		</article>
-	</section> */}
+	</section>
 	
 	{/* <!-- Insert Carousel here --> */ }
 
@@ -131,7 +148,7 @@ function AnimalDetails() {
 							<div className="w-full md:w-full flex justify-center items-center">
 								<% if (animal.images_animal.length> 0) { %>
 								<img className="object-contain md:h-full rounded-lg" src="<%= animal.images_animal[0].url %>"
-								alt="Photo de <%= animal.nom %>">
+								alt="Photo de {animal.nom}">
 								<% } else { %>
 									<img className="object-contain md:h-full rounded-lg" src="/images/animal_empty.webp" alt="Photo à venir">
 								<% } %>
@@ -139,7 +156,7 @@ function AnimalDetails() {
 								<div className="flex-auto text-center">
 									<div className="flex flex-wrap my-2">
 										<h3 className="flex-auto text-xl font-semibold dark:text-gray-50">
-											<%= animal.nom %>
+											{animal.nom}
 										</h3>
 										<h4 className="flex-none w-full mt-2 text-sm font-medium text-gray-500 dark:text-gray-300">
 											<%= animal.espece.nom %>
@@ -183,7 +200,7 @@ function AnimalDetails() {
 							<div className="w-full md:w-full flex justify-center items-center">
 								<% if (animal.images_animal.length> 0) { %>
 									<img className="object-contain w-[80%] h-48 md:h-full rounded-lg" src="<%= animal.images_animal[0].url %>"
-									alt="Photo de <%= animal.nom %>">
+									alt="Photo de {animal.nom}">
 								<% } else { %>
 									<img className="object-contain w-[80%] h-48 md:h-full rounded-lg" src="../..src/assets/images/animal_empty.webp"
 									alt="Photo à venir" />
@@ -192,7 +209,7 @@ function AnimalDetails() {
 							<div className="flex-auto text-center">
 								<div className="flex flex-wrap my-2">
 									<h3 className="flex-auto text-xl font-semibold dark:text-gray-50">
-										<%= animal.nom %>
+										{animal.nom}
 									</h3>
 									<h4 className="flex-none w-full mt-2 text-sm font-medium text-gray-500 dark:text-gray-300">
 										<%= animal.espece.nom %>

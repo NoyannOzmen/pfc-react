@@ -116,7 +116,7 @@ export const animalController = {
         /* res.render('detailAnimal',{
             animal, animals, especes, tags
         }) */
-            res.json(animal, animals, tags, especes)
+            res.json(animal)
         
     },
     
