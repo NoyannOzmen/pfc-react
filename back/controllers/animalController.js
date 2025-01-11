@@ -35,11 +35,12 @@ export const animalController = {
         const especes = await Espece.findAll();
         const tags = await Tag.findAll();
         
-        res.render('listeAnimaux', {
+/*         res.render('listeAnimaux', {
             animals,
             especes,
             tags
-        })
+        }) */
+       res.json(animals, tags, especes)
     },
 
     async getSearched(req,res) {

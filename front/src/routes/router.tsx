@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import Root from './Root';
-import ErrorPage from './ErrorPage';
+import Root from './Root.tsx';
+import ErrorPage from './ErrorPage.tsx';
 
 import HomePage from '../components/App/HomePage/HomePage.tsx';
 import APropos from '../components/App/StaticPages/APropos.tsx';
@@ -13,14 +13,14 @@ import DevenirFamille from '../components/App/StaticPages/DevenirFamille.tsx';
 import Plan from '../components/App/StaticPages/Plan.tsx';
 import Login from '../components/App/StaticPages/Login.tsx';
 
-import ShelterDetails from '../components/App/Shelter/ShelterDetails';
-import ShelterList from '../components/App/Shelter/ShelterList';
+import ShelterDetails from '../components/App/Shelter/ShelterDetails.tsx';
+import ShelterList from '../components/App/Shelter/ShelterList.tsx';
  
-import AnimalList from '../components/App/Animals/AnimalList';
-import AnimalDetails from '../components/App/Animals/AnimalDetails';
+import AnimalList from '../components/App/Animals/AnimalList.tsx';
+import AnimalDetails from '../components/App/Animals/AnimalDetails.tsx';
 
-import ShelterSignIn from '../components/App/Shelter/ShelterSignIn';
-import FosterSignIn from '../components/App/Foster/FosterSignIn';
+import ShelterSignIn from '../components/App/Shelter/ShelterSignIn.tsx';
+import FosterSignIn from '../components/App/Foster/FosterSignIn.tsx';
 
 import FosterAnimalRequest from '../components/App/Foster/FosterAnimalRequest.tsx';
 import FosterProfile from '../components/App/Foster/FosterProfile.tsx';

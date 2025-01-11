@@ -1,6 +1,28 @@
-import { Link } from "react-router-dom"
+import { useState, useEffect } from 'react';
+import { Animal } from '../../../@types/Animal';
+import AnimalCard from "./AnimalCard";
 
 function AnimalList() {
+  const [animals, setAnimals] = useState<Animal[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/animaux`);
+        const data = await response.json();
+        setAnimals(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  const animalItems = animals.map((animal) => (
+    <AnimalCard key={animal.id} animal={animal} />
+  ))
+
   return (
     <main className="justify-self-stretch flex-1">
   
@@ -215,6 +237,11 @@ function AnimalList() {
       </div>
     <% }) %> 
   </div> */}
+
+  <div className="grid grid-flow-row-dense grid-cols-3 gap-3 m-3">
+    {animalItems}
+  </div>
+
   <script src="../../src/assets/utils/deploySearch.js" async></script>
 </main>
 
