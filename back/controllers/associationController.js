@@ -19,8 +19,9 @@ const associationController = {
         
         const especes = await Espece.findAll();
         
-        // Envoyer une réponse
-        res.render("listeAssociations",{ associations, especes });
+        /* // Envoyer une réponse
+        res.render("listeAssociations",{ associations, especes }); */
+        res.json(associations, especes)
     },
     
     //* Liste des associations RECHERCHEES
@@ -50,7 +51,8 @@ const associationController = {
                 }
             });
             
-            return res.render("listeAssociations", { associations, especes });
+            /* return res.render("listeAssociations", { associations, especes }); */
+            return res.json(associations, especes);
         },
         
         /* Détails d'une Association */
@@ -72,7 +74,8 @@ const associationController = {
                 return next();
             }
             // Envoyer une réponse
-            res.render("detailAssociation", { association });
+            /* res.render("detailAssociation", { association }); */
+            res.json(association);
         },
         
         /* Supprimer une association */
@@ -96,7 +99,8 @@ const associationController = {
                 include: 'images_association'
             });
             
-            res.render('profilAssociationLogo', { association });
+            /* res.render('profilAssociationLogo', { association }); */
+            res.json(association);
         },
         
         async uploadImage(req, res,next){
@@ -121,7 +125,8 @@ const associationController = {
             console.log('image is' + JSON.stringify(newMedia));
             console.log(`C'est good`)
             await newMedia.save();
-            res.render("profilAssociationLogo", {association});
+            /* res.render("profilAssociationLogo", {association}); */
+            res.json(association)
         },
         
         /* MàJ Asso */
@@ -150,6 +155,7 @@ const associationController = {
             console.log('success')
             console.log(updatedAssociation);
             res.redirect("/associations/profil")
+            res.json(updatedAssociation)
             
         },
         
@@ -172,7 +178,8 @@ const associationController = {
                 include: [ "demandes", "refuge" ],
             })
             
-            res.render('profilAssociationDemande', { association, requestedAnimals });
+           /*  res.render('profilAssociationDemande', { association, requestedAnimals }); */
+           res.json(association, requestedAnimals)
         },
         
         /* Afficher les détails d'une demande en cours */
@@ -213,7 +220,8 @@ const associationController = {
                     return next();
                 }
                 // Envoyer une réponse
-                res.render("detailAssociation",{ association });
+                /* res.render("detailAssociation",{ association }); */
+                res.json(association)
             },
             
             
@@ -224,7 +232,8 @@ const associationController = {
                 
                 const association = await Association.findByPk(associationId);
                 
-                res.render('profilAssociationInfos', { association });
+                /* res.render('profilAssociationInfos', { association }); */
+                res.json(association)
             },
             
             async displayUpload(req,res,next){
@@ -233,7 +242,8 @@ const associationController = {
                 
                 const association = await Association.findByPk(associationId);
                 
-                res.render('profilAssociationLogo', { association });
+                /* res.render('profilAssociationLogo', { association }); */
+                res.json(association)
             },
             
             /* MàJ Asso */
@@ -261,7 +271,8 @@ const associationController = {
                 
                 console.log('success')
                 console.log(updatedAssociation);
-                res.redirect("/associations/profil")
+                /* res.redirect("/associations/profil") */
+                res.json(updatedAssociation)
                 
             },
             
@@ -283,7 +294,8 @@ const associationController = {
                     include: [ "demandes", "refuge" ],
                 })
                 
-                res.render('profilAssociationDemande', { association, requestedAnimals });
+                /* res.render('profilAssociationDemande', { association, requestedAnimals }); */
+                res.json(association, requestedAnimals)
             },
             
             /* Afficher les détails d'une demande en cours */
@@ -314,7 +326,8 @@ const associationController = {
                     console.log('Famille' + famille);
                     console.log("Animal : " + animal ); */
                     
-                    res.render('profilAssociationDemandeSuivi', { association, request, famille, animal })
+                    /* res.render('profilAssociationDemandeSuivi', { association, request, famille, animal }) */
+                    res.json(association, request, famille, animal)
                 },
                 
                 async denyRequest(req,res) {
@@ -329,7 +342,8 @@ const associationController = {
                     console.log(updatedRequest);
                     await updatedRequest.save();
                     
-                    res.redirect('/associations/profil/demandes/' + requestId)
+                    /* res.redirect('/associations/profil/demandes/' + requestId) */
+                    res.json(updatedRequest)
                 },
                 
                 async approveRequest(req,res) {
@@ -367,7 +381,8 @@ const associationController = {
                     await animal.update({famille_id:request.famille_id});
                     await animal.save();
                     
-                    res.redirect('/associations/profil/demandes/' + requestId)
+                   /*  res.redirect('/associations/profil/demandes/' + requestId) */
+                   res.json(request)
                 },
                 
                 async dashboardAnimaux(req,res,next){
@@ -412,8 +427,9 @@ const associationController = {
                         un tableau tags et un tableau demande
                         */
                         
-                        res.render('profilAssociationAnimauxListe',{ animals,especes });
+                        /* res.render('profilAssociationAnimauxListe',{ animals,especes }); */
                         //res.send(animals);
+                        res.json(animals, especes)
                     },
                     async dashboardAnimauxSuivi (req, res ,next) {
                         
@@ -446,7 +462,8 @@ const associationController = {
                         })
                         
                         //res.send(animals);
-                        res.render('profilAssociationAnimauxSuiviAccueil',{ animals });
+                        /* res.render('profilAssociationAnimauxSuiviAccueil',{ animals }); */
+                        res.json(animals)
                         
                     },
                     
@@ -456,7 +473,8 @@ const associationController = {
                         
                         const especes = await Espece.findAll();
                         const tags = await Tag.findAll();
-                        res.render('profilAssociationAnimauxAjouter', {especes,tags});    
+                        /* res.render('profilAssociationAnimauxAjouter', {especes,tags});  */  
+                        res.json(especes, tags) 
                     },
                     
                     
@@ -500,7 +518,8 @@ const associationController = {
                             
                             req.session.animalId=animal.id;    
                             // res.send(animal);
-                            res.render('profilAssociationAnimauxDetail', {animal});
+                            /* res.render('profilAssociationAnimauxDetail', {animal}); */
+                            res.json(animal)
                             
                             
                         }

@@ -80,7 +80,8 @@ export const animalController = {
             }
         });
         
-        return res.render("listeAnimaux", { animals, especes, tags });
+        /* return res.render("listeAnimaux", { animals, especes, tags }); */
+        return res.json(animals, tags, especes)
     },
 
     
@@ -112,9 +113,10 @@ export const animalController = {
             res.status(404).render('404');
         }
         
-        res.render('detailAnimal',{
+        /* res.render('detailAnimal',{
             animal, animals, especes, tags
-        })
+        }) */
+            res.json(animal, animals, tags, especes)
         
     },
     
@@ -154,10 +156,10 @@ export const animalController = {
             await newRequest.save();
 
             req.flash('succes', 'Votre demande a bien été prise en compte !');
-            res.redirect('/animaux/' + animalId);
+            /* res.redirect('/animaux/' + animalId); */
         } else {
             req.flash('erreur', 'Vous avez déjà effectué une demande pour cet animal !');
-            res.redirect('/animaux/' + animalId);
+            /* res.redirect('/animaux/' + animalId); */
         }   
     },
 
@@ -215,7 +217,7 @@ export const animalController = {
                 await newAnimal.addTag(tag)
             }
         }
-        res.redirect('/associations/profil/animaux');
+        /* res.redirect('/associations/profil/animaux'); */
     },
 
 /*     async displayUploader (req,res, next) {
@@ -253,7 +255,8 @@ export const animalController = {
         console.log(req.session.animalId)
         delete req.session.animalId
         console.log(req.session)
-        res.redirect("/associations/profil/animaux");
+        /* res.redirect("/associations/profil/animaux"); */
+        res.json(newMedia)
     },
 }
     

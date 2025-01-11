@@ -19,7 +19,8 @@ const familleController = {
             return next();
         }
         // Envoyer une réponse
-        res.render("profilFamilleInfos",{ famille, especes });
+        /* res.render("profilFamilleInfos",{ famille, especes }); */
+        res.json(famille, especes)
     },
     
     //* Lister les animaux d'une famille
@@ -35,7 +36,8 @@ const familleController = {
             return next();
         }
         // Envoyer une réponse
-        res.render("detailFamille",{ famille });
+        /* res.render("detailFamille",{ famille }); */
+        res.json(famille)
     },
     
     //* Ajouter un animal à une famille

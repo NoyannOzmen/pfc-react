@@ -163,7 +163,8 @@ export const sessionController = {
         };
         const especes = await Espece.findAll();
 
-        res.render('profilFamilleInfos', { famille, especes });
+        /* res.render('profilFamilleInfos', { famille, especes }); */
+        res.json(famille, especes)
     },
 
     async fosterUpdate(req,res, next) {
@@ -240,12 +241,14 @@ export const sessionController = {
 
         console.log(JSON.stringify(requestedAnimals));
         
-        res.render('profilFamilleDemande', { famille, requestedAnimals });
+        /* res.render('profilFamilleDemande', { famille, requestedAnimals }); */
+        res.json(famille, requestedAnimals)
     },
 
     async displayShelterSignIn(req,res) {
         const especes = await Espece.findAll();
-        res.render("inscriptionAssociation", { especes })
+        /* res.render("inscriptionAssociation", { especes }) */
+        res.json(especes)
     },
     
     async shelterSignIn(req,res) {
