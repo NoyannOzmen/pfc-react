@@ -40,8 +40,22 @@ export const animalController = {
             especes,
             tags
         }) */
-       res.json(animals, tags, especes)
+       res.json(animals)
     },
+
+     async getSpeciesList(req,res) {
+        const especes = await Espece.findAll();
+
+        res.json(especes);
+    },
+
+
+    async getTagsList(req,res) {
+        const tags = await Tag.findAll();
+
+        res.json(tags);
+    },
+
 
     async getSearched(req,res) {
 
@@ -81,7 +95,7 @@ export const animalController = {
         });
         
         /* return res.render("listeAnimaux", { animals, especes, tags }); */
-        return res.json(animals, tags, especes)
+        return res.json([animals, tags, especes])
     },
 
     
@@ -116,7 +130,7 @@ export const animalController = {
         /* res.render('detailAnimal',{
             animal, animals, especes, tags
         }) */
-            res.json(animal)
+            res.json([animal, especes, tags])
         
     },
     

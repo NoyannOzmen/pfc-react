@@ -1,13 +1,28 @@
 /* import { Link } from 'react-router-dom'; */
 import { useState, useEffect } from 'react';
 import { Association } from '../../../@types/Association';
+import { Espece } from '../../../@types/Espece';
 import ShelterCard from "./ShelterCard";
 
 function ShelterList() {
   const [shelters, setShelters] = useState<Association[]>([]);
+  const [species, setSpecies] = useState<Espece[]>([]);
   
   useEffect(() => {
-    const fetchData = async () => {
+    const script = document.createElement('script');
+  
+    script.src="../../../src/assets/utils/deploySearch.js";
+    script.async = true;
+  
+    document.body.appendChild(script);
+  
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchShelters = async () => {
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/associations`);
         const data = await response.json();
@@ -17,11 +32,29 @@ function ShelterList() {
       }
     }
 
-    fetchData();
+    const fetchSpecies = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/especes`);
+        const data = await response.json();
+        setSpecies(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchShelters();
+    fetchSpecies();
   }, []);
 
   const shelterItems = shelters.map((shelter) => (
     <ShelterCard key={shelter.id} shelter={shelter} />
+  ))
+
+  const speciesItems = species.map((espece) => (
+    <div>
+    <label htmlFor={`${espece.nom}`}>{espece.nom}</label>
+    <input type="checkbox" name="espece" key={`${espece.id}`} id={`${espece.nom}`} value={`${espece.nom}`}/>
+  </div>
   ))
 
   return (
@@ -153,12 +186,7 @@ function ShelterList() {
             <div className="col-span-1">
               <fieldset className="mx-auto p-2 my-2">
                 <legend>Animaux</legend>
-    {/*             <% especes.forEach(espece => { %>
-                  <div>
-                    <label className=# for="<%= espece.nom %>"><%= espece.nom %></label>
-                    <input className=# type="checkbox" name=espece id="<%= espece.nom %>" value="<%= espece.nom %>"/>
-                  </div>
-                  <% }) %> */}
+                {speciesItems}
               </fieldset>
             </div>
               
@@ -296,7 +324,7 @@ function ShelterList() {
       <div className="grid grid-cols-3 gap-3 m-3">       
         {shelterItems}
       </div>
-    <script src="../../src/assets/utils/deploySearch.js" async></script>
+    {/* <script src="../../src/assets/utils/deploySearch.js" async></script> */}
 
     </main>
   )

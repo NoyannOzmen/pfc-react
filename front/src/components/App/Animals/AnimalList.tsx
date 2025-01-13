@@ -1,12 +1,29 @@
 import { useState, useEffect } from 'react';
 import { Animal } from '../../../@types/Animal';
+import { Espece } from '../../../@types/Espece';
+import { Tag } from '../../../@types/Tag';
 import AnimalCard from "./AnimalCard";
 
 function AnimalList() {
   const [animals, setAnimals] = useState<Animal[]>([]);
+  const [species, setSpecies] = useState<Espece[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const script = document.createElement('script');
+  
+    script.src="../../../src/assets/utils/deploySearch.js";
+    script.async = true;
+  
+    document.body.appendChild(script);
+  
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchAnimals = async () => {
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/animaux`);
         const data = await response.json();
@@ -16,11 +33,44 @@ function AnimalList() {
       }
     }
 
-    fetchData();
+    const fetchSpecies = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/especes`);
+        const data = await response.json();
+        setSpecies(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    const fetchTags = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/tags`);
+        const data = await response.json();
+        setTags(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchSpecies();
+    fetchAnimals();
+    fetchTags();
   }, []);
 
   const animalItems = animals.map((animal) => (
     <AnimalCard key={animal.id} animal={animal} />
+  ))
+
+  const speciesItems = species.map((espece) => (
+    <option key={`${espece.id}`} value={`${espece.nom}`}>{espece.nom}</option>
+  ))
+
+  const tagItems = tags.map((tag) => (
+    <div>
+    <label htmlFor={`${tag.nom}`}>{tag.nom}</label>
+    <input type="checkbox" name="tag" key={`${tag.id}`} id={`${tag.nom}`} value={`${tag.nom}`}/>
+  </div>
   ))
 
   return (
@@ -31,14 +81,10 @@ function AnimalList() {
     <form className="text-texte justify-around" action="/animaux" method="POST">
       <div id="fullSearch" className="mx-2 col-span-3 items-center flex flex-wrap justify-around">
         <h3 className="font-grands text-2xl w-full my-2 text-center">Rechercher un animal</h3>
-{/*         <select tabIndex={0} className="col-span-3 text-xs block w-[50%]" id="espece-dropdown-small" name="especeDropdownSmall">
-          <option value="" disabled selected hidden>--Choisissez une espèce--</option>
-          <% especes.forEach(espece => { %>
-            <option name=espece value="<%= espece.nom %>"><%= espece.nom %></option> 
-          <% }) %>
-
-            
-        </select> */}
+        <select tabIndex={0} className="col-span-3 text-xs block w-[50%]" id="espece-dropdown-small" name="especeDropdownSmall" defaultValue="defaultSmall">
+          <option value="defaultSmall" disabled selected hidden>--Choisissez une espèce--</option>
+          {speciesItems}
+        </select>
           <input tabIndex={0} id="deploy" className="w-[20%] col-span-1 my-1 py-2 px-2 bg-accents2-dark text-fond transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="button" value="Filtres" />
           <input tabIndex={0} className="w-1/3 col-span-1 mx-auto my-3 py-2 px-2 bg-accents1-light text-fond transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="submit" value="Rechercher" />         
       </div>
@@ -51,12 +97,10 @@ function AnimalList() {
           {/* <!-- Choix de l'espèce --> */}
           <div className="my-2">
             <label htmlFor="espece-dropdown-full">Espèce</label>
-{/*             <select tabIndex={0} className="text-xs block" id="espece-dropdown-full" name="especeDropdownFull">
-              <option value="" disabled selected hidden>--Choisissez une espèce--</option>
-              <% especes.forEach(espece => { %>
-                <option name=espece value="<%= espece.nom %>"><%= espece.nom %></option> 
-              <% }) %>
-            </select> */}
+            <select tabIndex={0} className="text-xs block" id="espece-dropdown-full" name="especeDropdownFull" defaultValue="defaultSmall">
+              <option value="defaultFull" disabled selected hidden>--Choisissez une espèce--</option>
+              {speciesItems}
+            </select>
           </div>
             
           {/* <!-- Sexe --> */}
@@ -81,15 +125,10 @@ function AnimalList() {
         </div>
           
         {/* <!-- Sélection Tags --> */}
-{/*         <div className="col-span-1">
+        <div className="col-span-1">
           <p>Exclure si :</p>
-          <% tags.forEach(tag => { %>
-            <div>
-              <label for="<%= tag.nom %>"><%= tag.nom %></label>
-              <input type="checkbox" name="tag" id="<%= tag.nom %>" value="<%= tag.nom %>"/>
-            </div>
-          <% }) %>
-        </div> */}
+          {tagItems}
+        </div>
           
         <div className="col-span-1">   
           <div className="my-2">
@@ -209,40 +248,13 @@ function AnimalList() {
           
 {/*   <% if (animals.length < 1) { %>
     <h3 className="font-grands text-2xl w-full my-2 text-center">Aucun animal ne correspond à votre recherche</h3>
-  <% } %>
-    
-  <div className="grid grid-flow-row-dense grid-cols-3 gap-3 m-3">
-    <% animals.forEach(animal => { %>
-      <div className="bg-zoning rounded-lg shadow dark:bg-gray-800 md:flex-col">
-        <div className="relative md:w-full flex justify-center items-center">
-          <% if (animal.images_animal.length > 0) { %>
-            <img className="font-body rounded-lg"
-            src="<%= animal.images_animal[0].url %>" alt="Photo de <%= animal.nom %>">
-          <% } else { %>
-            <img className="font-body rounded-lg" src="/images/animal_empty.webp" alt="Photo à venir">
-          <% } %>
-        </div>
-        <div className="flex-auto text-center">
-          <div className="flex flex-wrap">
-            <h3 className="flex-auto text-xl md:text-3xl font-semibold dark:text-gray-50"><%= animal.nom %></h3>
-            <h4 className="flex-none w-full mt-2 text-xs md:text-xl font-medium text-gray-500 dark:text-gray-300"><%= animal.espece.nom %></h4>
-            <hr>
-            <p className="flex-none w-full mt-2 text-xs md:text-xl font-medium text-gray-500 dark:text-gray-300">Age : <%= animal.age %></p>
-            <p className="flex-none w-full mt-2 text-xs md:text-xl font-medium text-gray-500 dark:text-gray-300">Localisation : <%= animal.refuge.code_postal %></p>
-          </div>
-          <div className="flex text-sm font-medium justify-center">
-            <Link className="my-2 bg-accents1-light text-fond w-[90%] transition ease-in duration-200 text-center text-xs md:text-2xl font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" to="/animaux/<%= animal.id %>">Découvrir</Link>
-          </div>
-        </div>
-      </div>
-    <% }) %> 
-  </div> */}
+  <% } %> */}
 
   <div className="grid grid-flow-row-dense grid-cols-3 gap-3 m-3">
     {animalItems}
   </div>
 
-  <script src="../../src/assets/utils/deploySearch.js" async></script>
+  {/* <script src="../../src/assets/utils/deploySearch.js" async></script> */}
 </main>
 
 
