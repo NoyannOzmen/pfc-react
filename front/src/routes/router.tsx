@@ -32,7 +32,7 @@ import ShelterRequestDetails from '../components/App/Shelter/ShelterRequestDetai
 import ShelterRequestList from '../components/App/Shelter/ShelterRequestList.tsx';
 import ShelterResidentAddProfile from '../components/App/Shelter/ShelterResidentAddProfile.tsx';
 import ShelterResidentDetails from '../components/App/Shelter/ShelterResidentDetails.tsx';
-import ShelterResidentList from '../components/App/Shelter/ShelterResidentProfileList.tsx';
+import ShelterResidentList from '../components/App/Shelter/ShelterResidentList.tsx';
 import ShelterResidentProfileList from '../components/App/Shelter/ShelterResidentProfileList.tsx';
 import ShelterUploadPage from '../components/App/Shelter/ShelterUploadPage.tsx';
 
@@ -130,7 +130,7 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
         element: <FosterDelete ?> />,
       }, */
       {
-        path: '/famille/demandes',
+        path: '/famille/profil/demandes',
         element: <FosterRequest />,
       },
       /* Shelter Routes */
@@ -171,7 +171,7 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
         element: <ShelterResidentDetails />,
       },
       {
-        path: '/associations/profil/animaux/demandes',
+        path: '/associations/profil/demandes',
         element: <ShelterRequestList />,
       },
       {
