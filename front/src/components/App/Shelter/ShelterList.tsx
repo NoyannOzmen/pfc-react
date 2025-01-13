@@ -51,9 +51,9 @@ function ShelterList() {
   ))
 
   const speciesItems = species.map((espece) => (
-    <div>
+    <div key={espece.id}>
     <label htmlFor={`${espece.nom}`}>{espece.nom}</label>
-    <input type="checkbox" name="espece" key={`${espece.id}`} id={`${espece.nom}`} value={`${espece.nom}`}/>
+    <input type="checkbox" name="espece" id={espece.nom} value={espece.nom}/>
   </div>
   ))
 
@@ -65,8 +65,8 @@ function ShelterList() {
         <form className="text-texte justify-around" action="/associations" method="POST">
           <div id="fullSearch" className="mx-2 col-span-3 items-center flex flex-wrap justify-around">
             <h3 className="font-grands text-2xl w-full my-2 text-center">Rechercher une association</h3>
-            <select tabIndex={0} className="col-span-3 text-xs block w-[50%]" id="dpt-select-small" name="dptSelectSmall">
-              <option value="00" disabled selected hidden>--Choisissez un département--</option>
+            <select tabIndex={0} className="col-span-3 text-xs block w-[50%]" id="dpt-select-small" name="dptSelectSmall" defaultValue="default">
+              <option value="default" disabled hidden>--Choisissez un département--</option>
               <option value="01">01 - Ain</option> 
               <option value="02">02 - Aisne</option> 
               <option value="03">03 - Allier</option> 
@@ -195,8 +195,8 @@ function ShelterList() {
               
                 {/* <!-- Département --> */}
                 <label htmlFor="dpt-select">Département</label>
-                <select tabIndex={0} className="text-xs block" id="dpt-select-full" name="dptSelectFull">
-                  <option value="00" disabled selected hidden>--Choisissez un département--</option>
+                <select tabIndex={0} className="text-xs block" id="dpt-select-full" name="dptSelectFull" defaultValue="default">
+                  <option value="default" disabled hidden>--Choisissez un département--</option>
                   <option value="01">01 - Ain</option> 
                   <option value="02">02 - Aisne</option> 
                   <option value="03">03 - Allier</option> 

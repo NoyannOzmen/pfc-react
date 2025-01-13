@@ -63,13 +63,13 @@ function AnimalList() {
   ))
 
   const speciesItems = species.map((espece) => (
-    <option key={`${espece.id}`} value={`${espece.nom}`}>{espece.nom}</option>
+    <option key={espece.id} value={espece.nom}>{espece.nom}</option>
   ))
 
   const tagItems = tags.map((tag) => (
-    <div>
+    <div key={tag.id} >
     <label htmlFor={`${tag.nom}`}>{tag.nom}</label>
-    <input type="checkbox" name="tag" key={`${tag.id}`} id={`${tag.nom}`} value={`${tag.nom}`}/>
+    <input type="checkbox" name="tag" id={tag.nom} value={tag.nom} />
   </div>
   ))
 
@@ -82,7 +82,7 @@ function AnimalList() {
       <div id="fullSearch" className="mx-2 col-span-3 items-center flex flex-wrap justify-around">
         <h3 className="font-grands text-2xl w-full my-2 text-center">Rechercher un animal</h3>
         <select tabIndex={0} className="col-span-3 text-xs block w-[50%]" id="espece-dropdown-small" name="especeDropdownSmall" defaultValue="defaultSmall">
-          <option value="defaultSmall" disabled selected hidden>--Choisissez une espèce--</option>
+          <option value="defaultSmall" disabled hidden>--Choisissez une espèce--</option>
           {speciesItems}
         </select>
           <input tabIndex={0} id="deploy" className="w-[20%] col-span-1 my-1 py-2 px-2 bg-accents2-dark text-fond transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="button" value="Filtres" />
@@ -97,8 +97,8 @@ function AnimalList() {
           {/* <!-- Choix de l'espèce --> */}
           <div className="my-2">
             <label htmlFor="espece-dropdown-full">Espèce</label>
-            <select tabIndex={0} className="text-xs block" id="espece-dropdown-full" name="especeDropdownFull" defaultValue="defaultSmall">
-              <option value="defaultFull" disabled selected hidden>--Choisissez une espèce--</option>
+            <select tabIndex={0} className="text-xs block" id="espece-dropdown-full" name="especeDropdownFull" defaultValue="defaultFull">
+              <option value="defaultFull" disabled hidden>--Choisissez une espèce--</option>
               {speciesItems}
             </select>
           </div>
@@ -134,8 +134,8 @@ function AnimalList() {
           <div className="my-2">
             {/* <!-- Département --> */}
             <label htmlFor="dpt-select">Département</label>
-            <select tabIndex={0} className="text-xs block" id="dpt-select" name="dptSelect">
-              <option value="00" disabled selected hidden>--Choisissez un département--</option>
+            <select tabIndex={0} className="text-xs block" id="dpt-select" name="dptSelect" defaultValue="default">
+              <option value="default" disabled hidden>--Choisissez un département--</option>
               <option value="01">01 - Ain</option> 
               <option value="02">02 - Aisne</option> 
               <option value="03">03 - Allier</option> 
