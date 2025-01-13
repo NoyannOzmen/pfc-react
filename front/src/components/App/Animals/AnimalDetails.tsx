@@ -1,4 +1,5 @@
 /* import { Link } from 'react-router-dom'; */
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Animal } from '../../../@types/Animal';
@@ -16,6 +17,19 @@ function AnimalDetails() {
       statusText: 'Not Found',
     });
   }
+
+	useEffect(() => {
+    const script = document.createElement('script');
+  
+    script.src="../../../src/assets/utils/carousel.js";
+    script.async = true;
+  
+    document.body.appendChild(script);
+  
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
 
   return (
     <main className="flex flex-wrap flex-col md:flex-row justify-self-stretch flex-1 w-full place-content-evenly 2xl:w-1/2 2xl:self-center">
@@ -239,8 +253,6 @@ function AnimalDetails() {
 		</section>
 
 	</section>
-
-  <script async src="../../src/assets/utils/carousel.js"></script>
 
 </main>
 

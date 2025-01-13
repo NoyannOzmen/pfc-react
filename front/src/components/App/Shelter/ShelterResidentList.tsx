@@ -1,6 +1,20 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 function ShelterResidentList() {
+  useEffect(() => {
+    const script = document.createElement('script');
+  
+    script.src="../../../src/assets/utils/dashboardAssoListeAnimal.js";
+    script.async = true;
+  
+    document.body.appendChild(script);
+  
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
+
   return(
     <main className="justify-self-stretch flex-1">
   <h2 className="font-grands text-3xl text-center my-2 pt-5">Mon espace association</h2>
@@ -108,7 +122,6 @@ function ShelterResidentList() {
       </section>
     </div>    
   </div>
-  <script src="../../src/assets/utils/dashboardAssoListeAnimal.js"></script>
 </main>
 
 

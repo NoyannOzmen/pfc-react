@@ -1,14 +1,22 @@
-/* import { useEffect } from 'react'; */
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-/* import { ICategory, IProduct, LoggedUser } from '../../../@types'; */
-
-/* import '../../../index.css' */
-
 function Header() {
+  useEffect(() => {
+    const script = document.createElement('script');
+  
+    script.src="../../../src/assets/utils/menuBurger.js";
+    script.async = true;
+  
+    document.body.appendChild(script);
+  
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
+
   return (
   <>
-    <script defer src="../../src/assets/utils/menuBurger.js"></script>
     <header id="top" className="w-screen flex flex-row bg-zoning shadow-xl flex-none">
     
     <Link to="/" className="flex flex-row grow-0 p-4">

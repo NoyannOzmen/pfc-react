@@ -1,4 +1,20 @@
+import { useEffect
+  
+ } from "react";
 function ShelterDetails() {
+  useEffect(() => {
+    const script = document.createElement('script');
+  
+    script.src="../../../src/assets/utils/carousel.js";
+    script.async = true;
+  
+    document.body.appendChild(script);
+  
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
+
   return (
     <main className="justify-self-stretch flex-1">
   <section className="flex flex-col mx-auto mt-2">
@@ -138,7 +154,6 @@ function ShelterDetails() {
       
       </section> */}
   </section>
-	<script async src="../..src/assets/utils/carousel.js"></script>
 </main>
 
 

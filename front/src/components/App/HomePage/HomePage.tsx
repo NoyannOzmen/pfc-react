@@ -1,5 +1,6 @@
 /* import { useRootContext } from '../../../routes/Root'; */
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 /* import Categories from '../Categories/Categories';
 import Products from '../Products/Products'; */
@@ -8,6 +9,18 @@ import Products from '../Products/Products'; */
 
 function HomePage() {
   /*   const { products } = useRootContext(); */
+  useEffect(() => {
+    const script = document.createElement('script');
+  
+    script.src="../../../src/assets/utils/carousel.js";
+    script.async = true;
+  
+    document.body.appendChild(script);
+  
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
   
   return (
     <main className="justify-self-stretch flex-1 flex flex-col">

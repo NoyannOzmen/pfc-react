@@ -1,4 +1,19 @@
+import { useEffect } from "react";
+
 function ShelterSignIn() {
+  useEffect(() => {
+    const script = document.createElement('script');
+  
+    script.src="../../../src/assets/utils/apiGouv.js";
+    script.async = true;
+  
+    document.body.appendChild(script);
+  
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
+
   return (
     <main className="justify-self-stretch flex-1">
   <h2 className="font-grands text-3xl text-center my-2 pt-5">Création de votre compte</h2>
@@ -106,7 +121,6 @@ function ShelterSignIn() {
           
     </form>
   </div>
-  <script src="../../src/assets/utils/apiGouv.js"></script>
 </main>
 
 

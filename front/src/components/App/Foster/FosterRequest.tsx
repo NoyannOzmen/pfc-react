@@ -1,6 +1,21 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 function FosterRequest() {
+  useEffect(() => {
+    const script = document.createElement('script');
+  
+    script.src="../../../src/assets/utils/dashboardSuiviDemande.js";
+    script.async = true;
+  
+    document.body.appendChild(script);
+  
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
+
+
   return(
     <main className="justify-self-stretch flex-1">
   <h2 className="font-grands text-3xl text-center my-2 py-6">Bienvenue sur votre espace personnel</h2>
@@ -66,7 +81,6 @@ function FosterRequest() {
       </section>
     </div>
   </div>
-  <script src="../../src/assets/utils/dashboardSuiviDemande.js"></script>
 </main>
  
   )

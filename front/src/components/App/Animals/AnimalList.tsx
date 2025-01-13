@@ -253,8 +253,6 @@ function AnimalList() {
   <div className="grid grid-flow-row-dense grid-cols-3 gap-3 m-3">
     {animalItems}
   </div>
-
-  {/* <script src="../../src/assets/utils/deploySearch.js" async></script> */}
 </main>
 
 

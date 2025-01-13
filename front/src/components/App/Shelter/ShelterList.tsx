@@ -324,8 +324,6 @@ function ShelterList() {
       <div className="grid grid-cols-3 gap-3 m-3">       
         {shelterItems}
       </div>
-    {/* <script src="../../src/assets/utils/deploySearch.js" async></script> */}
-
     </main>
   )
 };
