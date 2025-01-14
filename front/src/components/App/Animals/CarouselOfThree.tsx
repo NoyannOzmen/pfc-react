@@ -1,35 +1,8 @@
-import { useEffect, useState } from 'react';
-import { Animal } from '../../../@types/Animal';
+import { useRootContext } from '../../../routes/Root';
 import AnimalCarouselCardThree from '../Animals/AnimalCarouselCardThree';
 
 function CarouselOfThree() {
-  const [animals, setAnimals] = useState<Animal[]>([]);
-  /*   const { products } = useRootContext(); */
-  useEffect(() => {
-    const script = document.createElement('script');
-  
-    script.src="../../../src/assets/utils/carouselOfThree.js";
-    script.async = true;
-  
-    document.body.appendChild(script);
-  
-    return () => {
-      document.body.removeChild(script);
-    }
-  }, []);
-
-  useEffect(() => {
-    const fetchAnimals = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/animaux`);
-        const data = await response.json();
-        setAnimals(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchAnimals();
-  }, []);
+  const { animals } = useRootContext();
 
   const animalItemsThree = animals.map((animal) => (
     <AnimalCarouselCardThree key={animal.id} animal={animal} />

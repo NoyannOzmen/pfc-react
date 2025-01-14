@@ -5,10 +5,12 @@ const precedent3 = document.getElementById('previous3');
 const suivant3 = document.getElementById('next3');
 
 const carouselPics3 = document.querySelectorAll('.carousel3-img');
-console.log(carouselPics3)
+if(carouselPics3.length) {
+  console.log('ici')
 carouselPics3[0].classList.toggle('hidden');
 carouselPics3[1].classList.toggle('hidden');
 carouselPics3[2].classList.toggle('hidden');
+}
 
 suivant3.addEventListener('click', getThreeNextPic);
 suivant3.addEventListener("keydown", function(e) {

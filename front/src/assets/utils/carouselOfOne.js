@@ -5,7 +5,9 @@ const precedent = document.getElementById('previous');
 const suivant = document.getElementById('next');
 
 const carouselPics = document.querySelectorAll('.carousel-img');
+if (carouselPics.length) {
 carouselPics[0].classList.toggle('hidden');
+}
 
 suivant.addEventListener('click', getOneNextPic);
 suivant.addEventListener("keydown", function(e) {
