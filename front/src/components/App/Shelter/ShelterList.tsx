@@ -1,12 +1,10 @@
-/* import { Link } from 'react-router-dom'; */
-import { useState, useEffect } from 'react';
-import { Association } from '../../../@types/Association';
-import { Espece } from '../../../@types/Espece';
+import { useEffect } from 'react';
+import { useRootContext } from '../../../routes/Root';
 import ShelterCard from "./ShelterCard";
 
 function ShelterList() {
-  const [shelters, setShelters] = useState<Association[]>([]);
-  const [species, setSpecies] = useState<Espece[]>([]);
+  const { shelters } = useRootContext();
+  const { species } = useRootContext();
   
   useEffect(() => {
     const script = document.createElement('script');
@@ -19,31 +17,6 @@ function ShelterList() {
     return () => {
       document.body.removeChild(script);
     }
-  }, []);
-
-  useEffect(() => {
-    const fetchShelters = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/associations`);
-        const data = await response.json();
-        setShelters(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    const fetchSpecies = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/especes`);
-        const data = await response.json();
-        setSpecies(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchShelters();
-    fetchSpecies();
   }, []);
 
   const shelterItems = shelters.map((shelter) => (

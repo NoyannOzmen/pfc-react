@@ -1,14 +1,12 @@
-/* import { Link } from 'react-router-dom'; */
 import { useEffect } from 'react';
-import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Animal } from '../../../@types/Animal';
+import { useRootContext } from '../../../routes/Root';
 
 function AnimalDetails() {
 	const { animalId } = useParams();
-	const [animals] = useState<Animal[]>([]);
+	const { animals } = useRootContext();
 
-	const animal = animals.find(({ id }) => id === Number(animalId));
+	const animal = animals.find((a) => a.id === Number(animalId));
   
 	if (!animal) {
     // eslint-disable-next-line @typescript-eslint/no-throw-literal

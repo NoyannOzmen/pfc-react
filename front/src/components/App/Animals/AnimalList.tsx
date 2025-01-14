@@ -1,13 +1,12 @@
-import { useState, useEffect } from 'react';
-import { Animal } from '../../../@types/Animal';
-import { Espece } from '../../../@types/Espece';
-import { Tag } from '../../../@types/Tag';
+import { useEffect } from 'react';
+import { useRootContext } from '../../../routes/Root';
 import AnimalCard from "./AnimalCard";
 
+
 function AnimalList() {
-  const [animals, setAnimals] = useState<Animal[]>([]);
-  const [species, setSpecies] = useState<Espece[]>([]);
-  const [tags, setTags] = useState<Tag[]>([]);
+  const { animals } = useRootContext();
+  const { species } = useRootContext();
+  const { tags} = useRootContext();
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -20,42 +19,6 @@ function AnimalList() {
     return () => {
       document.body.removeChild(script);
     }
-  }, []);
-
-  useEffect(() => {
-    const fetchAnimals = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/animaux`);
-        const data = await response.json();
-        setAnimals(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    const fetchSpecies = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/especes`);
-        const data = await response.json();
-        setSpecies(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    const fetchTags = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/tags`);
-        const data = await response.json();
-        setTags(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchSpecies();
-    fetchAnimals();
-    fetchTags();
   }, []);
 
   const animalItems = animals.map((animal) => (

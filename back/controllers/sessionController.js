@@ -6,7 +6,7 @@ import { Op } from 'sequelize';
 
 export const sessionController = {
     async displayLogin(req, res) {
-        res.status(200).render("connexion");
+        /* res.status(200).render("connexion"); */
     },
 
     async logIn(req,res) {    

@@ -4,78 +4,84 @@ import { Outlet, useOutletContext } from 'react-router-dom';
 import Footer from '../components/App/Footer/Footer';
 import Header from '../components/App/Header/Header';
 
-/* import { ICategory, IProduct, LoggedUser, RootContext } from '../@types'; */
+import { IAnimal, IEspece, ITag, IAssociation, LoggedUser, RootContext } from '../@types';
 
 function Root() {
-/*   const [cartProducts, setCartProducts] = useState<number[]>([]);
-  const [products, setProducts] = useState<IProduct[]>([]);
-  const [categories, setCategories] = useState<ICategory[]>([]);
-  const [isLoadingProducts, setIsLoadingProducts] = useState(true);
+  const [animals, setAnimals] = useState<IAnimal[]>([]);
+  const [species, setSpecies] = useState<IEspece[]>([]);
+  const [tags, setTags] = useState<ITag[]>([]);
+  const [shelters, setShelters] = useState<IAssociation[]>([]);
   const [user, setUser] = useState<LoggedUser | null>(null);
 
-  const addProductIdToCart = (id: number) => {
-    setCartProducts([...cartProducts, id]);
-  };
-
   useEffect(() => {
-    async function fetchProducts() {
+    const fetchAnimals = async () => {
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/products?_expand=tag&_expand=category`
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
-        }
-
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/animaux`);
         const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        // ici j'ai fini de charger que j'ai un résultat ou une erreur…
-        setIsLoadingProducts(false);
-      }
-    }
-
-    async function fetchCategories() {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/categories`
-        );
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
-        }
-        const data = await response.json();
-        setCategories(data);
+        setAnimals(data);
       } catch (error) {
         console.error(error);
       }
     }
 
-    fetchProducts();
-    fetchCategories();
+    const fetchSpecies = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/especes`);
+        const data = await response.json();
+        setSpecies(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    const fetchTags = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/tags`);
+        const data = await response.json();
+        setTags(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    const fetchShelters = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/associations`);
+        const data = await response.json();
+        setShelters(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchSpecies();
+    fetchAnimals();
+    fetchTags();
+    fetchShelters();
   }, []);
-
-  useEffect(() => {
-    if (cartProducts.length) {
-      document.title = `Omazon (panier: ${cartProducts.length} ${
-        cartProducts.length > 1 ? 'produits' : 'produit'
-      })`;
-    } else {
-      document.title = 'Omazon';
-    }
-  }, [cartProducts]); */
+  
 
   return (
     <div className="app">
-      <Header />
-
-      <Outlet />
-
-      <Footer />
+        <Header />
+        <Outlet
+          context={
+            {
+              animals,
+              species,
+              shelters,
+              tags,
+              user,
+            } satisfies RootContext
+          }
+        />
+        <Footer />
     </div>
   );
 }
 
 export default Root;
+
+export function useRootContext() {
+  return useOutletContext<RootContext>();
+}

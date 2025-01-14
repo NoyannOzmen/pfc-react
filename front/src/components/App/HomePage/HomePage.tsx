@@ -1,15 +1,8 @@
-/* import { useRootContext } from '../../../routes/Root'; */
 import { Link } from 'react-router-dom';
 import CarouselOfThree from '../Animals/CarouselOfThree';
 import CarouselOfOne from '../Animals/CarouselOfOne';
 
-/* import Categories from '../Categories/Categories';
-import Products from '../Products/Products'; */
-
-/* import '../../../index.css' */
-
 function HomePage() {
-  /*   const { products } = useRootContext(); */
   return (
     <main className="justify-self-stretch flex-1 flex flex-col">
       <section className="flex flex-col h-[80%] bg-right bg-cover bg-unai place-content-center">

@@ -5,7 +5,7 @@ type ShelterCardProps = {
   shelter: Association;
 }
 
-const AnimalCard = ({ shelter }: ShelterCardProps) => {
+const ShelterCard = ({ shelter }: ShelterCardProps) => {
   if (shelter.logo !== null) {
     return (
   <div className="bg-zoning rounded-lg shadow dark:bg-gray-800 flex flex-col">
@@ -45,4 +45,4 @@ const AnimalCard = ({ shelter }: ShelterCardProps) => {
   };
 }
 
-export default AnimalCard;
+export default ShelterCard;
