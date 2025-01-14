@@ -8,7 +8,7 @@ function ShelterDetails() {
   const { shelterId } = useParams();
 	const { shelters } = useRootContext();
 
-	const shelter = shelters.find(({ id }) => id === Number(shelterId));
+	const shelter = shelters.find(({ id }) => Number(id) === Number(shelterId));
 
   if (!shelter) {
     // eslint-disable-next-line @typescript-eslint/no-throw-literal

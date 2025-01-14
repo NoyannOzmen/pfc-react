@@ -6,11 +6,12 @@ type AnimalCardProps = {
 }
 
 const AnimalCarouselCardOne = ({ animal }: AnimalCardProps) => {
+  const url = animal.images_animal[0].url;
     return (
         <div className="hidden carousel-img">
           <div className="flex bg-fond rounded-lg shadow dark:bg-gray-800 flex-col md:flex-col mx-auto my-2 w-[75%] p-4">
             <div className="w-full md:w-full flex justify-center items-center">
-            <img className="object-contain md:h-full rounded-lg" src={`${animal.photo}`} alt={`Photo de ${animal.nom}`} />
+            <img className="object-contain md:h-full rounded-lg" src={`../../src/assets`+`${url}`} alt={`Photo de ${animal.nom}`} />
             </div>
 
             <div className="flex-auto text-center">

@@ -12,6 +12,6 @@ export type Animal = {
   description: string;
   statut: string;
   espece: Espece;
-  photo: Media;
+  images_animal: Media;
   refuge: Association
 }

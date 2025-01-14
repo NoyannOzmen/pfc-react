@@ -1,23 +1,23 @@
 export interface IMedia {
-  id: number;
+  id: string;
   url: string;
   ordre: string
 }
 
 export interface ITag {
-  id: number;
+  id: string;
   nom: string;
   description: string
 }
 
 export interface IUtilisateur {
-  id: number;
+  id: string;
   email: string;
   mot_de_passe: string
 }
 
 export interface IFamille {
-  id: number;
+  id: string;
   prenom: string;
   nom: string;
   telephone: string;
@@ -29,12 +29,12 @@ export interface IFamille {
 }
 
 export interface IEspece {
-  id: number;
+  id: string;
   nom: string;
 }
 
 export interface IAssociation {
-  id: number;
+  id: string;
   nom: string;
   responsable: string;
   rue: string;
@@ -43,11 +43,11 @@ export interface IAssociation {
   pays: string;
   siret: string;
   telephone: string;
-  logo: Media
+  images_association: Media
 }
 
 export interface IAnimal {
-  id: number;
+  id: string;
   nom: string;
   race: string;
   couleur: string;
@@ -56,12 +56,12 @@ export interface IAnimal {
   description: string;
   statut: string;
   espece: Espece;
-  photo: Media;
+  images_animal: Media;
   refuge: Association
 }
 
 export interface IDemande {
-  id: number;
+  id: string;
   famille: Famille;
   animal: Animal;
   statut_demande: string;
@@ -70,15 +70,15 @@ export interface IDemande {
 }
 
 export interface RootContext {
-  animals: IAnimal[];
-  tags: ITag[];
-  species: IEspece[];
-  shelters: IAssociation[];
+  animals: Animal[];
+  tags: Tag[];
+  species: Espece[];
+  shelters: Association[];
   user: LoggedUser | null;
 }
 
 export interface LoggedUser {
-  id: number;
+  id: string;
   email: string;
   role : Famille | Association | null;
   /* accessToken: string; */

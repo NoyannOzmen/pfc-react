@@ -6,11 +6,13 @@ type AnimalCardProps = {
 }
 
 const AnimalCard = ({ animal }: AnimalCardProps) => {
-  if (animal.photo !== null) {
+  const url = animal.images_animal[0].url;
+
+    if (url!== null) {
     return (
       <div className="bg-zoning rounded-lg shadow dark:bg-gray-800 md:flex-col">
       <div className="relative md:w-full flex justify-center items-center">
-        <img className="font-body rounded-lg" src={`../../src/assets`+`${animal.photo}`} alt={`Photo de ${animal.nom}`}></img>
+        <img className="font-body rounded-lg" src={`../../src/assets`+`${url}`} alt={`Photo de ${animal.nom}`}></img>
       </div>
       <div className="flex-auto text-center">
         <div className="flex flex-wrap">

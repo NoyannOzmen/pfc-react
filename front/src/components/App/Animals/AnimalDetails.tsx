@@ -6,7 +6,7 @@ function AnimalDetails() {
 	const { animalId } = useParams();
 	const { animals } = useRootContext();
 
-	const animal = animals.find((a) => a.id === Number(animalId));
+	const animal = animals.find(({id}) => Number(id) === Number(animalId));
   
 	if (!animal) {
     // eslint-disable-next-line @typescript-eslint/no-throw-literal

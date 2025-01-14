@@ -6,11 +6,12 @@ type ShelterCardProps = {
 }
 
 const ShelterCard = ({ shelter }: ShelterCardProps) => {
-  if (shelter.logo !== null) {
+  const url = shelter.images_association[0].url;
+  if (url !== null) {
     return (
   <div className="bg-zoning rounded-lg shadow dark:bg-gray-800 flex flex-col">
     <div className="relative md:w-full flex justify-center items-center">
-      <img className="font-body rounded-lg" src={`../../src/assets`+`${shelter.logo}`} alt={`Logo de ${shelter.nom}`} />
+      <img className="font-body rounded-lg" src={`../../src/assets`+`${url}`} alt={`Logo de ${shelter.nom}`} />
     </div>
     <div className="flex text-center flex-col">
       <div className="flex flex-wrap">

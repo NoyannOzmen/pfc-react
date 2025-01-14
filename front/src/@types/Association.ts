@@ -10,5 +10,5 @@ export type Association = {
   pays: string;
   siret: string;
   telephone: string;
-  logo: Media
+  images_association: Media
 }
