@@ -16,8 +16,12 @@ export const sessionController = {
         } = req.body
 
         if (!emailValidator.validate(email)) {
-            req.flash('erreur', `Cet email n'est pas valide.`);
-            return res.redirect('/connexion')
+            /* req.flash('erreur', `Cet email n'est pas valide.`);
+            return res.redirect('/connexion') */
+            const status = 401;
+            const message = 'Identifiants incorrects. Merci de ré-essayer 1.';
+
+            return res.status(status).json({ status, message });
         }
 
         const user = await Utilisateur.findOne({            
@@ -28,16 +32,24 @@ export const sessionController = {
         })
         
         if (!user) {
-            req.flash('erreur', "Utilisateur ou mot de passe incorrect.");
-            return res.redirect('/connexion')
+            /* req.flash('erreur', "Utilisateur ou mot de passe incorrect.");
+            return res.redirect('/connexion') */
+            const status = 401;
+            const message = 'Identifiants incorrects. Merci de ré-essayer 2.';
+
+            return res.status(status).json({ status, message });
         }
         
         //* Bcrypt compare le hash du mot de passe récupéré depuis la requète avec celui en BDD
         const hasMatchingPassword = await bcrypt.compare(mot_de_passe, user.mot_de_passe);
         
         if(!hasMatchingPassword) {
-            req.flash('erreur', "Utilisateur ou mot de passe incorrect.");
-            return res.redirect('/connexion')
+            /* req.flash('erreur', "Utilisateur ou mot de passe incorrect.");
+            return res.redirect('/connexion') */
+            const status = 401;
+            const message = 'Identifiants incorrects. Merci de ré-essayer 3.';
+
+            return res.status(status).json({ status, message });
 
         } else {  
             //* Check si user est association OU famille en vérifiant si les sous-champs id existent.
@@ -58,8 +70,21 @@ export const sessionController = {
                 familleId = user.accueillant.id;
             }
             
-            
             if (refugeId != null) {
+                user.loggedIn=true;
+                user.role='association';
+                user.nom=user.refuge.nom;
+                user.userId=refugeId;
+            }
+            if (familleId != null ) {
+                user.loggedIn=true;
+                user.role='famille';
+                user.nom=user.accueillant.nom;
+                user.prenom=user.accueillant.prenom;
+                user.userId=familleId;
+            }
+            
+            /* if (refugeId != null) {
                 req.session.loggedIn=true;
                 req.session.role='association';
                 req.session.nom=user.refuge.nom;
@@ -72,9 +97,9 @@ export const sessionController = {
                 req.session.prenom=user.accueillant.prenom;
                 req.session.userId=familleId;
             }
-            console.log(req.session)
+            console.log(req.session) */
         }
-        return res.redirect('/')
+        return /* res.redirect('/') */ res.json(user);
     },
     
     async logOut(req,res) {

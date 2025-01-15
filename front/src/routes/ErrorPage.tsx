@@ -41,10 +41,8 @@ function ErrorPage() {
   const { status, text } = getErrorData(error);
   
   return (
-    <div>
-      <header className="header">
+    <>
         <Header />
-      </header>
       
       <main className="justify-self-stretch flex-1">
         <div className="my-12 flex items-center justify-center">
@@ -62,10 +60,8 @@ function ErrorPage() {
         </div>
       </main>
 
-      <footer className="footer">
         <Footer />
-      </footer>
-    </div>
+    </>
   )
 }
 

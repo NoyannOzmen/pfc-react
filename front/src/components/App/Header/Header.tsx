@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import HeaderNav from './HeaderNav';
 
 function Header() {
   useEffect(() => {
@@ -35,64 +36,11 @@ function Header() {
     <div className="grow-1 flex flex-col md:flex-row flex-auto max-[767px]:nav-links" id="nav-links">
 
       <div className="flex flex-auto flex-col place-self-center w-full md:w-[625px] md:flex-row-reverse md:absolute md:top-0 md:right-0">
-
-        <nav className="rounded-br-lg md:rounded-b-lg flex-auto  bg-accents2-dark text-fond p-3 text-base md:text-lg md:mr-4">
-          <ul className="flex flex-col md:flex-row flex-nowrap justify-around">
-           {/*  <!-- Login Navigation -->
-            <% if (locals.loggedIn) { %>
-              <li className="border-2 border-accents2-dark max-[767px]:border-b-fond md:mr-4 md:border-r-fond px-4 max-[767px]:pb-2 place-self-center md:place-self-start pl-2">
-                <% if (locals.role==='association' ) { %>
-                  <a href="/associations/profil">Bonjour : <%=locals.nom %></a>
-                <% } %>
-
-                <% if (locals.role==='famille') { %>
-                  <% if (!locals.prenom) { %>
-                    <a href="/famille/profil"> Bonjour : <%=locals.nom %></a>
-                  <% } else {%>
-                    <a href="/famille/profil">Bonjour : <%=locals.prenom %></a>
-                  <% } %>
-                <% } %>
-              </li>
-              <% if (locals.role==='association' ) { %>
-                <li className="border-2 border-accents2-dark mr-0 max-[767px]:border-b-fond  md:border-r-fond px-4 pr-6 max-[767px]:pb-2 place-self-center md:place-self-start">
-                  <a tabindex=0 className="hover:text-accents1-light" href="/associations/profil/animaux">Tableau de&nbsp;bord</a>
-                </li>
-                <% } %>
-                <% if (locals.role==='famille' ) { %>
-                  <li className="border-2 border-accents2-dark mr-0 max-[767px]:border-b-fond  md:border-r-fond px-4 pr-6 max-[767px]:pb-2 place-self-center md:place-self-start">
-                    <a tabindex=0 className="hover:text-accents1-light" href="/famille/profil">Tableau de&nbsp;bord</a>
-                  </li>
-                <% } %>
-              <li id="log-out" className="border-2 border-accents2-dark place-self-center md:place-self-start pl-2">
-                <a href="/deconnexion" className="hover:text-accents1-light">Se Déconnecter</a>
-              </li>
-            <% } %>        
-            <% if (!locals.loggedIn) { %> */}
-              <li id="log-in" className="border-2 border-accents2-dark max-[767px]:border-b-fond md:mr-4 md:border-r-fond px-4 max-[767px]:pb-2 place-self-center md:place-self-start pl-2">
-                <a href="/connexion" className="hover:text-accents1-light">Se Connecter</a>
-              </li>
-              
-              <div id="log-in" className="flex flex-row place-self-center md:place-self-start pl-2 gap-2">
-                <li className="border-2 border-accents2-dark place-self-center md:place-self-start pl-2">
-                  <p>S'Inscrire :</p>
-                </li>
-
-                <li className="border-2 border-accents2-dark">
-                  <a href="/famille/inscription" className="hover:text-accents1-light">Famille</a>
-                </li>
-                
-                <li className="border-2 border-accents2-dark">
-                  <a href="/association/inscription" className="hover:text-accents1-light">Association</a>
-                </li>
-              </div>
-            {/* <% } %> */}
-          </ul>           
-        </nav>
-                  
-          {/* <!-- Social Media Navigation --> */}
-          <nav className="flex flex-row flex-auto justify-center p-3 gap-2">
-            <Link to="#" className="" /* tabindex="-1" */ >
-              {/* <!-- Icone FB --> */}
+        <HeaderNav />        
+          {/* Social Media Navigation */}
+        <nav className="flex flex-row flex-auto justify-center p-3 gap-2">
+            <Link to="#" className="" tabIndex={-1} >
+              {/* Icone FB */}
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35" viewBox="0,0,256,256">
                 <g fill="#fffbe4" fillRule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter"
                 strokeMiterlimit="10" strokeDasharray="" strokeDashoffset="0" fontFamily="none" fontWeight="none"
@@ -106,8 +54,8 @@ function Header() {
               </svg>
             </Link>
         
-            <Link to="#" className="" /* tabindex="-1" */ >
-              {/* <!-- Icone Instagram --> */}
+            <Link to="#" className="" tabIndex={-1} >
+              {/* Icone Instagram */}
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35" viewBox="0,0,256,256">
                 <g fill="#fffbe4" fillRule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter"
                 strokeMiterlimit="10" strokeDasharray="" strokeDashoffset="0" fontFamily="none" fontWeight="none"
@@ -123,23 +71,23 @@ function Header() {
           </nav>
       </div>
           
-      {/* <!-- Menu Navigation --> */}
+      {/* Menu Navigation */}
       <nav className="flex flex-auto grow-1  place-self-center md:place-self-end pb-4 pr-4 text-m md:text-base xl:text-xl">
         <ul className="flex flex-auto flex-col md:flex-row md:place-content-end md:gap-5 pl-4 gap-2">
               <li className="hover:text-accents1-light place-self-start">
-                <Link  /* tabindex=0 className=# */ to="/animaux">Nos Animaux</Link>
+                <Link tabIndex={0} to="/animaux">Nos Animaux</Link>
               </li>
               <li className="hover:text-accents1-light place-self-start">
-                <Link /* tabindex=0 className=# */ to="/associations">Nos Partenaires</Link>
+                <Link tabIndex={0} to="/associations">Nos Partenaires</Link>
               </li>
               <li className="hover:text-accents1-light place-self-start">
-                <Link /* tabindex=0 className=# */ to="/a-propos">Qui sommes&#x2011;nous&nbsp;?</Link>
+                <Link tabIndex={0} to="/a-propos">Qui sommes&#x2011;nous&nbsp;?</Link>
               </li>
               <li className="hover:text-accents1-light place-self-start">
-                <Link /* tabindex=0 className=# */ to="/faq">Foire aux Questions</Link>
+                <Link tabIndex={0} to="/faq">Foire aux Questions</Link>
               </li>
               <li className="hover:text-accents1-light place-self-start">
-                <Link /* tabindex=0 className=# */ to="/devenir-famille-d-accueil">Devenez Famille&nbsp;d'accueil</Link>
+                <Link tabIndex={0} to="/devenir-famille-d-accueil">Devenez Famille&nbsp;d'accueil</Link>
               </li>
         </ul>
       </nav>

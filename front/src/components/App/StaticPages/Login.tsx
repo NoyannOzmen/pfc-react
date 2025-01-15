@@ -1,9 +1,12 @@
 /* import { Link } from 'react-router-dom'; */
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useUserContext } from "../../../contexts/UserContext";
-import { Navigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 function Login() {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const isInitialMount = useRef(true);
+
   const { user, setUser } = useUserContext();
   
   const [credentials, setCredentials] = useState({
@@ -11,6 +14,7 @@ function Login() {
     mot_de_passe: '',
   });
 
+  const navigate = useNavigate();
 /*   const [ role, setRole ] = useState('all');
 
   const assignRole = role => {
@@ -24,11 +28,10 @@ function Login() {
           (`${import.meta.env.VITE_API_URL}/connexion`,
           {
             method: 'POST',
-            headers: { 'Content-type': 'application/json' },
+            headers: { "Content-type" : "application/json" },
             body: JSON.stringify(credentials),
           }
         );
-        console.log(response)
 
         if (!response.ok) {
           switch (response.status) {
@@ -51,18 +54,18 @@ function Login() {
         }
 
         const data = await response.json();
-        console.log(data)
 
-        setUser(data.utilisateur);
-
+        setUser(data);
       } catch (error) {
         console.error(error);
       }
     }
-    console.log(user)
-    fetchUser();
-    <Navigate replace to='/' />
 
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      fetchUser();
+    }
   }, [ credentials, setUser]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -75,6 +78,8 @@ function Login() {
       email: email as string,
       mot_de_passe: mot_de_passe as string,
     });
+
+    navigate('/');
   }
 
   return (

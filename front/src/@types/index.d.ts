@@ -13,7 +13,10 @@ export interface ITag {
 export interface IUtilisateur {
   id: string;
   email: string;
-  mot_de_passe: string
+  mot_de_passe: string;
+  nom : Famille | Association | null;
+  prenom : Famille | null;
+  role : Famille | Association | null
 }
 
 export interface IFamille {
@@ -81,5 +84,7 @@ export interface LoggedUser {
   id: string;
   email: string;
   role : Famille | Association | null;
+  nom : Famille | Association | null;
+  prenom : Famille | null;
   /* accessToken: string; */
 }

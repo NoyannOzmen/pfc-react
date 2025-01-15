@@ -18,7 +18,7 @@ function HomePage() {
     return () => {
       document.body.removeChild(script);
     }
-  }, []);
+  }, [window.innerWidth]);
 
   if (window.innerWidth > 768) {
     return (
