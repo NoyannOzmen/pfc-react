@@ -1,7 +1,7 @@
-/* import { Link } from 'react-router-dom'; */
 import { useEffect, useState, useRef } from "react";
 import { useUserContext } from "../../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+
 function Login() {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -77,7 +77,6 @@ function Login() {
       email: email as string,
       mot_de_passe: mot_de_passe as string,
     });
-
     navigate('/');
   }
 

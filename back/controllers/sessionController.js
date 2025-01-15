@@ -67,16 +67,22 @@ export const sessionController = {
             
             if (refugeId != null) {
                 user.loggedIn=true;
+                req.session.loggedIn=true;
                 user.role='association';
+                req.session.role='association';
                 user.nom=user.refuge.nom;
                 user.userId=refugeId;
+                req.session.userId=refugeId;
             }
             if (familleId != null ) {
                 user.loggedIn=true;
+                req.session.loggedIn=true;
                 user.role='famille';
+                req.session.role='famille';
                 user.nom=user.accueillant.nom;
                 user.prenom=user.accueillant.prenom;
                 user.userId=familleId;
+                req.session.userId=familleId
             }
         }
         return res.json(user);
@@ -84,7 +90,7 @@ export const sessionController = {
     
     async logOut(req,res) {
         req.session.destroy();
-        res.redirect('/')
+        /* res.redirect('/') */
     },
     
     async displayFosterSignIn(req,res) {
@@ -173,7 +179,9 @@ export const sessionController = {
     },
 
     async fosterUpdate(req,res, next) {
-        const familleId = req.session.userId;
+        /* const familleId = req.session.userId; */
+        const familleId = req.body.id;
+        console.log(familleId)
         const famille = await Famille.findByPk(familleId);
         
         if (!famille) {
@@ -194,7 +202,7 @@ export const sessionController = {
         });
         console.log('success')
         console.log(updatedFamille);
-        res.redirect("/famille/profil")
+        res.json(updatedFamille)
     }, 
 
     async fosterDestroy(req, res, next) {

@@ -1,7 +1,26 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useUserContext } from "../../../contexts/UserContext";
 
 function FosterProfile() {
+  const isInitialMount = useRef(true);
+
+  const { user, setUser } = useUserContext();
+
+  const famille = user.accueillant;
+
+  const [updatedInfos, setUpdatedInfos ] = useState({
+    id: '',
+    prenom : '',
+    nom: '',
+    email: '',
+    hebergement: '',
+    terrain : '',
+    rue: '',
+    commune : '',
+    code_postal : ''
+  })
+
   useEffect(() => {
     const script = document.createElement('script');
   
@@ -13,7 +32,76 @@ function FosterProfile() {
     return () => {
       document.body.removeChild(script);
     }
-  }, []);
+  });
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const response = await fetch
+          (`${import.meta.env.VITE_API_URL}/famille/profil`,
+          {
+            method: 'POST',
+            headers: { "Content-type" : "application/json" },
+            body: JSON.stringify(updatedInfos),
+          }
+        );
+
+        if (!response.ok) {
+          switch (response.status) {
+            case 401: {
+              const { message } = await response.json();
+              throw new Error(message);
+            }
+
+            case 404:
+              throw new Error("La page demandée n'existe pas.");
+
+            case 500:
+              throw new Error(
+                'Une erreur est survenue, merci de ré-essayer ultérieurement.'
+              );
+
+            default:
+              throw new Error(`HTTP ${response.status}`);
+          }
+        }
+
+        const data = await response.json();
+
+        setUser(data);
+        console.log(user)
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      fetchUser();
+    }
+  }, [ updatedInfos, setUser ]);
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const { prenom, nom, email, hebergement, terrain, rue, commune, code_postal } = Object.fromEntries(formData);
+
+    const userId = user?.id;
+
+    setUpdatedInfos({
+      id: userId as string,
+      prenom: prenom as string,
+      nom: nom as string,
+      email: email as string,
+      hebergement: hebergement as string,
+      terrain: terrain as string,
+      rue: rue as string,
+      commune: commune as string,
+      code_postal: code_postal as string
+    });
+  }
 
   return(
     <main className="justify-self-stretch flex-1">
@@ -33,28 +121,28 @@ function FosterProfile() {
       <section className="flex flex-wrap justify-center" id="dashboard-container">
         <h3 className="font-grands text-3xl text-center my-2 pt-5 w-full">Mon profil</h3>
 
-{/*         <% if(locals.message.length != 0){ %>
+        {/* <% if(locals.message.length != 0){ %>
           <div>
-            <p className="font-grands font-base text-accents1 text-center"><%= message.erreur %></p>
+            <p className="font-grands font-base text-accents1 text-center"message.erreur %></p>
           </div>
         <% } %> */}
 
-        <form className="flex flex-col flex-wrap content-center justify-around text-texte w-full" action="/famille/profil" method="POST">
+        <form className="flex flex-col flex-wrap content-center justify-around text-texte w-full" onSubmit={handleSubmit}>
           
           <fieldset className="w-[60%] font-body rounded-lg shadow dark:bg-gray-800 my-2 py-5">
             <legend className="text-center">Mes informations&nbsp;<span tabIndex={0} className="material-symbols-outlined">edit</span></legend>
 
             <div className="mx-auto p-2"> 
               <label className="text-center w-full" htmlFor="prenom">Prénom</label>
-              <input className="block w-full" type="text" id="prenom" name="prenom" value="<%= famille.prenom %>" disabled />
+              <input className="block w-full" type="text" id="prenom" name="prenom" defaultValue={famille.prenom == null ? '' : famille.prenom } disabled />
             </div>
             <div className="mx-auto p-2">
               <label className="text-center w-full" htmlFor="nom">Nom</label>
-              <input className="block w-full" type="text" id="nom" name="nom" value="<%= famille.nom %>" disabled />
+              <input className="block w-full" type="text" id="nom" name="nom" defaultValue={famille.nom} disabled />
             </div>
             <div className="mx-auto p-2">
               <label className="text-center w-full" htmlFor="email">Email</label>
-              <input className="block w-full" type="email" id="email" name="email" value="<%= famille.identifiant_famille.email %>" disabled />
+              <input className="block w-full" type="email" id="email" name="email" defaultValue={user.email} disabled />
             </div>
           </fieldset>
       
@@ -63,43 +151,41 @@ function FosterProfile() {
 
               <div className="mx-auto p-2">
                 <label className="text-center w-full" htmlFor="hebergement">Type</label>
-                <input className="block w-full" type="text" id="hebergement" name="hebergement" value="<%= famille.hebergement %>" disabled />
+                <input className="block w-full" type="text" id="hebergement" name="hebergement" defaultValue={famille.hebergement} disabled />
               </div>
 
               <div className="mx-auto p-2">
                 <label className="text-center w-full" htmlFor="terrain">Terrain</label>
-                <input className="block w-full" type="text" id="terrain" name="terrain" value="<%= famille.terrain %>" disabled />
+                <input className="block w-full" type="text" id="terrain" name="terrain" defaultValue={famille.terrain == null ? '' : famille.terrain} disabled />
               </div>
 
               <div className="mx-auto p-2">
                 <label className="text-center w-full" htmlFor="rue">Rue</label>
-                <input className="block w-full" type="text" id="rue" name="rue" value="<%= famille.rue %>" disabled />
+                <input className="block w-full" type="text" id="rue" name="rue" defaultValue={famille.rue} disabled />
               </div>
 
               <div className="mx-auto p-2">       
                 <label className="text-center w-full" htmlFor="commune">Commune</label>
-                <input className="block w-full" type="text" id="commune" name="commune" value="<%= famille.commune %>" disabled />
+                <input className="block w-full" type="text" id="commune" name="commune" defaultValue={famille.commune} disabled />
               </div>
 
               <div className="mx-auto p-2">
                 <label className="text-center w-full" htmlFor="code_postal">Code Postal</label>
-                <input className="block w-full" type="text" id="code_postal" name="code_postal" pattern="^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$" value="<%= famille.code_postal %>" disabled />
+                <input className="block w-full" type="text" id="code_postal" name="code_postal" pattern="^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$" defaultValue={famille.code_postal} disabled />
               </div>
 
 {/*               <!-- <label htmlFor="departement">Département</label>
-              <input className="block w-full" type="number" id="departement" name="departement" value="<%= famille.departement %>" disabled /> --> */}
+              <input className="block w-full" type="number" id="departement" name="departement" defaultValue={famille.departement} disabled /> --> */}
           </fieldset>
 
 {/*           <!-- 
           <fieldset className="font-body rounded-lg shadow dark:bg-gray-800 my-2 py-5">
             <legend className="text-center">Je peux accueillir</legend>
-            <% especes.forEach(espece => { %>
-              <div>
-                <label className="text-center w-full" htmlFor="<%= espece.nom %>"><%= espece.nom %></label>
-                <input className=# type="checkbox" id="<%= espece.nom %>" name="<%= espece.nom %>" />
+            <% especes.forEach(espece => {}              <div>
+                <label className="text-center w-full" htmlFor={espece.nom}{espece.nom}/label>
+                <input className=# type="checkbox" id={espece.nom} name={espece.nom} />
               </div>
-            <% }) %>
-          </fieldset>
+            <% })}          </fieldset>
           --> */}
 
           <button id="validate" className="hidden w-[60%] mx-auto my-3 py-2 px-4 bg-accents1-light text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="submit">Valider les modifications</button>

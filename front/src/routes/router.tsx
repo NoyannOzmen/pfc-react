@@ -112,10 +112,10 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
         path: '/connexion',
         element: <Login />,
       },
-/*       {
+      {
         path: '/deconnexion',
-        element: <Logout? />,
-      }, */
+        element: <HomePage />,
+      },
       /* Foster Routes */
       {
         path: '/famille/inscription',
