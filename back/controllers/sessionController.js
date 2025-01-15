@@ -16,10 +16,8 @@ export const sessionController = {
         } = req.body
 
         if (!emailValidator.validate(email)) {
-            /* req.flash('erreur', `Cet email n'est pas valide.`);
-            return res.redirect('/connexion') */
             const status = 401;
-            const message = 'Identifiants incorrects. Merci de ré-essayer 1.';
+            const message = 'Identifiants incorrects. Merci de ré-essayer.';
 
             return res.status(status).json({ status, message });
         }
@@ -32,10 +30,8 @@ export const sessionController = {
         })
         
         if (!user) {
-            /* req.flash('erreur', "Utilisateur ou mot de passe incorrect.");
-            return res.redirect('/connexion') */
             const status = 401;
-            const message = 'Identifiants incorrects. Merci de ré-essayer 2.';
+            const message = 'Identifiants incorrects. Merci de ré-essayer.';
 
             return res.status(status).json({ status, message });
         }
@@ -44,10 +40,8 @@ export const sessionController = {
         const hasMatchingPassword = await bcrypt.compare(mot_de_passe, user.mot_de_passe);
         
         if(!hasMatchingPassword) {
-            /* req.flash('erreur', "Utilisateur ou mot de passe incorrect.");
-            return res.redirect('/connexion') */
             const status = 401;
-            const message = 'Identifiants incorrects. Merci de ré-essayer 3.';
+            const message = 'Identifiants incorrects. Merci de ré-essayer.';
 
             return res.status(status).json({ status, message });
 
@@ -83,23 +77,8 @@ export const sessionController = {
                 user.prenom=user.accueillant.prenom;
                 user.userId=familleId;
             }
-            
-            /* if (refugeId != null) {
-                req.session.loggedIn=true;
-                req.session.role='association';
-                req.session.nom=user.refuge.nom;
-                req.session.userId=refugeId;
-            }
-            if (familleId != null ) {
-                req.session.loggedIn=true;
-                req.session.role='famille';
-                req.session.nom=user.accueillant.nom;
-                req.session.prenom=user.accueillant.prenom;
-                req.session.userId=familleId;
-            }
-            console.log(req.session) */
         }
-        return /* res.redirect('/') */ res.json(user);
+        return res.json(user);
     },
     
     async logOut(req,res) {
