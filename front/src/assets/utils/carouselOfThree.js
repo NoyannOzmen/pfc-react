@@ -6,7 +6,6 @@ const suivant3 = document.getElementById('next3');
 
 const carouselPics3 = document.querySelectorAll('.carousel3-img');
 if(carouselPics3.length) {
-  console.log('ici')
 carouselPics3[0].classList.toggle('hidden');
 carouselPics3[1].classList.toggle('hidden');
 carouselPics3[2].classList.toggle('hidden');

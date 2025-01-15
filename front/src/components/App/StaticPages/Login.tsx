@@ -15,12 +15,11 @@ function Login() {
   });
 
   const navigate = useNavigate();
-/*   const [ role, setRole ] = useState('all');
 
-  const assignRole = role => {
-    setRole(role);
-   };
-   */
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   useEffect(() => {
     async function fetchUser() {
       try {

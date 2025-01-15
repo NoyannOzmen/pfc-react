@@ -55,6 +55,7 @@ export const sessionController = {
             //*     - id : Pour faciliter les futurs appels BDD pour afficher les infos des profils etc...
             let refugeId=null;
             let familleId=null;
+            user.mot_de_passe = null;
 
             if (user.refuge) {
                 refugeId = user.refuge.id;

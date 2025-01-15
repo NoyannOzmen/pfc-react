@@ -14,9 +14,9 @@ export interface IUtilisateur {
   id: string;
   email: string;
   mot_de_passe: string;
-  nom : Famille | Association | null;
-  prenom : Famille | null;
-  role : Famille | Association | null
+  role: string;
+  accueillant: Famille | null;
+  refuge : Association | null;
 }
 
 export interface IFamille {
@@ -83,8 +83,8 @@ export interface RootContext {
 export interface LoggedUser {
   id: string;
   email: string;
-  role : Famille | Association | null;
-  nom : Famille | Association | null;
-  prenom : Famille | null;
+  role: string;
+  accueillant: Famille | null;
+  refuge : Association | null;
   /* accessToken: string; */
 }
