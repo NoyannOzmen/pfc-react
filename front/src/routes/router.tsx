@@ -79,25 +79,25 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
       },
       /* Shelter List Routes */
       {
+        path: '/associations/:shelterId',
+        element: <ShelterDetails />
+      },
+      {
         path: '/associations',
         element: <ShelterList />
       },
-      {
-        path: '/associations/:id(\\d+)',
-        element: <ShelterDetails />
-      },
       /* Animal Routes */
       {
-        path: '/animaux',
-        element: <AnimalList />,
-      },
-      {
-        path: '/animaux/:id(\\d+)',
+        path: '/animaux/:animalId',
         element: <AnimalDetails />,
       },
       {
-        path: '/animaux/:id(\\d)/faire-une-demande',
+        path: '/animaux/:animalId/faire-une-demande',
         element: <FosterAnimalRequest />,
+      },
+      {
+        path: '/animaux',
+        element: <AnimalList />,
       },
       {
         path: '/animaux/nouveau-profil',

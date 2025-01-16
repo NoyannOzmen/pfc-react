@@ -1,3 +1,5 @@
+import { Utilisateur } from "./Utilisateur";
+
 export interface IMedia {
   id: string;
   url: string;
@@ -46,7 +48,8 @@ export interface IAssociation {
   pays: string;
   siret: string;
   telephone: string;
-  images_association: Media
+  images_association: Media;
+  email: Utilisateur
 }
 
 export interface IAnimal {
@@ -60,7 +63,7 @@ export interface IAnimal {
   statut: string;
   espece: Espece;
   images_animal: Media;
-  refuge: Association
+  refuge: Association;
 }
 
 export interface IDemande {
@@ -68,8 +71,8 @@ export interface IDemande {
   famille: Famille;
   animal: Animal;
   statut_demande: string;
-  date_debut : Date;
-  date_fin: Date
+  date_debut : string;
+  date_fin: string
 }
 
 export interface RootContext {

@@ -29,12 +29,14 @@ function AnimalDetails() {
     }
   }, []);
 
+	const url = animal.images_animal[0].url;
+
   return (
     <main className="flex flex-wrap flex-col md:flex-row justify-self-stretch flex-1 w-full place-content-evenly 2xl:w-1/2 2xl:self-center">
   <section className="flex flex-col m-4 flex-1 max-[767px]:mx-4 md:ml-6 place-content-evenly">
 		<h2 className="font-grands text-2xl md:text-3xl text-center w-full my-6">{animal.nom}</h2>
 
-{/* 		<!-- 		
+		{/*	
 		<% if (animal.images_animal.length > 1) { %>
 		<div>
 			<% for( let i = 0; i < animal.images_animal.length; i++ ) { %>
@@ -42,18 +44,15 @@ function AnimalDetails() {
 			<% } %>
 		</div>
 		<% } %>
-		--> */}
+		*/}
 
-{/* 		<div className="font-body mx-auto w-[80%] bg-zoning rounded-lg shadow dark:bg-gray-800 my-4">
-			<% if (animal.images_animal.length > 0) { %>
-				<img className="mx-auto my-2"
-				src="<%= animal.images_animal[0].url %>" alt="Photo de {animal.nom}">
-			<% } else { %>
-					<img className="mx-auto my-2" src="/images/animal_empty.webp" alt="Photo à venir">
-			<% } %>
-		</div> */}
 		<div className="font-body mx-auto w-[80%] bg-zoning rounded-lg shadow dark:bg-gray-800 my-4">
-						<img className="mx-auto my-2" src={`../../src/assets`+`${animal.photo}`} alt={`Photo de ${animal.nom}`} />
+			{ url ? (
+				<img className="mx-auto my-2"
+				src={`../../src/assets`+`${url}`} alt={`Photo de ${animal.nom}`}></img>
+			) : (
+				<img className="mx-auto my-2" src="../../src/assets/images/animal_empty.webp" alt="Photo à venir" />
+			)}
 		</div>
 		<article className="font-body mx-auto w-[80%] bg-zoning rounded-lg shadow dark:bg-gray-800 my-4">
 			<div className="text-center w-full py-2">

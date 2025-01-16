@@ -55,7 +55,6 @@ export const sessionController = {
             //*     - id : Pour faciliter les futurs appels BDD pour afficher les infos des profils etc...
             let refugeId=null;
             let familleId=null;
-            user.mot_de_passe = null;
 
             if (user.refuge) {
                 refugeId = user.refuge.id;
@@ -84,6 +83,7 @@ export const sessionController = {
                 user.userId=familleId;
                 req.session.userId=familleId
             }
+            user.mot_de_passe = null;
         }
         return res.json(user);
     },
@@ -236,6 +236,7 @@ export const sessionController = {
 
     async displayRequest(req, res, next) {
         const familleId = req.session.userId;
+        console.log(familleId)
         const famille = await Famille.findByPk(familleId, {
             include : 'identifiant_famille'
         });
@@ -243,6 +244,7 @@ export const sessionController = {
         if( !famille) {
             next()
         };
+        console.log(famille)
 
         const requestedAnimals = await Animal.findAll({
             where : [
@@ -255,7 +257,7 @@ export const sessionController = {
         console.log(JSON.stringify(requestedAnimals));
         
         /* res.render('profilFamilleDemande', { famille, requestedAnimals }); */
-        res.json(famille, requestedAnimals)
+        res.json(requestedAnimals)
     },
 
     async displayShelterSignIn(req,res) {

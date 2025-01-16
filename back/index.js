@@ -38,12 +38,12 @@ app.use(
 
 app.use(userMiddleware);
 
-app.use(flash());
+/* app.use(flash());
 
 app.use(function(req,res,next) {
   res.locals.message = req.flash();
   next();
-})
+}) */
 
 /* app.post('/upload/logo', (req, res) => {
   upload(req, res, (err) => {

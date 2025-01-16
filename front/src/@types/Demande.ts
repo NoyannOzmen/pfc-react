@@ -6,6 +6,6 @@ export type Demande = {
   famille: Famille;
   animal: Animal;
   statut_demande: string;
-  date_debut : Date;
-  date_fin: Date
+  date_debut : string;
+  date_fin: string
 }
