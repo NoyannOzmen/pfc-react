@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { IDemande } from "../../../@types";
-import { useRootContext } from "../../../routes/Root";
+import { useEffect, useState, useRef } from "react";
+import { IAnimal} from "../../../@types";
 
 function FosterRequest() {
-  const [ requests, setRequests ] = useState<IDemande[]>([]);
-  const { animals } = useRootContext();
+  /* const isInitialMount = useRef(true); */
+  const [ requestedAnimals, setRequestedAnimals ] = useState<IAnimal[]>([])
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -21,19 +20,20 @@ function FosterRequest() {
   }, []);
 
   useEffect(() => {
-    const fetchRequests = async () => {
+    const fetchRequestedAnimals = async () => {
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/famille/profil/demandes`);
         const data = await response.json();
-        setRequests(data);
+        setRequestedAnimals(data);
       } catch (error) {
         console.error(error);
       }
     }
-    fetchRequests();
+      fetchRequestedAnimals();
+      console.log(requestedAnimals)
   }, []);
 
-  const requestItems = requests.map((request) => (
+/*   const requestItems = .map((request) => (
     <tr key={request.id} className="fold mb-3 bg-fond rounded-b-lg hidden">
     <tr className="fold text-fond text-sm bg-accents2-light font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hidden">
       <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Refuge</td>
@@ -46,15 +46,27 @@ function FosterRequest() {
       <td colSpan={2}>{request.statut_demande}</td>
     </tr>
 </tr>
-  ))
+  )) */
 
-  const animalItems = animals.map((animal) => (
+  const animalItems = requestedAnimals.map((animal) => (
     <>
     <tr key={animal.id} tabIndex={0} className="view text-fond text-sm bg-accents2 font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hover:bg-accents2-dark">
       <td colSpan={3} scope="colgroup" className="px-2 pt-2  border-accents2-dark border-solid border-1">{animal.nom}</td>
       <td colSpan={3} scope="colgroup" className="px-2 pt-2  border-accents2-dark border-solid border-1">Demande</td>
     </tr>
-    {requestItems}
+    <tr key={animal.demandes.id} className="fold mb-3 bg-fond rounded-b-lg ">
+      <tr className="fold text-fond text-sm bg-accents2-light font-grands font-semibold p-3 border-accents2-dark border-solid border-1 ">
+        <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Refuge</td>
+        <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Date de demande</td>
+        <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Statut</td>
+      </tr>
+      <tr key={animal.demandes.id} className="fold text-sm font-body font-semibold bg bg-fond">                          
+        <td colSpan={2}>{animal.refuge.nom}</td>
+        <td colSpan={2}>{animal.demandes[0].Demande.date_debut}</td>
+        <td colSpan={2}>{animal.demandes[0].Demande.statut_demande}</td>
+      </tr>
+    </tr>
+    {/* {requestItems} */}
     </>
   ))
 
@@ -81,22 +93,24 @@ function FosterRequest() {
           
           <div className="row w-full text-center my-6">
             <div className="col w-full text-center my-6">
-              {requests ? (
+               {requestedAnimals ? (
                 <>
                 <h4 className="w-full text-center font-grands text-2xl my-4">Demandes en cours</h4>
 
                   <table className="table text-center w-full">
-  
-                    <tr className="border-none bg-zoning text-sm font-grands">
-                      <td colSpan={3} scope="colgroup">Nom Animal</td>
-                      <td colSpan={3} scope="colgroup">Demande</td>
-                    </tr>
-                    {animalItems}
+                    <tbody>
+                      <tr className="border-none bg-zoning text-sm font-grands">
+                        <td colSpan={3} scope="colgroup">Nom Animal</td>
+                        <td colSpan={3} scope="colgroup">Demande</td>
+                      </tr>
+
+                     {animalItems}
+                    </tbody>
                   </table>
                   </>
               ) : (
                 <h4 className="w-full text-center font-grands text-2xl my-4">Pas de demandes d'accueil en attente</h4>
-              )}                 
+              )}               
             </div>
           </div>
         </div>

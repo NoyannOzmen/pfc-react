@@ -122,6 +122,10 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
         element: <FosterSignIn />,
       },
       {
+        path: '/famille/profil/demandes',
+        element: <FosterRequest />,
+      },
+      {
         path: '/famille/profil',
         element: <FosterProfile />,
       },
@@ -129,10 +133,6 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
         path: '/famille/profil/delete',
         element: <FosterDelete ?> />,
       }, */
-      {
-        path: '/famille/profil/demandes',
-        element: <FosterRequest />,
-      },
       /* Shelter Routes */
       {
         path: '/association/inscription',

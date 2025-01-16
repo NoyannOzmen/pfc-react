@@ -164,7 +164,6 @@ export const sessionController = {
     async displayProfile(req, res, next){
         
         const familleId = req.session.userId;
-        
         const famille = await Famille.findByPk(familleId, {
             include : 'identifiant_famille'
         });
@@ -235,8 +234,10 @@ export const sessionController = {
     },
 
     async displayRequest(req, res, next) {
-        const familleId = req.session.userId;
-        console.log(familleId)
+        /* const familleId = req.session.userId; */
+        const familleId = 2
+        //! FIND THE SOURCE : FIX REQ.SESSION !//
+
         const famille = await Famille.findByPk(familleId, {
             include : 'identifiant_famille'
         });
@@ -244,7 +245,6 @@ export const sessionController = {
         if( !famille) {
             next()
         };
-        console.log(famille)
 
         const requestedAnimals = await Animal.findAll({
             where : [
@@ -253,8 +253,6 @@ export const sessionController = {
             ],
             include: [ "espece", "demandes", "refuge" ],
         })
-
-        console.log(JSON.stringify(requestedAnimals));
         
         /* res.render('profilFamilleDemande', { famille, requestedAnimals }); */
         res.json(requestedAnimals)

@@ -20,12 +20,12 @@ sessionRouter.post('/famille/inscription', catchErrors(sessionController.fosterS
 /* Profil Famille */
 sessionRouter.get('/famille/profil', auth, isRole.famille, catchErrors(sessionController.displayProfile));
 /* Update des informations */
-/* sessionRouter.post('/famille/profil', auth, isRole.famille, catchErrors(sessionController.fosterUpdate)); */
-sessionRouter.post('/famille/profil', catchErrors(sessionController.fosterUpdate));
+sessionRouter.post('/famille/profil', auth, isRole.famille, catchErrors(sessionController.fosterUpdate));
 /* Suppression du compte */
 sessionRouter.post('/famille/profil/delete', auth, isRole.famille, catchErrors(sessionController.fosterDestroy));
 /* Suivi des demandes */
-sessionRouter.get('/famille/profil/demandes', auth, isRole.famille, catchErrors(sessionController.displayRequest));
+/* sessionRouter.get('/famille/profil/demandes', auth, isRole.famille, catchErrors(sessionController.displayRequest)); */
+sessionRouter.get('/famille/profil/demandes', catchErrors(sessionController.displayRequest));
 
 //* ASSOCIATION
 /* Inscription association */

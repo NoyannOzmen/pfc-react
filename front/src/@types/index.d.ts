@@ -64,6 +64,7 @@ export interface IAnimal {
   espece: Espece;
   images_animal: Media;
   refuge: Association;
+  demandes: Demande;
 }
 
 export interface IDemande {

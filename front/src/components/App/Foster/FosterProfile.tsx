@@ -69,7 +69,6 @@ function FosterProfile() {
         const data = await response.json();
 
         setUser(data);
-        console.log(user)
       } catch (error) {
         console.error(error);
       }

@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded',() =>{
 function tableToggleCollapse() {
   
   const rows = document.querySelectorAll('.view');
+  console.log(rows)
 
   rows.forEach(row => row.addEventListener('click', deployMenu));
 
@@ -19,6 +20,7 @@ function tableToggleCollapse() {
   function deployMenu(e) {
     //* If clicked : row is e(vent).currentTarget ; if Enter is pressed : row is e(vent)
     let fold = (e.currentTarget) ? e.currentTarget : e;
+    console.log('click')
     
     let foldNode = fold.nextElementSibling.nextElementSibling;
     foldNode.classList.toggle('hidden')
