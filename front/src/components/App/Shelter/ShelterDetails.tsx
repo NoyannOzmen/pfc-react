@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useRootContext } from '../../../routes/Root';
 import CarouselOfThree from '../Animals/CarouselOfThree';
 import CarouselOfOne from '../Animals/CarouselOfOne';
@@ -18,6 +18,22 @@ function ShelterDetails() {
   }
   
   const shelterUrl = shelter.images_association[0].url;
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    if (window.innerWidth > 768) {
+      script.src="../../../src/assets/utils/carouselOfThree.js";
+    } else { 
+      script.src="../../../src/assets/utils/carouselOfOne.js";
+    }
+    script.defer = true;
+  
+    document.body.appendChild(script);
+  
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, [window.innerWidth]);
 
   return (
     <main className="justify-self-stretch flex-1">
@@ -44,7 +60,7 @@ function ShelterDetails() {
        <div className="w-full px-2 py-4 gap-2 text-xs flex flex-col">
         <p className="font-body text-texte text-center md:text-base">Adresse : {shelter.rue},&nbsp;{shelter.code_postal},&nbsp;{shelter.commune},&nbsp;{shelter.pays}</p>
         <p className="font-body text-texte text-center md:text-base">Téléphone : {shelter.telephone}</p>
-        {/* <p className="font-body text-texte text-center md:text-base">E-mail : <%= shelter.identifiant_shelter.email %></p>	 */}
+        <p className="font-body text-texte text-center md:text-base">E-mail : {shelter.identifiant_association.email}</p>
       </div>
     </article>
   </section>

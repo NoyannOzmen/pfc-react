@@ -1,9 +1,9 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useRootContext } from '../../../routes/Root';
 import { useUserContext } from '../../../contexts/UserContext';
-import { Link } from 'react-router-dom';
 import CarouselOfThree from '../Animals/CarouselOfThree';
-import CarouselOfOne from '../Animals/CarouselOfOne'
+import CarouselOfOne from '../Animals/CarouselOfOne';
 
 function AnimalDetails() {
 	const { animalId } = useParams();
@@ -11,7 +11,7 @@ function AnimalDetails() {
 	const { user } = useUserContext();
 
 	const animal = animals.find(({id}) => Number(id) === Number(animalId));
-  console.log(animal)
+
 	if (!animal) {
     throw new Response('', {
       status: 404,
@@ -30,6 +30,22 @@ function AnimalDetails() {
 					</span>
 		</button>
   ))
+
+	useEffect(() => {
+    const script = document.createElement('script');
+    if (window.innerWidth > 768) {
+      script.src="../../../src/assets/utils/carouselOfThree.js";
+    } else { 
+      script.src="../../../src/assets/utils/carouselOfOne.js";
+    }
+    script.defer = true;
+  
+    document.body.appendChild(script);
+  
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, [window.innerWidth]);
 
   return (
     <main className="flex flex-wrap flex-col md:flex-row justify-self-stretch flex-1 w-full place-content-evenly 2xl:w-1/2 2xl:self-center">

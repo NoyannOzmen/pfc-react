@@ -14,7 +14,7 @@ const associationController = {
     async getAll(req, res) {
         // Récupérer toutes les associations en BDD
         const associations = await Association.findAll({
-            include :  [ 'images_association' ]
+            include :  [ 'images_association', 'identifiant_association' ]
         });
         
         const especes = await Espece.findAll();
