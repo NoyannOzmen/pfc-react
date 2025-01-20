@@ -1,15 +1,10 @@
 import { Link } from 'react-router-dom';
+import ScrollButton from './ScrollButton';
 
 function Footer() {
   return (
   <>
-  {/* <!-- Back to top Button --> */}
-      <div className="flex-none">
-        <Link className="to-top mb-12 mr-1 flex flex-col text-xs font-bold text-accents1-light opacity-75" to="#top">
-          <img className="size-8 place-self-center" src="/src/assets/icons/top.svg" alt="icone de retour vers le haut" />
-          <p className="to-top-text text-center">Haut<br />de page</p>
-        </Link>
-      </div>
+      <ScrollButton />
 
       <footer className="bg-zoning p-2 flex-none">
         <div>
