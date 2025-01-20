@@ -11,7 +11,6 @@ function ShelterDetails() {
 	const shelter = shelters.find(({ id }) => Number(id) === Number(shelterId));
 
   if (!shelter) {
-    // eslint-disable-next-line @typescript-eslint/no-throw-literal
     throw new Response('', {
       status: 404,
       statusText: 'Not Found',
@@ -31,13 +30,19 @@ function ShelterDetails() {
     }
   }, []);
 
+  const shelterUrl = shelter.images_association[0].url;
+
   return (
     <main className="justify-self-stretch flex-1">
   <section className="flex flex-col mx-auto mt-2">
     <h2 className="font-grands text-2xl md:text-3xl text-center w-full my-6">{shelter.nom}</h2>
 
     <div className="font-body mx-auto w-[80%] rounded-lg my-1 justify-center flex">
-        <img src={`../../src/assets`+`${shelter.logo}`} className="rounded-lg"  alt={`Logo de ${shelter.nom}`} />
+       	{ shelterUrl ? (
+					<img className="rounded-lg" src={`../../src/assets`+`${shelterUrl}`} alt={`Logo de ${shelter.nom}`}></img>
+				) : (
+					<img className="rounded-lg" src="../../src/assets/images/shelter_empty.webp" alt={`Logo de ${shelter.nom} bientôt visible`} />
+				)}
     </div>
 
     <article className="font-body mx-auto w-[90%] md:w-[60%] bg-zoning rounded-lg shadow dark:bg-gray-800 my-4">

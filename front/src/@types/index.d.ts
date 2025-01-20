@@ -1,5 +1,3 @@
-import { Utilisateur } from "./Utilisateur";
-
 export interface IMedia {
   id: string;
   url: string;
@@ -49,7 +47,7 @@ export interface IAssociation {
   siret: string;
   telephone: string;
   images_association: Media;
-  email: Utilisateur
+  identifiant_association: Utilisateur
 }
 
 export interface IAnimal {

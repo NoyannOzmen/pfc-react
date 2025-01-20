@@ -1,15 +1,17 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRootContext } from '../../../routes/Root';
+import { useUserContext } from '../../../contexts/UserContext';
+import { Link } from 'react-router-dom';
 
 function AnimalDetails() {
 	const { animalId } = useParams();
 	const { animals } = useRootContext();
+	const { user } = useUserContext();
 
 	const animal = animals.find(({id}) => Number(id) === Number(animalId));
   
 	if (!animal) {
-    // eslint-disable-next-line @typescript-eslint/no-throw-literal
     throw new Response('', {
       status: 404,
       statusText: 'Not Found',
@@ -29,7 +31,17 @@ function AnimalDetails() {
     }
   }, []);
 
-	const url = animal.images_animal[0].url;
+	const animalUrl = animal.images_animal[0].url;
+	const shelterUrl = animal.refuge.images_association[0].url;
+
+	const tagItems = animal.tags.map((tag) => (
+		<button key={tag.id} className="group p-1 rounded-lg bg-accents1-dark text-fond text-center">
+					{tag.nom}
+					<span className="group-hover:block hidden z-10 bg-accents2-dark text-fond absolute px-2 py-2 text-xs rounded-b-xl rounded-tr-xl">
+						{tag.description}
+					</span>
+		</button>
+  ))
 
   return (
     <main className="flex flex-wrap flex-col md:flex-row justify-self-stretch flex-1 w-full place-content-evenly 2xl:w-1/2 2xl:self-center">
@@ -47,9 +59,9 @@ function AnimalDetails() {
 		*/}
 
 		<div className="font-body mx-auto w-[80%] bg-zoning rounded-lg shadow dark:bg-gray-800 my-4">
-			{ url ? (
+			{ animalUrl ? (
 				<img className="mx-auto my-2"
-				src={`../../src/assets`+`${url}`} alt={`Photo de ${animal.nom}`}></img>
+				src={`../../src/assets`+`${animalUrl}`} alt={`Photo de ${animal.nom}`}></img>
 			) : (
 				<img className="mx-auto my-2" src="../../src/assets/images/animal_empty.webp" alt="Photo à venir" />
 			)}
@@ -59,18 +71,10 @@ function AnimalDetails() {
 				<h3 className="font-grands text-3xl text-center my-2 w-full">A propos de {animal.nom}</h3>
 			</div>
 
-			{/* <% if (animal.tags.length > 0 ) { %>
-				<div className="text-center w-full py-2">
-					<% animal.tags.forEach(tag => { %>
-					<button className="group p-1 rounded-lg bg-accents1-dark text-fond text-center">
-						<%= tag.nom %>
-						<span className="group-hover:block hidden z-10 bg-accents2-dark text-fond absolute px-2 py-2 text-xs rounded-b-xl rounded-tr-xl">
-							<%= tag.description  %>
-						</span>
-					</button>
-					<% }) %>
-				</div>
-			<% } %> */}
+			
+			<div className="text-center w-full py-2">
+				{tagItems}
+			</div>
 			
 			<div className="text-center w-full py-2">
 				<p className="font-body text-texte">Nom : {animal.nom}</p>
@@ -79,9 +83,9 @@ function AnimalDetails() {
 			</div>
 			<div className="text-center w-full py-2">
 				<p className="font-body text-texte">Espèce : {animal.espece.nom}</p>
-{/* 				<% if (animal.race) { %>
+				{animal.race && (
 				<p className="font-body text-texte">Race : {animal.race}</p>
-				<% } %> */}
+				)}
 				<p className="font-body text-texte">Couleur : {animal.couleur}</p>
 			</div>
 			<div className="text-center w-full py-2">
@@ -91,9 +95,9 @@ function AnimalDetails() {
 			<div className="text-center w-full py-2">
 				<p className="font-body text-texte">Son petit truc en plus :<br />{animal.description}</p>
 			</div>
-{/* 			<% if (locals.role==='famille') { %>
+				{ user && user.accueillant && (
 				<div className="text-center w-full py-2">
-					<% if(locals.message.erreur){ %>
+					{/* <% if(locals.message.erreur){ %>
 						<div>
 							<p className="font-grands font-base text-accents1 text-center"><%= message.erreur %></p>
 						</div>
@@ -102,12 +106,12 @@ function AnimalDetails() {
 						<div>
 							<p className="font-grands font-base text-accents1 text-center"><%= message.succes%></p>
 						</div>
-					<% } %>
-					<form action="/animaux/<%= animal.id %>/faire-une-demande" method="POST">
+					<% } %> */ }
+					<form action={`/animaux/${animal.id}/faire-une-demande`} method="POST">
 					<button type="submit" className="mx-auto my-3 py-2 px-6 bg-accents1-light text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">Faire une demande</button>
 					</form>
 				</div>
-			<% } %> */}
+				)}
 		</article>
 
 	</section>
@@ -119,22 +123,23 @@ function AnimalDetails() {
 
 
 			<div className="font-body mx-auto w-[80%] rounded-lg my-4">
-				{/* <% if (animal.refuge.images_association) { %> */}
-					<img className="mx-auto" src={`../../src/assets`+`${animal.refuge.logo}`} alt={`Logo de ${animal.refuge.nom}`} />
-{/* 				<% } else { %>
-				<img src="../..src/assets/images/Animal_empty.webp" alt="Logo de <%= animal.refuge.nom %> bientôt visible">
-				<% } %> */}
+ 				{ shelterUrl ? (
+					<img className="mx-auto"
+					src={`../../src/assets`+`${shelterUrl}`} alt={`Logo de ${animal.refuge.nom}`}></img>
+				) : (
+					<img className="mx-auto" src="../../src/assets/images/shelter_empty.webp" alt={`Logo de ${animal.refuge.nom} bientôt visible`} />
+				)}
 			</div>
 
 			<div className="text-center w-full py-2">
 				<p className="font-body text-texte">Adresse : {animal.refuge.rue},<br />{animal.refuge.code_postal},&nbsp;{animal.refuge.commune},&nbsp;{animal.refuge.pays}</p>
 				<p className="font-body text-texte">Téléphone : {animal.refuge.telephone}</p>
-				{/* <p className="font-body text-texte">E-mail : {animal.refuge.identifiant_association.email}</p>
-				<p className="hidden md:block font-body text-texte">{animal.refuge.identifiant_association.description}</p> */}
+				{animal.refuge.site && <p className="font-body text-texte">E-mail : {animal.refuge.site}</p> }
+				{ animal.refuge.description && <p className="hidden md:block font-body text-texte">{animal.refuge.description}</p> }
 			</div>
 				
 			<div className="text-center w-full py-2">
-				<a className="w-[60%] mx-auto my-3 py-2 px-4 bg-accents1-light text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" href="/associations/<%= animal.refuge.id %>">En savoir plus</a>
+				<Link className="w-[60%] mx-auto my-3 py-2 px-4 bg-accents1-light text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" to={`/associations/${animal.refuge.id}`}>En savoir plus</Link>
 			</div>
 		</article>
 	</section>
