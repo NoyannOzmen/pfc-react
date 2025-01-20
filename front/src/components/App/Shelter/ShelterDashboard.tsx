@@ -1,7 +1,26 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useUserContext } from "../../../contexts/UserContext";
 
 function ShelterDashboard() {
+  const isInitialMount = useRef(true);
+
+  const { user, setUser } = useUserContext();
+
+  const shelter = user.refuge;
+
+  const [updatedInfos, setUpdatedInfos ] = useState({
+    id: '',
+    nom: '',
+    responsable: '',
+    rue: '',
+    commune : '',
+    code_postal : '',
+    pays: '',
+    siret: '',
+    telephone: '',
+  })
+
   useEffect(() => {
     const script = document.createElement('script');
   
@@ -14,6 +33,74 @@ function ShelterDashboard() {
       document.body.removeChild(script);
     }
   }, []);
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const response = await fetch
+          (`${import.meta.env.VITE_API_URL}/associations/profil`,
+          {
+            method: 'POST',
+            headers: { "Content-type" : "application/json" },
+            body: JSON.stringify(updatedInfos),
+          }
+        );
+
+        if (!response.ok) {
+          switch (response.status) {
+            case 401: {
+              const { message } = await response.json();
+              throw new Error(message);
+            }
+
+            case 404:
+              throw new Error("La page demandée n'existe pas.");
+
+            case 500:
+              throw new Error(
+                'Une erreur est survenue, merci de ré-essayer ultérieurement.'
+              );
+
+            default:
+              throw new Error(`HTTP ${response.status}`);
+          }
+        }
+
+        const data = await response.json();
+
+        setUser(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      fetchUser();
+    }
+  }, [ updatedInfos, setUser ]);
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const { nom, responsable, rue, commune, code_postal, pays, siret, telephone } = Object.fromEntries(formData);
+
+    const userId = user?.id;
+
+    setUpdatedInfos({
+      id: userId as string,
+      nom: nom as string,
+      responsable: responsable as string,
+      rue: rue as string,
+      commune: commune as string,
+      code_postal: code_postal as string,
+      pays: pays as string,
+      siret: siret as string,
+      telephone: telephone as string,
+    });
+  }
 
   return(
     <main className="justify-self-stretch flex-1">
@@ -41,7 +128,7 @@ function ShelterDashboard() {
       <section className="flex flex-wrap justify-center" id="dashboard-container">
         <h3 className="font-grands text-3xl text-center my-2 pt-5 w-full">Mon profil</h3>
         
-        <form className="flex flex-wrap content-center md:w-[60%] justify-center text-texte" action="/associations/profil" method="POST">
+        <form className="flex flex-wrap content-center md:w-[60%] justify-center text-texte" onSubmit={handleSubmit}>
           
           <fieldset className="shrink font-body rounded-lg shadow dark:bg-gray-800 my-2 py-5">
             <legend className="text-center">Mon organisme&nbsp;<span tabIndex={0} className="material-symbols-outlined">edit</span></legend>
@@ -49,61 +136,61 @@ function ShelterDashboard() {
             {/* <!-- Nom --> */}
             <div className="mx-auto p-2">
               <label className="text-center" htmlFor="nom">Nom</label>
-              <input className="block" type="text" id="nom" name="nom" value="<%= association.nom %>" disabled />
+              <input className="block" type="text" id="nom" name="nom" defaultValue={shelter.nom} disabled />
             </div>
 
             {/* <!-- Président --> */}
             <div className="mx-auto p-2">
               <label className="text-center" htmlFor="president">Président</label>
-              <input className="block" type="text" id="president" name="president" value="<%= association.responsable %>" disabled />
+              <input className="block" type="text" id="president" name="president" defaultValue={shelter.responsable} disabled />
             </div>
 
             {/* <!-- Rue --> */}
             <div className="mx-auto p-2">  
               <label className="text-center" htmlFor="rue">Rue</label>
-              <input className="block" type="text" id="rue" name="rue" value="<%= association.rue %>" disabled />
+              <input className="block" type="text" id="rue" name="rue" defaultValue={ shelter.rue} disabled />
             </div>
 
             {/* <!-- Commune --> */}
             <div className="mx-auto p-2">  
               <label className="text-center" htmlFor="commune">Commune</label>
-              <input className="block" type="text" id="commune" name="commune" value="<%= association.commune %>" disabled />
+              <input className="block" type="text" id="commune" name="commune" defaultValue={shelter.commune} disabled />
             </div>
 
             {/* <!-- Code Postal --> */}
             <div className="mx-auto p-2">   
               <label className="text-center" htmlFor="code_postal">Code Postal</label>
-              <input className="block" type="text" id="code_postal" name="code_postal" pattern="^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$" value="<%= association.code_postal %>" disabled />
+              <input className="block" type="text" id="code_postal" name="code_postal" pattern="^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$" defaultValue={shelter.code_postal} disabled />
             </div>
 
             {/* <!-- Pays --> */}
             <div className="mx-auto p-2">  
               <label className="text-center" htmlFor="pays">Pays</label>
-              <input className="block" type="text" id="pays" name="pays" value="<%= association.pays %>" disabled />
+              <input className="block" type="text" id="pays" name="pays" defaultValue={shelter.pays} disabled />
             </div>
 
             {/* <!-- Téléphone --> */}
             <div className="mx-auto p-2">  
               <label className="text-center" htmlFor="telephone">N° Téléphone</label>
-              <input className="block" type="tel" id="telephone" name="telephone" pattern="^(0|\+33 )[1-9]([-. ]?[0-9]{2} ){3}([-. ]?[0-9]{2})|([0-9]{8})$" value="<%= association.telephone %>" disabled />
+              <input className="block" type="tel" id="telephone" name="telephone" pattern="^(0|\+33 )[1-9]([-. ]?[0-9]{2} ){3}([-. ]?[0-9]{2})|([0-9]{8})$" defaultValue={shelter.telephone} disabled />
             </div>
 
             {/* <!-- N° SIRET --> */}
             <div className="mx-auto p-2">  
               <label className="text-center" htmlFor="siret">N° SIRET</label>
-              <input className="block" type="text" id="siret" name="siret" pattern="^(\d{14}|((\d{3}[ ]\d{3}[ ]\d{3})|\d{9})[ ]\d{5})$" value="<%= association.siret %>" disabled />
+              <input className="block" type="text" id="siret" name="siret" pattern="^(\d{14}|((\d{3}[ ]\d{3}[ ]\d{3})|\d{9})[ ]\d{5})$" defaultValue={shelter.siret} disabled />
             </div>
 
             {/* <!-- Site Web --> */}
             <div className="mx-auto p-2 flex flex-wrap">  
               <label className="w-full" htmlFor="site">Site Web</label>
-              <input className="w-56" type="url" name="site" id="site" value="<%= association.site %>"  pattern="https://.*"  disabled />
+              <input className="w-56" type="url" name="site" id="site" defaultValue={shelter.site == null ? '' : shelter.site }  pattern="https://.*"  disabled />
             </div>
   
             {/* <!-- Description --> */}
             <div className="flex flex-wrap mx-auto p-2">
               <label className="place-items-start pr-1 w-full" htmlFor="description">Description</label>
-              {/* <textarea rows={5} className="w-56" type="text" name="description" id="description" disabled /><%= association.description %></textarea> */}
+              <textarea rows={5} className="w-56" name="description" id="description" defaultValue={shelter.description == null ? '' : shelter.description} disabled />
             </div>
 
           </fieldset>

@@ -1,12 +1,47 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import { useRootContext } from "../../../routes/Root";
+import { useUserContext } from "../../../contexts/UserContext";
 
 function ShelterResidentList() {
+  const { animals } = useRootContext();
+  const { species } = useRootContext();
+  const { user } = useUserContext();
+
+  const sheltered = animals.filter(({ association_id }) => Number(association_id) === Number(user.id));
+
+  const shelteredItems = sheltered.map((animal) => (
+    <Link data-animalid={animal.id} data-nom={animal.nom} data-espece={animal.espece.id}  data-statut={animal.statut} className="animal_card animal_card--visible flex flex-col justify-between content-center relative bg-fond rounded-xl w-36 h-36 shrink-0 md:size-60" to={`/associations/profil/animaux/${animal.id}`}>
+    
+    { animal.images_animal[0].url ? (
+      <img className="rounded-t-xl" src={`../../src/assets`+`${animal.images_animal[0].url}`} alt={`Photo de ${animal.nom}`} />
+    ) : (
+      <img className="rounded-t-xl" src="../../src/assets/images/animal_empty.webp" alt="Photo à venir" />
+    )}
+    
+    <p className="text-sm text-center font-semibold md:text-base">{animal.nom}</p>
+    <div className="flex flex-wrap justify-between px-2 pt-0.5">
+      
+      <div className="w-full flex justify-around content-center">
+        <p className="espece-nom text-xs italic md:text-base">{animal.espece.nom}</p>
+        <p className="text-xs italic md:text-base">{animal.statut}</p>
+      </div>
+    </div>
+  </Link> 
+  ))
+
+  const speciesItems = species.map((espece) => (
+    <div className="flex gap-x-1.5 content-center mb-1"> 
+      <input type="checkbox" key={espece.id} id={`espece_${espece.id}`} name={`espece_${espece.id}`} value={`espece_${espece.id}`}  className="species-checkbox checkbox leading-3"/>
+      <label htmlFor={`espece_${espece.id}`} className="font-grands font-semibold text-xs leading-3 self-center">{espece.nom}</label>
+    </div>
+  ))
+
   useEffect(() => {
     const script = document.createElement('script');
   
     script.src="../../../src/assets/utils/dashboardAssoListeAnimal.js";
-    script.async = true;
+    script.defer = true;
   
     document.body.appendChild(script);
   
@@ -60,16 +95,11 @@ function ShelterResidentList() {
           
           <div id="search-filters" className="flex gap-4 hidden md:bg-fond p-4 rounded-lg border-accents2 md:border-4">
             <fieldset>
-{/*               <% especes.forEach(espece => { %>
-                <div className="flex gap-x-1.5 content-center mb-1"> 
-                  <input type="checkbox" id="espece_<%= espece.id %>" name="espece_<%= espece.id %>" value="<%= espece.id %>"  className="species-checkbox checkbox leading-3"/>
-                  <label htmlFor="espece_<%= espece.id %>" className=" font-grands font-semibold text-xs leading-3 self-center"> <%= espece.nom %></label>
-                </div>   
-              <% }) %> */}
-                <div className="flex gap-x-1.5 content-center"> 
-                  <input type="checkbox" id="espece_all" name="espece_all" value="all" checked className="leading-3"/>
-                  <label htmlFor="espece_all" className=" font-grands font-semibold text-xs leading-3 self-center"> Tous</label>
-                </div>   
+              {speciesItems}
+              <div key={999} className="flex gap-x-1.5 content-center"> 
+                <input type="checkbox" id="espece_all" name="espece_all" value="all" defaultChecked className="leading-3"/>
+                <label htmlFor="espece_all" className=" font-grands font-semibold text-xs leading-3 self-center"> Tous</label>
+              </div>   
             </fieldset>
 
             <fieldset> 
@@ -89,36 +119,16 @@ function ShelterResidentList() {
               </div> 
 
               <div className="flex gap-x-1.5 content-center"> 
-                <input type="checkbox" id="statut_all" name="statut_all" value="all" checked className="leading-3"/>
+                <input type="checkbox" id="statut_all" name="statut_all" value="all" defaultChecked className="leading-3"/>
                 <label htmlFor="statut_all" className=" font-grands font-semibold text-xs leading-3 self-center"> Tous</label>
               </div>   
             </fieldset>
           </div> 
         </form>
           
-{/*         <div className=" self-center flex flex-wrap p-4 justify-center gap-3.5">            
-            <% animals.forEach(animal => { %>  
-              <!-- ANIMAL CARD POUR LE DASHBOARD ASSO -->  
-              <a data-animalId="<%= animal.id %>" data-nom="<%= animal.nom %>" data-espece="<%= animal.espece.id %>"  data-statut="<%= animal.statut %>" className="animal_card animal_card--visible flex flex-col justify-between content-center relative bg-fond rounded-xl w-36 h-36 shrink-0 md:size-60" to="/associations/profil/animaux/<%= animal.id %>">
-                <!-- ICI ATTENTION IL FAUDRAIT PEUT ËTRE CHERCHER L'IMAGE AVEC L'ORDRE LE PLUS FAIBLE ?? -->
-                <% if (animal.images_animal.length) { %>
-                  <img className="rounded-t-xl" src="<%= animal.images_animal[0].url %>" alt="Photo de <%= animal.nom %>" />
-                 <% } else { %>
-                  <img className="rounded-t-xl" src="../../src/assets/images/animal_empty.webp" alt="image par défaut" />
-                  
-                <% } %>
-                
-                <p className="text-sm text-center font-semibold md:text-base"><%= animal.nom %></p>
-                <div className="flex flex-wrap justify-between px-2 pt-0.5">
-                  
-                  <div className="w-full flex justify-around content-center">
-                    <p className="espece-nom text-xs italic md:text-base"> <%= animal.espece.nom %></p>
-                    <p className="text-xs italic md:text-base"> <%= animal.statut %></p>
-                  </div>
-                </div>
-              </a> 
-            <% }) %>    
-        </div> */}
+        <div className=" self-center flex flex-wrap p-4 justify-center gap-3.5">            
+          {shelteredItems}  
+        </div>
       </section>
     </div>    
   </div>
