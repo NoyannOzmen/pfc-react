@@ -1,9 +1,4 @@
-/* import { useEffect } from 'react'; */
 import { Link } from 'react-router-dom';
-
-/* import { ICategory, IProduct, LoggedUser } from '../../../@types'; */
-
-/* import '../../../index.css' */
 
 function Footer() {
   return (
@@ -21,16 +16,16 @@ function Footer() {
           <nav className="align-middle text-xs lg:text-sm h-12">
             <ul className="flex flex-row place-content-evenly p-4">
               <li className="hover:text-accents1-light">
-                <a href="/infos-legales">Informations Légales</a>
+                <Link to="/infos-legales">Informations Légales</Link>
               </li>
               <li className="hover:text-accents1-light">
-                <a href="/rgpd">Politique RGPD</a>
+                <Link to="/rgpd">Politique RGPD</Link>
               </li>
               <li className="hover:text-accents1-light">
-                <a href="/plan">Plan du site</a>
+                <Link to="/plan">Plan du site</Link>
               </li>
               <li className="hover:text-accents1-light">
-                <a href="/contact">Contact</a>
+                <Link to="/contact">Contact</Link>
               </li>
             </ul>
           </nav>

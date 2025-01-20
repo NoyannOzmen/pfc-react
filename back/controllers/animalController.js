@@ -29,7 +29,12 @@ export const animalController = {
             where: {
                 statut:'En refuge'
             },
-            include : ['tags','refuge','espece', 'images_animal']
+            include : [
+                "espece",
+                "images_animal",
+                { model : Association, as : "refuge", include: ["images_association", "identifiant_association"]},
+                { model : Tag, as : "tags" }
+            ]
         })
         
         const especes = await Espece.findAll();

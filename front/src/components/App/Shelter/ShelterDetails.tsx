@@ -16,20 +16,7 @@ function ShelterDetails() {
       statusText: 'Not Found',
     });
   }
-
-  useEffect(() => {
-    const script = document.createElement('script');
   
-    script.src="../../../src/assets/utils/carousel.js";
-    script.async = true;
-  
-    document.body.appendChild(script);
-  
-    return () => {
-      document.body.removeChild(script);
-    }
-  }, []);
-
   const shelterUrl = shelter.images_association[0].url;
 
   return (
