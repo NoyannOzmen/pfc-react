@@ -55,7 +55,7 @@ function AnimalDetails() {
 		<div className="font-body mx-auto w-[80%] bg-zoning rounded-lg shadow dark:bg-gray-800 my-4">
 			{ animalUrl ? (
 				<img className="mx-auto my-2"
-				src={`../../src/assets`+`${animalUrl}`} alt={`Photo de ${animal.nom}`}></img>
+				src={`../../src/assets`+`${animalUrl}`} alt={`Photo de ${animal.nom}`} />
 			) : (
 				<img className="mx-auto my-2" src="../../src/assets/images/animal_empty.webp" alt="Photo à venir" />
 			)}

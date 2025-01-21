@@ -129,8 +129,8 @@ function ShelterResidentDetails() {
             </form>
           </div>     
         </div>
-        {/*      
-        <!-- ACCUEILLANT INFOS-->
+              
+        {/* CURRENT FOSTER INFOS  */}
         {animal.accueillant && ( 
           <div className="w-60 md:w-auto">
             <h3 className="font-body font-bold mb-4">Famille d'accueil</h3>
@@ -165,7 +165,8 @@ function ShelterResidentDetails() {
           </div>
         )}
                 
-        <!-- HISTORIQUE DES DEMANDES --> 
+        {/* REQUEST HISTORY  */} 
+        {/*
         <% if (animal.demandes.length) {}  
             <div className="px-4 ">
               <h3 className="font-body font-bold mb-4">Historique des demandes d'accueil</h3>

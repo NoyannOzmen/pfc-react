@@ -21,7 +21,9 @@ function AnimalList() {
     }
   }, []);
 
-  const animalItems = animals.map((animal) => (
+  const sheltered = animals.filter(({ statut }) => statut === "En refuge");
+
+  const animalItems = sheltered.map((animal) => (
     <AnimalCard key={animal.id} animal={animal} />
   ))
 

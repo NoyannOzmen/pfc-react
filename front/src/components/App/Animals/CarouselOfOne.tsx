@@ -1,10 +1,21 @@
 import { useRootContext } from '../../../routes/Root';
+import { useParams } from 'react-router-dom';
 import AnimalCarouselCardOne from '../Animals/AnimalCarouselCardOne';
 
 function CarouselOfOne() {
   const { animals } = useRootContext();
 
-  const animalItemsOne = animals.map((animal) => (
+  const { animalId } = useParams();
+
+  let sheltered = animals.filter(({ statut }) => statut === "En refuge");
+
+  if ( animalId ) {
+    const baseline = animals.find(( { id }) => Number(id) === Number(animalId));
+
+    sheltered = sheltered.filter(({ association_id }) => Number(association_id) === Number(baseline.association_id))
+  }
+
+  const animalItemsOne = sheltered.map((animal) => (
     <AnimalCarouselCardOne key={animal.id} animal={animal} />
   ))
 
