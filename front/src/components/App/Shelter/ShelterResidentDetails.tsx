@@ -5,8 +5,11 @@ import { useRootContext } from "../../../routes/Root";
 function ShelterResidentDetails() {
   const { animalId } = useParams();
   const { animals } = useRootContext();
+  console.log(animals)
 
 	const animal = animals.find(({id}) => Number(id) === Number(animalId));
+
+  console.log(animal)
 
 	if (!animal) {
     throw new Response('', {
@@ -22,6 +25,14 @@ function ShelterResidentDetails() {
           {tag.description}
         </span>
     </p>
+  ))
+
+  const requestItems = animal.demandes.map((demande) => (
+    <tr key={demande.id} className="odd:bg-accents2-light even:bg-fond odd:text-fond text-sm font-body font-semibold p-4 rounded-lg ">
+      <td className="text-center p-2 rounded-lg ">{demande.nom}</td>
+      <td className="text-center p-2 rounded-lg ">{demande.Demande.date_debut}</td>
+      <td className="text-center p-2 rounded-lg hover:underline"><Link to={`/associations/profil/demandes/${demande.Demande.id}`}>{demande.Demande.statut_demande}</Link></td>
+  </tr>
   ))
 
   const animalUrl = animal.images_animal[0].url;
@@ -74,9 +85,9 @@ function ShelterResidentDetails() {
           <div className="flex p-6 pb-4">
             <div className="flex flex-col gap-2">
               { animalUrl ? (
-                <img className="w-28 rounded-lg" src={`../../src/assets`+`${animalUrl}`} alt={`Photo de ${animal.nom}`} />
+                <img className="w-28 rounded-lg" src={`../../../src/assets`+`${animalUrl}`} alt={`Photo de ${animal.nom}`} />
               ) : (
-                 <img className="w-28 rounded-lg" src="../../src/assets/images/animal_empty.webp" alt="Photo à venir" />
+                 <img className="w-28 rounded-lg" src="../../../src/assets/images/animal_empty.webp" alt="Photo à venir" />
               )}
             </div>
                 
@@ -166,8 +177,7 @@ function ShelterResidentDetails() {
         )}
                 
         {/* REQUEST HISTORY  */} 
-        {/*
-        <% if (animal.demandes.length) {}  
+        { animal.demandes &&
             <div className="px-4 ">
               <h3 className="font-body font-bold mb-4">Historique des demandes d'accueil</h3>
               
@@ -178,17 +188,11 @@ function ShelterResidentDetails() {
                   <th className="px-2 pt-2  border-accents2-light border-solid border-1 text-center">Statut</th>
                 </thead>
                 <tbody className="rounded-lg border-separate ">
-                  <% animal.demandes.forEach(demande => {}
-                    <tr className="odd:bg-accents2-light even:bg-fond odd:text-fond text-sm font-body font-semibold p-4 rounded-lg ">
-                      <td className="text-center p-2 rounded-lg ">{demande.nom}</td>
-                      <td className="text-center p-2 rounded-lg ">{demande.Demande.date_debut}</td>
-                      <td className="text-center p-2 rounded-lg hover:underline"><a to='/associations/profil/demandes/{demande.Demande.id}'>{demande.Demande.statut_demande}</a></td>
-                    </tr>
-                  <% })}
+                  {requestItems}
                 </tbody>
               </table>
             </div>    
-        <% }} */}
+        }
       </section>             
     </div>
   </div>
