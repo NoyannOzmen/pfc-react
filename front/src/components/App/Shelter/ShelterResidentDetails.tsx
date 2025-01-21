@@ -177,8 +177,8 @@ function ShelterResidentDetails() {
         )}
                 
         {/* REQUEST HISTORY  */} 
-        { animal.demandes &&
-            <div className="px-4 ">
+        { animal.demandes.length ? (
+            <div className="px-4">
               <h3 className="font-body font-bold mb-4">Historique des demandes d'accueil</h3>
               
               <table className="mb-3 rounded-b-lg rounded-lg border-separate "> 
@@ -192,7 +192,7 @@ function ShelterResidentDetails() {
                 </tbody>
               </table>
             </div>    
-        }
+        ) : ( <></> )}
       </section>             
     </div>
   </div>
