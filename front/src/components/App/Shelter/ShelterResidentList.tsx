@@ -8,6 +8,13 @@ function ShelterResidentList() {
   const { species } = useRootContext();
   const { user } = useUserContext();
 
+  if (!user) {
+    throw new Response('', {
+      status: 404,
+      statusText: 'Not Found',
+    });
+  }
+
   const sheltered = animals.filter(({ association_id }) => Number(association_id) === Number(user.id));
 
   const shelteredItems = sheltered.map((animal) => (

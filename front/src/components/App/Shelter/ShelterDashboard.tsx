@@ -7,6 +7,13 @@ function ShelterDashboard() {
 
   const { user, setUser } = useUserContext();
 
+   if (!user) {
+    throw new Response('', {
+      status: 404,
+      statusText: 'Not Found',
+    });
+  }
+
   const shelter = user.refuge;
 
   const [updatedInfos, setUpdatedInfos ] = useState({

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 
 type AnimalCardProps = {
   animal: Animal;
+
 }
 
 const AnimalCarouselCardOne = ({ animal }: AnimalCardProps) => {
@@ -11,7 +12,11 @@ const AnimalCarouselCardOne = ({ animal }: AnimalCardProps) => {
         <div className="hidden carousel-img">
           <div className="flex bg-fond rounded-lg shadow dark:bg-gray-800 flex-col md:flex-col mx-auto my-2 w-[75%] p-4">
             <div className="w-full md:w-full flex justify-center items-center">
+            { url ? (
             <img className="object-contain md:h-full rounded-lg" src={`../../src/assets`+`${url}`} alt={`Photo de ${animal.nom}`} />
+            ) : (
+            <img className="object-contain md:h-full rounded-lg" src="../../src/assets/images/animal_empty.webp" alt="Photo à venir" />
+            )}
             </div>
 
             <div className="flex-auto text-center">

@@ -7,6 +7,13 @@ function FosterProfile() {
 
   const { user, setUser } = useUserContext();
 
+  if (!user) {
+    throw new Response('', {
+      status: 404,
+      statusText: 'Not Found',
+    });
+  }
+
   const famille = user.accueillant;
 
   const [updatedInfos, setUpdatedInfos ] = useState({

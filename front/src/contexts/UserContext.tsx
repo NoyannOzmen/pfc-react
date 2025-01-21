@@ -1,9 +1,12 @@
 import { createContext, useContext, useMemo, useState } from 'react';
-import { Utilisateur } from '../@types/Utilisateur.ts';
+/* import { Utilisateur } from '../@types/Utilisateur.ts';
+ */
+import { IUtilisateur
 
+ } from '../@types/index';
 type UserContextType = {
-  user: Utilisateur | null;
-  setUser: React.Dispatch<React.SetStateAction<Utilisateur | null>>;
+  user: IUtilisateur | null;
+  setUser: React.Dispatch<React.SetStateAction<IUtilisateur | null>>;
 };
 
 type UserContextProviderProps = {
@@ -15,7 +18,7 @@ export const UserContext = createContext<UserContextType | null>(null);
 export default function UserContextProvider({
   children,
 }: UserContextProviderProps) {
-  const [user, setUser] = useState<Utilisateur | null>(null);
+  const [user, setUser] = useState<IUtilisateur | null>(null);
 
   const contextValue = useMemo(() => ({ user, setUser }), [user]);
 

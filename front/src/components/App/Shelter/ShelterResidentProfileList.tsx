@@ -7,6 +7,13 @@ function ShelterResidentProfileList() {
   const { animals } = useRootContext();
   const { user } = useUserContext();
 
+  if (!user) {
+    throw new Response('', {
+      status: 404,
+      statusText: 'Not Found',
+    });
+  }
+
   const fostered = animals.filter(({ association_id, statut }) => Number(association_id) === Number(user.id) && statut === "Accueilli");
 
   //* MIGHT BE USEFUL TO TURN THIS INTO A COMPONENT
@@ -69,7 +76,7 @@ function ShelterResidentProfileList() {
 
               { animal.tags &&
                 <div className="flex flex-wrap mt-4 px-6 gap-1">
-                  { animal.tags.map((tag) => (
+                  { animal.tags.map((tag : any) => (
                     <p key={tag.id} className="group rounded-full block bg-accents1 text-fond text-center text-xs font-semibold py-1 px-2">
                         {tag.nom}
                         <span className="group-hover:block hidden z-10 bg-accents2-dark text-fond absolute px-2 py-2 text-xs rounded-b-xl rounded-tr-xl">

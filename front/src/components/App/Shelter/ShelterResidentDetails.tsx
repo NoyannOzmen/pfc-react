@@ -18,7 +18,7 @@ function ShelterResidentDetails() {
     });
   }
 
-  const tagItems = animal.tags.map((tag) => (
+  const tagItems = animal.tags.map((tag :any) => (
     <p key={tag.id} className="group rounded-full block bg-accents1 text-fond text-center text-xs font-semibold py-1 px-2">
       {tag.nom}
         <span className="group-hover:block hidden z-10 bg-accents2-dark text-fond absolute px-2 py-2 text-xs rounded-b-xl rounded-tr-xl">
@@ -27,7 +27,7 @@ function ShelterResidentDetails() {
     </p>
   ))
 
-  const requestItems = animal.demandes.map((demande) => (
+  const requestItems = animal.demandes.map((demande : any) => (
     <tr key={demande.id} className="odd:bg-accents2-light even:bg-fond odd:text-fond text-sm font-body font-semibold p-4 rounded-lg ">
       <td className="text-center p-2 rounded-lg ">{demande.nom}</td>
       <td className="text-center p-2 rounded-lg ">{demande.Demande.date_debut}</td>
