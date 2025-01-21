@@ -153,6 +153,14 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
         element: <Upload ? />,
       }, */
       {
+        path: '/associations/profil/demandes/:demandeId',
+        element: <ShelterRequestDetails />,
+      },
+      {
+        path: '/associations/profil/demandes',
+        element: <ShelterRequestList />,
+      },
+      {
         path: '/associations/profil/animaux/:animalId',
         element: <ShelterResidentDetails />,
       },
@@ -167,14 +175,6 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
       {
         path: '/associations/profil/animaux/nouveau-profil',
         element: <ShelterResidentAddProfile />,
-      },
-      {
-        path: '/associations/profil/demandes/:demandeId',
-        element: <ShelterRequestDetails />,
-      },
-      {
-        path: '/associations/profil/demandes',
-        element: <ShelterRequestList />,
       },
 ,
 /*       {
