@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded',() =>{
+/* document.addEventListener('DOMContentLoaded',() =>{
   tableToggleCollapse();
 })
 
-function tableToggleCollapse() {
+function tableToggleCollapse() { */
   
   const rows = document.querySelectorAll('.view');
   console.log(rows)
@@ -31,4 +31,4 @@ function tableToggleCollapse() {
       nextSibling = nextSibling.nextElementSibling;
     }
   };
-}
+/* } */

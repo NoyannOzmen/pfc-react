@@ -1,13 +1,52 @@
 import { Link } from "react-router-dom";
-import { useEffect
+import { useEffect } from "react";
+import { useUserContext } from "../../../contexts/UserContext";
+import { useRootContext } from "../../../routes/Root";
 
- } from "react";
+
 function ShelterRequestList() {
+  const { animals } = useRootContext();
+  const { user } = useUserContext();
+
+  if (!user) {
+    throw new Response('', {
+      status: 404,
+      statusText: 'Not Found',
+    });
+  }
+
+  const requested = animals.filter(({ association_id, demandes }) => Number(association_id) === Number(user.id) && demandes.length);
+
+  const requestedAnimals = requested.map((animal) => (
+    <>
+    <tr key={`${animal.id} header`} tabIndex={0} className="view text-fond text-sm bg-accents2 font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hover:bg-accents2-dark">
+      <td colSpan={3} scope="colgroup" className="px-2 pt-2  border-accents2-dark border-solid border-1">{animal.nom}</td>
+      {/* TO DO : Add Count for # of Requests */}
+      {/* TO DO : Add JS for unfurling row */}
+      <td colSpan={3} scope="colgroup" className="px-2 pt-2  border-accents2-dark border-solid border-1">Nombre</td>
+    </tr>
+    <tr key={`${animal.id} body`} className="fold mb-3 bg-fond rounded-b-lg hidden">
+      <tr key={`${animal.id} body title`}className="fold text-fond text-sm bg-accents2-light font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hidden">
+        <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Famille</td>
+        <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Date de demande</td>
+        <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Statut</td>
+      </tr>
+      { animal.demandes.map((demande : any, index : any) => (
+      <tr key={`${animal.id} request n° ${demande.id}`} className={"fold text-sm font-body font-semibold hidden" + (index % 2 > 0 ? 'text-fond bg-accents2-light' : 'bg bg-fond')}>
+          <td colSpan={2}>{demande.nom}</td>
+          <td colSpan={2}>{demande.Demande.date_debut}</td>
+          <td colSpan={2}><Link tabIndex={0} className="hover:underline" to={`/associations/profil/demandes/${demande.Demande.id}`}>{demande.Demande.statut_demande}</Link></td>
+      </tr>
+      ))}
+    </tr>
+    </>
+  ));
+
   useEffect(() => {
     const script = document.createElement('script');
   
     script.src="../../../src/assets/utils/dashboardSuiviDemande.js";
-    script.async = true;
+    script.defer = true;
   
     document.body.appendChild(script);
   
@@ -38,54 +77,31 @@ function ShelterRequestList() {
       <section className="flex flex-wrap justify-center" id="dashboard-container">
         <h3 className="hidden md:inline font-grands text-3xl text-center my-2 pt-5 w-full">Gestion des demandes d'accueil</h3>
 
-{/*         <div className="container">
+         <div className="container">
           <div className="row w-full text-center my-6">
             <div className="col w-full text-center my-6 flex justify-center flex-wrap">
-              <% if (requestedAnimals.length < 1) { %>
+              { !requested.length ? (
                 <h4 className="w-full text-center font-grands text-2xl my-4">Pas de demandes d'accueil en attente</h4>
-              <% } else { %>
+              ) : (
+                <>
                 <h4 className="w-full text-center font-grands text-2xl my-4">Demandes en cours</h4>
-              <% } %>
-        
-              <% if (requestedAnimals.length > 0) { %>
-              <table className="table text-center w-full md:w-5/6">
 
-                <tr className="border-none bg-zoning text-sm font-grands">
-                  <td colspan="3" scope="colgroup">Nom Animal</td>
-                  <td colspan="3" scope="colgroup">Nombre de demandes</td>
-                </tr>
-                <% requestedAnimals.forEach(animal => { %>
-                  <tr tabIndex={0}className="view text-fond text-sm bg-accents2 font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hover:bg-accents2-dark">
-                    <td colspan="3" scope="colgroup" className="px-2 pt-2  border-accents2-dark border-solid border-1"><%= animal.nom %></td>
-                    <!-- TO DO : Add Count for # of Requests-->
-                    <!-- TO DO : Add JS for unfurling row -->
-                    <td colspan="3" scope="colgroup" className="px-2 pt-2  border-accents2-dark border-solid border-1">Nombre</td>
+                <table className="table text-center w-full md:w-5/6">
+                  <thead>
+                  <tr className="border-none bg-zoning text-sm font-grands">
+                    <td colSpan={3} scope="colgroup">Nom Animal</td>
+                    <td colSpan={3} scope="colgroup">Nombre de demandes</td>
                   </tr>
-                  <tr className="fold mb-3 bg-fond rounded-b-lg hidden">
-                    <tr className="fold text-fond text-sm bg-accents2-light font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hidden">
-                      <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Famille</td>
-                      <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Date de demande</td>
-                      <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Statut</td>
-                    </tr>
-                    <% animal.demandes.forEach((demande,i) => { %>
-                      <% if (i % 2 > 0) { %>
-                        <tr className="fold text-sm font-semibold font-body hidden text-fond bg-accents2-light">                          
-                      <% } else { %>
-                        <tr className="fold text-sm font-body font-semibold hidden bg bg-fond">                          
-                      <% } %>
-                          
-                          <td colSpan={2}><%= demande.nom %></td>
-                          <td colSpan={2}><%= demande.Demande.date_debut %></td>
-                          <td colSpan={2}><Link tabIndex={0} className="hover:underline" to='/associations/profil/demandes/<%= demande.Demande.id %>'><%= demande.Demande.statut_demande %></a></td>
-                        </tr>
-                    <% }) %>
-                  </tr>
-                <% }) %>
-              </table>
-              <% } %>
+                  </thead>
+                  <tbody>
+                  {requestedAnimals}
+                  </tbody>
+                </table>
+                </>
+              )}
             </div>
           </div>
-        </div> */}
+        </div>
       </section>
     </div>
   </div>

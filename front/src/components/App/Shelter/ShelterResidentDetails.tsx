@@ -5,11 +5,8 @@ import { useRootContext } from "../../../routes/Root";
 function ShelterResidentDetails() {
   const { animalId } = useParams();
   const { animals } = useRootContext();
-  console.log(animals)
 
 	const animal = animals.find(({id}) => Number(id) === Number(animalId));
-
-  console.log(animal)
 
 	if (!animal) {
     throw new Response('', {

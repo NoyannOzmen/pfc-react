@@ -18,7 +18,7 @@ function ShelterResidentList() {
   const sheltered = animals.filter(({ association_id }) => Number(association_id) === Number(user.id));
 
   const shelteredItems = sheltered.map((animal) => (
-    <Link data-animalid={animal.id} data-nom={animal.nom} data-espece={animal.espece.id}  data-statut={animal.statut} className="animal_card animal_card--visible flex flex-col justify-between content-center relative bg-fond rounded-xl w-36 h-36 shrink-0 md:size-60" to={`/associations/profil/animaux/${animal.id}`}>
+    <Link key={animal.id} data-animalid={animal.id} data-nom={animal.nom} data-espece={animal.espece.id} data-statut={animal.statut} className="animal_card animal_card--visible flex flex-col justify-between content-center relative bg-fond rounded-xl w-36 h-36 shrink-0 md:size-60" to={`/associations/profil/animaux/${animal.id}`}>
     
     { animal.images_animal[0].url ? (
       <img className="rounded-t-xl" src={`../../src/assets`+`${animal.images_animal[0].url}`} alt={`Photo de ${animal.nom}`} />
@@ -38,7 +38,7 @@ function ShelterResidentList() {
   ))
 
   const speciesItems = species.map((espece) => (
-    <div className="flex gap-x-1.5 content-center mb-1"> 
+    <div key={espece.id} className="flex gap-x-1.5 content-center mb-1"> 
       <input type="checkbox" key={espece.id} id={`espece_${espece.id}`} name={`espece_${espece.id}`} value={`espece_${espece.id}`}  className="species-checkbox checkbox leading-3"/>
       <label htmlFor={`espece_${espece.id}`} className="font-grands font-semibold text-xs leading-3 self-center">{espece.nom}</label>
     </div>
@@ -92,7 +92,7 @@ function ShelterResidentList() {
         {/* <!-- FONCTION RECHERCHE et TRI --> */}
         <form autoComplete="off" className="my-4 px-4 flex flex-wrap gap-3 justify-center md:w-1/4 md:absolute md:top-0 md:right-5 md:my-2 md:p-0 md:pr-4 md:justify-end z-10" action="">
 
-          <div className=" flex gap-x-1.5 text-center h-5">
+          <div key={"shelteredSearch"} className=" flex gap-x-1.5 text-center h-5">
             <label className="hidden">Recherche</label>
             <input id="search-bar" className="bg-fond rounded-full block pl-2 md:w-32 lg:w-full shrink-0" type="text" placeholder="Rechercher" />
             <span id="search-dropdown-button" role="button" className="material-symbols-outlined bg-fond rounded-full">
@@ -100,16 +100,16 @@ function ShelterResidentList() {
               </span>
           </div>
           
-          <div id="search-filters" className="flex gap-4 hidden md:bg-fond p-4 rounded-lg border-accents2 md:border-4">
-            <fieldset>
+          <div key={"shelteredFilter"} id="search-filters" className="flex gap-4 hidden md:bg-fond p-4 rounded-lg border-accents2 md:border-4">
+            <fieldset key={"first"}>
               {speciesItems}
-              <div key={999} className="flex gap-x-1.5 content-center"> 
+              <div key={"all"} className="flex gap-x-1.5 content-center"> 
                 <input type="checkbox" id="espece_all" name="espece_all" value="all" defaultChecked className="leading-3"/>
                 <label htmlFor="espece_all" className=" font-grands font-semibold text-xs leading-3 self-center"> Tous</label>
               </div>   
             </fieldset>
 
-            <fieldset> 
+            <fieldset key={"second"}> 
               <div className="flex gap-x-1.5 content-center"> 
                 <input type="checkbox" id="satut_En_refuge" name="satut_En_refuge" value="En refuge"  className="mb-1 statut-checkbox checkbox leading-3"/>
                 <label htmlFor="satut_En_refuge" className=" font-grands font-semibold text-xs leading-3 self-center">En refuge</label>
