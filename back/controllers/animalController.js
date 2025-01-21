@@ -1,3 +1,4 @@
+import { Famille } from "../models/Famille.js";
 import { Animal, Association, Demande, Espece, Media, Tag } from "../models/Models.js";
 import { Op } from "sequelize";
 
@@ -26,13 +27,14 @@ export const animalController = {
         
         //* On veut récupérer tout les animaux qui sont dans les refuges, en incluant les tags et les associations qui les gèrent
         const animals = await Animal.findAll({
-            where: {
+/*             where: {
                 statut:'En refuge'
-            },
+            }, */
             include : [
                 "espece",
                 "images_animal",
                 { model : Association, as : "refuge", include: ["images_association", "identifiant_association"]},
+                { model : Famille, as : "accueillant", include: ["identifiant_famille"]},
                 { model : Tag, as : "tags" }
             ]
         })

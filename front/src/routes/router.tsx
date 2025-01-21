@@ -45,8 +45,6 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
     children: [
       {
         index: true,
-        // pour l'instant je mets « rien » en props pour éviter les erreuts TS
-        // je n'aurai plus rien à afficher comme j'envoie un tableau vide… Mais c'est une bonne nouvelle !
         element: <HomePage />,
       },
       {
@@ -155,6 +153,10 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
         element: <Upload ? />,
       }, */
       {
+        path: '/associations/profil/animaux/:animalId',
+        element: <ShelterResidentDetails />,
+      },
+      {
         path: '/associations/profil/animaux',
         element: <ShelterResidentList />,
       },
@@ -167,17 +169,14 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
         element: <ShelterResidentAddProfile />,
       },
       {
-        path: '/associations/profil/animaux/:animalId(\\d)',
-        element: <ShelterResidentDetails />,
+        path: '/associations/profil/demandes/:demandeId',
+        element: <ShelterRequestDetails />,
       },
       {
         path: '/associations/profil/demandes',
         element: <ShelterRequestList />,
       },
-      {
-        path: '/associations/profil/demandes/:id(\\d+)',
-        element: <ShelterRequestDetails />,
-      },
+,
 /*       {
         path: '//associations/profil/demandes/:id(\\d+)/accept',
         element: <?? />,

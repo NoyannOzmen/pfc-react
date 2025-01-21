@@ -1,7 +1,31 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useRootContext } from "../../../routes/Root";
 
 function ShelterResidentDetails() {
+  const { animalId } = useParams();
+  const { animals } = useRootContext();
+
+	const animal = animals.find(({id}) => Number(id) === Number(animalId));
+
+	if (!animal) {
+    throw new Response('', {
+      status: 404,
+      statusText: 'Not Found',
+    });
+  }
+
+  const tagItems = animal.tags.map((tag) => (
+    <p key={tag.id} className="group rounded-full block bg-accents1 text-fond text-center text-xs font-semibold py-1 px-2">
+      {tag.nom}
+        <span className="group-hover:block hidden z-10 bg-accents2-dark text-fond absolute px-2 py-2 text-xs rounded-b-xl rounded-tr-xl">
+          {tag.description}
+        </span>
+    </p>
+  ))
+
+  const animalUrl = animal.images_animal[0].url;
+
   useEffect(() => {
     const script = document.createElement('script');
   
@@ -47,19 +71,18 @@ function ShelterResidentDetails() {
         {/* <!-- ANIMAL INFO --> */}
         <div className="w-60 md:w-auto">
           <h3 className="hidden md:inline font-grands text-3xl text-center my-2 pt-5 w-full">Fiche de suivi d'un animal</h3>
-          {/*
           <div className="flex p-6 pb-4">
             <div className="flex flex-col gap-2">
-              <% if (animal.images_animal.length > 0) { %>
-                <img className="w-28 rounded-lg" src="<%= animal.images_animal[0].url %>" alt="Photo de <%= animal.nom %>">
-               <% } else { %>
-                 <img className="w-28 rounded-lg" src="/images/animal_empty.webp" alt="Photo à venir">
-                <% } %>
+              { animalUrl ? (
+                <img className="w-28 rounded-lg" src={`../../src/assets`+`${animalUrl}`} alt={`Photo de ${animal.nom}`} />
+              ) : (
+                 <img className="w-28 rounded-lg" src="../../src/assets/images/animal_empty.webp" alt="Photo à venir" />
+              )}
             </div>
                 
             <div className="pl-4">
               <p className="text-base italic leading-3">Nom</p>
-              <p className="text-base font-semibold"><%= animal.nom %></p>
+              <p className="text-base font-semibold">{animal.nom}</p>
             </div>
           </div>
           
@@ -67,41 +90,32 @@ function ShelterResidentDetails() {
             
             <div>
               <p className="text-sm italic leading-3">Age</p>
-              <p className="text-base font-semibold"><%= animal.age %> ans</p>
+              <p className="text-base font-semibold">{animal.age} ans</p>
             </div>
             
             <div>
               <p className="text-sm italic leading-3">Sexe</p>
-              <p className="text-base font-semibold"><%= animal.sexe %></p>
+              <p className="text-base font-semibold">{animal.sexe}</p>
             </div>
             
             <div className="">
               <p className="text-sm italic leading-3">Espèce</p>
-              <p className="text-base font-semibold"><%= animal.espece.nom %></p>
+              <p className="text-base font-semibold">{animal.espece.nom}</p>
             </div>
             
-            <% if (animal.race) { %>
+            {animal.race && (
               <div>
                 <p className="text-sm italic leading-3">Race</p>
-                <p className="text-base font-semibold"><%= animal.race %></p>
+                <p className="text-base font-semibold">{animal.race}</p>
               </div>
-            <% } %>
+            )}
           </div>
             
-          <% if (animal.tags) { %>
+          {animal.tags && (
             <div className="flex flex-wrap mt-4 px-6 gap-1">
-              <% animal.tags.forEach(tag => { %>
-                
-                <p className="group rounded-full block bg-accents1 text-fond text-center text-xs font-semibold py-1 px-2">
-                  <%= tag.nom %>
-                  <span className="group-hover:block hidden z-10 bg-accents2-dark text-fond absolute px-2 py-2 text-xs rounded-b-xl rounded-tr-xl">
-                    <%= tag.description  %>
-                  </span>
-                </p>
-                
-                <% }) %>
+              {tagItems}
             </div>
-          <% } %> */}
+          )}
           
           <div className="font-body mx-auto w-[80%] bg-zoning rounded-lg shadow dark:bg-gray-800 my-4">
             <form method="POST" action="/upload/photo" encType="multipart/form-data">
@@ -117,42 +131,42 @@ function ShelterResidentDetails() {
         </div>
         {/*      
         <!-- ACCUEILLANT INFOS-->
-        <% if (animal.accueillant) { %> 
+        {animal.accueillant && ( 
           <div className="w-60 md:w-auto">
             <h3 className="font-body font-bold mb-4">Famille d'accueil</h3>
             
             <div className="px-6 mb-3 md:grid-cols-2 md:grid md:max-w-96">
               <div className="mb-2 mt-2">
                 <p className="text-sm italic leading-3">Nom</p>
-                <p className="text-sm font-semibold"><%= animal.accueillant.nom %></p>
+                <p className="text-sm font-semibold">{animal.accueillant.nom}</p>
               </div>
               <div className="mb-2">
                 <p className="text-sm italic leading-3">Téléphone</p>
-                <p className="text-sm font-semibold"><%= animal.accueillant.telephone %></p>
+                <p className="text-sm font-semibold">{animal.accueillant.telephone}</p>
               </div>
               <div className="mb-2">
                 <p className="text-sm italic leading-3">e-mail</p>
-                <p className="text-sm font-semibold"><%= animal.accueillant.identifiant_famille.email %></p>
+                <p className="text-sm font-semibold">{animal.accueillant.identifiant_famille.email}</p>
               </div>
               <div className="mb-2">
                 <p className="text-sm italic leading-4">Adresse</p>
-                <p className="text-sm font-semibold leading-3"><%= animal.accueillant.rue %></p>
-                <p className="text-sm font-semibold "><%= animal.accueillant.code_postal %> <%= animal.accueillant.commune  %></p>
+                <p className="text-sm font-semibold leading-3">{animal.accueillant.rue}</p>
+                <p className="text-sm font-semibold ">{animal.accueillant.code_postal} {animal.accueillant.commune}</p>
               </div>
               <div className="mb-2">
                 <p className="text-sm italic leading-3">Pays</p>
-                <p className="text-sm font-semibold"><%= animal.accueillant.pays %></p>
+                <p className="text-sm font-semibold">{animal.accueillant.pays}</p>
               </div>
               <div>
                 <p className="text-sm italic leading-3">Hébergement</p>
-                <p className="text-sm font-semibold"><%= animal.accueillant.hebergement %></p>
+                <p className="text-sm font-semibold">{animal.accueillant.hebergement}</p>
               </div>
             </div>
           </div>
-        <% } %>
+        )}
                 
         <!-- HISTORIQUE DES DEMANDES --> 
-        <% if (animal.demandes.length) { %>  
+        <% if (animal.demandes.length) {}  
             <div className="px-4 ">
               <h3 className="font-body font-bold mb-4">Historique des demandes d'accueil</h3>
               
@@ -163,17 +177,17 @@ function ShelterResidentDetails() {
                   <th className="px-2 pt-2  border-accents2-light border-solid border-1 text-center">Statut</th>
                 </thead>
                 <tbody className="rounded-lg border-separate ">
-                  <% animal.demandes.forEach(demande => { %>
+                  <% animal.demandes.forEach(demande => {}
                     <tr className="odd:bg-accents2-light even:bg-fond odd:text-fond text-sm font-body font-semibold p-4 rounded-lg ">
-                      <td className="text-center p-2 rounded-lg "><%= demande.nom %></td>
-                      <td className="text-center p-2 rounded-lg "><%= demande.Demande.date_debut %></td>
-                      <td className="text-center p-2 rounded-lg hover:underline"><a to='/associations/profil/demandes/<%= demande.Demande.id %>'><%= demande.Demande.statut_demande %></a></td>
+                      <td className="text-center p-2 rounded-lg ">{demande.nom}</td>
+                      <td className="text-center p-2 rounded-lg ">{demande.Demande.date_debut}</td>
+                      <td className="text-center p-2 rounded-lg hover:underline"><a to='/associations/profil/demandes/{demande.Demande.id}'>{demande.Demande.statut_demande}</a></td>
                     </tr>
-                  <% }) %>
+                  <% })}
                 </tbody>
               </table>
             </div>    
-        <% } %> */}
+        <% }} */}
       </section>             
     </div>
   </div>
