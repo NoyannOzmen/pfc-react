@@ -112,29 +112,35 @@ export const sessionController = {
             mot_de_passe, 
             confirmation 
         } = req.body;
-        
+
         const found = await Utilisateur.findOne( { where: {email: email} });
-        
-        console.log(found);
 
         if (!emailValidator.validate(email)) {
-            req.flash('erreur', "Cet email n'est pas valide.");
-            return res.redirect('/famille/inscription');
+            const status = 401;
+            const message = `Cet email n'est pas valide.`;
+
+            return res.status(status).json({ status, message });
+            /* req.flash('erreur', "Cet email n'est pas valide.");
+            return res.redirect('/famille/inscription'); */
         }
         // verifier si password correspond à password confirm
         if (mot_de_passe !== confirmation) {
-            req.flash('erreur', 'La confirmation du mot de passe ne correspond pas au mot de passe renseigné.');
-            return res.redirect('/famille/inscription');
+            const status = 401;
+            const message = 'La confirmation du mot de passe ne correspond pas au mot de passe renseigné.';
+
+            return res.status(status).json({ status, message });
+            /* req.flash('erreur', 'La confirmation du mot de passe ne correspond pas au mot de passe renseigné.');
+            return res.redirect('/famille/inscription'); */
         }
         
         if(found === null) {
 
-            const encryptedPassword = await bcrypt.hash(mot_de_passe, 8);
-            console.log('HASH', encryptedPassword);
+            const hashedPassword = await bcrypt.hash(mot_de_passe, 8);
+            console.log('HASH', hashedPassword);
             
             const newUser = await Utilisateur.create({
                 email: email,
-                mot_de_passe : encryptedPassword,
+                mot_de_passe : hashedPassword,
             })
             console.log(newUser);
             await newUser.save();
@@ -153,9 +159,17 @@ export const sessionController = {
             });
             console.log(newFoster);
             await newFoster.save();
-            res.redirect("/")
+            /* res.redirect("/") */
+            const status = 200
+            const message = 'Inscription Correcte';
+
+            return res.status(status).json({ status, message });
         } else {
             console.log(found);
+            const status = 401;
+            const message = 'Inscription incorrecte';
+
+            return res.status(status).json({ status, message });
             req.flash('erreur', 'Inscription incorrecte');
             return res.redirect('/famille/inscription');
         }
@@ -298,12 +312,12 @@ export const sessionController = {
                 return res.redirect('/association/inscription');
             }
             
-            const encryptedPassword = await bcrypt.hash(mot_de_passe, 8);
-            console.log('HASH', encryptedPassword);
+            const hashedPassword = await bcrypt.hash(mot_de_passe, 8);
+            console.log('HASH', hashedPassword);
             
             const newUser = await Utilisateur.create({
                 email: email,
-                mot_de_passe : encryptedPassword,
+                mot_de_passe : hashedPassword,
             })
             console.log(newUser);
             await newUser.save();

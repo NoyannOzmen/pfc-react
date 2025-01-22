@@ -1,6 +1,27 @@
-import { useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+/* import { useUserContext } from "../../../contexts/UserContext"; */
 
 function FosterSignIn() {
+  const isInitialMount = useRef(true);
+
+  /* const { setUser } = useUserContext(); */
+
+  const [fosterInfos, setFosterInfos ] = useState({
+    prenom : '',
+    nom: '',
+    email: '',
+    mot_de_passe: '',
+    confirmation: '',
+    hebergement: '',
+    terrain : '',
+    rue: '',
+    commune : '',
+    code_postal : '',
+    pays: '',
+    telephone: ''
+  })
+
+
   useEffect(() => {
     const script = document.createElement('script');
   
@@ -14,13 +35,85 @@ function FosterSignIn() {
     }
   }, []);
 
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const response = await fetch
+          (`${import.meta.env.VITE_API_URL}/famille/inscription`,
+          {
+            method: 'POST',
+            headers: { "Content-type" : "application/json" },
+            body: JSON.stringify(fosterInfos),
+          }
+        );
+
+        if (!response.ok) {
+          switch (response.status) {
+            case 401: {
+              const { message } = await response.json();
+              throw new Error(message);
+            }
+
+            case 404:
+              throw new Error("La page demandée n'existe pas.");
+
+            case 500:
+              throw new Error(
+                'Une erreur est survenue, merci de ré-essayer ultérieurement.'
+              );
+
+            default:
+              throw new Error(`HTTP ${response.status}`);
+          }
+        }
+
+        const data = await response.json();
+        console.log(data)
+
+        /* setUser(data); */
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      fetchUser();
+    }
+  }, [ fosterInfos, /* setUser */ ]);
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const { prenom, nom, email, mot_de_passe, confirmation, hebergement, terrain, rue, commune, code_postal, pays, telephone } = Object.fromEntries(formData);
+
+    setFosterInfos({
+      prenom: prenom as string,
+      nom: nom as string,
+      email: email as string,
+      mot_de_passe: mot_de_passe as string,
+      confirmation: confirmation as string,
+      hebergement: hebergement as string,
+      terrain: terrain as string,
+      rue: rue as string,
+      commune: commune as string,
+      code_postal: code_postal as string,
+      pays: pays as string,
+      telephone: telephone as string
+    });
+
+    console.log(fosterInfos)
+  }
+
   return (
     <main className="justify-self-stretch flex-1">
   <h2 className="font-grands text-3xl text-center my-2 pt-5">Création de votre compte</h2>
   
   <div className="font-body mx-auto w-[80%] bg-zoning rounded-lg shadow dark:bg-gray-800 my-4 py-6">
 
-    <form className="flex flex-col flex-wrap content-center justify-around text-texte" action="/famille/inscription" method="POST">
+    <form className="flex flex-col flex-wrap content-center justify-around text-texte" onSubmit={handleSubmit}>
       
 {/*       <% if(locals.message.length != 0){ %>
         <div>
@@ -31,8 +124,8 @@ function FosterSignIn() {
       <fieldset className="font-body rounded-lg shadow dark:bg-gray-800 my-2 py-5">
         <legend className="font-bold text-lg font-grands text-center">Vos informations</legend>
         <div className="mx-auto p-2">        
-          <label className="text-center w-full" htmlFor="firstname">Prénom</label>
-          <input className="block bg-fond w-full" type="text" id="text" name="firstname" placeholder="Charlotte" required />
+          <label className="text-center w-full" htmlFor="prenom">Prénom</label>
+          <input className="block bg-fond w-full" type="text" id="prenom" name="prenom" placeholder="Charlotte" required />
         </div>
         <div className="mx-auto p-2">
           <label className="text-center w-full" htmlFor="nom">Nom</label>
@@ -45,7 +138,7 @@ function FosterSignIn() {
         <div className="mx-auto p-2">
           {/* <!-- telephone --> */}
           <label className="text-center w-full" htmlFor="telephone">N° telephone</label>
-          <input className="block bg-fond w-full" type="tel" id="telephone" name="telephone" pattern="^(0|\+33 )[1-9]([-. ]?[0-9]{2} ){3}([-. ]?[0-9]{2})|([0-9]{8})$" placeholder="01 23 45 67 89" />
+          <input className="block bg-fond w-full" type="tel" id="telephone" name="telephone" /* pattern="^(0|\+33 )[1-9]([-. ]?[0-9]{2} ){3}([-. ]?[0-9]{2})|([0-9]{8})$" */ placeholder="01 23 45 67 89" />
         </div>
       </fieldset>
       

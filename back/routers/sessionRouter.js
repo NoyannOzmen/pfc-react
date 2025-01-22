@@ -15,7 +15,7 @@ sessionRouter.get('/deconnexion', catchErrors(sessionController.logOut));
 
 //* FAMILLE
 /* Inscription famille d'accueil */
-sessionRouter.get('/famille/inscription', catchErrors(sessionController.displayFosterSignIn));
+/* sessionRouter.get('/famille/inscription', catchErrors(sessionController.displayFosterSignIn)); */
 sessionRouter.post('/famille/inscription', catchErrors(sessionController.fosterSignIn));
 /* Profil Famille */
 sessionRouter.get('/famille/profil', auth, isRole.famille, catchErrors(sessionController.displayProfile));
@@ -29,7 +29,7 @@ sessionRouter.get('/famille/profil/demandes', catchErrors(sessionController.disp
 
 //* ASSOCIATION
 /* Inscription association */
-sessionRouter.get('/association/inscription', catchErrors(sessionController.displayShelterSignIn));
+/* sessionRouter.get('/association/inscription', catchErrors(sessionController.displayShelterSignIn)); */
 sessionRouter.post('/association/inscription', catchErrors(sessionController.shelterSignIn));
 
 sessionRouter.post('/association/profil/delete', auth, isRole.association, catchErrors(sessionController.shelterDestroy));
