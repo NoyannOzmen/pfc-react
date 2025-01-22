@@ -20,28 +20,27 @@ function ShelterRequestList() {
   const requestedAnimals = requested.map((animal) => (
     <>
     <tr key={`${animal.id} header`} tabIndex={0} className="view text-fond text-sm bg-accents2 font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hover:bg-accents2-dark">
-      <td colSpan={3} scope="colgroup" className="px-2 pt-2 border-accents2-dark border-solid border-1">{animal.nom}</td>
+      <td colSpan={4} scope="colgroup" className="px-2 pt-2 border-accents2-dark border-solid border-1">{animal.nom}</td>
       {/* TO DO : Add Count for # of Requests */}
       {/* TO DO : Add JS for unfurling row */}
-      <td colSpan={3} scope="colgroup" className="px-2 pt-2 border-accents2-dark border-solid border-1">Nombre</td>
+      <td colSpan={2} scope="colgroup" className="px-2 pt-2 border-accents2-dark border-solid border-1">Nombre</td>
     </tr>
-    <tr key={`${animal.id} body`} className="fold mb-3 bg-fond rounded-b-lg hidden">
-      <tr key={`${animal.id} body title`}className="fold text-fond text-sm bg-accents2-light font-grands font-semibold p-3 border-accents2-dark border-solid border-1
-      ">
+    {/* <tr key={`${animal.id} body`} className="fold mb-3 bg-fond rounded-b-lg "> */}
+      <tr key={`${animal.id} body title`} className="fold text-fond text-sm bg-accents2-light font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hidden">
         <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Famille</td>
         <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Date de demande</td>
         <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Statut</td>
       </tr>
       { animal.demandes.map((demande : any, index : any) => (
-      <tr key={`${animal.id} request n° ${demande.id}`} className={"fold text-sm font-body font-semibold hidden" + (index % 2 > 0 ? 'text-fond bg-accents2-light' : 'bg bg-fond')}>
-        <Link tabIndex={0} className="hover:underline" to={`/associations/profil/demandes/${demande.Demande.id}`}>
+      <tr key={`${animal.id} request n° ${demande.id}`} className={"fold text-sm font-body font-semibold hidden " + (index % 2 > 0 ? 'text-fond bg-accents2-light' : 'bg bg-fond')}>
+        
           <td colSpan={2}>{demande.nom}</td>
           <td colSpan={2}>{demande.Demande.date_debut}</td>
-          <td colSpan={2}>{demande.Demande.statut_demande}</td>
-        </Link>
+          <td colSpan={2}><Link tabIndex={0} className="hover:underline" to={`/associations/profil/demandes/${demande.Demande.id}`} >{demande.Demande.statut_demande}</Link></td>
+        
       </tr>
       ))}
-    </tr>
+    {/* </tr> */}
     </>
   ));
 
@@ -90,15 +89,15 @@ function ShelterRequestList() {
                 <h4 className="w-full text-center font-grands text-2xl my-4">Demandes en cours</h4>
 
                 <table className="table text-center w-full md:w-5/6">
-                  <thead>
+
                   <tr className="border-none bg-zoning text-sm font-grands">
-                    <td colSpan={3} scope="colgroup">Nom Animal</td>
-                    <td colSpan={3} scope="colgroup">Nombre de demandes</td>
+                    <td colSpan={4} scope="colgroup">Nom Animal</td>
+                    <td colSpan={2} scope="colgroup">Nombre de demandes</td>
                   </tr>
-                  </thead>
-                  <tbody>
+
+
                   {requestedAnimals}
-                  </tbody>
+
                 </table>
                 </>
               )}

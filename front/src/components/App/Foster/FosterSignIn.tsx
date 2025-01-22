@@ -5,7 +5,7 @@ function FosterSignIn() {
     const script = document.createElement('script');
   
     script.src="../../../src/assets/utils/apiGouv.js";
-    script.async = true;
+    script.defer = true;
   
     document.body.appendChild(script);
   

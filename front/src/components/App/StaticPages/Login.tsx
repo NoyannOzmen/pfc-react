@@ -94,7 +94,7 @@ function Login() {
             </div>
             <div className="mx-auto p-2 w-[60%]">
               <label className="text-center" htmlFor="mot_de_passe">Votre mot de passe</label>
-              <input className="block bg-fond w-full" type="mot_de_passe" placeholder="********" name="mot_de_passe" id="mot_de_passe" autoComplete="current-mot_de_passe" required/>
+              <input className="block bg-fond w-full" type="password" placeholder="********" name="mot_de_passe" id="mot_de_passe" autoComplete="current-mot_de_passe" required/>
             </div>
             <button className="w-[60%] mx-auto my-3 py-2 px-4 bg-accents1-light text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="submit">Se connecter</button>
           </form>
