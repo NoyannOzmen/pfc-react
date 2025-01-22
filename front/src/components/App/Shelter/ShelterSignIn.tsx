@@ -1,6 +1,24 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 
 function ShelterSignIn() {
+  const isInitialMount = useRef(true);
+
+  const [shelterInfos, setShelterInfos ] = useState({
+    nom: '',
+    responsable: '',
+    email: '',
+    mot_de_passe: '',
+    confirmation: '',
+    rue: '',
+    commune : '',
+    code_postal : '',
+    pays: '',
+    telephone: '',
+    siret: '',
+    site: '',
+    description: '',
+  })
+
   useEffect(() => {
     const script = document.createElement('script');
   
@@ -14,13 +32,86 @@ function ShelterSignIn() {
     }
   }, []);
 
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const response = await fetch
+          (`${import.meta.env.VITE_API_URL}/association/inscription`,
+          {
+            method: 'POST',
+            headers: { "Content-type" : "application/json" },
+            body: JSON.stringify(shelterInfos),
+          }
+        );
+
+        if (!response.ok) {
+          switch (response.status) {
+            case 401: {
+              const { message } = await response.json();
+              throw new Error(message);
+            }
+
+            case 404:
+              throw new Error("La page demandée n'existe pas.");
+
+            case 500:
+              throw new Error(
+                'Une erreur est survenue, merci de ré-essayer ultérieurement.'
+              );
+
+            default:
+              throw new Error(`HTTP ${response.status}`);
+          }
+        }
+
+        const data = await response.json();
+        console.log(data)
+
+        /* setUser(data); */
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      fetchUser();
+    }
+  }, [ shelterInfos ]);
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const { nom, responsable, email, mot_de_passe, confirmation, rue, commune, code_postal, pays, telephone, siret, site, description } = Object.fromEntries(formData);
+
+    setShelterInfos({
+      nom: nom as string,
+      responsable: responsable as string,
+      email: email as string,
+      mot_de_passe: mot_de_passe as string,
+      confirmation: confirmation as string,
+      rue: rue as string,
+      commune: commune as string,
+      code_postal: code_postal as string,
+      pays: pays as string,
+      telephone: telephone as string,
+      siret: siret as string,
+      site: site as string,
+      description: description as string
+    });
+
+    console.log(shelterInfos)
+  }
+
   return (
     <main className="justify-self-stretch flex-1">
   <h2 className="font-grands text-3xl text-center my-2 pt-5">Création de votre compte</h2>
   
   <div className="font-body mx-auto w-[80%] bg-zoning rounded-lg shadow dark:bg-gray-800 my-4">
     
-    <form className="flex flex-col flex-wrap content-center justify-around text-texte" action="/association/inscription" method="POST">
+    <form className="flex flex-col flex-wrap content-center justify-around text-texte" onSubmit={handleSubmit}>
       
       <fieldset className="font-body rounded-lg shadow dark:bg-gray-800 my-2 py-5">
         <legend className="font-bold text-lg font-grands text-center">Votre organisme</legend>
@@ -75,18 +166,20 @@ function ShelterSignIn() {
           <input className="block bg-fond w-full" type="text" id="pays" name="pays" placeholder="France" required />
         </div>
 
+        {/* <!-- telephone --> */}
         <div className="mx-auto p-2"> 
-          {/* <!-- telephone --> */}
           <label className="text-center w-full" htmlFor="telephone">N° telephone</label>
-          <input className="block bg-fond w-full" type="tel" id="telephone" name="telephone" pattern="^(0|\+33 )[1-9]([-. ]?[0-9]{2} ){3}([-. ]?[0-9]{2})|([0-9]{8})$" placeholder="01 23 45 67 89" />
+          <input className="block bg-fond w-full" type="tel" id="telephone" name="telephone" /* pattern="^(0|\+33 )[1-9]([-. ]?[0-9]{2} ){3}([-. ]?[0-9]{2})|([0-9]{8})$" */ placeholder="01 23 45 67 89" />
         </div>
+
+        {/* <!-- N° SIRET --> */}
         <div className="mx-auto p-2">
-          {/* <!-- N° SIRET --> */}
           <label className="text-center w-full" htmlFor="siret">N° SIRET</label>
           <input className="block bg-fond w-full" type="text" id="siret" name="siret" pattern="^(\d{14}|((\d{3}[ ]\d{3}[ ]\d{3})|\d{9})[ ]\d{5})$" placeholder="732829320 00074" required />
         </div>
+
+        {/* <!-- Email --> */}
         <div className="mx-auto p-2">
-          {/* <!-- Email --> */}
           <label className="text-center w-full" htmlFor="email">Email</label>
           <input className="block bg-fond w-full" type="email" id="email" name="email" placeholder="chacripan@domain-expansion.io" autoComplete="email" required />
         </div>

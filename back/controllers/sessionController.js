@@ -303,13 +303,21 @@ export const sessionController = {
         
         if(found === null) {
             if (!emailValidator.validate(email)) {
-                req.flash('erreur', "Cet email n'est pas valide.");
-                return res.redirect('/association/inscription');
+                const status = 401;
+                const message = `Cet email n'est pas valide.`;
+    
+                return res.status(status).json({ status, message });
+                /* req.flash('erreur', "Cet email n'est pas valide.");
+                return res.redirect('/association/inscription'); */
             }
             // verifier si password correspond à password confirm
             if (mot_de_passe !== confirmation) {
-                req.flash('erreur', 'La confirmation du mot de passe ne correspond pas au mot de passe renseigné.');
-                return res.redirect('/association/inscription');
+                const status = 401;
+                const message = 'La confirmation du mot de passe ne correspond pas au mot de passe renseigné.';
+    
+                return res.status(status).json({ status, message });
+                /* req.flash('erreur', 'La confirmation du mot de passe ne correspond pas au mot de passe renseigné.');
+                return res.redirect('/association/inscription'); */
             }
             
             const hashedPassword = await bcrypt.hash(mot_de_passe, 8);
@@ -337,11 +345,19 @@ export const sessionController = {
             });
             console.log(newShelter);
             await newShelter.save();
-            res.redirect("/")
+            /* res.redirect("/") */
+            const status = 200
+            const message = 'Inscription Correcte';
+
+            return res.status(status).json({ status, message });
         } else {
             console.log(found)
-            req.flash('erreur', 'Inscription incorrecte');
-            return res.redirect('/association/inscription');
+            const status = 401;
+            const message = 'Inscription incorrecte';
+
+            return res.status(status).json({ status, message });
+            /* req.flash('erreur', 'Inscription incorrecte');
+            return res.redirect('/association/inscription'); */
         }
     },
 

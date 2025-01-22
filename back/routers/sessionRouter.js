@@ -30,7 +30,7 @@ sessionRouter.get('/famille/profil/demandes', catchErrors(sessionController.disp
 //* ASSOCIATION
 /* Inscription association */
 /* sessionRouter.get('/association/inscription', catchErrors(sessionController.displayShelterSignIn)); */
-sessionRouter.post('/association/inscription', catchErrors(sessionController.shelterSignIn));
+sessionRouter.post('/association/inscription', sessionController.shelterSignIn);
 
 sessionRouter.post('/association/profil/delete', auth, isRole.association, catchErrors(sessionController.shelterDestroy));
 
