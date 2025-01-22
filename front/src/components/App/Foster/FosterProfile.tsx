@@ -6,6 +6,7 @@ function FosterProfile() {
   const isInitialMount = useRef(true);
 
   const { user, setUser } = useUserContext();
+  console.log(user);
 
   if (!user) {
     throw new Response('', {
@@ -76,6 +77,7 @@ function FosterProfile() {
         const data = await response.json();
 
         setUser(data);
+        console.log(user)
       } catch (error) {
         console.error(error);
       }
@@ -86,7 +88,7 @@ function FosterProfile() {
     } else {
       fetchUser();
     }
-  }, [ updatedInfos, setUser ]);
+  }, [ updatedInfos, user, setUser ]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -94,7 +96,7 @@ function FosterProfile() {
     const formData = new FormData(event.currentTarget);
     const { prenom, nom, email, hebergement, terrain, rue, commune, code_postal } = Object.fromEntries(formData);
 
-    const userId = user?.id;
+    const userId = user?.accueillant.id;
 
     setUpdatedInfos({
       id: userId as string,

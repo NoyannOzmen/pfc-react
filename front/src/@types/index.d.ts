@@ -1,3 +1,5 @@
+import { Utilisateur } from "./Utilisateur";
+
 export interface IMedia {
   id: string;
   url: string;
@@ -21,14 +23,16 @@ export interface IUtilisateur {
 
 export interface IFamille {
   id: string;
-  prenom: string;
+  prenom: string | null;
   nom: string;
   telephone: string;
   rue: string;
   commune: string;
   code_postal: string;
   pays: string;
-  hebergement: string
+  hebergement: string;
+  terrain: string | null;
+  identifiant_famill : Utilisateur;
 }
 
 export interface IEspece {
@@ -46,6 +50,8 @@ export interface IAssociation {
   pays: string;
   siret: string;
   telephone: string;
+  site: string | null;
+  description: string | null;
   images_association: Media;
   identifiant_association: Utilisateur
 }
@@ -85,7 +91,7 @@ export interface RootContext {
 export interface LoggedUser {
   id: string;
   email: string;
-  role: string;
+  /* role: string; */
   accueillant: Famille | null;
   refuge : Association | null;
   /* accessToken: string; */

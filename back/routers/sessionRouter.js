@@ -7,7 +7,7 @@ import { isRole } from "../middlewares/isRole.js";
 const sessionRouter = Router();
 
 /* routes connexion */
-sessionRouter.get('/connexion', catchErrors(sessionController.displayLogin));
+/* sessionRouter.get('/connexion', catchErrors(sessionController.displayLogin)); */
 sessionRouter.post('/connexion', catchErrors(sessionController.logIn));
 
 /* route déconnexion */
@@ -18,9 +18,10 @@ sessionRouter.get('/deconnexion', catchErrors(sessionController.logOut));
 /* sessionRouter.get('/famille/inscription', catchErrors(sessionController.displayFosterSignIn)); */
 sessionRouter.post('/famille/inscription', catchErrors(sessionController.fosterSignIn));
 /* Profil Famille */
-sessionRouter.get('/famille/profil', auth, isRole.famille, catchErrors(sessionController.displayProfile));
+/* sessionRouter.get('/famille/profil', auth, isRole.famille, catchErrors(sessionController.displayProfile)); */
 /* Update des informations */
-sessionRouter.post('/famille/profil', auth, isRole.famille, catchErrors(sessionController.fosterUpdate));
+/* sessionRouter.post('/famille/profil', auth, isRole.famille, catchErrors(sessionController.fosterUpdate)); */
+sessionRouter.post('/famille/profil', sessionController.fosterUpdate);
 /* Suppression du compte */
 sessionRouter.post('/famille/profil/delete', auth, isRole.famille, catchErrors(sessionController.fosterDestroy));
 /* Suivi des demandes */

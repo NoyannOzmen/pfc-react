@@ -53,15 +53,18 @@ export const sessionController = {
             //*     - role : Pour vérifier le rôle du user et personnaliser l'affichage dans les vues accès restreint
             //*     - nom : pour afficher sur toutes les vues le nom du user
             //*     - id : Pour faciliter les futurs appels BDD pour afficher les infos des profils etc...
+            console.log(user)
             let refugeId=null;
             let familleId=null;
 
             if (user.refuge) {
-                refugeId = user.refuge.id;
+                /* refugeId = user.refuge.id; */
+                refugeId = user.id;
                 
             }
             if (user.accueillant) {
-                familleId = user.accueillant.id;
+                /* familleId = user.accueillant.id; */
+                familleId = user.id;
             }
             
             if (refugeId != null) {
@@ -193,8 +196,7 @@ export const sessionController = {
 
     async fosterUpdate(req,res, next) {
         /* const familleId = req.session.userId; */
-        const familleId = req.body.id;
-        console.log(familleId)
+        const familleId = Number(req.body.id);
         const famille = await Famille.findByPk(familleId);
         
         if (!famille) {

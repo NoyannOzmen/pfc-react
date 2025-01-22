@@ -54,18 +54,18 @@ function FosterRequest() {
       <td colSpan={3} scope="colgroup" className="px-2 pt-2  border-accents2-dark border-solid border-1">{animal.nom}</td>
       <td colSpan={3} scope="colgroup" className="px-2 pt-2  border-accents2-dark border-solid border-1">Demande</td>
     </tr>
-    <tr key={animal.demandes.id} className="fold mb-3 bg-fond rounded-b-lg ">
-      <tr className="fold text-fond text-sm bg-accents2-light font-grands font-semibold p-3 border-accents2-dark border-solid border-1 ">
+    {/* <tr key={animal.demandes.id} className="fold mb-3 bg-fond rounded-b-lg "> */}
+      <tr key={`${animal.demandes.id} header`} className="fold text-fond text-sm bg-accents2-light font-grands font-semibold p-3 border-accents2-dark border-solid border-1 ">
         <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Refuge</td>
         <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Date de demande</td>
         <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Statut</td>
       </tr>
-      <tr key={animal.demandes.id} className="fold text-sm font-body font-semibold bg bg-fond">                          
+      <tr key={`${animal.demandes.id} body`} className="fold text-sm font-body font-semibold bg bg-fond">                          
         <td colSpan={2}>{animal.refuge.nom}</td>
         <td colSpan={2}>{animal.demandes[0].Demande.date_debut}</td>
         <td colSpan={2}>{animal.demandes[0].Demande.statut_demande}</td>
       </tr>
-    </tr>
+    {/* </tr> */}
     {/* {requestItems} */}
     </>
   ))
@@ -98,14 +98,14 @@ function FosterRequest() {
                 <h4 className="w-full text-center font-grands text-2xl my-4">Demandes en cours</h4>
 
                   <table className="table text-center w-full">
-                    <tbody>
+
                       <tr className="border-none bg-zoning text-sm font-grands">
                         <td colSpan={3} scope="colgroup">Nom Animal</td>
                         <td colSpan={3} scope="colgroup">Demande</td>
                       </tr>
 
                      {animalItems}
-                    </tbody>
+
                   </table>
                   </>
               ) : (
