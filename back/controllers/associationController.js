@@ -93,7 +93,6 @@ const associationController = {
     async update(req,res) {
         /* const associationId = req.session.userId; */
         const associationId = Number(req.body.id)
-        console.log("id is" + associationId)
         const association = await Association.findByPk(associationId);
         
         if (!association) {

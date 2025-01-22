@@ -53,7 +53,6 @@ export const sessionController = {
             //*     - role : Pour vérifier le rôle du user et personnaliser l'affichage dans les vues accès restreint
             //*     - nom : pour afficher sur toutes les vues le nom du user
             //*     - id : Pour faciliter les futurs appels BDD pour afficher les infos des profils etc...
-            console.log(user)
             let refugeId=null;
             let familleId=null;
 
@@ -251,7 +250,7 @@ export const sessionController = {
 
     async displayRequest(req, res, next) {
         /* const familleId = req.session.userId; */
-        const familleId = 2
+        const familleId = 1
         //! FIND THE SOURCE : FIX REQ.SESSION !//
 
         const famille = await Famille.findByPk(familleId, {

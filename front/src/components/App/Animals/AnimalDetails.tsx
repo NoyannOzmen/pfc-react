@@ -1,11 +1,13 @@
 import { Link, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRootContext } from '../../../routes/Root';
 import { useUserContext } from '../../../contexts/UserContext';
 import CarouselOfThree from '../Animals/CarouselOfThree';
 import CarouselOfOne from '../Animals/CarouselOfOne';
 
 function AnimalDetails() {
+	const isInitialMount = useRef(true);
+
 	const { animalId } = useParams();
 	const { animals } = useRootContext();
 	const { user } = useUserContext();
@@ -22,7 +24,7 @@ function AnimalDetails() {
 	const animalUrl = animal.images_animal[0].url;
 	const shelterUrl = animal.refuge.images_association.url;
 
-	const tagItems = animal.tags.map((tag) => (
+	const tagItems = animal.tags.map((tag: any) => (
 		<button key={tag.id} className="group p-1 rounded-lg bg-accents1-dark text-fond text-center">
 					{tag.nom}
 					<span className="group-hover:block hidden z-10 bg-accents2-dark text-fond absolute px-2 py-2 text-xs rounded-b-xl rounded-tr-xl">
@@ -46,6 +48,71 @@ function AnimalDetails() {
       document.body.removeChild(script);
     }
   }, [window.innerWidth]);
+
+	const [ requestInfos, setRequestInfos ] = useState({
+		animalId: '',
+		familleId: '',
+	})
+
+	useEffect(() => {
+    async function sendRequest() {
+      try {
+        const response = await fetch
+          (`${import.meta.env.VITE_API_URL}/animaux/${animalId}/faire-une-demande`,
+          {
+            method: 'POST',
+            headers: { "Content-type" : "application/json" },
+            body: JSON.stringify(requestInfos),
+          }
+        );
+
+        if (!response.ok) {
+          switch (response.status) {
+            case 401: {
+              const { message } = await response.json();
+              throw new Error(message);
+            }
+
+            case 404:
+              throw new Error("La page demandée n'existe pas.");
+
+            case 500:
+              throw new Error(
+                'Une erreur est survenue, merci de ré-essayer ultérieurement.'
+              );
+
+            default:
+              throw new Error(`HTTP ${response.status}`);
+          }
+        }
+
+        const data = await response.json();
+				console.log(data)
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      sendRequest();
+    }
+  }, [ requestInfos ]);
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    /* const formData = new FormData(event.currentTarget);
+    const { prenom, nom, email, hebergement, terrain, rue, commune, code_postal } = Object.fromEntries(formData); */
+
+    const userId = user?.accueillant.id;
+
+    setRequestInfos({
+      familleId: userId as string,
+      animalId: animalId as string,
+    });
+  }
 
   return (
     <main className="flex flex-wrap flex-col md:flex-row justify-self-stretch flex-1 w-full place-content-evenly 2xl:w-1/2 2xl:self-center">
@@ -101,7 +168,7 @@ function AnimalDetails() {
 							<p className="font-grands font-base text-accents1 text-center"><%= message.succes%></p>
 						</div>
 					<% } %> */ }
-					<form action={`/animaux/${animal.id}/faire-une-demande`} method="POST">
+					<form onSubmit={handleSubmit}>
 					<button type="submit" className="mx-auto my-3 py-2 px-6 bg-accents1-light text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">Faire une demande</button>
 					</form>
 				</div>

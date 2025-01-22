@@ -47,6 +47,8 @@ function FosterRequest() {
 </tr>
   )) */
 
+  console.log(requestedAnimals)
+
   const animalItems = requestedAnimals.map((animal) => (
     <>
     <tr key={animal.id} tabIndex={0} className="view text-fond text-sm bg-accents2 font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hover:bg-accents2-dark">

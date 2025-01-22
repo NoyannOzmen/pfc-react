@@ -1,9 +1,18 @@
 import { Link, useParams } from "react-router-dom";
 import { useRootContext } from "../../../routes/Root";
+import { useUserContext } from "../../../contexts/UserContext";
 
 function ShelterRequestDetails() {
   const { demandeId } = useParams();
   const { animals } = useRootContext();
+  const { user } = useUserContext();
+
+  if (!user) {
+    throw new Response('', {
+      status: 404,
+      statusText: 'Not Found',
+    });
+  }
 
   function isCurrentRequest(animal : any, index : any ) {
     return Number(animal.demandes[index].id) === Number(demandeId);
@@ -21,6 +30,89 @@ function ShelterRequestDetails() {
       </span>
     </p>
   ))
+  
+  async function acceptRequest(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    try {
+      const response = await fetch
+        (`${import.meta.env.VITE_API_URL}/associations/profil/demandes/${demandeId}/accept`,
+        {
+          method: 'POST',
+          headers: { "Content-type" : "application/json" },
+          body: '',
+        }
+      );
+
+      if (!response.ok) {
+        switch (response.status) {
+          case 401: {
+            const { message } = await response.json();
+            throw new Error(message);
+          }
+
+          case 404:
+            throw new Error("La page demandée n'existe pas.");
+
+          case 500:
+            throw new Error(
+              'Une erreur est survenue, merci de ré-essayer ultérieurement.'
+            );
+
+          default:
+            throw new Error(`HTTP ${response.status}`);
+        }
+      }
+
+      const data = await response.json();
+      console.log(data)
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function denyRequest(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    try {
+      const response = await fetch
+        (`${import.meta.env.VITE_API_URL}/associations/profil/demandes/${demandeId}/deny`,
+        {
+          method: 'POST',
+          headers: { "Content-type" : "application/json" },
+          body: '',
+        }
+      );
+
+      if (!response.ok) {
+        switch (response.status) {
+          case 401: {
+            const { message } = await response.json();
+            throw new Error(message);
+          }
+
+          case 404:
+            throw new Error("La page demandée n'existe pas.");
+
+          case 500:
+            throw new Error(
+              'Une erreur est survenue, merci de ré-essayer ultérieurement.'
+            );
+
+          default:
+            throw new Error(`HTTP ${response.status}`);
+        }
+      }
+
+      const data = await response.json();
+      console.log(data)
+
+    } catch (error) {
+      console.error(error);
+    }
+
+  }
 
   return(
     <main className="justify-self-stretch flex-1">
@@ -148,10 +240,10 @@ function ShelterRequestDetails() {
         <div className="w-full flex flex-row flex-wrap md:flex-nowrap justify-center gap-2 items-center">
           <h4 className="font-body font-bold text-center">Statut de la demande :</h4>
           <p id="request-status" className="font-body text-center">{famille.Demande.statut_demande}</p>
-          <form className="w-[80%] md:w-[20%]" action={`/associations/profil/demandes/${demandeId}/accept`} method="POST">
+          <form className="w-[80%] md:w-[20%]" onSubmit={acceptRequest} /* action={`/associations/profil/demandes/${demandeId}/accept`} method="POST" */>
             <button type="submit" className="bg-accents1 w-full m-3 py-2 px-4 text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">Accepter</button>
           </form>
-          <form className="w-[80%] md:w-[20%]" action={`/associations/profil/demandes/*${demandeId}/deny`} method="POST">
+          <form className="w-[80%] md:w-[20%]" onSubmit={denyRequest} /* action={`/associations/profil/demandes/*${demandeId}/deny`} method="POST" */>
             <button type="submit" className="bg-accents2-dark w-full m-3 py-2 px-4 text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">Refuser</button>
           </form>
         </div>

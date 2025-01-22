@@ -57,13 +57,11 @@ export const animalController = {
         res.json(especes);
     },
 
-
     async getTagsList(req,res) {
         const tags = await Tag.findAll();
 
         res.json(tags);
     },
-
 
     async getSearched(req,res) {
 
@@ -106,7 +104,6 @@ export const animalController = {
         return res.json([animals, tags, especes])
     },
 
-    
     async detailAnimal(req,res){
         const animalId = req.params.id
 	
@@ -143,8 +140,12 @@ export const animalController = {
     },
     
     async hostRequest(req, res, next){
-        const animalId = req.params.id;
-        const familleId = req.session.userId;
+        /* const animalId = req.params.id; */
+        /* const familleId = req.session.userId; */
+        const {
+            familleId,
+            animalId
+        } = req.body
        
         //* Si l'animal n'existe pas on sort du middleware
         const animalExists = await Animal.findByPk(animalId);
@@ -170,24 +171,34 @@ export const animalController = {
                 famille_id : familleId,
                 animal_id : animalId,
                 statut_demande:'En attente',
-                date_debut:'09/17/2024',
-                date_fin:'12/31/3000'
+                date_debut:'01/22/2025',
+                date_fin:'12/31/2552'
             });
 
             console.log(newRequest);
             await newRequest.save();
 
-            req.flash('succes', 'Votre demande a bien été prise en compte !');
+            const status = 200;
+            const message = 'Votre demande a bien été prise en compte !';
+
+            return res.status(status).json({ status, message });
+
+            /* req.flash('succes', 'Votre demande a bien été prise en compte !'); */
             /* res.redirect('/animaux/' + animalId); */
         } else {
-            req.flash('erreur', 'Vous avez déjà effectué une demande pour cet animal !');
+            const status = 401;
+            const message = 'Vous avez déjà effectué une demande pour cet animal !';
+
+            return res.status(status).json({ status, message });
+            /* req.flash('erreur', 'Vous avez déjà effectué une demande pour cet animal !'); */
             /* res.redirect('/animaux/' + animalId); */
         }   
     },
 
     async addAnimal (req,res,next) {
         //!userId est en fait l'id du refuge ou de la famille
-        const assoId = req.session.userId;
+        /* const assoId = req.session.userId; */
+        const assoId = Number(req.body.association_id)
 
         //* On récupère le nombre de tag en BDD
         const tagNumber = await Tag.count();
@@ -230,8 +241,15 @@ export const animalController = {
                 description:description_animal,
                 statut:'En refuge',
                 association_id:assoId,
-                espece_id:espece_animal
+                espece_id:espece_animal,
             });
+
+        const newMedia = await Media.create(
+            {
+                animal_id : newAnimal.id,
+                url: "/images/animal_empty.webp",
+                ordre: 1
+            })
 
         if (tagIdArray) {
             for (const tagId of tagIdArray) {
@@ -240,6 +258,7 @@ export const animalController = {
             }
         }
         /* res.redirect('/associations/profil/animaux'); */
+        res.json(newAnimal)
     },
 
 /*     async displayUploader (req,res, next) {
