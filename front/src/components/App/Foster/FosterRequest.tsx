@@ -30,7 +30,6 @@ function FosterRequest() {
       }
     }
       fetchRequestedAnimals();
-      console.log(requestedAnimals)
   }, []);
 
 /*   const requestItems = .map((request) => (

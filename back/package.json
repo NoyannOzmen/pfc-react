@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "db:reset": "psql -U pfcadmin -d pfc -f ./src/database/1_create_tables.sql; psql -U pfcadmin -d pfc -f ./src/database/2_seeding_tables.sql "
+    "db:reset": "psql -U pfcadmin -d pfc -f ./database/1_create_tables.sql; psql -U pfcadmin -d pfc -f ./database/2_seeding_tables.sql "
   },
   "keywords": [],
   "author": "",

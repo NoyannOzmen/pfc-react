@@ -6,7 +6,6 @@ function FosterProfile() {
   const isInitialMount = useRef(true);
 
   const { user, setUser } = useUserContext();
-  console.log(user);
 
   if (!user) {
     throw new Response('', {
@@ -77,7 +76,6 @@ function FosterProfile() {
         const data = await response.json();
 
         setUser(data);
-        console.log(user)
       } catch (error) {
         console.error(error);
       }

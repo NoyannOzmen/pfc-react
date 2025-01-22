@@ -26,6 +26,8 @@ function ShelterDashboard() {
     pays: '',
     siret: '',
     telephone: '',
+    site: '',
+    description: ''
   })
 
   useEffect(() => {
@@ -86,15 +88,15 @@ function ShelterDashboard() {
     } else {
       fetchUser();
     }
-  }, [ updatedInfos, setUser ]);
+  }, [ updatedInfos, user, setUser ]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    const { nom, responsable, rue, commune, code_postal, pays, siret, telephone } = Object.fromEntries(formData);
+    const { nom, responsable, rue, commune, code_postal, pays, siret, telephone, site, description } = Object.fromEntries(formData);
 
-    const userId = user?.id;
+    const userId = user?.refuge.id;
 
     setUpdatedInfos({
       id: userId as string,
@@ -106,6 +108,8 @@ function ShelterDashboard() {
       pays: pays as string,
       siret: siret as string,
       telephone: telephone as string,
+      site: site as string,
+      description: description as string
     });
   }
 

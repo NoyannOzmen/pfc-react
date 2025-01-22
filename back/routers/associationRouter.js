@@ -24,7 +24,8 @@ associationRouter.get('/associations/:id(\\d+)', catchErrors(associationControll
 associationRouter.get('/associations/profil', auth, isRole.association, catchErrors(associationController.displayDashboard));
 
 //Mise à jour des informations depuis le compte association
-associationRouter.post('/associations/profil', auth, isRole.association, catchErrors(associationController.update));
+/* associationRouter.post('/associations/profil', auth, isRole.association, catchErrors(associationController.update)); */
+associationRouter.post('/associations/profil', associationController.update);
 
 //Affichage de la page Ajout d'un logo
 associationRouter.get('/associations/profil/logo', auth, isRole.association, catchErrors(associationController.displayUpload));
