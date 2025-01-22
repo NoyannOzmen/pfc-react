@@ -53,7 +53,7 @@ function HeaderLogged({user } : HeaderLoggedProps) {
 
       <li id="log-out" className="border-2 border-accents2-dark place-self-center md:place-self-start pl-2">
         {/* <Link to="/deconnexion" className="hover:text-accents1-light">Se Déconnecter</Link> */}
-        <Link to="/deconnexion" className="hover:text-accents1-light" onClick={logout}>Se Déconnecter</Link>
+        <p className="hover:text-accents1-light" onClick={logout}>Se Déconnecter</p>
       </li>
     </>
   )
