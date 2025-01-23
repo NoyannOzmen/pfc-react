@@ -8,9 +8,9 @@ function AnimalList() {
   const { species } = useRootContext();
   const { tags } = useRootContext();
 
-  const isInitialMount = useRef(true);
+  /* const isInitialMount = useRef(true); */
 
-  useEffect(() => {
+  /* useEffect(() => {
     const script = document.createElement('script');
   
     script.src="../../../src/assets/utils/deploySearch.js";
@@ -21,7 +21,7 @@ function AnimalList() {
     return () => {
       document.body.removeChild(script);
     }
-  }, []);
+  }, []); */
 
   const sheltered = animals.filter(({ statut }) => statut === "En refuge");
 
@@ -198,6 +198,14 @@ function AnimalList() {
     console.log(searchedInfos) */
   }
 
+  function deploySearch() {
+    const shortSearch = document.getElementById('fullSearch');
+    shortSearch && shortSearch.classList.toggle('hidden');
+  
+    const filters = document.getElementById('searchCriterias');
+    filters && filters.classList.toggle('hidden');
+  }
+
   return (
     <main className="justify-self-stretch flex-1">
   
@@ -210,7 +218,7 @@ function AnimalList() {
           <option value="defaultSmall" disabled hidden>--Choisissez une espèce--</option>
           {speciesItems}
         </select>
-          <input tabIndex={0} id="deploy" className="w-[20%] col-span-1 my-1 py-2 px-2 bg-accents2-dark text-fond transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="button" value="Filtres" />
+          <input tabIndex={0} onClick={deploySearch} id="deploy" className="w-[20%] col-span-1 my-1 py-2 px-2 bg-accents2-dark text-fond transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="button" value="Filtres" />
           <input tabIndex={0} className="w-1/3 col-span-1 mx-auto my-3 py-2 px-2 bg-accents1-light text-fond transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="submit" value="Rechercher" />         
       </div>
       <div id="searchCriterias" className="hidden grid grid-cols-3 gap-1 mx-auto my-3 text-texte">

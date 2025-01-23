@@ -195,10 +195,10 @@ export const sessionController = {
     },
 
     async fosterUpdate(req,res, next) {
-        console.log("session is")
+        /* console.log("session is")
         console.log(req.session)
-        const familleId = req.session.userId;
-        /* const familleId = Number(req.body.id); */
+        const familleId = req.session.userId; */
+        const familleId = Number(req.body.id);
         const famille = await Famille.findByPk(familleId);
         
         if (!famille) {

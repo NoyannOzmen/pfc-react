@@ -17,7 +17,7 @@ function HeaderLogged({user } : HeaderLoggedProps) {
     navigate('/')
   }
 
-  const links = () => {
+/*   const links = () => {
     if (user.accueillant) {
       return (
         <>
@@ -29,7 +29,7 @@ function HeaderLogged({user } : HeaderLoggedProps) {
           )}
           </li>
           <li className="border-2 border-accents2-dark mr-0 max-[767px]:border-b-fond  md:border-r-fond px-4 pr-6 max-[767px]:pb-2 place-self-center md:place-self-start">
-          <Link tabIndex={0} className="hover:text-accents1-light item-link" to="/famille/profil">Tableau de&nbsp;bord</Link>
+          <Link tabIndex={0} className="hover:text-accents1-light" to="/famille/profil">Tableau de&nbsp;bord</Link>
         </li>
         </>
         );
@@ -40,20 +40,35 @@ function HeaderLogged({user } : HeaderLoggedProps) {
             <Link to="/associations/profil">Bonjour : {user.refuge.nom}</Link>
           </li>
           <li className="border-2 border-accents2-dark mr-0 max-[767px]:border-b-fond  md:border-r-fond px-4 pr-6 max-[767px]:pb-2 place-self-center md:place-self-start">
-            <Link tabIndex={0} className="hover:text-accents1-light item-link" to="/associations/profil">Tableau de&nbsp;bord</Link>
+            <Link tabIndex={0} className="hover:text-accents1-light" to="/associations/profil">Tableau de&nbsp;bord</Link>
           </li>
         </>
         )
     }
-  }
+  } */
 
   return (
     <>
-      {links()}
+     {/*  {links()} */}
+      <li className="border-2 border-accents2-dark max-[767px]:border-b-fond md:mr-4 md:border-r-fond px-4 max-[767px]:pb-2 place-self-center md:place-self-start pl-2">
+        {user.refuge &&
+          <Link to="/associations/profil">Bonjour : {user.refuge.nom}</Link>
+        }
+        {user.accueillant &&
+          <Link to="/famille/profil">Bonjour : {user.accueillant.prenom ? `${user.accueillant.prenom}` : `${user.accueillant.nom}`}</Link>}
+      </li>
+      <li className="border-2 border-accents2-dark mr-0 max-[767px]:border-b-fond  md:border-r-fond px-4 pr-6 max-[767px]:pb-2 place-self-center md:place-self-start">
+        {user.accueillant &&
+        <Link tabIndex={0} className="hover:text-accents1-light" to="/famille/profil">Mon profil</Link>
+        }
+        {user.refuge &&
+        <Link tabIndex={0} className="hover:text-accents1-light" to="/associations/profil">Tableau de&nbsp;bord</Link>
+        }
+      </li>
 
       <li id="log-out" className="border-2 border-accents2-dark place-self-center md:place-self-start pl-2">
         {/* <Link to="/deconnexion" className="hover:text-accents1-light">Se Déconnecter</Link> */}
-        <p className="hover:text-accents1-light item-link" onClick={logout}>Se Déconnecter</p>
+        <p className="hover:text-accents1-light" onClick={logout}>Se Déconnecter</p>
       </li>
     </>
   )

@@ -6,9 +6,9 @@ function ShelterList() {
   const { shelters } = useRootContext();
   const { species } = useRootContext();
 
-  const isInitialMount = useRef(true);
+  /* const isInitialMount = useRef(true); */
   
-  useEffect(() => {
+  /* useEffect(() => {
     const script = document.createElement('script');
   
     script.src="../../../src/assets/utils/deploySearch.js";
@@ -19,7 +19,7 @@ function ShelterList() {
     return () => {
       document.body.removeChild(script);
     }
-  }, []);
+  }, []); */
 
   const shelterItems = shelters.map((shelter) => (
     <ShelterCard key={shelter.id} shelter={shelter} />
@@ -183,6 +183,14 @@ function ShelterList() {
     console.log(shelterInfos) */
   }
 
+  function deploySearch() {
+    const shortSearch = document.getElementById('fullSearch');
+    shortSearch && shortSearch.classList.toggle('hidden');
+  
+    const filters = document.getElementById('searchCriterias');
+    filters && filters.classList.toggle('hidden');
+  }
+
   return (
     <main className="justify-self-stretch flex-1">
       
@@ -295,7 +303,7 @@ function ShelterList() {
               <option value="974">974 - La Réunion</option> 
               <option value="976">976 - Mayotte</option> 
             </select>
-            <input tabIndex={0} id="deploy" className="w-[20%] col-span-1 my-1 py-2 px-2 bg-accents2-dark text-fond transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="button" value="Filtres" />
+            <input tabIndex={0} onClick={deploySearch} id="deploy" className="w-[20%] col-span-1 my-1 py-2 px-2 bg-accents2-dark text-fond transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="button" value="Filtres" />
             <input tabIndex={0} className="w-1/3 col-span-1 mx-auto my-3 py-2 px-2 bg-accents1-light text-fond transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="submit" value="Rechercher" />
           </div>
           

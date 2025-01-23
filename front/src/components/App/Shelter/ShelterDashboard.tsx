@@ -30,7 +30,7 @@ function ShelterDashboard() {
     description: ''
   })
 
-  useEffect(() => {
+/*   useEffect(() => {
     const script = document.createElement('script');
   
     script.src="../../../src/assets/utils/editShelterInputs.js";
@@ -41,7 +41,7 @@ function ShelterDashboard() {
     return () => {
       document.body.removeChild(script);
     }
-  }, []);
+  }, []); */
 
   useEffect(() => {
     async function fetchUser() {
@@ -113,6 +113,32 @@ function ShelterDashboard() {
     });
   }
 
+  function allowEdit(e: any) {
+    const field = e.target.closest('fieldset')
+    const inputs = field.querySelectorAll('input')
+    const validate = document.getElementById("validateBtn");
+    const area = field.querySelector('textarea')
+  
+  if (validate && validate.classList.contains('hidden')) {
+    validate.classList.toggle('hidden')
+  }
+
+  if (area) {
+    area.disabled = false;
+    area.required = true
+    area.classList.add('bg-fond')
+  }
+  
+  inputs.forEach((input : any) => {
+    input.disabled = false;
+    input.required = true
+    input.classList.add('bg-fond')
+    if (input.id === 'site' || input.id === 'description') {
+      input.required = false;
+    } 
+  })
+  }
+
   return(
     <main className="justify-self-stretch flex-1">
   <h2 className="font-grands text-3xl text-center my-2 pt-5">Bienvenue sur votre espace personnel</h2>
@@ -142,7 +168,7 @@ function ShelterDashboard() {
         <form className="flex flex-wrap content-center md:w-[60%] justify-center text-texte" onSubmit={handleSubmit}>
           
           <fieldset className="shrink font-body rounded-lg shadow dark:bg-gray-800 my-2 py-5">
-            <legend className="text-center">Mon organisme&nbsp;<span tabIndex={0} className="material-symbols-outlined">edit</span></legend>
+            <legend className="text-center">Mon organisme&nbsp;<span tabIndex={0} className="material-symbols-outlined" onClick={allowEdit}>edit</span></legend>
             
             {/* <!-- Nom --> */}
             <div className="mx-auto p-2">

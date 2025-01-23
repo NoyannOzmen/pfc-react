@@ -19,7 +19,7 @@ function ShelterRequestList() {
 
   const requestedAnimals = requested.map((animal) => (
     <>
-    <tr key={`${animal.id} header`} tabIndex={0} className="view text-fond text-sm bg-accents2 font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hover:bg-accents2-dark">
+    <tr onClick={handleClick} key={`${animal.id} header`} tabIndex={0} className="view text-fond text-sm bg-accents2 font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hover:bg-accents2-dark">
       <td colSpan={4} scope="colgroup" className="px-2 pt-2 border-accents2-dark border-solid border-1">{animal.nom}</td>
       {/* TO DO : Add Count for # of Requests */}
       {/* TO DO : Add JS for unfurling row */}
@@ -44,7 +44,7 @@ function ShelterRequestList() {
     </>
   ));
 
-  useEffect(() => {
+  /* useEffect(() => {
     const script = document.createElement('script');
   
     script.src="../../../src/assets/utils/dashboardSuiviDemande.js";
@@ -55,7 +55,21 @@ function ShelterRequestList() {
     return () => {
       document.body.removeChild(script);
     }
-  }, []);
+  }, []); */
+
+  function handleClick(e: any) {
+    const fold = e.currentTarget.nextSibling;
+    console.log(fold)
+    fold.classList.toggle('hidden')
+  
+    let content = fold.nextSibling;
+
+    while(content && !content.classList.contains('font-grands')) {
+      console.log(content)
+      content.classList.toggle('hidden');
+      content = content.nextSibling;
+    }
+   };
 
   return(
     <main className="justify-self-stretch flex-1">

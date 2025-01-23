@@ -46,7 +46,7 @@ function ShelterResidentAddProfile() {
     </div>
   ))
 
-  useEffect(() => {
+  /* useEffect(() => {
     const script = document.createElement('script');
   
     script.src="../../../src/assets/utils/dashboardAssoCreateAnimal.js";
@@ -57,7 +57,7 @@ function ShelterResidentAddProfile() {
     return () => {
       document.body.removeChild(script);
     }
-  }, []);
+  }, []); */
 
   //* ANIMAL
   useEffect(() => {
@@ -231,6 +231,11 @@ function ShelterResidentAddProfile() {
     });
   }
 
+  function displayModal(e: any) {
+    const addTagModal = document.getElementById('create-tags-modal');
+    addTagModal && addTagModal.classList.toggle('hidden');
+  }
+
   return(
     <main className="justify-self-stretch flex-1">
       <h2 className="font-grands text-3xl text-center my-2 pt-5">Mon espace association</h2>
@@ -324,7 +329,7 @@ function ShelterResidentAddProfile() {
                   </fieldset>
                     
                   <div className="flex justify-center">
-                    <button type="button" id="create-tag" className="self-center hover:bg-accents1-dark rounded-full hover:underline bg-accents1 text-center font-grands text-fond font-semibold text-base py-0.5 px-4">Créer un tag</button>
+                    <button onClick={displayModal} type="button" id="create-tag" className="self-center hover:bg-accents1-dark rounded-full hover:underline bg-accents1 text-center font-grands text-fond font-semibold text-base py-0.5 px-4">Créer un tag</button>
                   </div>
                 </div>
                   
@@ -349,7 +354,7 @@ function ShelterResidentAddProfile() {
       <div className="self-center bg-zoning p-6 rounded-lg">
         <div className="flex justify-between">
           <h3 className="font-grands text-lg font-extrabold mb-4">Ajouter un tag</h3>
-          <span className="cancel material-symbols-outlined text-texte cursor-pointer">
+          <span onClick={displayModal} className="cancel material-symbols-outlined text-texte cursor-pointer">
             close
           </span>
         </div>
@@ -362,12 +367,12 @@ function ShelterResidentAddProfile() {
           
           <div className="mb-4 ">
             <label htmlFor="tag-description" className="block text-texte font-grands font-bold text-base ">Description</label>
-            <textarea className="w-56 rounded-md px-2 py-1 text-texte bg-fond " name="tag_description" id="tag-description" rows={3} required></textarea>
+            <textarea className="w-56 rounded-md px-2 py-1 text-texte bg-fond" name="tag_description" id="tag-description" rows={3} required></textarea>
           </div>
           
           <div>
             <input className="cursor-pointer hover:bg-accents1-dark rounded-full hover:underline bg-accents1 text-center font-grands text-fond font-semibold text-base py-1 px-4" type="submit" value="Valider" />
-            <button className="hover:bg-accents2-dark rounded-full hover:underline bg-accents2-dark text-center font-grands text-fond font-semibold text-base py-1 px-4 cancel">Annuler</button>
+            <button onClick={displayModal} className="hover:bg-accents2-dark rounded-full hover:underline bg-accents2-dark text-center font-grands text-fond font-semibold text-base py-1 px-4 cancel">Annuler</button>
           </div>
         </form>
       </div>

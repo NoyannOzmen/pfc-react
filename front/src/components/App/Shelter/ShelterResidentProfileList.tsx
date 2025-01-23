@@ -16,10 +16,15 @@ function ShelterResidentProfileList() {
 
   const fostered = animals.filter(({ association_id, statut }) => Number(association_id) === Number(user.id) && statut === "Accueilli");
 
+  function handleClick(e: any) {
+    const fold = e.currentTarget.nextSibling;
+    fold.classList.toggle('hidden')
+   };
+
   //* MIGHT BE USEFUL TO TURN THIS INTO A COMPONENT
   const fosteredItems = fostered.map((animal) => (
     <>
-    <tr tabIndex={0} className="view  text-fond text-sm bg-accents2 font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hover:bg-accents2-dark">
+    <tr onClick={handleClick} tabIndex={0} className="view  text-fond text-sm bg-accents2 font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hover:bg-accents2-dark">
       <td className="px-2 pt-2  border-accents2-dark border-solid border-1">{animal.nom}</td>
       <td className="px-2 pt-2  border-accents2-dark border-solid border-1">{animal.accueillant.nom}</td>
     </tr>
@@ -128,7 +133,7 @@ function ShelterResidentProfileList() {
     </>
   ))
 
-  useEffect(() => {
+/*   useEffect(() => {
     const script = document.createElement('script');
   
     script.src="../../../src/assets/utils/dashboardAssoSuiviAccueil.js";
@@ -139,7 +144,7 @@ function ShelterResidentProfileList() {
     return () => {
       document.body.removeChild(script);
     }
-  }, []);
+  }, []); */
 
   return(
     <main className="justify-self-stretch flex-1">

@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+/* import { useEffect } from 'react'; */
 import CarouselOfThree from '../Animals/CarouselOfThree';
 import CarouselOfOne from '../Animals/CarouselOfOne';
 
 function HomePage() {
-  useEffect(() => {
+  /* useEffect(() => {
     const script = document.createElement('script');
     if (window.innerWidth > 768) {
       script.src="../../../src/assets/utils/carouselOfThree.js";
@@ -18,7 +18,7 @@ function HomePage() {
     return () => {
       document.body.removeChild(script);
     }
-  }, [window.innerWidth]);
+  }, [window.innerWidth]); */
 
   if (window.innerWidth > 768) {
     return (

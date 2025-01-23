@@ -28,7 +28,7 @@ function FosterProfile() {
     code_postal : ''
   })
 
-  useEffect(() => {
+/*   useEffect(() => {
     const script = document.createElement('script');
   
     script.src="../../../src/assets/utils/editInputs.js";
@@ -39,7 +39,7 @@ function FosterProfile() {
     return () => {
       document.body.removeChild(script);
     }
-  });
+  }); */
 
   useEffect(() => {
     async function fetchUser() {
@@ -109,6 +109,25 @@ function FosterProfile() {
     });
   }
 
+  function allowEdit(e: any) {
+    const field = e.target.closest('fieldset')
+    const inputs = field.querySelectorAll('input')
+    const validate = document.getElementById("validate");
+  
+  if (validate && validate.classList.contains('hidden')) {
+    validate.classList.toggle('hidden')
+  }
+  
+  inputs.forEach((input : any) => {
+    input.disabled = false;
+    input.required = true
+    input.classList.add('bg-fond')
+    if (input.id === 'terrain' || input.id === 'prenom') {
+      input.required = false;
+    } 
+  })
+  }
+
   return(
     <main className="justify-self-stretch flex-1">
 	<h2 className="font-grands text-3xl text-center my-2 py-6">Bienvenue sur votre espace personnel</h2>
@@ -136,7 +155,7 @@ function FosterProfile() {
         <form className="flex flex-col flex-wrap content-center justify-around text-texte w-full" onSubmit={handleSubmit}>
           
           <fieldset className="w-[60%] font-body rounded-lg shadow dark:bg-gray-800 my-2 py-5">
-            <legend className="text-center">Mes informations&nbsp;<span tabIndex={0} className="material-symbols-outlined">edit</span></legend>
+            <legend className="text-center">Mes informations&nbsp;<span tabIndex={0} className="material-symbols-outlined" onClick={allowEdit}>edit</span></legend>
 
             <div className="mx-auto p-2"> 
               <label className="text-center w-full" htmlFor="prenom">Prénom</label>
@@ -153,7 +172,7 @@ function FosterProfile() {
           </fieldset>
       
           <fieldset className="font-body rounded-lg shadow dark:bg-gray-800 my-2 py-5">
-            <legend className="text-center">Mon accueil&nbsp;<span tabIndex={0} className="material-symbols-outlined">edit</span></legend>
+            <legend className="text-center">Mon accueil&nbsp;<span tabIndex={0} className="material-symbols-outlined" onClick={allowEdit}>edit</span></legend>
 
               <div className="mx-auto p-2">
                 <label className="text-center w-full" htmlFor="hebergement">Type</label>
