@@ -31,6 +31,7 @@ const associationController = {
             dptSelect,
             shelterNom
         } = req.body;
+        console.log(req.body)
 
         if (req.body.dptSelectFull) {
             req.body.dptSelect = req.body.dptSelectFull

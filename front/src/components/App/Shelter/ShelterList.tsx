@@ -25,21 +25,21 @@ function ShelterList() {
     <ShelterCard key={shelter.id} shelter={shelter} />
   ))
 
-  const speciesItems = species.map((espece) => (
+  /* const speciesItems = species.map((espece) => (
     <div key={espece.id}>
     <label htmlFor={`${espece.nom}`}>{espece.nom}</label>
-    <input type="checkbox" name="espece" id={espece.nom} value={espece.nom}/>
+    <input onChange={handleInputData("espece")} type="checkbox" name="espece" id={espece.nom} value={espece.nom}/>
   </div>
-  ))
+  )) */
 
-  const [shelterInfos, setShelterInfos ] = useState({
+  /* const [shelterInfos, setShelterInfos ] = useState({
     espece: '',
     dptSelectFull: '',
     dptSelectSmall: '',
     shelterNom: ''
-  })
+  }) */
 
-  useEffect(() => {
+  /* useEffect(() => {
     async function findShelter() {
       try {
         const response = await fetch
@@ -83,22 +83,104 @@ function ShelterList() {
     } else {
       findShelter();
     }
-  }, [ shelterInfos, setShelterInfos ]);
+  }, [ shelterInfos, setShelterInfos ]); */
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const [espece, setEspece] = useState<any[]>([]);
+
+  const [formData, setFormData] = useState({
+    espece,
+    dptSelectFull: '',
+    dptSelectSmall: '',
+    shelterNom: ''
+  });
+
+  function handleCheck(e: React.ChangeEvent<HTMLInputElement>) {
+    const { value, checked } = e.target;
+    if(checked) {
+      setEspece([...espece, value])
+    } else {
+      setEspece(espece.filter((e) => e !== value))
+    }
+    console.log(espece)
+  }
+
+  const handleInputData = (input: any) => (e: any) => {
+    const { value, checked, type, files } = e.target;
+    const inputValue =
+      type === "checkbox"
+        ? checked
+        : type === "file"
+        ? Array.from(files)
+        : value;
+    setFormData((prevState) => ({
+      ...prevState,
+      [input]: inputValue,
+    }));
+  };
+
+  const speciesItems = species.map((espece) => (
+    <div key={espece.id}>
+    <label htmlFor={`${espece.nom}`}>{espece.nom}</label>
+    <input onChange={handleCheck} type="checkbox" name="espece" id={espece.nom} value={espece.nom}/>
+  </div>
+  ))
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    
+    console.log(espece)
+    espece.length && setFormData((prevState) => ({
+      ...prevState,
+      espece,
+    }));
+    console.log(formData)
+    try {
+      const response = await fetch
+        (`${import.meta.env.VITE_API_URL}/associations`,
+        {
+          method: 'POST',
+          headers: { "Content-type" : "application/json" },
+          body: JSON.stringify(formData)
+        }
+      );
 
-    const formData = new FormData(event.currentTarget);
+      if (!response.ok) {
+        switch (response.status) {
+          case 401: {
+            const { message } = await response.json();
+            throw new Error(message);
+          }
+
+          case 404:
+            throw new Error("La page demandée n'existe pas.");
+
+          case 500:
+            throw new Error(
+              'Une erreur est survenue, merci de ré-essayer ultérieurement.'
+            );
+
+          default:
+            throw new Error(`HTTP ${response.status}`);
+        }
+      }
+
+      const data = await response.json();
+      console.log(data)
+    } catch (error) {
+      console.error(error);
+    }
+
+    /* const formData = new FormData(event.currentTarget);
     const { espece, dptSelectFull, dptSelectSmall, shelterNom } = Object.fromEntries(formData);
 
     setShelterInfos({
       dptSelectFull: dptSelectFull as string,
       dptSelectSmall: dptSelectSmall as string,
-      espece: espece as any,
+      espece: espece as string,
       shelterNom: shelterNom as string
     });
 
-    console.log(shelterInfos)
+    console.log(shelterInfos) */
   }
 
   return (
@@ -109,7 +191,7 @@ function ShelterList() {
         <form className="text-texte justify-around" onSubmit={handleSubmit} /* action="/associations" method="POST" */>
           <div id="fullSearch" className="mx-2 col-span-3 items-center flex flex-wrap justify-around">
             <h3 className="font-grands text-2xl w-full my-2 text-center">Rechercher une association</h3>
-            <select tabIndex={0} className="col-span-3 text-xs block w-[50%]" id="dpt-select-small" name="dptSelectSmall" defaultValue="default">
+            <select onChange={handleInputData("dptSelectSmall")} tabIndex={0} className="col-span-3 text-xs block w-[50%]" id="dpt-select-small" name="dptSelectSmall" defaultValue="default">
               <option value="default" disabled hidden>--Choisissez un département--</option>
               <option value="01">01 - Ain</option> 
               <option value="02">02 - Aisne</option> 
@@ -223,7 +305,7 @@ function ShelterList() {
               <fieldset className="mx-auto p-2 my-2">
                 {/* <!-- Nom du refuge --> */}
                 <label htmlFor="shelter-nom">Nom du refuge</label>
-                <input className="text-xs block" type="text" id="shelter-nom" name="shelterNom" placeholder="--Entrez un nom--" />
+                <input onChange={handleInputData("shelterNom")} className="text-xs block" type="text" id="shelter-nom" name="shelterNom" placeholder="--Entrez un nom--" />
               </fieldset>
             </div>
             
@@ -239,7 +321,7 @@ function ShelterList() {
               
                 {/* <!-- Département --> */}
                 <label htmlFor="dpt-select">Département</label>
-                <select tabIndex={0} className="text-xs block" id="dpt-select-full" name="dptSelectFull" defaultValue="default">
+                <select onChange={handleInputData("dptSelectFull")} tabIndex={0} className="text-xs block" id="dpt-select-full" name="dptSelectFull" defaultValue="default">
                   <option value="default" disabled hidden>--Choisissez un département--</option>
                   <option value="01">01 - Ain</option> 
                   <option value="02">02 - Aisne</option> 
