@@ -6,7 +6,7 @@ import AnimalCard from "./AnimalCard";
 function AnimalList() {
   const { animals } = useRootContext();
   const { species } = useRootContext();
-  const { tags} = useRootContext();
+  const { tags } = useRootContext();
 
   const isInitialMount = useRef(true);
 
@@ -36,12 +36,12 @@ function AnimalList() {
   const tagItems = tags.map((tag) => (
     <div key={tag.id} >
     <label htmlFor={`${tag.nom}`}>{tag.nom}</label>
-    <input type="checkbox" name="tag" id={tag.nom} value={tag.nom} />
+    <input onChange={handleCheck} type="checkbox" name="tag" id={tag.nom} value={tag.nom} />
   </div>
   ))
 
   //* Search
-  const [searchedInfos, setSearchedInfos ] = useState({
+  /* const [searchedInfos, setSearchedInfos ] = useState({
     especeDropdownSmall : '',
     especeDropdownFull: '',
     dptSelect: '',
@@ -49,9 +49,9 @@ function AnimalList() {
     minAge: '',
     maxAge: '',
     tag: ''
-  })
+  }) */
 
-  useEffect(() => {
+  /* useEffect(() => {
     async function findAnimal() {
       try {
         const response = await fetch
@@ -97,12 +97,92 @@ function AnimalList() {
 
       //! TO DO : ADD ANIMAL TO SHELTERED STATE
     }
-  }, [ searchedInfos, setSearchedInfos ]);
+  }, [ searchedInfos, setSearchedInfos ]); */
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const [tag, setTag] = useState<any>([]);
+
+  const [formData, setFormData] = useState({
+    especeDropdownSmall : '',
+    especeDropdownFull: '',
+    dptSelect: '',
+    sexe: '',
+    minAge: '',
+    maxAge: '',
+    tag
+  })
+
+  function handleCheck(e: React.ChangeEvent<HTMLInputElement>) {
+    const { value, checked } = e.target;
+    if(checked) {
+      setTag([...tag, value])
+    } else {
+      setTag(tag.filter((e : any) => e !== value))
+    }
+    console.log(tag)
+  }
+
+  const handleInputData = (input: any) => (e: any) => {
+    const { value, checked, type, files } = e.target;
+    const inputValue =
+      type === "checkbox"
+        ? checked
+        : type === "file"
+        ? Array.from(files)
+        : value;
+    setFormData((prevState) => ({
+      ...prevState,
+      [input]: inputValue,
+    }));
+  };
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
+    console.log(tag)
+    tag.length && setFormData((prevState) => ({
+      ...prevState,
+      tag,
+    }));
+
+    console.log(formData)
+
+    try {
+      const response = await fetch
+        (`${import.meta.env.VITE_API_URL}/animaux`,
+        {
+          method: 'POST',
+          headers: { "Content-type" : "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (!response.ok) {
+        switch (response.status) {
+          case 401: {
+            const { message } = await response.json();
+            throw new Error(message);
+          }
+
+          case 404:
+            throw new Error("La page demandée n'existe pas.");
+
+          case 500:
+            throw new Error(
+              'Une erreur est survenue, merci de ré-essayer ultérieurement.'
+            );
+
+          default:
+            throw new Error(`HTTP ${response.status}`);
+        }
+      }
+
+      const data = await response.json();
+      console.log(data)
+    } catch (error) {
+      console.error(error);
+    }
+
+    /* const formData = new FormData(event.currentTarget);
     const { especeDropdownSmall, especeDropdownFull, dptSelect, sexe, minAge, maxAge, tag } = Object.fromEntries(formData);
 
     setSearchedInfos({
@@ -115,7 +195,7 @@ function AnimalList() {
       tag: tag as string
     });
 
-    console.log(searchedInfos)
+    console.log(searchedInfos) */
   }
 
   return (
@@ -126,7 +206,7 @@ function AnimalList() {
     <form className="text-texte justify-around" onSubmit={handleSubmit}/* action="/animaux" method="POST" */>
       <div id="fullSearch" className="mx-2 col-span-3 items-center flex flex-wrap justify-around">
         <h3 className="font-grands text-2xl w-full my-2 text-center">Rechercher un animal</h3>
-        <select tabIndex={0} className="col-span-3 text-xs block w-[50%]" id="espece-dropdown-small" name="especeDropdownSmall" defaultValue="defaultSmall">
+        <select onChange={handleInputData("especeDropdownSmall")} tabIndex={0} className="col-span-3 text-xs block w-[50%]" id="espece-dropdown-small" name="especeDropdownSmall" defaultValue="defaultSmall">
           <option value="defaultSmall" disabled hidden>--Choisissez une espèce--</option>
           {speciesItems}
         </select>
@@ -142,7 +222,7 @@ function AnimalList() {
           {/* <!-- Choix de l'espèce --> */}
           <div className="my-2">
             <label htmlFor="espece-dropdown-full">Espèce</label>
-            <select tabIndex={0} className="text-xs block" id="espece-dropdown-full" name="especeDropdownFull" defaultValue="defaultFull">
+            <select  onChange={handleInputData("especeDropdownFull")} tabIndex={0} className="text-xs block" id="espece-dropdown-full" name="especeDropdownFull" defaultValue="defaultFull">
               <option value="defaultFull" disabled hidden>--Choisissez une espèce--</option>
               {speciesItems}
             </select>
@@ -152,9 +232,9 @@ function AnimalList() {
           <div className="my-2">
             <fieldset id="sexe">
               <legend>Sexe</legend>
-              <label><input type="radio" name="sexe" value="Mâle" className="mx-1" />Mâle</label>
-              <label><input type="radio" name="sexe" value="Femelle" className="mx-1"/>Femelle</label>
-              <label><input type="radio" name="sexe" value="Inconnu" className="mx-1"/>Inconnu</label>
+              <label><input onChange={handleInputData("sexe")} type="radio" name="sexe" value="Mâle" className="mx-1" />Mâle</label>
+              <label><input onChange={handleInputData("sexe")} type="radio" name="sexe" value="Femelle" className="mx-1"/>Femelle</label>
+              <label><input onChange={handleInputData("sexe")} type="radio" name="sexe" value="Inconnu" className="mx-1"/>Inconnu</label>
             </fieldset>
           </div>
           
@@ -162,9 +242,9 @@ function AnimalList() {
           <div className="my-2">
             <p>Age :</p>
             <label htmlFor="age-min">De&nbsp;</label>
-            <input id="age-min" name="minAge" type="number" tabIndex={0} min="0" max="3999" />
+            <input onChange={handleInputData("minAge")} id="age-min" name="minAge" type="number" tabIndex={0} min="0" max="3999" />
             <label htmlFor="age-max">&nbsp;à&nbsp;</label>
-            <input id="age-max" name="maxAge" type="number" tabIndex={0} min="1" max="4000" />
+            <input onChange={handleInputData("maxAge")} id="age-max" name="maxAge" type="number" tabIndex={0} min="1" max="4000" />
             <label>&nbsp;ans.</label>
           </div>
         </div>
@@ -179,7 +259,7 @@ function AnimalList() {
           <div className="my-2">
             {/* <!-- Département --> */}
             <label htmlFor="dpt-select">Département</label>
-            <select tabIndex={0} className="text-xs block" id="dpt-select" name="dptSelect" defaultValue="default">
+            <select onChange={handleInputData("dptSelect")} tabIndex={0} className="text-xs block" id="dpt-select" name="dptSelect" defaultValue="default">
               <option value="default" disabled hidden>--Choisissez un département--</option>
               <option value="01">01 - Ain</option> 
               <option value="02">02 - Aisne</option> 
