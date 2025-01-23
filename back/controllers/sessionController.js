@@ -86,6 +86,7 @@ export const sessionController = {
                 req.session.userId=familleId
             }
             user.mot_de_passe = null;
+            console.log(req.session)
         }
         return res.json(user);
     },
@@ -194,8 +195,10 @@ export const sessionController = {
     },
 
     async fosterUpdate(req,res, next) {
-        /* const familleId = req.session.userId; */
-        const familleId = Number(req.body.id);
+        console.log("session is")
+        console.log(req.session)
+        const familleId = req.session.userId;
+        /* const familleId = Number(req.body.id); */
         const famille = await Famille.findByPk(familleId);
         
         if (!famille) {

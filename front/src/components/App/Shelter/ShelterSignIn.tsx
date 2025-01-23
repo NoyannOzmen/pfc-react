@@ -169,7 +169,7 @@ function ShelterSignIn() {
         {/* <!-- telephone --> */}
         <div className="mx-auto p-2"> 
           <label className="text-center w-full" htmlFor="telephone">N° telephone</label>
-          <input className="block bg-fond w-full" type="tel" id="telephone" name="telephone" /* pattern="^(0|\+33 )[1-9]([-. ]?[0-9]{2} ){3}([-. ]?[0-9]{2})|([0-9]{8})$" */ placeholder="01 23 45 67 89" />
+          <input className="block bg-fond w-full" type="tel" id="telephone" name="telephone" pattern="^(0|\+33 )[1-9]([\-. ]?[0-9]{2} ){3}([\-. ]?[0-9]{2})|([0-9]{8})$" placeholder="01 23 45 67 89" />
         </div>
 
         {/* <!-- N° SIRET --> */}

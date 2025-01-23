@@ -11,9 +11,9 @@ function Header() {
   
     document.body.appendChild(script);
   
-    return () => {
+   /*  return () => {
       document.body.removeChild(script);
-    }
+    } */
   }, []);
 
   return (
@@ -74,19 +74,19 @@ function Header() {
       {/* Menu Navigation */}
       <nav className="flex flex-auto grow-1  place-self-center md:place-self-end pb-4 pr-4 text-m md:text-base xl:text-xl">
         <ul className="flex flex-auto flex-col md:flex-row md:place-content-end md:gap-5 pl-4 gap-2">
-              <li className="hover:text-accents1-light place-self-start">
+              <li className="hover:text-accents1-light place-self-start item-link">
                 <Link tabIndex={0} to="/animaux">Nos Animaux</Link>
               </li>
-              <li className="hover:text-accents1-light place-self-start">
+              <li className="hover:text-accents1-light place-self-start item-link">
                 <Link tabIndex={0} to="/associations">Nos Partenaires</Link>
               </li>
-              <li className="hover:text-accents1-light place-self-start">
+              <li className="hover:text-accents1-light place-self-start item-link">
                 <Link tabIndex={0} to="/a-propos">Qui sommes&#x2011;nous&nbsp;?</Link>
               </li>
-              <li className="hover:text-accents1-light place-self-start">
+              <li className="hover:text-accents1-light place-self-start item-link">
                 <Link tabIndex={0} to="/faq">Foire aux Questions</Link>
               </li>
-              <li className="hover:text-accents1-light place-self-start">
+              <li className="hover:text-accents1-light place-self-start item-link">
                 <Link tabIndex={0} to="/devenir-famille-d-accueil">Devenez Famille&nbsp;d'accueil</Link>
               </li>
         </ul>

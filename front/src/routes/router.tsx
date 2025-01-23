@@ -27,7 +27,6 @@ import FosterProfile from '../components/App/Foster/FosterProfile.tsx';
 import FosterRequest from '../components/App/Foster/FosterRequest.tsx';
 
 import ShelterDashboard from '../components/App/Shelter/ShelterDashboard.tsx';
-import ShelterPictureUpload from '../components/App/Shelter/ShelterPictureUpload.tsx';
 import ShelterRequestDetails from '../components/App/Shelter/ShelterRequestDetails.tsx';
 import ShelterRequestList from '../components/App/Shelter/ShelterRequestList.tsx';
 import ShelterResidentAddProfile from '../components/App/Shelter/ShelterResidentAddProfile.tsx';
@@ -100,10 +99,6 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
       {
         path: '/animaux/nouveau-profil',
         element: <ShelterResidentAddProfile />,
-      },
-      {
-        path: '/upload/photo',
-        element: <ShelterPictureUpload />,
       },
       /* Session Routes */
       {
