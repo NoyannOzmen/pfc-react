@@ -101,7 +101,7 @@ export const animalController = {
         });
         
         /* return res.render("listeAnimaux", { animals, especes, tags }); */
-        return res.json([animals, tags, especes])
+        return res.json(animals)
     },
 
     async detailAnimal(req,res){

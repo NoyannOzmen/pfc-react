@@ -52,7 +52,7 @@ const associationController = {
             });
             
             /* return res.render("listeAssociations", { associations, especes }); */
-            return res.json(associations, especes);
+            return res.json(associations);
         },
         
     /* Détails d'une Association */
@@ -165,6 +165,7 @@ const associationController = {
     },
     
     async uploadImage(req, res,next){
+        console.log("file is" + req.file)
         let userImage = req.file.path;
         const trim = userImage.replace("./src/assets", "");
         console.log('path is' + trim);

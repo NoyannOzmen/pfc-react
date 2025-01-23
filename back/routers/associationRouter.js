@@ -31,7 +31,8 @@ associationRouter.post('/associations/profil', associationController.update);
 /* associationRouter.get('/associations/profil/logo', auth, isRole.association, catchErrors(associationController.displayUpload)); */
 
 //Ajout d'un logo
-associationRouter.post("/upload/logo", auth, isRole.association, upload, catchErrors(associationController.uploadImage));
+/* associationRouter.post("/upload/logo", auth, isRole.association, upload, catchErrors(associationController.uploadImage)); */
+associationRouter.post("/upload/logo", upload, associationController.uploadImage);
 
 //* ROUTES AUTHENTIFIEES
 

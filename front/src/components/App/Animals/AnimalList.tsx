@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useRef} from 'react';
 import { useRootContext } from '../../../routes/Root';
 import AnimalCard from "./AnimalCard";
 
@@ -7,6 +7,8 @@ function AnimalList() {
   const { animals } = useRootContext();
   const { species } = useRootContext();
   const { tags} = useRootContext();
+
+  const isInitialMount = useRef(true);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -38,12 +40,90 @@ function AnimalList() {
   </div>
   ))
 
+  //* Search
+  const [searchedInfos, setSearchedInfos ] = useState({
+    especeDropdownSmall : '',
+    especeDropdownFull: '',
+    dptSelect: '',
+    sexe: '',
+    minAge: '',
+    maxAge: '',
+    tag: ''
+  })
+
+  useEffect(() => {
+    async function findAnimal() {
+      try {
+        const response = await fetch
+          (`${import.meta.env.VITE_API_URL}/animaux`,
+          {
+            method: 'POST',
+            headers: { "Content-type" : "application/json" },
+            body: JSON.stringify(searchedInfos),
+          }
+        );
+
+        if (!response.ok) {
+          switch (response.status) {
+            case 401: {
+              const { message } = await response.json();
+              throw new Error(message);
+            }
+
+            case 404:
+              throw new Error("La page demandée n'existe pas.");
+
+            case 500:
+              throw new Error(
+                'Une erreur est survenue, merci de ré-essayer ultérieurement.'
+              );
+
+            default:
+              throw new Error(`HTTP ${response.status}`);
+          }
+        }
+
+        const data = await response.json();
+        console.log(data)
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      findAnimal();
+
+      //! TO DO : ADD ANIMAL TO SHELTERED STATE
+    }
+  }, [ searchedInfos, setSearchedInfos ]);
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const { especeDropdownSmall, especeDropdownFull, dptSelect, sexe, minAge, maxAge, tag } = Object.fromEntries(formData);
+
+    setSearchedInfos({
+      especeDropdownFull: especeDropdownFull as string,
+      especeDropdownSmall: especeDropdownSmall as string,
+      dptSelect: dptSelect as string,
+      sexe: sexe as string,
+      minAge: minAge as string,
+      maxAge: maxAge as string,
+      tag: tag as string
+    });
+
+    console.log(searchedInfos)
+  }
+
   return (
     <main className="justify-self-stretch flex-1">
   
   {/* <!-- Menu de recherche --> */}
   <div className="md:my-3 flex flex-wrap font-body w-full bg-zoning rounded-lg shadow dark:bg-gray-800 justify-around">
-    <form className="text-texte justify-around" action="/animaux" method="POST">
+    <form className="text-texte justify-around" onSubmit={handleSubmit}/* action="/animaux" method="POST" */>
       <div id="fullSearch" className="mx-2 col-span-3 items-center flex flex-wrap justify-around">
         <h3 className="font-grands text-2xl w-full my-2 text-center">Rechercher un animal</h3>
         <select tabIndex={0} className="col-span-3 text-xs block w-[50%]" id="espece-dropdown-small" name="especeDropdownSmall" defaultValue="defaultSmall">

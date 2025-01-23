@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRootContext } from '../../../routes/Root';
 import ShelterCard from "./ShelterCard";
 
 function ShelterList() {
   const { shelters } = useRootContext();
   const { species } = useRootContext();
+
+  const isInitialMount = useRef(true);
   
   useEffect(() => {
     const script = document.createElement('script');
@@ -30,12 +32,81 @@ function ShelterList() {
   </div>
   ))
 
+  const [shelterInfos, setShelterInfos ] = useState({
+    espece: '',
+    dptSelectFull: '',
+    dptSelectSmall: '',
+    shelterNom: ''
+  })
+
+  useEffect(() => {
+    async function findShelter() {
+      try {
+        const response = await fetch
+          (`${import.meta.env.VITE_API_URL}/associations`,
+          {
+            method: 'POST',
+            headers: { "Content-type" : "application/json" },
+            body: JSON.stringify(shelterInfos),
+          }
+        );
+
+        if (!response.ok) {
+          switch (response.status) {
+            case 401: {
+              const { message } = await response.json();
+              throw new Error(message);
+            }
+
+            case 404:
+              throw new Error("La page demandée n'existe pas.");
+
+            case 500:
+              throw new Error(
+                'Une erreur est survenue, merci de ré-essayer ultérieurement.'
+              );
+
+            default:
+              throw new Error(`HTTP ${response.status}`);
+          }
+        }
+
+        const data = await response.json();
+        console.log(data)
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      findShelter();
+    }
+  }, [ shelterInfos, setShelterInfos ]);
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const { espece, dptSelectFull, dptSelectSmall, shelterNom } = Object.fromEntries(formData);
+
+    setShelterInfos({
+      dptSelectFull: dptSelectFull as string,
+      dptSelectSmall: dptSelectSmall as string,
+      espece: espece as any,
+      shelterNom: shelterNom as string
+    });
+
+    console.log(shelterInfos)
+  }
+
   return (
     <main className="justify-self-stretch flex-1">
       
       {/* <!-- Menu de recherche --> */}
       <div className="md:my-3 flex flex-wrap font-body w-full bg-zoning rounded-lg shadow dark:bg-gray-800 justify-around">
-        <form className="text-texte justify-around" action="/associations" method="POST">
+        <form className="text-texte justify-around" onSubmit={handleSubmit} /* action="/associations" method="POST" */>
           <div id="fullSearch" className="mx-2 col-span-3 items-center flex flex-wrap justify-around">
             <h3 className="font-grands text-2xl w-full my-2 text-center">Rechercher une association</h3>
             <select tabIndex={0} className="col-span-3 text-xs block w-[50%]" id="dpt-select-small" name="dptSelectSmall" defaultValue="default">
