@@ -4,7 +4,7 @@ import SharpMulter from 'sharp-multer';
 
 const storage = 
   SharpMulter ({
-    destination:(req, file, callback) =>callback(null, "./src/assets/uploads"),
+    destination:(req, file, callback) =>callback(null, "./assets/uploads"),
     imageOptions:{
     fileFormat: "webp",
     quality: 70,

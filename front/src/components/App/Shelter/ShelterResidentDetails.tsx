@@ -1,10 +1,11 @@
 import { Link, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRootContext } from "../../../routes/Root";
 
 function ShelterResidentDetails() {
   const { animalId } = useParams();
   const { animals } = useRootContext();
+  const [file, setFile] = useState(null);
 
 	const animal = animals.find(({id}) => Number(id) === Number(animalId));
 
@@ -46,6 +47,53 @@ function ShelterResidentDetails() {
       document.body.removeChild(script);
     }
   }, []);
+
+  async function sendFile(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    console.log(file)
+    //! SEND ANIMAL ID
+    
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const response = await fetch
+          (`${import.meta.env.VITE_API_URL}/upload/photo`,
+          {
+            method: 'POST',
+            /* headers: { "Content-type" : "multipart/form-data" }, */
+            body: formData
+          }
+        );
+
+        if (!response.ok) {
+          switch (response.status) {
+            case 401: {
+              const { message } = await response.json();
+              throw new Error(message);
+            }
+
+            case 404:
+              throw new Error("La page demandée n'existe pas.");
+
+            case 500:
+              throw new Error(
+                'Une erreur est survenue, merci de ré-essayer ultérieurement.'
+              );
+
+            default:
+              throw new Error(`HTTP ${response.status}`);
+          }
+        }
+
+        const data = await response.json();
+        console.log(data)
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
 
   return(
     <main className="justify-self-stretch flex-1">
@@ -126,10 +174,10 @@ function ShelterResidentDetails() {
           )}
           
           <div className="font-body mx-auto w-[80%] bg-zoning rounded-lg shadow dark:bg-gray-800 my-4">
-            <form method="POST" action="/upload/photo" encType="multipart/form-data">
+            <form onSubmit={sendFile} /* method="POST" action="/upload/photo" encType="multipart/form-data" */>
               <div className="flex flex-col">
                   <label htmlFor="file">Importer une image</label>
-                  <input id="file" type="file" name="file" required/>
+                  <input onChange={(e) => setFile(e.target.files[0])} id="file" type="file" name="file" required/>
               </div>
               <div className="w-full">
                 <input type="submit" value="Importer" className="hover:bg-accents1-dark rounded-full hover:underline bg-accents1 text-center font-grands text-fond font-semibold text-xs py-0.5 px-4"/>

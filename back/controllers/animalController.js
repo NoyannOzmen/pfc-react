@@ -273,9 +273,11 @@ export const animalController = {
 
     async uploadPhoto(req, res,next){
         let userImage = req.file.path;
-        const trim = userImage.replace("./src/assets", "");
+        const trim = userImage.replace("./assets", "");
         console.log('path is' + trim);
-        const animalId = req.session.animalId;
+        /* const animalId = req.body.animalId; */
+        //! HARDCODED
+        const animalId = 1;
         console.log(animalId);
 
         const animal = await Animal.findByPk(animalId, {
@@ -293,9 +295,9 @@ export const animalController = {
         console.log('image is' + JSON.stringify(newMedia));
         console.log(`C'est good`)
         await newMedia.save();
-        console.log(req.session.animalId)
+        /* console.log(req.session.animalId)
         delete req.session.animalId
-        console.log(req.session)
+        console.log(req.session) */
         /* res.redirect("/associations/profil/animaux"); */
         res.json(newMedia)
     },

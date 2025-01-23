@@ -1,20 +1,26 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useUserContext } from "../../../contexts/UserContext";
 
 function ShelterUploadPage() {
   const [file, setFile] = useState(null);
+  const { user } = useUserContext();
 
   async function sendFile(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    console.log(file)
+    const userId = user?.id
+    
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
+
       try {
         const response = await fetch
           (`${import.meta.env.VITE_API_URL}/upload/logo`,
           {
             method: 'POST',
-            headers: { "Content-type" : "multipart/form-data" },
+            /* headers: { "Content-type" : "multipart/form-data" }, */
             body: formData
           }
         );
@@ -73,7 +79,7 @@ function ShelterUploadPage() {
             <section className="flex flex-col flex-wrap justify-center" id="dashboard-container">
               <h3 className="font-grands text-3xl text-center my-2 pt-5 w-full">Ajouter une image</h3>
               
-              <form className="self-center" method="POST" onSubmit={sendFile} /* action="/upload/logo" encType="multipart/form-data" */>
+              <form className="self-center" /* method="POST" */ onSubmit={sendFile} /* action="/upload/logo" encType="multipart/form-data" */>
                 <div className="flex flex-col">
                   <label htmlFor="file" className="text-center">Importer une image</label>
                   <input onChange={(e) => setFile(e.target.files[0])} id="file" type="file" name="file" required/>

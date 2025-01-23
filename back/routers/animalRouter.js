@@ -35,8 +35,7 @@ animalRouter.post('/animaux/nouveau-profil', animalController.addAnimal);
 animalRouter.get('/animaux/:id(\\d)/photo', [auth,isRole.association], catchErrors(animalController.displayUploader)); */
 
 //* Ajouter une image à un animal
-animalRouter.post("/upload/photo", [auth,isRole.association], upload, catchErrors(animalController.uploadPhoto));
-
-
+/* animalRouter.post("/upload/photo", [auth,isRole.association], upload, catchErrors(animalController.uploadPhoto)); */
+animalRouter.post("/upload/photo", upload, animalController.uploadPhoto);
 
 export { animalRouter };

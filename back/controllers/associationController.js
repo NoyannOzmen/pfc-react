@@ -168,9 +168,11 @@ const associationController = {
     async uploadImage(req, res,next){
         console.log("file is" + req.file)
         let userImage = req.file.path;
-        const trim = userImage.replace("./src/assets", "");
+        const trim = userImage.replace("./assets", "");
         console.log('path is' + trim);
-        const assoId = req.session.userId;
+
+        /* const assoId = req.session.userId; */
+        const assoId = 1;
         console.log(assoId);
         
         const association = await Association.findByPk(assoId, {
