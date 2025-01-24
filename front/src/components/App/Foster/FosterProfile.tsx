@@ -74,8 +74,11 @@ function FosterProfile() {
         }
 
         const data = await response.json();
+        console.log(data)
 
-        setUser(data);
+        const newState = Object.assign({}, user?.state);
+        newState.accueillant = data;
+        setUser(newState);
       } catch (error) {
         console.error(error);
       }
@@ -86,7 +89,7 @@ function FosterProfile() {
     } else {
       fetchUser();
     }
-  }, [ updatedInfos, user, setUser ]);
+  }, [ updatedInfos ]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

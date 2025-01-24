@@ -6,8 +6,13 @@ function CarouselOfThree() {
   const { animals } = useRootContext();
 
   const { animalId } = useParams();
+  const { shelterId } = useParams();
 
   let sheltered = animals.filter(({ statut }) => statut === "En refuge");
+
+  if (shelterId) {
+    sheltered = sheltered.filter(({ association_id }) => Number(association_id) === Number(shelterId))
+  }
 
   if ( animalId ) {
     const baseline = animals.find(( { id }) => Number(id) === Number(animalId));

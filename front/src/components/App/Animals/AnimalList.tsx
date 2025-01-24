@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef} from 'react';
+import { useState } from 'react';
 import { useRootContext } from '../../../routes/Root';
 import AnimalCard from "./AnimalCard";
 

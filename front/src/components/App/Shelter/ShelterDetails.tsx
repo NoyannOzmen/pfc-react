@@ -19,7 +19,7 @@ function ShelterDetails() {
   
   const shelterUrl = shelter.images_association[0].url;
 
-  useEffect(() => {
+/*   useEffect(() => {
     const script = document.createElement('script');
     if (window.innerWidth > 768) {
       script.src="../../../src/assets/utils/carouselOfThree.js";
@@ -33,7 +33,7 @@ function ShelterDetails() {
     return () => {
       document.body.removeChild(script);
     }
-  }, [window.innerWidth]);
+  }, [window.innerWidth]); */
 
   return (
     <main className="justify-self-stretch flex-1">

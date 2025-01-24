@@ -6,6 +6,7 @@ import { useEffect } from 'react'; */
 function CarouselOfOne() {
   const { animals } = useRootContext();
   const { animalId } = useParams();
+  const { shelterId } = useParams();
 
   let sheltered = animals.filter(({ statut }) => statut === "En refuge");
 
@@ -15,9 +16,13 @@ function CarouselOfOne() {
     sheltered = sheltered.filter(({ association_id }) => Number(association_id) === Number(baseline.association_id))
   }
 
+  if (shelterId) {
+    sheltered = sheltered.filter(({ association_id }) => Number(association_id) === Number(shelterId))
+  }
+
   const animalItemsOne = sheltered.map((animal, index) => (
     
-    <div className={"carousel-img " + (index === 0 ? "" : "hidden")}>
+    <div key={animal.id} className={"carousel-img " + (index === 0 ? "" : "hidden")}>
           <div className="flex bg-fond rounded-lg shadow dark:bg-gray-800 flex-col md:flex-col mx-auto my-2 w-[75%] p-4">
             <div className="w-full md:w-full flex justify-center items-center">
             { animal.images_animal ? (
@@ -49,7 +54,7 @@ function CarouselOfOne() {
   const carouselPics = document.querySelectorAll('.carousel-img');
 
   function getOneNextPic() {
-    
+
     if (i < carouselPics.length - 1) {
       carouselPics[i].classList.toggle('hidden');
       carouselPics[i+1].classList.toggle('hidden');
