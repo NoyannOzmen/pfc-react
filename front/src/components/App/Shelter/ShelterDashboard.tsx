@@ -76,7 +76,9 @@ function ShelterDashboard() {
         }
 
         const data = await response.json();
-        
+
+        /* setUser(data); */
+
         const newState = Object.assign({}, user?.state);
         newState.refuge = data;
         setUser(newState);

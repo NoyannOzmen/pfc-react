@@ -1,12 +1,12 @@
 import { Link, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRootContext } from '../../../routes/Root';
 import { useUserContext } from '../../../contexts/UserContext';
 import CarouselOfThree from '../Animals/CarouselOfThree';
 import CarouselOfOne from '../Animals/CarouselOfOne';
 
 function AnimalDetails() {
-	/* const isInitialMount = useRef(true); */
+	const isInitialMount = useRef(true);
 
 	const { animalId } = useParams();
 	const { animals } = useRootContext();

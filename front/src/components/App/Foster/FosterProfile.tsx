@@ -76,6 +76,8 @@ function FosterProfile() {
         const data = await response.json();
         console.log(data)
 
+        /* setUser(data); */
+
         const newState = Object.assign({}, user?.state);
         newState.accueillant = data;
         setUser(newState);
