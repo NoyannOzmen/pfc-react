@@ -77,7 +77,10 @@ function ShelterDashboard() {
 
         const data = await response.json();
 
-        setUser(data);
+        /* setUser(data); */
+        const newState = Object.assign({}, user?.state);
+        newState.refuge = data;
+        setUser(newState);
       } catch (error) {
         console.error(error);
       }
@@ -88,7 +91,7 @@ function ShelterDashboard() {
     } else {
       fetchUser();
     }
-  }, [ updatedInfos, user, setUser ]);
+  }, [ updatedInfos ]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -125,7 +128,7 @@ function ShelterDashboard() {
 
   if (area) {
     area.disabled = false;
-    area.required = true
+    area.required = false;
     area.classList.add('bg-fond')
   }
   
@@ -209,7 +212,7 @@ function ShelterDashboard() {
             {/* <!-- Téléphone --> */}
             <div className="mx-auto p-2">  
               <label className="text-center" htmlFor="telephone">N° Téléphone</label>
-              <input className="block" type="tel" id="telephone" name="telephone" pattern="^(0|\+33 )[1-9]([-. ]?[0-9]{2} ){3}([-. ]?[0-9]{2})|([0-9]{8})$" defaultValue={shelter.telephone} disabled />
+              <input className="block" type="tel" id="telephone" name="telephone" pattern="^(0|\+33 )[1-9]([\-. ]?[0-9]{2} ){3}([\-. ]?[0-9]{2})|([0-9]{8})$" defaultValue={shelter.telephone} disabled />
             </div>
 
             {/* <!-- N° SIRET --> */}

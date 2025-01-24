@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+/* import { useEffect } from 'react'; */
 import { Link } from 'react-router-dom';
 import HeaderNav from './HeaderNav';
 
 function Header() {
-  useEffect(() => {
+  /* useEffect(() => {
     const script = document.createElement('script');
   
     script.src="../../../src/assets/utils/menuBurger.js";
@@ -11,10 +11,26 @@ function Header() {
   
     document.body.appendChild(script);
   
-   /*  return () => {
+    return () => {
       document.body.removeChild(script);
-    } */
-  }, []);
+    }
+  }, []); */
+
+  function mobileMenu() {
+    const hamburger = document.querySelector(".hamburger");
+    const navMenu = document.querySelector("#nav-links");
+
+    hamburger?.classList.toggle("active");
+    navMenu?.classList.toggle("active");
+  }
+
+  function closeMenu() {
+    const hamburger = document.querySelector(".hamburger");
+    const navMenu = document.querySelector("#nav-links");  
+
+    hamburger?.classList.remove("active");
+    navMenu?.classList.remove("active");
+  }
 
   return (
   <>
@@ -28,12 +44,12 @@ function Header() {
       </div>
     </Link>
     
-    <div className="hamburger absolute top-0 right-4 p-4">
+    <div onClick={mobileMenu} className="hamburger absolute top-0 right-4 p-4">
       <span className="bar"></span>
       <span className="bar"></span>
       <span className="bar"></span>
     </div>  
-    <div className="grow-1 flex flex-col md:flex-row flex-auto max-[767px]:nav-links" id="nav-links">
+    <div onClick={closeMenu} className="grow-1 flex flex-col md:flex-row flex-auto max-[767px]:nav-links" id="nav-links">
 
       <div className="flex flex-auto flex-col place-self-center w-full md:w-[625px] md:flex-row-reverse md:absolute md:top-0 md:right-0">
         <HeaderNav />        

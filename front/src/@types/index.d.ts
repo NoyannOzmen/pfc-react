@@ -32,7 +32,7 @@ export interface IFamille {
   pays: string;
   hebergement: string;
   terrain: string | null;
-  identifiant_famill : Utilisateur;
+  identifiant_famille : Utilisateur;
 }
 
 export interface IEspece {

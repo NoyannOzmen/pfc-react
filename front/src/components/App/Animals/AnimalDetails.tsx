@@ -33,7 +33,7 @@ function AnimalDetails() {
 		</button>
   ))
 
-	useEffect(() => {
+/* 	useEffect(() => {
     const script = document.createElement('script');
     if (window.innerWidth > 768) {
       script.src="../../../src/assets/utils/carouselOfThree.js";
@@ -47,14 +47,14 @@ function AnimalDetails() {
     return () => {
       document.body.removeChild(script);
     }
-  }, [window.innerWidth]);
+  }, [window.innerWidth]); */
 
 	const [ requestInfos, setRequestInfos ] = useState({
 		animalId: '',
 		familleId: '',
 	})
 
-	useEffect(() => {
+/* 	useEffect(() => {
     async function sendRequest() {
       try {
         const response = await fetch
@@ -98,9 +98,9 @@ function AnimalDetails() {
     } else {
       sendRequest();
     }
-  }, [ requestInfos ]);
+  }, [ requestInfos ]); */
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     /* const formData = new FormData(event.currentTarget);
@@ -112,6 +112,42 @@ function AnimalDetails() {
       familleId: userId as string,
       animalId: animalId as string,
     });
+
+		try {
+			const response = await fetch
+				(`${import.meta.env.VITE_API_URL}/animaux/${animalId}/faire-une-demande`,
+				{
+					method: 'POST',
+					headers: { "Content-type" : "application/json" },
+					body: JSON.stringify(requestInfos),
+				}
+			);
+
+			if (!response.ok) {
+				switch (response.status) {
+					case 401: {
+						const { message } = await response.json();
+						throw new Error(message);
+					}
+
+					case 404:
+						throw new Error("La page demandée n'existe pas.");
+
+					case 500:
+						throw new Error(
+							'Une erreur est survenue, merci de ré-essayer ultérieurement.'
+						);
+
+					default:
+						throw new Error(`HTTP ${response.status}`);
+				}
+			}
+
+			const data = await response.json();
+			console.log(data)
+		} catch (error) {
+			console.error(error);
+		}
   }
 
   return (
@@ -209,9 +245,11 @@ function AnimalDetails() {
 
 	<section className="p-4 py-6 block">
 		<h2 className="font-grands text-3xl text-center my-2">Ils vous attendent de patte ferme !</h2>
-		<CarouselOfOne />
-
-		<CarouselOfThree />
+		{ window.innerWidth > 768 ? (
+			<CarouselOfThree />
+		) : (
+			<CarouselOfOne />
+		)}	
 	</section>
 
 </main>
