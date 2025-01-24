@@ -11,7 +11,7 @@ const sessionRouter = Router();
 sessionRouter.post('/connexion', catchErrors(sessionController.logIn));
 
 /* route déconnexion */
-sessionRouter.get('/deconnexion', catchErrors(sessionController.logOut));
+/* sessionRouter.get('/deconnexion', catchErrors(sessionController.logOut)); */
 
 //* FAMILLE
 /* Inscription famille d'accueil */

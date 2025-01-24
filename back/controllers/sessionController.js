@@ -86,7 +86,7 @@ export const sessionController = {
                 req.session.userId=familleId
             }
             user.mot_de_passe = null;
-            console.log(req.session)
+            /* console.log(req.session) */
         }
         return res.json(user);
     },
@@ -217,8 +217,7 @@ export const sessionController = {
             hebergement : hebergement || famille.hebergement,
             terrain : terrain || famille.terrain,
         });
-        console.log('success')
-        console.log(updatedFamille);
+        /* console.log(updatedFamille) */
         res.json(updatedFamille)
     }, 
 
@@ -252,9 +251,7 @@ export const sessionController = {
     },
 
     async displayRequest(req, res, next) {
-        /* const familleId = req.session.userId; */
-        const familleId = 1
-        //! FIND THE SOURCE : FIX REQ.SESSION !//
+        const familleId = req.session.userId;
 
         const famille = await Famille.findByPk(familleId, {
             include : 'identifiant_famille'
