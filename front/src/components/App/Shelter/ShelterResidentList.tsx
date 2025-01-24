@@ -39,12 +39,12 @@ function ShelterResidentList() {
 
   const speciesItems = species.map((espece) => (
     <div key={espece.id} className="flex gap-x-1.5 content-center mb-1"> 
-      <input type="checkbox" key={espece.id} id={`espece_${espece.id}`} name={`espece_${espece.id}`} value={`espece_${espece.id}`}  className="species-checkbox checkbox leading-3"/>
+      <input onClick={handleFilters} type="checkbox" key={espece.id} id={`espece_${espece.id}`} name={`espece_${espece.id}`} value={`espece_${espece.id}`}  className="species-checkbox checkbox leading-3"/>
       <label htmlFor={`espece_${espece.id}`} className="font-grands font-semibold text-xs leading-3 self-center">{espece.nom}</label>
     </div>
   ))
 
-  useEffect(() => {
+  /* useEffect(() => {
     const script = document.createElement('script');
   
     script.src="../../../src/assets/utils/dashboardAssoListeAnimal.js";
@@ -55,7 +55,105 @@ function ShelterResidentList() {
     return () => {
       document.body.removeChild(script);
     }
-  }, []);
+  }, []); */
+
+  function displayDropdown() {
+    const searchFilters = document.getElementById('search-filters');
+    searchFilters && searchFilters.classList.toggle('hidden')
+  }
+
+  function filterCards (searchFlag : any,animalCards : any) {
+    
+    //* On initialise et remplit un tableau avec les valeurs qui doivent filtrer 
+    const speciesFilter = [];
+    const speciesCheckboxes = document.querySelectorAll('.species-checkbox');
+    if (speciesCheckboxes) {
+    speciesCheckboxes.forEach(species => {
+        if (species.checked) {
+            speciesFilter.push(species.value)
+        }
+    });
+    }
+
+    const statutFilter = [];
+    const statutCheckboxes = document.querySelectorAll('.statut-checkbox');
+    statutCheckboxes.forEach(statut => {
+        if (statut.checked) {
+            statutFilter.push(statut.value)
+        }
+    });
+    
+    const searchBar = document.getElementById('search-bar');
+    
+    const selectedCards = Array.from(animalCards).filter(animalCard => {
+        
+    const searchArray = 
+    [
+        animalCard.dataset.nom.toLowerCase(),
+        animalCard.dataset.statut.toLowerCase(),
+        animalCard.querySelector('.espece-nom').innerText.toLowerCase()
+    ]
+        
+        
+    const F1 = speciesFilter.length ? speciesFilter.includes(animalCard.dataset.espece) : true;
+    const F2 = statutFilter.length ? statutFilter.includes(animalCard.dataset.statut) : true;
+    const F3 = searchArray.some(e => {return e.includes(searchBar.value.toLowerCase())});
+    
+    
+    if (!searchFlag) {
+        return (F1&&F2)
+    } else {
+        return (F1&&F2&&F3)
+    };
+        
+    });
+    
+    return selectedCards
+    
+  }
+
+  function handleSearch() {
+    const animalCards =  document.querySelectorAll('.animal_card');
+        animalCards.forEach(animalCard => {
+            animalCard.classList.add('hidden');
+        });
+        const searchFlag = document.getElementById('search-bar').value
+        
+      if (searchFlag.length > 3) {
+      const visibleCards = filterCards(searchFlag, animalCards);
+      
+      visibleCards.forEach((visibleCard : any) => {
+          visibleCard.classList.remove('hidden');
+      });
+    }
+  }
+
+  function handleFilters(event : any) {
+    if (event.target.classList.contains('species-checkbox') ) {
+      const allSpeciesCheckbox = document.getElementById('espece_all');
+      allSpeciesCheckbox.checked=false
+  }
+  const allStatutCheckbox = document.getElementById('statut_all');
+  if (event.target.classList.contains('statut-checkbox') ) {
+      allStatutCheckbox.checked=false
+  }
+  
+  const animalCards =  document.querySelectorAll('.animal_card');
+  animalCards.forEach(animalCard => {
+      animalCard.classList.add('hidden');
+  });
+  const searchFlag = document.getElementById('search-bar').value.length>3
+  
+  const visibleCards = filterCards(searchFlag, animalCards);
+  
+  visibleCards.forEach(visibleCard => {
+      visibleCard.classList.remove('hidden');
+  });
+  }
+
+  function handleSubmit(e: any) {
+    e.preventDefault();
+  }
 
   return(
     <main className="justify-self-stretch flex-1">
@@ -90,12 +188,12 @@ function ShelterResidentList() {
         <h3 className="text-center hidden md:inline font-grands text-4xl font-extrabold mt-4">Animaux</h3>
 
         {/* <!-- FONCTION RECHERCHE et TRI --> */}
-        <form autoComplete="off" className="my-4 px-4 flex flex-wrap gap-3 justify-center md:w-1/4 md:absolute md:top-0 md:right-5 md:my-2 md:p-0 md:pr-4 md:justify-end z-10" action="">
+        <form autoComplete="off" className="my-4 px-4 flex flex-wrap gap-3 justify-center md:w-1/4 md:absolute md:top-0 md:right-5 md:my-2 md:p-0 md:pr-4 md:justify-end z-10" onSubmit={handleSubmit} /* action="" */>
 
           <div key={"shelteredSearch"} className=" flex gap-x-1.5 text-center h-5">
             <label className="hidden">Recherche</label>
-            <input id="search-bar" className="bg-fond rounded-full block pl-2 md:w-32 lg:w-full shrink-0" type="text" placeholder="Rechercher" />
-            <span id="search-dropdown-button" role="button" className="material-symbols-outlined bg-fond rounded-full">
+            <input onInput={handleSearch} id="search-bar" className="bg-fond rounded-full block pl-2 md:w-32 lg:w-full shrink-0" type="text" placeholder="Rechercher" />
+            <span onClick={displayDropdown} id="search-dropdown-button" role="button" className="material-symbols-outlined bg-fond rounded-full">
               arrow_drop_down
               </span>
           </div>
@@ -111,22 +209,22 @@ function ShelterResidentList() {
 
             <fieldset key={"second"}> 
               <div className="flex gap-x-1.5 content-center"> 
-                <input type="checkbox" id="satut_En_refuge" name="satut_En_refuge" value="En refuge"  className="mb-1 statut-checkbox checkbox leading-3"/>
+                <input onClick={handleFilters} type="checkbox" id="satut_En_refuge" name="satut_En_refuge" value="En refuge"  className="mb-1 statut-checkbox checkbox leading-3"/>
                 <label htmlFor="satut_En_refuge" className=" font-grands font-semibold text-xs leading-3 self-center">En refuge</label>
               </div>   
               
               <div className="flex gap-x-1.5 content-center"> 
-                <input type="checkbox" id="satut_Accueilli" name="satut_Accueilli" value="Accueilli"  className="mb-1 statut-checkbox checkbox leading-3"/>
+                <input onClick={handleFilters}  type="checkbox" id="satut_Accueilli" name="satut_Accueilli" value="Accueilli"  className="mb-1 statut-checkbox checkbox leading-3"/>
                 <label htmlFor="satut_Accueilli" className=" font-grands font-semibold text-xs leading-3 self-center">Accueilli</label>
               </div> 
               
               <div className="flex gap-x-1.5 content-center"> 
-                <input type="checkbox" id="satut_Adopté" name="satut_Adopté" value="Adopté"  className="mb-1 statut-checkbox checkbox leading-3"/>
+                <input onClick={handleFilters}  type="checkbox" id="satut_Adopté" name="satut_Adopté" value="Adopté"  className="mb-1 statut-checkbox checkbox leading-3"/>
                 <label htmlFor="satut_Adopté" className=" font-grands font-semibold text-xs leading-3 self-center">Adopté</label>
               </div> 
 
               <div className="flex gap-x-1.5 content-center"> 
-                <input type="checkbox" id="statut_all" name="statut_all" value="all" defaultChecked className="leading-3"/>
+                <input onClick={handleFilters}  type="checkbox" id="statut_all" name="statut_all" value="all" defaultChecked className="leading-3"/>
                 <label htmlFor="statut_all" className=" font-grands font-semibold text-xs leading-3 self-center"> Tous</label>
               </div>   
             </fieldset>
