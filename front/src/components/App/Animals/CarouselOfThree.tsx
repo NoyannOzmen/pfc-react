@@ -16,7 +16,7 @@ function CarouselOfThree() {
   }
 
   const animalItemsThree = sheltered.map((animal, index) => (
-    <div className={"carousel3-img place-self-center " + (index < 3 ? "" : "hidden")}>
+    <div key={animal.id} className={"carousel3-img place-self-center " + (index < 3 ? "" : "hidden")}>
           <div className="flex bg-zoning rounded-lg shadow dark:bg-gray-800 flex-row md:flex-col p-4">
             <div className="w-full md:w-full flex justify-center items-center">
             { animal.images_animal ? (

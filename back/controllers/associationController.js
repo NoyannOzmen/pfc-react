@@ -166,18 +166,21 @@ const associationController = {
     },
     
     async uploadImage(req, res,next){
-        console.log("file is" + req.file)
+        /* console.log("file is" + req.file) */
         let userImage = req.file.path;
         const trim = userImage.replace("./assets", "");
-        console.log('path is' + trim);
+        /* console.log('path is' + trim); */
 
         /* const assoId = req.session.userId; */
-        const assoId = 1;
-        console.log(assoId);
+        /* console.log("body is")
+        console.log(req.body) */
+        const assoId = req.body.assoId;
+        /* console.log(assoId); */
         
         const association = await Association.findByPk(assoId, {
             include : 'images_association'
         });
+
         
         console.log('asso is' + JSON.stringify(association))
         
@@ -187,8 +190,8 @@ const associationController = {
             ordre : 1
         })
         
-        console.log('image is' + JSON.stringify(newMedia));
-        console.log(`C'est good`)
+        /* console.log('image is' + JSON.stringify(newMedia));
+        console.log(`C'est good`) */
         await newMedia.save();
         /* res.render("profilAssociationLogo", {association}); */
         res.json(association)

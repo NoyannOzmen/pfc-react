@@ -50,12 +50,13 @@ function ShelterResidentDetails() {
 
   async function sendFile(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log(file)
-    //! SEND ANIMAL ID
+    /* console.log(file) */
     
     if (file) {
+      const pictureId = JSON.stringify(animal?.id);
       const formData = new FormData();
       formData.append("file", file);
+      formData.append("animalId", pictureId)
 
       try {
         const response = await fetch

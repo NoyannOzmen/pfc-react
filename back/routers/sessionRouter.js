@@ -26,7 +26,7 @@ sessionRouter.post('/famille/profil', sessionController.fosterUpdate);
 sessionRouter.post('/famille/profil/delete', auth, isRole.famille, catchErrors(sessionController.fosterDestroy));
 /* Suivi des demandes */
 /* sessionRouter.get('/famille/profil/demandes', auth, isRole.famille, catchErrors(sessionController.displayRequest)); */
-sessionRouter.get('/famille/profil/demandes', catchErrors(sessionController.displayRequest));
+/* sessionRouter.get('/famille/profil/demandes', catchErrors(sessionController.displayRequest)); */
 
 //* ASSOCIATION
 /* Inscription association */

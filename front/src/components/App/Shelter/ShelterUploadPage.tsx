@@ -6,13 +6,22 @@ function ShelterUploadPage() {
   const [file, setFile] = useState(null);
   const { user } = useUserContext();
 
+  if (!user) {
+    throw new Response('', {
+      status: 404,
+      statusText: 'Not Found',
+    });
+  }
+
   async function sendFile(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     console.log(file)
-    const userId = user?.id
+    
     
     if (file) {
+      const assoId = JSON.stringify(user?.refuge.id)
       const formData = new FormData();
+      formData.append("assoId", assoId);
       formData.append("file", file);
 
       try {

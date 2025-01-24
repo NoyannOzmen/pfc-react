@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { IAnimal} from "../../../@types";
+import { useUserContext } from "../../../contexts/UserContext";
+import { useRootContext } from "../../../routes/Root";
+import { request } from "http";
 
 function FosterRequest() {
   /* const isInitialMount = useRef(true); */
-  const [ requestedAnimals, setRequestedAnimals ] = useState<IAnimal[]>([])
+  /* const [ requestedAnimals, setRequestedAnimals ] = useState<IAnimal[]>([]) */
 
 /*   useEffect(() => {
     const script = document.createElement('script');
@@ -19,7 +20,7 @@ function FosterRequest() {
     }
   }, []); */
 
-  useEffect(() => {
+  /* useEffect(() => {
     const fetchRequestedAnimals = async () => {
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/famille/profil/demandes`);
@@ -30,7 +31,7 @@ function FosterRequest() {
       }
     }
       fetchRequestedAnimals();
-  }, []);
+  }, []); */
 
 /*   const requestItems = .map((request) => (
     <tr key={request.id} className="fold mb-3 bg-fond rounded-b-lg hidden">
@@ -47,13 +48,54 @@ function FosterRequest() {
 </tr>
   )) */
 
- function handleClick(e: any) {
-  const fold = e.currentTarget.nextSibling;
-  fold.classList.toggle('hidden')
+  const { animals } = useRootContext();
+  const { user } = useUserContext();
 
-  const content = fold.nextSibling;
-  content.classList.toggle('hidden')
- };
+  if (!user) {
+    throw new Response('', {
+      status: 404,
+      statusText: 'Not Found',
+    });
+  }
+
+  const familleId = user?.accueillant.id
+
+  const requested = animals.filter(( { demandes } ) => demandes.length )
+  /*
+  console.log('requested')
+  console.log(requested)
+
+  function isRequested(requested : any, index : any ) {
+    const requester = requested.demandes[index].Demande;
+    console.log(requester)
+    const requesterId = requester.famille_id;
+    console.log(requester.id)
+    return Number(requesterId) === Number(familleId);
+  }
+  
+  const requestedAnimals = requested.filter(isRequested);
+  console.log("requested end")
+  console.log(requestedAnimals) */
+
+
+/* const requestedAnimals = requested.filter((x : any) => 
+  x.demandes.some((y:any) => 
+      y.Demande.some((z:any) => z.famille_id === familleId)
+  )
+) */
+
+const requestedAnimals = requested.filter((x : any) => 
+  x.demandes.some((y:any) => y.Demande.famille_id === familleId)
+  )
+console.log(requestedAnimals)
+
+  function handleClick(e: any) {
+    const fold = e.currentTarget.nextSibling;
+    fold.classList.toggle('hidden')
+
+    const content = fold.nextSibling;
+    content.classList.toggle('hidden')
+  };
 
   const animalItems = requestedAnimals.map((animal) => (
     <>

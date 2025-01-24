@@ -275,9 +275,7 @@ export const animalController = {
         let userImage = req.file.path;
         const trim = userImage.replace("./assets", "");
         console.log('path is' + trim);
-        /* const animalId = req.body.animalId; */
-        //! HARDCODED
-        const animalId = 1;
+        const animalId = req.body.animalId;
         console.log(animalId);
 
         const animal = await Animal.findByPk(animalId, {
