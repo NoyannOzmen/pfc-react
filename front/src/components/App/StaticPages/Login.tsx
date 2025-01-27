@@ -22,6 +22,7 @@ function Login() {
 
   useEffect(() => {
     async function fetchUser() {
+      setUserMessage(null)
       try {
         const response = await fetch
           (`${import.meta.env.VITE_API_URL}/connexion`,
@@ -33,7 +34,10 @@ function Login() {
         );
 
         if (!response.ok) {
-          switch (response.status) {
+          const { message } = await response.json();
+          setUserMessage(message)
+          /* throw new Error(message); */
+/*           switch (response.status) {
             case 401: {
               const { message } = await response.json();
               throw new Error(message);
@@ -49,12 +53,13 @@ function Login() {
 
             default:
               throw new Error(`HTTP ${response.status}`);
-          }
+          } */
         }
 
         const data = await response.json();
 
         setUser(data);
+        navigate('/');
       } catch (error) {
         console.error(error);
       }
@@ -67,6 +72,8 @@ function Login() {
     }
   }, [ credentials, setUser]);
 
+  const [userMessage, setUserMessage] = useState(null);
+
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -77,7 +84,7 @@ function Login() {
       email: email as string,
       mot_de_passe: mot_de_passe as string,
     });
-    navigate('/');
+    /* navigate('/'); */
   }
 
   return (
@@ -98,6 +105,12 @@ function Login() {
             </div>
             <button className="w-[60%] mx-auto my-3 py-2 px-4 bg-accents1-light text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="submit">Se connecter</button>
           </form>
+
+          { userMessage && 
+          <div>
+            <p className="font-grands font-base text-accents1 text-center">{userMessage}</p>
+          </div>
+          }
 
     {/* 			<% if(locals.message.length != 0){ %>
             <div>
