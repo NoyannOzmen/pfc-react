@@ -1,6 +1,6 @@
 # Pet Foster Connect
 
-![Logo de PetFosterConnect](/src/assets/images/logo.svg)
+![Logo de PetFosterConnect](/front/src/assets/images/logo.svg)
 
 ## Disclaimer
 
