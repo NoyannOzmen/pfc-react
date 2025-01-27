@@ -135,8 +135,11 @@ function AnimalList() {
     }));
   };
 
+  const [userMessage, setUserMessage] = useState(null);
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setUserMessage(null)
 
     console.log(tag)
     tag.length && setFormData((prevState) => ({
@@ -157,6 +160,11 @@ function AnimalList() {
       );
 
       if (!response.ok) {
+				const { message } = await response.json();
+				setUserMessage(message)
+			}
+
+/*       if (!response.ok) {
         switch (response.status) {
           case 401: {
             const { message } = await response.json();
@@ -174,7 +182,7 @@ function AnimalList() {
           default:
             throw new Error(`HTTP ${response.status}`);
         }
-      }
+      } */
 
       const data = await response.json();
       console.log(data)

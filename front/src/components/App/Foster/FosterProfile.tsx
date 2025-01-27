@@ -48,6 +48,8 @@ function FosterProfile() {
     navigate('/')
   }
 
+  const [userMessage, setUserMessage] = useState(null);
+
   useEffect(() => {
     async function fetchUser() {
       try {
@@ -142,6 +144,7 @@ function FosterProfile() {
 
   async function handleDelete(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setUserMessage(null)
 
     try {
       /* const assoId = JSON.stringify(user?.refuge.id);
@@ -158,6 +161,11 @@ function FosterProfile() {
       );
 
       if (!response.ok) {
+				const { message } = await response.json();
+				setUserMessage(message)
+			}
+
+      /* if (!response.ok) {
         switch (response.status) {
           case 401: {
             const { message } = await response.json();
@@ -175,7 +183,7 @@ function FosterProfile() {
           default:
             throw new Error(`HTTP ${response.status}`);
         }
-      }
+      } */
 
       /* const data = await response.json();
       console.log(data) */
@@ -211,11 +219,11 @@ function FosterProfile() {
       <section className="flex flex-wrap justify-center" id="dashboard-container">
         <h3 className="font-grands text-3xl text-center my-2 pt-5 w-full">Mon profil</h3>
 
-        {/* <% if(locals.message.length != 0){ %>
+        {userMessage &&
           <div>
-            <p className="font-grands font-base text-accents1 text-center"message.erreur %></p>
+            <p className="font-grands font-base text-accents1 text-center">{userMessage}</p>
           </div>
-        <% } %> */}
+        }
 
         <form className="flex flex-col flex-wrap content-center justify-around text-texte w-full" onSubmit={handleSubmit}>
           

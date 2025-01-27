@@ -32,8 +32,11 @@ function ShelterSignIn() {
     }
   }, []);
 
+  const [userMessage, setUserMessage] = useState(null);
+
   useEffect(() => {
     async function fetchUser() {
+      setUserMessage(null)
       try {
         const response = await fetch
           (`${import.meta.env.VITE_API_URL}/association/inscription`,
@@ -45,6 +48,11 @@ function ShelterSignIn() {
         );
 
         if (!response.ok) {
+          const { message } = await response.json();
+          setUserMessage(message)
+        }
+
+        /* if (!response.ok) {
           switch (response.status) {
             case 401: {
               const { message } = await response.json();
@@ -62,7 +70,7 @@ function ShelterSignIn() {
             default:
               throw new Error(`HTTP ${response.status}`);
           }
-        }
+        } */
 
         const data = await response.json();
         console.log(data)
@@ -116,11 +124,11 @@ function ShelterSignIn() {
       <fieldset className="font-body rounded-lg shadow dark:bg-gray-800 my-2 py-5">
         <legend className="font-bold text-lg font-grands text-center">Votre organisme</legend>
 
-        {/* <% if(locals.message.length != 0){ %>
+        {userMessage &&
           <div>
-            <p className="font-grands font-base text-accents1 text-center"><%= message.erreur %></p>
+            <p className="font-grands font-base text-accents1 text-center">{userMessage}</p>
           </div>
-        <% } %> */}
+        }
         
         {/* <!-- Nom --> */}
         <div className="mx-auto p-2">  

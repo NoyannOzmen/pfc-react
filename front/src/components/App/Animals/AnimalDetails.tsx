@@ -100,8 +100,11 @@ function AnimalDetails() {
     }
   }, [ requestInfos ]); */
 
+	const [userMessage, setUserMessage] = useState(null);
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+		setUserMessage(null)
 
     /* const formData = new FormData(event.currentTarget);
     const { prenom, nom, email, hebergement, terrain, rue, commune, code_postal } = Object.fromEntries(formData); */
@@ -124,6 +127,11 @@ function AnimalDetails() {
 			);
 
 			if (!response.ok) {
+				const { message } = await response.json();
+				setUserMessage(message)
+			}
+
+			/* if (!response.ok) {
 				switch (response.status) {
 					case 401: {
 						const { message } = await response.json();
@@ -141,7 +149,7 @@ function AnimalDetails() {
 					default:
 						throw new Error(`HTTP ${response.status}`);
 				}
-			}
+			} */
 
 			const data = await response.json();
 			console.log(data)
@@ -194,16 +202,9 @@ function AnimalDetails() {
 			</div>
 				{ user && user.accueillant && (
 				<div className="text-center w-full py-2">
-					{/* <% if(locals.message.erreur){ %>
-						<div>
-							<p className="font-grands font-base text-accents1 text-center"><%= message.erreur %></p>
-						</div>
-					<% } %>
-					<% if(locals.message.succes){ %>
-						<div>
-							<p className="font-grands font-base text-accents1 text-center"><%= message.succes%></p>
-						</div>
-					<% } %> */ }
+					{userMessage &&
+						<p className="font-grands font-base text-accents1 text-center">{userMessage}</p>
+					}
 					<form onSubmit={handleSubmit}>
 					<button type="submit" className="mx-auto my-3 py-2 px-6 bg-accents1-light text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">Faire une demande</button>
 					</form>

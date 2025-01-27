@@ -112,11 +112,6 @@ function Login() {
           </div>
           }
 
-    {/* 			<% if(locals.message.length != 0){ %>
-            <div>
-              <p className="font-grands font-base text-accents1 text-center"><%= message.erreur %></p>
-            </div>
-          <% } %> */}
         </div>
       </section>
 

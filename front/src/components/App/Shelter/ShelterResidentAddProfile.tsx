@@ -59,9 +59,12 @@ function ShelterResidentAddProfile() {
     }
   }, []); */
 
+  const [userMessage, setUserMessage] = useState(null);
+
   //* ANIMAL
   useEffect(() => {
     async function createAnimal() {
+      setUserMessage(null)
       try {
         const response = await fetch
           (`${import.meta.env.VITE_API_URL}/animaux/nouveau-profil`,
@@ -73,6 +76,11 @@ function ShelterResidentAddProfile() {
         );
 
         if (!response.ok) {
+          const { message } = await response.json();
+          setUserMessage(message)
+        }
+
+        /* if (!response.ok) {
           switch (response.status) {
             case 401: {
               const { message } = await response.json();
@@ -90,7 +98,7 @@ function ShelterResidentAddProfile() {
             default:
               throw new Error(`HTTP ${response.status}`);
           }
-        }
+        } */
 
         const data = await response.json();
         console.log(data)
@@ -134,6 +142,7 @@ function ShelterResidentAddProfile() {
   //* TAG
   useEffect(() => {
     async function createTag() {
+      setUserMessage(null)
       try {
         const response = await fetch
           (`${import.meta.env.VITE_API_URL}/tags/create`,
@@ -145,6 +154,11 @@ function ShelterResidentAddProfile() {
         );
 
         if (!response.ok) {
+          const { message } = await response.json();
+          setUserMessage(message)
+        }
+
+        /* if (!response.ok) {
           switch (response.status) {
             case 401: {
               const { message } = await response.json();
@@ -162,7 +176,7 @@ function ShelterResidentAddProfile() {
             default:
               throw new Error(`HTTP ${response.status}`);
           }
-        }
+        } */
 
         const data = await response.json();
 

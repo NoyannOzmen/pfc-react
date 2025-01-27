@@ -35,8 +35,11 @@ function FosterSignIn() {
     }
   }, []);
 
+  const [userMessage, setUserMessage] = useState(null);
+
   useEffect(() => {
     async function fetchUser() {
+      setUserMessage(null)
       try {
         const response = await fetch
           (`${import.meta.env.VITE_API_URL}/famille/inscription`,
@@ -48,6 +51,11 @@ function FosterSignIn() {
         );
 
         if (!response.ok) {
+          const { message } = await response.json();
+          setUserMessage(message)
+        }
+
+/*         if (!response.ok) {
           switch (response.status) {
             case 401: {
               const { message } = await response.json();
@@ -65,7 +73,7 @@ function FosterSignIn() {
             default:
               throw new Error(`HTTP ${response.status}`);
           }
-        }
+        } */
 
         const data = await response.json();
         console.log(data)
@@ -115,11 +123,11 @@ function FosterSignIn() {
 
     <form className="flex flex-col flex-wrap content-center justify-around text-texte" onSubmit={handleSubmit}>
       
-{/*       <% if(locals.message.length != 0){ %>
+      {userMessage &&
         <div>
-          <p className="font-grands font-base text-accents1 text-center"><%= message.erreur %></p>
+          <p className="font-grands font-base text-accents1 text-center">{userMessage}</p>
         </div>
-      <% } %> */}
+      }
 
       <fieldset className="font-body rounded-lg shadow dark:bg-gray-800 my-2 py-5">
         <legend className="font-bold text-lg font-grands text-center">Vos informations</legend>

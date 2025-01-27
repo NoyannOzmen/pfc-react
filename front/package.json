@@ -8,13 +8,11 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "db:reset": "psql -U pfcadmin -d pfc -f ./src/database/1_create_tables.sql; psql -U pfcadmin -d pfc -f ./src/database/2_seeding_tables.sql",
-    "tailwind" : "npx tailwindcss -i ./src/index.css -o ./src/style.css --watch"
+    "tailwind": "npx tailwindcss -i ./src/index.css -o ./src/style.css --watch"
   },
   "dependencies": {
     "autoprefixer": "^10.4.20",
     "bcrypt": "^5.1.1",
-    "connect-flash": "^0.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "email-validator": "^2.0.4",

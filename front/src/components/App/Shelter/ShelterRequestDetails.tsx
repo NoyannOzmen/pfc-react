@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useRootContext } from "../../../routes/Root";
 import { useUserContext } from "../../../contexts/UserContext";
+import { useState } from "react";
 
 function ShelterRequestDetails() {
   const { demandeId } = useParams();
@@ -72,8 +73,11 @@ function ShelterRequestDetails() {
     }
   }
 
+  const [userMessage, setUserMessage] = useState(null);
+
   async function denyRequest(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setUserMessage(null)
 
     try {
       const response = await fetch
@@ -86,6 +90,11 @@ function ShelterRequestDetails() {
       );
 
       if (!response.ok) {
+				const { message } = await response.json();
+				setUserMessage(message)
+			}
+
+      /* if (!response.ok) {
         switch (response.status) {
           case 401: {
             const { message } = await response.json();
@@ -103,7 +112,7 @@ function ShelterRequestDetails() {
           default:
             throw new Error(`HTTP ${response.status}`);
         }
-      }
+      } */
 
       const data = await response.json();
       console.log(data)

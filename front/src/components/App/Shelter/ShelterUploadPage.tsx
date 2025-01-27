@@ -13,10 +13,12 @@ function ShelterUploadPage() {
     });
   }
 
+  const [userMessage, setUserMessage] = useState(null);
+
   async function sendFile(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log(file)
-    
+    /* console.log(file) */
+    setUserMessage(null)
     
     if (file) {
       const assoId = JSON.stringify(user?.refuge.id)
@@ -35,6 +37,11 @@ function ShelterUploadPage() {
         );
 
         if (!response.ok) {
+          const { message } = await response.json();
+          setUserMessage(message)
+        }
+
+       /*  if (!response.ok) {
           switch (response.status) {
             case 401: {
               const { message } = await response.json();
@@ -52,7 +59,7 @@ function ShelterUploadPage() {
             default:
               throw new Error(`HTTP ${response.status}`);
           }
-        }
+        } */
 
         const data = await response.json();
         console.log(data)

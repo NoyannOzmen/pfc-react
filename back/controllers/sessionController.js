@@ -173,8 +173,8 @@ export const sessionController = {
             const message = 'Inscription incorrecte';
 
             return res.status(status).json({ status, message });
-            req.flash('erreur', 'Inscription incorrecte');
-            return res.redirect('/famille/inscription');
+            /* req.flash('erreur', 'Inscription incorrecte');
+            return res.redirect('/famille/inscription'); */
         }
     },
 
@@ -241,9 +241,10 @@ export const sessionController = {
         console.log('foster is' + fostered);
 
         if (fostered) {
-            req.flash('erreur', 'Vous accueillez actuellement un animal. Merci de contacter le refuge concerné avant de supprimer votre compte !');
+            const status = 401;
+            const message =  'Vous accueillez actuellement un animal. Merci de contacter le refuge concerné avant de supprimer votre compte !'
             /* return res.redirect('/famille/profil'); */
-            return res.json({ message : "cannot delete"})
+            return res.status(status).json({ status, message })
         }
         await famille.destroy();
         await user.destroy();
@@ -392,9 +393,12 @@ export const sessionController = {
         console.log('foster is' + fostered);
 
         if (fostered) {
-            req.flash('erreur', 'Vous accueillez actuellement un animal. Merci de nous contacter afin de supprimer votre compte !');
+            const status = 401;
+            const message = 'Vous accueillez actuellement un animal. Merci de nous contacter afin de supprimer votre compte !';
+
+            /* req.flash('erreur', 'Vous accueillez actuellement un animal. Merci de nous contacter afin de supprimer votre compte !'); */
             /* return res.redirect('/famille/profil'); */
-            return res.json({ message : "cannot delete"})
+            return res.status(status).json({ status, message })
         }
 
         await asso.destroy();

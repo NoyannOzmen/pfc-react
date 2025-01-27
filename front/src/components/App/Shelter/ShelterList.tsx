@@ -125,10 +125,13 @@ function ShelterList() {
   </div>
   ))
 
+  const [userMessage, setUserMessage] = useState(null);
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setUserMessage(null)
     
-    console.log(espece)
+   /*  console.log(espece) */
     espece.length && setFormData((prevState) => ({
       ...prevState,
       espece,
@@ -145,6 +148,11 @@ function ShelterList() {
       );
 
       if (!response.ok) {
+				const { message } = await response.json();
+				setUserMessage(message)
+			}
+
+      /* if (!response.ok) {
         switch (response.status) {
           case 401: {
             const { message } = await response.json();
@@ -163,7 +171,7 @@ function ShelterList() {
             throw new Error(`HTTP ${response.status}`);
         }
       }
-
+ */
       const data = await response.json();
       console.log(data)
     } catch (error) {
