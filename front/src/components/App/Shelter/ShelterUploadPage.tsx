@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUserContext } from "../../../contexts/UserContext";
+import { useRootContext } from "../../../routes/Root";
 
 function ShelterUploadPage() {
   const [file, setFile] = useState(null);
   const { user } = useUserContext();
+  const { shelters } = useRootContext();
 
   if (!user) {
     throw new Response('', {
@@ -12,6 +14,8 @@ function ShelterUploadPage() {
       statusText: 'Not Found',
     });
   }
+
+  const shelter = shelters.find(({id}) => Number(id) === Number(user.refuge.id));
 
   const [userMessage, setUserMessage] = useState(null);
 
@@ -63,11 +67,16 @@ function ShelterUploadPage() {
 
         const data = await response.json();
         console.log(data)
+        setCurrentLogo(data)
       } catch (error) {
         console.error(error);
       }
     }
   }
+
+  const [ currentLogo, setCurrentLogo ] = useState(
+    shelter.images_association[0]
+  );
 
   return(
     <main className="justify-self-stretch flex-1">
@@ -98,7 +107,7 @@ function ShelterUploadPage() {
               <form className="self-center" /* method="POST" */ onSubmit={sendFile} /* action="/upload/logo" encType="multipart/form-data" */>
                 <div className="flex flex-col">
                   <label htmlFor="file" className="text-center">Importer une image</label>
-                  <input onChange={(e) => setFile(e.target.files[0])} id="file" type="file" name="file" required/>
+                  <input onChange={(e) => setFile(e?.target.files[0])} id="file" type="file" name="file" required/>
                 </div>
                 <div className="flex justify-center">
                   <input type="submit" value="Importer" className="my-3 py-2 px-4 mx-auto bg-accents2-dark text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"/>
@@ -106,13 +115,13 @@ function ShelterUploadPage() {
               </form>
             </section>
 
-            {/* <% if (association.images_association ) { %>
+            {currentLogo &&
               <div className="flex flex-col justify-center">
                 <h3 className="font-body text-2xl text-center">Votre Logo actuel</h3>
-                <img className="w-[40%] mx-auto rounded-lg" src="<%= association.images_association[0].url %>" alt="" />
+                <img className="w-[40%] mx-auto rounded-lg" src={`../../src/assets`+`${currentLogo.url}`} alt="" />
               </div>
 
-            <% } %> */}
+            }
           </div>
         </div>
   </main>
