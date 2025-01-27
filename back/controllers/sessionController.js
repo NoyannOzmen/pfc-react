@@ -222,7 +222,8 @@ export const sessionController = {
     }, 
 
     async fosterDestroy(req, res, next) {
-        const familleId = req.session.userId;
+        /* const familleId = req.session.userId; */
+        const familleId = req.body.accueillant.id;
         const famille = await Famille.findByPk(familleId);
 
         const user = await Utilisateur.findOne({
@@ -230,7 +231,6 @@ export const sessionController = {
         })
 
         if (!famille || !user) {
-            // Si pas entier ou pas existant dans la BDD => 404
             return next();
         };
 
@@ -242,12 +242,14 @@ export const sessionController = {
 
         if (fostered) {
             req.flash('erreur', 'Vous accueillez actuellement un animal. Merci de contacter le refuge concerné avant de supprimer votre compte !');
-            return res.redirect('/famille/profil');
+            /* return res.redirect('/famille/profil'); */
+            return res.json({ message : "cannot delete"})
         }
         await famille.destroy();
         await user.destroy();
         req.session.destroy();
-        res.redirect('/')
+        res.status(201).json({ message : "done" })
+        /* res.redirect('/') */
     },
 
     async displayRequest(req, res, next) {
@@ -369,21 +371,36 @@ export const sessionController = {
             res.status=401;
             return next(new Error('Unauthorized'))               
         } */
-        const assoId = req.session.userId;
+        /* const assoId = req.session.userId; */
+        const assoId = Number(req.body.refuge.id);
         const asso = await Association.findByPk(assoId);
 
         const user = await Utilisateur.findOne({
             where : { id: asso.utilisateur_id }
         })
+        console.log(user)
 
         if (!asso || !user) {
             // Si pas entier ou pas existant dans la BDD => 404
             return next();
         };
 
+        const fostered = Animal.findAll({
+            where :  { refuge_id : assoId } 
+        })
+
+        console.log('foster is' + fostered);
+
+        if (fostered) {
+            req.flash('erreur', 'Vous accueillez actuellement un animal. Merci de nous contacter afin de supprimer votre compte !');
+            /* return res.redirect('/famille/profil'); */
+            return res.json({ message : "cannot delete"})
+        }
+
         await asso.destroy();
         await user.destroy();
         req.session.destroy();
-        res.redirect('/')
+        res.status(201).json({ message : "done" })
+        /* res.redirect('/') */
     },   
 };

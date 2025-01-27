@@ -124,7 +124,7 @@ const associationController = {
     },
     
     /* Supprimer une association */
-    async destroy(req, res, next) {
+/*     async destroy(req, res, next) {
         
         //*Vérification que l'utilisateur.ice connecté.e est bien cellui qui doit être supprimé.e
         //* (on ne veut pas que n'importe qui puisse supprimer un compte asso)
@@ -153,7 +153,7 @@ const associationController = {
         
         // Sinon on supprime et on renvoie une 204 avec un body vide.
         res.status(204).end();
-    },
+    }, */
 
     async displayUpload(req,res,next){
         

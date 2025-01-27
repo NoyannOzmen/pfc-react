@@ -33,6 +33,7 @@ sessionRouter.post('/famille/profil/delete', auth, isRole.famille, catchErrors(s
 /* sessionRouter.get('/association/inscription', catchErrors(sessionController.displayShelterSignIn)); */
 sessionRouter.post('/association/inscription', sessionController.shelterSignIn);
 
-sessionRouter.post('/association/profil/delete', auth, isRole.association, catchErrors(sessionController.shelterDestroy));
+/* sessionRouter.post('/association/profil/delete', auth, isRole.association, catchErrors(sessionController.shelterDestroy)); */
+sessionRouter.post('/association/profil/delete', sessionController.shelterDestroy);
 
 export { sessionRouter };

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { useUserContext } from "../../../contexts/UserContext";
 
@@ -42,6 +42,13 @@ function ShelterDashboard() {
       document.body.removeChild(script);
     }
   }, []); */
+
+  const navigate = useNavigate();
+
+  const logout = () => {
+    setUser(null)
+    navigate('/')
+  }
 
   useEffect(() => {
     async function fetchUser() {
@@ -143,6 +150,58 @@ function ShelterDashboard() {
   })
   }
 
+  async function handleDelete(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    try {
+      /* const assoId = JSON.stringify(user?.refuge.id);
+      const formData = new FormData();
+      formData.append("assoId", assoId); */
+
+      const response = await fetch
+        (`${import.meta.env.VITE_API_URL}/association/profil/delete`,
+        {
+          method: 'POST',
+          headers: { "Content-type" : "application/json" },
+          body: JSON.stringify(user)
+        }
+      );
+
+      if (!response.ok) {
+        switch (response.status) {
+          case 401: {
+            const { message } = await response.json();
+            throw new Error(message);
+          }
+
+          case 404:
+            throw new Error("La page demandée n'existe pas.");
+
+          case 500:
+            throw new Error(
+              'Une erreur est survenue, merci de ré-essayer ultérieurement.'
+            );
+
+          default:
+            throw new Error(`HTTP ${response.status}`);
+        }
+      }
+
+      /* const data = await response.json();
+      console.log(data) */
+      displayModal();
+      logout();
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function displayModal() {
+    const addTagModal = document.getElementById('delete-account-modal');
+    addTagModal && addTagModal.classList.toggle('hidden');
+  }
+
   return(
     <main className="justify-self-stretch flex-1">
   <h2 className="font-grands text-3xl text-center my-2 pt-5">Bienvenue sur votre espace personnel</h2>
@@ -241,13 +300,44 @@ function ShelterDashboard() {
         </form>
       </section>
       <section className="flex flex-wrap justify-center">
-        <form className="flex flex-col flex-wrap content-center justify-around text-texte" action="/association/profil/delete" method="POST" /* onSubmit={return confirm('Voulez-vous vraiment supprimer votre profil ? Cette action est irréversible !')} */>
-          <button className="w-full md:w-[60%] mx-auto my-3 py-2 px-4 bg-accents2-dark text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="submit">Supprimer mon profil</button>
+        <div className="flex flex-col flex-wrap content-center justify-around text-texte">
+          <button onClick={displayModal} className="w-full md:w-[60%] mx-auto my-3 py-2 px-4 bg-accents2-dark text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="submit">Supprimer mon profil</button>
           <p className="text-center">ATTENTION ! Cette suppression est définitive !</p>
-        </form>
+        </div>
       </section>
     </div>
   </div>
+
+      {/* <!-- ICI MODALE DE SUPPRESSION DE COMPTE --> */}
+      <div id="delete-account-modal" className="hidden flex justify-center content-center fixed bg-texte/20 inset-0">
+      
+      <div className="self-center bg-zoning p-6 rounded-lg">
+        <div className="flex justify-between">
+          <h3 className="font-grands text-lg font-extrabold mb-4">Supprimer votre compte</h3>
+          <span onClick={displayModal} className="cancel material-symbols-outlined text-texte cursor-pointer">
+            close
+          </span>
+        </div>
+        <form id="delete-container" className="" onSubmit={handleDelete}>
+          
+          <div className="mb-2">
+            <p className="block text-texte font-grands font-bold text-base">ATTENTION ! <br/> Êtes-vous sûrs et certains de vouloir supprimer votre compte ? <br /> Cette suppression est définitive !</p>
+{/*             <label htmlFor="tag-name" className="block text-texte font-grands font-bold text-base ">Nom du Tag</label>
+            <input className="w-56 rounded-md h-8 px-2 py-1 text-texte bg-fond " type="text" name="tag_name" id="tag-name" required /> */}
+          </div>
+          
+          {/* <div className="mb-4 ">
+            <label htmlFor="tag-description" className="block text-texte font-grands font-bold text-base ">Description</label>
+            <textarea className="w-56 rounded-md px-2 py-1 text-texte bg-fond" name="tag_description" id="tag-description" rows={3} required></textarea>
+          </div> */}
+          
+          <div>
+            <input className="cursor-pointer hover:bg-accents1-dark rounded-full hover:underline bg-accents1 text-center font-grands text-fond font-semibold text-base py-1 px-4" type="submit" value="Valider" />
+            <button onClick={displayModal} className="hover:bg-accents2-dark rounded-full hover:underline bg-accents2-dark text-center font-grands text-fond font-semibold text-base py-1 px-4 cancel">Annuler</button>
+          </div>
+        </form>
+      </div>
+    </div>
 </main>
   )
 }
