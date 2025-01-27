@@ -7,7 +7,7 @@ function Login() {
 
   const isInitialMount = useRef(true);
 
-  const { user, setUser } = useUserContext();
+  const { setUser } = useUserContext();
   
   const [credentials, setCredentials] = useState({
     email: '',
@@ -36,24 +36,6 @@ function Login() {
         if (!response.ok) {
           const { message } = await response.json();
           setUserMessage(message)
-          /* throw new Error(message); */
-/*           switch (response.status) {
-            case 401: {
-              const { message } = await response.json();
-              throw new Error(message);
-            }
-
-            case 404:
-              throw new Error("La page demandée n'existe pas.");
-
-            case 500:
-              throw new Error(
-                'Une erreur est survenue, merci de ré-essayer ultérieurement.'
-              );
-
-            default:
-              throw new Error(`HTTP ${response.status}`);
-          } */
         }
 
         const data = await response.json();
@@ -84,7 +66,6 @@ function Login() {
       email: email as string,
       mot_de_passe: mot_de_passe as string,
     });
-    /* navigate('/'); */
   }
 
   return (

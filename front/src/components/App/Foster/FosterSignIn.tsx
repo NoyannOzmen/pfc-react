@@ -1,10 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-/* import { useUserContext } from "../../../contexts/UserContext"; */
 
 function FosterSignIn() {
   const isInitialMount = useRef(true);
-
-  /* const { setUser } = useUserContext(); */
 
   const [fosterInfos, setFosterInfos ] = useState({
     prenom : '',
@@ -55,30 +52,9 @@ function FosterSignIn() {
           setUserMessage(message)
         }
 
-/*         if (!response.ok) {
-          switch (response.status) {
-            case 401: {
-              const { message } = await response.json();
-              throw new Error(message);
-            }
-
-            case 404:
-              throw new Error("La page demandée n'existe pas.");
-
-            case 500:
-              throw new Error(
-                'Une erreur est survenue, merci de ré-essayer ultérieurement.'
-              );
-
-            default:
-              throw new Error(`HTTP ${response.status}`);
-          }
-        } */
-
         const data = await response.json();
         console.log(data)
 
-        /* setUser(data); */
       } catch (error) {
         console.error(error);
       }
@@ -89,7 +65,7 @@ function FosterSignIn() {
     } else {
       fetchUser();
     }
-  }, [ fosterInfos, /* setUser */ ]);
+  }, [ fosterInfos ]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -111,8 +87,6 @@ function FosterSignIn() {
       pays: pays as string,
       telephone: telephone as string
     });
-
-    console.log(fosterInfos)
   }
 
   return (

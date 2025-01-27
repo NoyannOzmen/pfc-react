@@ -1,8 +1,8 @@
-import { Association } from "../../../@types/Association";
+import { IAssociation } from "../../../@types/index";
 import { Link } from "react-router-dom"
 
 type ShelterCardProps = {
-  shelter: Association;
+  shelter: IAssociation;
 }
 
 const ShelterCard = ({ shelter }: ShelterCardProps) => {

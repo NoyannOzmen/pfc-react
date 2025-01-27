@@ -3,14 +3,10 @@ import { Link, isRouteErrorResponse, useRouteError } from 'react-router-dom';
 import Header from '../components/App/Header/Header.tsx';
 import Footer from '../components/App/Footer/Footer.tsx';
 
-/* import '../index.css' */
-
 function ErrorPage() {
   const error = useRouteError();
   
   function getErrorData(e: unknown) {
-    // est-ce une erreur de routage
-    // React Router nous donne une fonction pour le déterminer
     if (isRouteErrorResponse(e)) {
       return {
         status: e.status,

@@ -1,7 +1,5 @@
 import { useRootContext } from '../../../routes/Root';
 import { useParams, Link } from 'react-router-dom';
-/* import AnimalCarouselCardOne from '../Animals/AnimalCarouselCardOne';
-import { useEffect } from 'react'; */
 
 function CarouselOfOne() {
   const { animals } = useRootContext();

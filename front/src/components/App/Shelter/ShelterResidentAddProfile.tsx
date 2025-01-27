@@ -27,7 +27,6 @@ function ShelterResidentAddProfile() {
     couleur_animal: '',
     description_animal: '',
     tags_animal: '',
-    //! ONLY ONE TAG FOR NOW
   })
 
   const [ tagInfos, setTagInfos ] = useState({
@@ -45,19 +44,6 @@ function ShelterResidentAddProfile() {
       <label htmlFor={tag.id} className="block font-grands text-xs leading-3">{tag.nom}</label>
     </div>
   ))
-
-  /* useEffect(() => {
-    const script = document.createElement('script');
-  
-    script.src="../../../src/assets/utils/dashboardAssoCreateAnimal.js";
-    script.defer = true;
-  
-    document.body.appendChild(script);
-  
-    return () => {
-      document.body.removeChild(script);
-    }
-  }, []); */
 
   const [userMessage, setUserMessage] = useState(null);
 
@@ -80,26 +66,6 @@ function ShelterResidentAddProfile() {
           setUserMessage(message)
         }
 
-        /* if (!response.ok) {
-          switch (response.status) {
-            case 401: {
-              const { message } = await response.json();
-              throw new Error(message);
-            }
-
-            case 404:
-              throw new Error("La page demandée n'existe pas.");
-
-            case 500:
-              throw new Error(
-                'Une erreur est survenue, merci de ré-essayer ultérieurement.'
-              );
-
-            default:
-              throw new Error(`HTTP ${response.status}`);
-          }
-        } */
-
         const data = await response.json();
         console.log(data)
       } catch (error) {
@@ -111,7 +77,6 @@ function ShelterResidentAddProfile() {
       isInitialMount.current = false;
     } else {
       createAnimal();
-
       //! TO DO : ADD ANIMAL TO SHELTERED STATE
     }
   }, [ animalInfos, setAnimalInfos ]);
@@ -158,26 +123,6 @@ function ShelterResidentAddProfile() {
           setUserMessage(message)
         }
 
-        /* if (!response.ok) {
-          switch (response.status) {
-            case 401: {
-              const { message } = await response.json();
-              throw new Error(message);
-            }
-
-            case 404:
-              throw new Error("La page demandée n'existe pas.");
-
-            case 500:
-              throw new Error(
-                'Une erreur est survenue, merci de ré-essayer ultérieurement.'
-              );
-
-            default:
-              throw new Error(`HTTP ${response.status}`);
-          }
-        } */
-
         const data = await response.json();
 
     //* VIDE LES OPTIONS PRESENTES DANS LE SELECT
@@ -217,7 +162,6 @@ function ShelterResidentAddProfile() {
     const addTagForm = document.getElementById('create-tags-form');
 
     if(addTagForm && addTagModal) {
-      /* addTagForm.reset(); */
       addTagModal.classList.toggle('hidden');
     }
 
@@ -245,7 +189,7 @@ function ShelterResidentAddProfile() {
     });
   }
 
-  function displayModal(e: any) {
+  function displayModal() {
     const addTagModal = document.getElementById('create-tags-modal');
     addTagModal && addTagModal.classList.toggle('hidden');
   }

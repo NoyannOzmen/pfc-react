@@ -1,21 +1,7 @@
-/* import { useEffect } from 'react'; */
 import { Link } from 'react-router-dom';
 import HeaderNav from './HeaderNav';
 
 function Header() {
-  /* useEffect(() => {
-    const script = document.createElement('script');
-  
-    script.src="../../../src/assets/utils/menuBurger.js";
-    script.async = true;
-  
-    document.body.appendChild(script);
-  
-    return () => {
-      document.body.removeChild(script);
-    }
-  }, []); */
-
   function mobileMenu() {
     const hamburger = document.querySelector(".hamburger");
     const navMenu = document.querySelector("#nav-links");
@@ -84,7 +70,7 @@ function Header() {
                 </g>
               </svg>
             </Link>
-          </nav>
+        </nav>
       </div>
           
       {/* Menu Navigation */}

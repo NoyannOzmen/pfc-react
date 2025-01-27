@@ -30,19 +30,6 @@ function ShelterDashboard() {
     description: ''
   })
 
-/*   useEffect(() => {
-    const script = document.createElement('script');
-  
-    script.src="../../../src/assets/utils/editShelterInputs.js";
-    script.async = true;
-  
-    document.body.appendChild(script);
-  
-    return () => {
-      document.body.removeChild(script);
-    }
-  }, []); */
-
   const navigate = useNavigate();
 
   const logout = () => {
@@ -84,9 +71,7 @@ function ShelterDashboard() {
 
         const data = await response.json();
 
-        /* setUser(data); */
-
-        const newState = Object.assign({}, user?.state);
+        const newState = Object.assign({}, user?.refuge);
         newState.refuge = data;
         setUser(newState);
       } catch (error) {
@@ -157,10 +142,6 @@ function ShelterDashboard() {
     setUserMessage(null)
 
     try {
-      /* const assoId = JSON.stringify(user?.refuge.id);
-      const formData = new FormData();
-      formData.append("assoId", assoId); */
-
       const response = await fetch
         (`${import.meta.env.VITE_API_URL}/association/profil/delete`,
         {
@@ -175,28 +156,6 @@ function ShelterDashboard() {
 				setUserMessage(message)
 			}
 
-/*       if (!response.ok) {
-        switch (response.status) {
-          case 401: {
-            const { message } = await response.json();
-            throw new Error(message);
-          }
-
-          case 404:
-            throw new Error("La page demandée n'existe pas.");
-
-          case 500:
-            throw new Error(
-              'Une erreur est survenue, merci de ré-essayer ultérieurement.'
-            );
-
-          default:
-            throw new Error(`HTTP ${response.status}`);
-        }
-      } */
-
-      /* const data = await response.json();
-      console.log(data) */
       displayModal();
       logout();
 
@@ -330,15 +289,7 @@ function ShelterDashboard() {
           
           <div className="mb-2">
             <p className="block text-texte font-grands font-bold text-base">ATTENTION ! <br/> Êtes-vous sûrs et certains de vouloir supprimer votre compte ? <br /> Cette suppression est définitive !</p>
-{/*             <label htmlFor="tag-name" className="block text-texte font-grands font-bold text-base ">Nom du Tag</label>
-            <input className="w-56 rounded-md h-8 px-2 py-1 text-texte bg-fond " type="text" name="tag_name" id="tag-name" required /> */}
           </div>
-          
-          {/* <div className="mb-4 ">
-            <label htmlFor="tag-description" className="block text-texte font-grands font-bold text-base ">Description</label>
-            <textarea className="w-56 rounded-md px-2 py-1 text-texte bg-fond" name="tag_description" id="tag-description" rows={3} required></textarea>
-          </div> */}
-          
           <div>
             <input className="cursor-pointer hover:bg-accents1-dark rounded-full hover:underline bg-accents1 text-center font-grands text-fond font-semibold text-base py-1 px-4" type="submit" value="Valider" />
             <button onClick={displayModal} className="hover:bg-accents2-dark rounded-full hover:underline bg-accents2-dark text-center font-grands text-fond font-semibold text-base py-1 px-4 cancel">Annuler</button>

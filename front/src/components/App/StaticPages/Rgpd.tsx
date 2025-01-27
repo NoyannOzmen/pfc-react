@@ -1,5 +1,3 @@
-/* import Link from 'react-router-dom'; */
-
 function Rgpd() {
   return (
     <main className="justify-self-stretch flex-1">

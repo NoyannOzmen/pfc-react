@@ -1,8 +1,8 @@
-import {  Animal } from "../../../@types/Animal";
+import { IAnimal } from "../../../@types/index";
 import { Link } from "react-router-dom"
 
 type AnimalCardProps = {
-  animal: Animal;
+  animal: IAnimal;
 }
 
 

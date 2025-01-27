@@ -4,25 +4,7 @@ import { Op } from "sequelize";
 
 
 export const animalController = {
-    
-    async homePage(req,res) {
-        
-        //* On veut récupérer tout les animaux qui sont dans les refuges, en incluant leurs frimousses, leurs tags et la localisation des associations qui les gèrent
-        const animals = await Animal.findAll({
-            where: {
-                statut:'En refuge'
-            },
-            include : ['espece', 'refuge', 'tags', 'images_animal']
-        })
-        
-        const especes = await Espece.findAll();
-        const tags = await Tag.findAll();
-        
-        res.render('accueil', {
-            animals, especes, tags
-        })    
-    },
-    
+
     async availableAnimalsList(req,res) {
         
         //* On veut récupérer tout les animaux qui sont dans les refuges, en incluant les tags et les associations qui les gèrent
@@ -50,19 +32,16 @@ export const animalController = {
         }) */
        res.json(animals)
     },
-
      async getSpeciesList(req,res) {
         const especes = await Espece.findAll();
 
         res.json(especes);
     },
-
     async getTagsList(req,res) {
         const tags = await Tag.findAll();
 
         res.json(tags);
     },
-
     async getSearched(req,res) {
 
         const {
@@ -103,42 +82,6 @@ export const animalController = {
         /* return res.render("listeAnimaux", { animals, especes, tags }); */
         return res.json(animals)
     },
-
-    async detailAnimal(req,res){
-        const animalId = req.params.id
-	
-        //* On veut récupérer tout les animaux qui sont dans les refuges, en incluant leurs frimousses, leurs tags et la localisation des associations qui les gèrent
-        const animals = await Animal.findAll({
-            where: {
-                statut:'En refuge'
-            },
-            include : ['espece', 'refuge', 'tags', 'images_animal']
-        })
-
-        const especes = await Espece.findAll();
-        const tags = await Tag.findAll();   
-        
-        const animal = await Animal.findByPk(animalId, {
-            include : [
-                'tags',
-                'espece',
-                'images_animal',
-                { model : Association, as : "refuge",
-                include: ['images_association', 'identifiant_association'] }
-            ]
-        });
-        
-        if (!animal) {
-            res.status(404).render('404');
-        }
-        
-        /* res.render('detailAnimal',{
-            animal, animals, especes, tags
-        }) */
-            res.json(animal)
-        
-    },
-    
     async hostRequest(req, res, next){
         /* const animalId = req.params.id; */
         /* const familleId = req.session.userId; */
@@ -194,7 +137,6 @@ export const animalController = {
             /* res.redirect('/animaux/' + animalId); */
         }   
     },
-
     async addAnimal (req,res,next) {
         //!userId est en fait l'id du refuge ou de la famille
         /* const assoId = req.session.userId; */
@@ -260,17 +202,6 @@ export const animalController = {
         /* res.redirect('/associations/profil/animaux'); */
         res.json(newAnimal)
     },
-
-/*     async displayUploader (req,res, next) {
-        const animalId = req.params.id
-
-        const animal = await Animal.findByPk(animalId, {
-            include : 'images_association'
-        });
-      
-        res.render("profilAssociationAnimauxPhoto", { animal })
-    }, */
-
     async uploadPhoto(req, res,next){
         let userImage = req.file.path;
         const trim = userImage.replace("./assets", "");

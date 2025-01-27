@@ -1,53 +1,8 @@
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
 import { useRootContext } from "../../../routes/Root";
-import { request } from "http";
 
 function FosterRequest() {
-  /* const isInitialMount = useRef(true); */
-  /* const [ requestedAnimals, setRequestedAnimals ] = useState<IAnimal[]>([]) */
-
-/*   useEffect(() => {
-    const script = document.createElement('script');
-  
-    script.src="../../../src/assets/utils/dashboardSuiviDemande.js";
-    script.async = true;
-  
-    document.body.appendChild(script);
-  
-    return () => {
-      document.body.removeChild(script);
-    }
-  }, []); */
-
-  /* useEffect(() => {
-    const fetchRequestedAnimals = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/famille/profil/demandes`);
-        const data = await response.json();
-        setRequestedAnimals(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-      fetchRequestedAnimals();
-  }, []); */
-
-/*   const requestItems = .map((request) => (
-    <tr key={request.id} className="fold mb-3 bg-fond rounded-b-lg hidden">
-    <tr className="fold text-fond text-sm bg-accents2-light font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hidden">
-      <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Refuge</td>
-      <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Date de demande</td>
-      <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Statut</td>
-    </tr>
-    <tr className="fold text-sm font-body font-semibold hidden bg bg-fond">                          
-      <td colSpan={2}>{request.animal.refuge.nom}</td>
-      <td colSpan={2}>{request.date_debut}</td>
-      <td colSpan={2}>{request.statut_demande}</td>
-    </tr>
-</tr>
-  )) */
-
   const { animals } = useRootContext();
   const { user } = useUserContext();
 
@@ -61,33 +16,10 @@ function FosterRequest() {
   const familleId = user?.accueillant.id
 
   const requested = animals.filter(( { demandes } ) => demandes.length )
-  /*
-  console.log('requested')
-  console.log(requested)
 
-  function isRequested(requested : any, index : any ) {
-    const requester = requested.demandes[index].Demande;
-    console.log(requester)
-    const requesterId = requester.famille_id;
-    console.log(requester.id)
-    return Number(requesterId) === Number(familleId);
-  }
-  
-  const requestedAnimals = requested.filter(isRequested);
-  console.log("requested end")
-  console.log(requestedAnimals) */
-
-
-/* const requestedAnimals = requested.filter((x : any) => 
-  x.demandes.some((y:any) => 
-      y.Demande.some((z:any) => z.famille_id === familleId)
+  const requestedAnimals = requested.filter((x : any) => 
+    x.demandes.some((y:any) => y.Demande.famille_id === familleId)
   )
-) */
-
-const requestedAnimals = requested.filter((x : any) => 
-  x.demandes.some((y:any) => y.Demande.famille_id === familleId)
-  )
-console.log(requestedAnimals)
 
   function handleClick(e: any) {
     const fold = e.currentTarget.nextSibling;
@@ -103,7 +35,6 @@ console.log(requestedAnimals)
       <td colSpan={3} scope="colgroup" className="px-2 pt-2  border-accents2-dark border-solid border-1">{animal.nom}</td>
       <td colSpan={3} scope="colgroup" className="px-2 pt-2  border-accents2-dark border-solid border-1">Demande</td>
     </tr>
-    {/* <tr key={animal.demandes.id} className="fold mb-3 bg-fond rounded-b-lg "> */}
       <tr key={`${animal.demandes.id} header`} className="text-fond text-sm bg-accents2-light font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hidden">
         <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Refuge</td>
         <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Date de demande</td>
@@ -114,8 +45,6 @@ console.log(requestedAnimals)
         <td colSpan={2}>{animal.demandes[0].Demande.date_debut}</td>
         <td colSpan={2}>{animal.demandes[0].Demande.statut_demande}</td>
       </tr>
-    {/* </tr> */}
-    {/* {requestItems} */}
     </>
   ))
 
@@ -145,16 +74,12 @@ console.log(requestedAnimals)
                {requestedAnimals ? (
                 <>
                 <h4 className="w-full text-center font-grands text-2xl my-4">Demandes en cours</h4>
-
                   <table className="table text-center w-full">
-
                       <tr className="border-none bg-zoning text-sm font-grands">
                         <td colSpan={3} scope="colgroup">Nom Animal</td>
                         <td colSpan={3} scope="colgroup">Demande</td>
                       </tr>
-
                      {animalItems}
-
                   </table>
                   </>
               ) : (

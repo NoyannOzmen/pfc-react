@@ -2,7 +2,6 @@ import 'dotenv/config';
 import express from 'express';
 import session from 'express-session';
 import cors from 'cors';
-/* import flash from 'connect-flash'; */
 
 const app = express();
 
@@ -17,13 +16,10 @@ app.use(
         'http://127.0.0.1:3000',
         'http://localhost:5173',
         'http://127.0.0.1:5173'
-      ],
-/*       credentials: true */
+      ]
     })
   );
 
-/* app.set("view engine", "ejs");
-app.set("views", "./src/views"); */
 app.use(express.static("./src/assets"));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -38,27 +34,6 @@ app.use(
 );
 
 app.use(userMiddleware);
-
-/* app.use(flash());
-
-app.use(function(req,res,next) {
-  res.locals.message = req.flash();
-  next();
-}) */
-
-/* app.post('/upload/logo', (req, res) => {
-  upload(req, res, (err) => {
-     if (err) {
-       console.error(err);
-       return res.status(500).json({ error: err });
-      }
-     if (!req.file) {
-        return res.status(400).json({ error: 'Please send file' });
-      }
-      console.log(req.file);
-      res.redirect('/')
-  });
-}); */
 
 app.use(router);
 

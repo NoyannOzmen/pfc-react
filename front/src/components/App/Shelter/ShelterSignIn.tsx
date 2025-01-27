@@ -52,30 +52,8 @@ function ShelterSignIn() {
           setUserMessage(message)
         }
 
-        /* if (!response.ok) {
-          switch (response.status) {
-            case 401: {
-              const { message } = await response.json();
-              throw new Error(message);
-            }
-
-            case 404:
-              throw new Error("La page demandée n'existe pas.");
-
-            case 500:
-              throw new Error(
-                'Une erreur est survenue, merci de ré-essayer ultérieurement.'
-              );
-
-            default:
-              throw new Error(`HTTP ${response.status}`);
-          }
-        } */
-
         const data = await response.json();
         console.log(data)
-
-        /* setUser(data); */
       } catch (error) {
         console.error(error);
       }
@@ -201,7 +179,7 @@ function ShelterSignIn() {
         {/* <!-- Description --> */}
         <div className="mx-auto p-2">
             <label className="text-center w-full" htmlFor="description">Description</label>
-            <textarea className="block bg-fond w-full" /* type="text" */ rows={5} cols={33} id="description" name="description"
+            <textarea className="block bg-fond w-full" rows={5} cols={33} id="description" name="description"
             placeholder="Une courte description de votre refuge !"></textarea>
         </div>
       </fieldset>

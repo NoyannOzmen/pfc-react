@@ -1,9 +1,6 @@
 import { createContext, useContext, useMemo, useState } from 'react';
-/* import { Utilisateur } from '../@types/Utilisateur.ts';
- */
-import { IUtilisateur
+import { IUtilisateur } from '../@types/index';
 
- } from '../@types/index';
 type UserContextType = {
   user: IUtilisateur | null;
   setUser: React.Dispatch<React.SetStateAction<IUtilisateur | null>>;

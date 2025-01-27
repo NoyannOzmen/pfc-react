@@ -11,7 +11,7 @@ function Root() {
   const [species, setSpecies] = useState<IEspece[]>([]);
   const [tags, setTags] = useState<ITag[]>([]);
   const [shelters, setShelters] = useState<IAssociation[]>([]);
-  const [user, setUser] = useState<LoggedUser | null>(null);
+  const [user] = useState<LoggedUser | null>(null);
 
   useEffect(() => {
     const fetchAnimals = async () => {

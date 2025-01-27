@@ -5,10 +5,6 @@ import { Animal, Famille, Utilisateur, Association, Espece } from '../models/Mod
 import { Op } from 'sequelize';
 
 export const sessionController = {
-    async displayLogin(req, res) {
-        /* res.status(200).render("connexion"); */
-    },
-
     async logIn(req,res) {    
         const {
             email, 
@@ -90,16 +86,10 @@ export const sessionController = {
         }
         return res.json(user);
     },
-    
     async logOut(req,res) {
         req.session.destroy();
         /* res.redirect('/') */
     },
-    
-    async displayFosterSignIn(req,res) {
-        res.render("inscriptionFamille")
-    },
-    
     async fosterSignIn(req,res) {    
         const { 
             prenom,
@@ -177,23 +167,6 @@ export const sessionController = {
             return res.redirect('/famille/inscription'); */
         }
     },
-
-    async displayProfile(req, res, next){
-        
-        const familleId = req.session.userId;
-        const famille = await Famille.findByPk(familleId, {
-            include : 'identifiant_famille'
-        });
-        
-        if( !famille) {
-            next()
-        };
-        const especes = await Espece.findAll();
-
-        /* res.render('profilFamilleInfos', { famille, especes }); */
-        res.json(famille, especes)
-    },
-
     async fosterUpdate(req,res, next) {
         /* console.log("session is")
         console.log(req.session)
@@ -220,7 +193,6 @@ export const sessionController = {
         /* console.log(updatedFamille) */
         res.json(updatedFamille)
     }, 
-
     async fosterDestroy(req, res, next) {
         /* const familleId = req.session.userId; */
         const familleId = req.body.accueillant.id;
@@ -252,36 +224,6 @@ export const sessionController = {
         res.status(201).json({ message : "done" })
         /* res.redirect('/') */
     },
-
-    async displayRequest(req, res, next) {
-        const familleId = req.session.userId;
-
-        const famille = await Famille.findByPk(familleId, {
-            include : 'identifiant_famille'
-        });
-        
-        if( !famille) {
-            next()
-        };
-
-        const requestedAnimals = await Animal.findAll({
-            where : [
-                { '$demandes.Demande.famille_id$' : familleId },
-                { '$demandes.id$':  { [Op.not] : null }}
-            ],
-            include: [ "espece", "demandes", "refuge" ],
-        })
-        
-        /* res.render('profilFamilleDemande', { famille, requestedAnimals }); */
-        res.json(requestedAnimals)
-    },
-
-    async displayShelterSignIn(req,res) {
-        const especes = await Espece.findAll();
-        /* res.render("inscriptionAssociation", { especes }) */
-        res.json(especes)
-    },
-    
     async shelterSignIn(req,res) {
         const { 
             nom, 
@@ -364,7 +306,6 @@ export const sessionController = {
             return res.redirect('/association/inscription'); */
         }
     },
-
     async shelterDestroy(req, res, next) {
 /*         //*Vérification que l'utilisateur.ice connecté.e est bien cellui qui doit être supprimé.e
         //* (on ne veut pas que n'importe qui puisse supprimer un compte asso)    

@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useUserContext } from "../../../contexts/UserContext";
 import { useRootContext } from "../../../routes/Root";
 
 function ShelterUploadPage() {
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<File | null>(null);
   const { user } = useUserContext();
   const { shelters } = useRootContext();
 
@@ -21,7 +21,6 @@ function ShelterUploadPage() {
 
   async function sendFile(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    /* console.log(file) */
     setUserMessage(null)
     
     if (file) {
@@ -45,28 +44,7 @@ function ShelterUploadPage() {
           setUserMessage(message)
         }
 
-       /*  if (!response.ok) {
-          switch (response.status) {
-            case 401: {
-              const { message } = await response.json();
-              throw new Error(message);
-            }
-
-            case 404:
-              throw new Error("La page demandée n'existe pas.");
-
-            case 500:
-              throw new Error(
-                'Une erreur est survenue, merci de ré-essayer ultérieurement.'
-              );
-
-            default:
-              throw new Error(`HTTP ${response.status}`);
-          }
-        } */
-
         const data = await response.json();
-        console.log(data)
         setCurrentLogo(data)
       } catch (error) {
         console.error(error);
@@ -104,10 +82,10 @@ function ShelterUploadPage() {
             <section className="flex flex-col flex-wrap justify-center" id="dashboard-container">
               <h3 className="font-grands text-3xl text-center my-2 pt-5 w-full">Ajouter une image</h3>
               
-              <form className="self-center" /* method="POST" */ onSubmit={sendFile} /* action="/upload/logo" encType="multipart/form-data" */>
+              <form className="self-center" onSubmit={sendFile}>
                 <div className="flex flex-col">
                   <label htmlFor="file" className="text-center">Importer une image</label>
-                  <input onChange={(e) => setFile(e?.target.files[0])} id="file" type="file" name="file" required/>
+                  <input onChange={(e) => setFile(e.target.files?.[0] || null)} id="file" type="file" name="file" required/>
                 </div>
                 <div className="flex justify-center">
                   <input type="submit" value="Importer" className="my-3 py-2 px-4 mx-auto bg-accents2-dark text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"/>

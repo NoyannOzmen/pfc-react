@@ -5,7 +5,7 @@ import { useRootContext } from "../../../routes/Root";
 function ShelterResidentDetails() {
   const { animalId } = useParams();
   const { animals } = useRootContext();
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<File | null>(null);
 
 	const animal = animals.find(({id}) => Number(id) === Number(animalId));
 
@@ -52,7 +52,6 @@ function ShelterResidentDetails() {
 
   async function sendFile(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    /* console.log(file) */
     setUserMessage(null)
     
     if (file) {
@@ -76,26 +75,6 @@ function ShelterResidentDetails() {
           setUserMessage(message)
         }
 
-        /* if (!response.ok) {
-          switch (response.status) {
-            case 401: {
-              const { message } = await response.json();
-              throw new Error(message);
-            }
-
-            case 404:
-              throw new Error("La page demandée n'existe pas.");
-
-            case 500:
-              throw new Error(
-                'Une erreur est survenue, merci de ré-essayer ultérieurement.'
-              );
-
-            default:
-              throw new Error(`HTTP ${response.status}`);
-          }
-        } */
-
         const data = await response.json();
         console.log(data)
       } catch (error) {
@@ -103,6 +82,7 @@ function ShelterResidentDetails() {
       }
     }
   }
+  
 
   return(
     <main className="justify-self-stretch flex-1">
@@ -183,10 +163,10 @@ function ShelterResidentDetails() {
           )}
           
           <div className="font-body mx-auto w-[80%] bg-zoning rounded-lg shadow dark:bg-gray-800 my-4">
-            <form onSubmit={sendFile} /* method="POST" action="/upload/photo" encType="multipart/form-data" */>
+            <form onSubmit={sendFile}>
               <div className="flex flex-col">
                   <label htmlFor="file">Importer une image</label>
-                  <input onChange={(e) => setFile(e.target.files[0])} id="file" type="file" name="file" required/>
+                  <input onChange={(e) => setFile(e.target.files?.[0] || null)} id="file" type="file" name="file" required/>
               </div>
               <div className="w-full">
                 <input type="submit" value="Importer" className="hover:bg-accents1-dark rounded-full hover:underline bg-accents1 text-center font-grands text-fond font-semibold text-xs py-0.5 px-4"/>

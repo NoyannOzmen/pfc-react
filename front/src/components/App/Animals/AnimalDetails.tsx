@@ -1,13 +1,11 @@
 import { Link, useParams } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useRootContext } from '../../../routes/Root';
 import { useUserContext } from '../../../contexts/UserContext';
 import CarouselOfThree from '../Animals/CarouselOfThree';
 import CarouselOfOne from '../Animals/CarouselOfOne';
 
 function AnimalDetails() {
-	const isInitialMount = useRef(true);
-
 	const { animalId } = useParams();
 	const { animals } = useRootContext();
 	const { user } = useUserContext();
@@ -33,81 +31,16 @@ function AnimalDetails() {
 		</button>
   ))
 
-/* 	useEffect(() => {
-    const script = document.createElement('script');
-    if (window.innerWidth > 768) {
-      script.src="../../../src/assets/utils/carouselOfThree.js";
-    } else { 
-      script.src="../../../src/assets/utils/carouselOfOne.js";
-    }
-    script.defer = true;
-  
-    document.body.appendChild(script);
-  
-    return () => {
-      document.body.removeChild(script);
-    }
-  }, [window.innerWidth]); */
-
 	const [ requestInfos, setRequestInfos ] = useState({
 		animalId: '',
 		familleId: '',
 	})
-
-/* 	useEffect(() => {
-    async function sendRequest() {
-      try {
-        const response = await fetch
-          (`${import.meta.env.VITE_API_URL}/animaux/${animalId}/faire-une-demande`,
-          {
-            method: 'POST',
-            headers: { "Content-type" : "application/json" },
-            body: JSON.stringify(requestInfos),
-          }
-        );
-
-        if (!response.ok) {
-          switch (response.status) {
-            case 401: {
-              const { message } = await response.json();
-              throw new Error(message);
-            }
-
-            case 404:
-              throw new Error("La page demandée n'existe pas.");
-
-            case 500:
-              throw new Error(
-                'Une erreur est survenue, merci de ré-essayer ultérieurement.'
-              );
-
-            default:
-              throw new Error(`HTTP ${response.status}`);
-          }
-        }
-
-        const data = await response.json();
-				console.log(data)
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      sendRequest();
-    }
-  }, [ requestInfos ]); */
 
 	const [userMessage, setUserMessage] = useState(null);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 		setUserMessage(null)
-
-    /* const formData = new FormData(event.currentTarget);
-    const { prenom, nom, email, hebergement, terrain, rue, commune, code_postal } = Object.fromEntries(formData); */
 
     const userId = user?.accueillant.id;
 
@@ -130,26 +63,6 @@ function AnimalDetails() {
 				const { message } = await response.json();
 				setUserMessage(message)
 			}
-
-			/* if (!response.ok) {
-				switch (response.status) {
-					case 401: {
-						const { message } = await response.json();
-						throw new Error(message);
-					}
-
-					case 404:
-						throw new Error("La page demandée n'existe pas.");
-
-					case 500:
-						throw new Error(
-							'Une erreur est survenue, merci de ré-essayer ultérieurement.'
-						);
-
-					default:
-						throw new Error(`HTTP ${response.status}`);
-				}
-			} */
 
 			const data = await response.json();
 			console.log(data)

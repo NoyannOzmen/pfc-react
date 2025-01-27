@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 import { useRootContext } from '../../../routes/Root';
 import CarouselOfThree from '../Animals/CarouselOfThree';
 import CarouselOfOne from '../Animals/CarouselOfOne';
@@ -18,22 +17,6 @@ function ShelterDetails() {
   }
   
   const shelterUrl = shelter.images_association[0].url;
-
-/*   useEffect(() => {
-    const script = document.createElement('script');
-    if (window.innerWidth > 768) {
-      script.src="../../../src/assets/utils/carouselOfThree.js";
-    } else { 
-      script.src="../../../src/assets/utils/carouselOfOne.js";
-    }
-    script.defer = true;
-  
-    document.body.appendChild(script);
-  
-    return () => {
-      document.body.removeChild(script);
-    }
-  }, [window.innerWidth]); */
 
   return (
     <main className="justify-self-stretch flex-1">

@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import { useUserContext } from "../../../contexts/UserContext";
 import { useRootContext } from "../../../routes/Root";
-
 
 function ShelterRequestList() {
   const { animals } = useRootContext();
@@ -21,11 +19,8 @@ function ShelterRequestList() {
     <>
     <tr onClick={handleClick} key={`${animal.id} header`} tabIndex={0} className="view text-fond text-sm bg-accents2 font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hover:bg-accents2-dark">
       <td colSpan={4} scope="colgroup" className="px-2 pt-2 border-accents2-dark border-solid border-1">{animal.nom}</td>
-      {/* TO DO : Add Count for # of Requests */}
-      {/* TO DO : Add JS for unfurling row */}
       <td colSpan={2} scope="colgroup" className="px-2 pt-2 border-accents2-dark border-solid border-1">Nombre</td>
     </tr>
-    {/* <tr key={`${animal.id} body`} className="fold mb-3 bg-fond rounded-b-lg "> */}
       <tr key={`${animal.id} body title`} className="fold text-fond text-sm bg-accents2-light font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hidden">
         <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Famille</td>
         <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Date de demande</td>
@@ -36,26 +31,11 @@ function ShelterRequestList() {
         
           <td colSpan={2}>{demande.nom}</td>
           <td colSpan={2}>{demande.Demande.date_debut}</td>
-          <td colSpan={2}><Link tabIndex={0} className="hover:underline" to={`/associations/profil/demandes/${demande.Demande.id}`} >{demande.Demande.statut_demande}</Link></td>
-        
+          <td colSpan={2}><Link tabIndex={0} className="hover:underline" to={`/associations/profil/demandes/${demande.Demande.id}`} >{demande.Demande.statut_demande}</Link></td> 
       </tr>
       ))}
-    {/* </tr> */}
     </>
   ));
-
-  /* useEffect(() => {
-    const script = document.createElement('script');
-  
-    script.src="../../../src/assets/utils/dashboardSuiviDemande.js";
-    script.defer = true;
-  
-    document.body.appendChild(script);
-  
-    return () => {
-      document.body.removeChild(script);
-    }
-  }, []); */
 
   function handleClick(e: any) {
     const fold = e.currentTarget.nextSibling;
@@ -101,17 +81,12 @@ function ShelterRequestList() {
               ) : (
                 <>
                 <h4 className="w-full text-center font-grands text-2xl my-4">Demandes en cours</h4>
-
                 <table className="table text-center w-full md:w-5/6">
-
                   <tr className="border-none bg-zoning text-sm font-grands">
                     <td colSpan={4} scope="colgroup">Nom Animal</td>
                     <td colSpan={2} scope="colgroup">Nombre de demandes</td>
                   </tr>
-
-
                   {requestedAnimals}
-
                 </table>
                 </>
               )}

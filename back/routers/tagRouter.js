@@ -6,7 +6,6 @@ const upload = multer();
 
 const tagRouter = Router();
 
-/* tagRouter.post('/tags/create',upload.none(), tagController.createTag) */
 tagRouter.post('/tags/create', tagController.createTag)
 
 export { tagRouter };

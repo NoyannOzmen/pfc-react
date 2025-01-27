@@ -1,24 +1,8 @@
 import { Link } from 'react-router-dom';
-/* import { useEffect } from 'react'; */
 import CarouselOfThree from '../Animals/CarouselOfThree';
 import CarouselOfOne from '../Animals/CarouselOfOne';
 
 function HomePage() {
-  /* useEffect(() => {
-    const script = document.createElement('script');
-    if (window.innerWidth > 768) {
-      script.src="../../../src/assets/utils/carouselOfThree.js";
-    } else { 
-      script.src="../../../src/assets/utils/carouselOfOne.js";
-    }
-    script.defer = true;
-  
-    document.body.appendChild(script);
-  
-    return () => {
-      document.body.removeChild(script);
-    }
-  }, [window.innerWidth]); */
 
   if (window.innerWidth > 768) {
     return (
