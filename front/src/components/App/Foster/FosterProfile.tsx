@@ -1,20 +1,20 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { useUserContext } from "../../../contexts/UserContext";
 
 function FosterProfile() {
   const isInitialMount = useRef(true);
 
-  const { user, setUser } = useUserContext();
+  const auth = useUserContext();
 
-  if (!user) {
+  if (!auth.user) {
     throw new Response('', {
       status: 404,
       statusText: 'Not Found',
     });
   }
 
-  const famille = user.accueillant;
+  const famille = auth.user.accueillant;
 
   const [updatedInfos, setUpdatedInfos ] = useState({
     id: '',
@@ -27,13 +27,6 @@ function FosterProfile() {
     commune : '',
     code_postal : ''
   })
-
-  const navigate = useNavigate();
-
-  const logout = () => {
-    setUser(null)
-    navigate('/')
-  }
 
   const [userMessage, setUserMessage] = useState(null);
 
@@ -71,9 +64,9 @@ function FosterProfile() {
 
         const data = await response.json();
 
-        const newState = Object.assign({}, user?.accueillant);
+        const newState = Object.assign({}, auth.user?.accueillant);
         newState.accueillant = data;
-        setUser(newState);
+        auth.setUser(newState);
       } catch (error) {
         console.error(error);
       }
@@ -92,7 +85,7 @@ function FosterProfile() {
     const formData = new FormData(event.currentTarget);
     const { prenom, nom, email, hebergement, terrain, rue, commune, code_postal } = Object.fromEntries(formData);
 
-    const userId = user?.accueillant.id;
+    const userId = auth.user?.accueillant.id;
 
     setUpdatedInfos({
       id: userId as string,
@@ -136,7 +129,7 @@ function FosterProfile() {
         {
           method: 'POST',
           headers: { "Content-type" : "application/json" },
-          body: JSON.stringify(user)
+          body: JSON.stringify(auth.user)
         }
       );
 
@@ -146,7 +139,7 @@ function FosterProfile() {
 			}
 
       displayModal();
-      logout();
+      auth.logOut();
 
     } catch (error) {
       console.error(error);
@@ -198,7 +191,7 @@ function FosterProfile() {
             </div>
             <div className="mx-auto p-2">
               <label className="text-center w-full" htmlFor="email">Email</label>
-              <input className="block w-full" type="email" id="email" name="email" defaultValue={user.email} disabled />
+              <input className="block w-full" type="email" id="email" name="email" defaultValue={auth.user.email} disabled />
             </div>
           </fieldset>
       

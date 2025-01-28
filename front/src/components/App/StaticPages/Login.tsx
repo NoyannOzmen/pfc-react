@@ -1,26 +1,27 @@
 import { useEffect, useState, useRef } from "react";
+/* import { useUserContext } from "../../../contexts/UserContext";
+import { useNavigate } from "react-router-dom"; */
 import { useUserContext } from "../../../contexts/UserContext";
-import { useNavigate } from "react-router-dom";
 
 function Login() {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const isInitialMount = useRef(true);
+  /* const isInitialMount = useRef(true);
 
-  const { setUser } = useUserContext();
+  const { setUser } = useUserContext(); */
   
   const [credentials, setCredentials] = useState({
     email: '',
     mot_de_passe: '',
   });
 
-  const navigate = useNavigate();
+  /* const navigate = useNavigate(); */
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
-  useEffect(() => {
+  /* useEffect(() => {
     async function fetchUser() {
       setUserMessage(null)
       try {
@@ -52,20 +53,35 @@ function Login() {
     } else {
       fetchUser();
     }
-  }, [ credentials, setUser]);
+  }, [ credentials, setUser]); */
 
-  const [userMessage, setUserMessage] = useState(null);
+  /* const [userMessage, setUserMessage] = useState(null); */
+
+  const auth = useUserContext();
+
+  const handleInput = (e : any) => {
+    const { name, value } = e.target;
+    setCredentials((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
+   /*  const formData = new FormData(event.currentTarget);
     const { email, mot_de_passe } = Object.fromEntries(formData);
 
     setCredentials({
       email: email as string,
       mot_de_passe: mot_de_passe as string,
-    });
+    }); */
+
+    if (credentials !== null) {
+      auth.logIn(credentials)
+      return
+    }
   }
 
   return (
@@ -78,18 +94,18 @@ function Login() {
           <form className="flex flex-col flex-wrap justify-around text-texte" onSubmit={handleSubmit}>
             <div className="mx-auto p-2 w-[60%]">
               <label className="text-center" htmlFor="email">Votre e-mail</label>
-              <input className="block bg-fond w-full" type="email" placeholder="jo.jo@morioh.io" name="email" id="email" autoComplete="email" required/>
+              <input onChange={handleInput} className="block bg-fond w-full" type="email" placeholder="jo.jo@morioh.io" name="email" id="email" autoComplete="email" required/>
             </div>
             <div className="mx-auto p-2 w-[60%]">
               <label className="text-center" htmlFor="mot_de_passe">Votre mot de passe</label>
-              <input className="block bg-fond w-full" type="password" placeholder="********" name="mot_de_passe" id="mot_de_passe" autoComplete="current-mot_de_passe" required/>
+              <input onChange={handleInput} className="block bg-fond w-full" type="password" placeholder="********" name="mot_de_passe" id="mot_de_passe" autoComplete="current-mot_de_passe" required/>
             </div>
             <button className="w-[60%] mx-auto my-3 py-2 px-4 bg-accents1-light text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="submit">Se connecter</button>
           </form>
 
-          { userMessage && 
+          { auth.userMessage && 
           <div>
-            <p className="font-grands font-base text-accents1 text-center">{userMessage}</p>
+            <p className="font-grands font-base text-accents1 text-center">{auth.userMessage}</p>
           </div>
           }
 

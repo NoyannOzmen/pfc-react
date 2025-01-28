@@ -205,10 +205,10 @@ function ShelterRequestDetails() {
                 <p className="text-sm italic leading-3">Téléphone</p>
                 <p className="text-base font-semibold">{famille.telephone}</p>
               </div>
-              <div className="mb-2">
+              {/* <div className="mb-2">
                 <p className="text-sm italic leading-3">e-mail</p>
                 <p className="text-base font-semibold">{famille.identifiant_famille.email}</p>
-              </div>
+              </div> */}
               <div className="mb-2">
                 <p className="text-sm italic leading-4">Adresse</p>
                 <p className="text-base font-semibold leading-3">{famille.rue}</p>

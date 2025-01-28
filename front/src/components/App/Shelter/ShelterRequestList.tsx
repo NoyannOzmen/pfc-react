@@ -39,13 +39,11 @@ function ShelterRequestList() {
 
   function handleClick(e: any) {
     const fold = e.currentTarget.nextSibling;
-    console.log(fold)
     fold.classList.toggle('hidden')
   
     let content = fold.nextSibling;
 
     while(content && !content.classList.contains('font-grands')) {
-      console.log(content)
       content.classList.toggle('hidden');
       content = content.nextSibling;
     }
@@ -82,7 +80,7 @@ function ShelterRequestList() {
                 <>
                 <h4 className="w-full text-center font-grands text-2xl my-4">Demandes en cours</h4>
                 <table className="table text-center w-full md:w-5/6">
-                  <tr className="border-none bg-zoning text-sm font-grands">
+                  <tr key={"header"} className="border-none bg-zoning text-sm font-grands">
                     <td colSpan={4} scope="colgroup">Nom Animal</td>
                     <td colSpan={2} scope="colgroup">Nombre de demandes</td>
                   </tr>

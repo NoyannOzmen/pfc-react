@@ -75,7 +75,7 @@ function FosterRequest() {
                 <>
                 <h4 className="w-full text-center font-grands text-2xl my-4">Demandes en cours</h4>
                   <table className="table text-center w-full">
-                      <tr className="border-none bg-zoning text-sm font-grands">
+                      <tr key={"header"} className="border-none bg-zoning text-sm font-grands">
                         <td colSpan={3} scope="colgroup">Nom Animal</td>
                         <td colSpan={3} scope="colgroup">Demande</td>
                       </tr>

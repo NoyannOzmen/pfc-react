@@ -85,7 +85,7 @@ export interface RootContext {
   tags: Tag[];
   species: Espece[];
   shelters: Association[];
-  user: LoggedUser | null;
+  /* user: LoggedUser | null; */
 }
 
 export interface LoggedUser {

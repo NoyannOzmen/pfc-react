@@ -23,7 +23,7 @@ function ShelterResidentProfileList() {
   //* MIGHT BE USEFUL TO TURN THIS INTO A COMPONENT
   const fosteredItems = fostered.map((animal) => (
     <>
-    <tr onClick={handleClick} tabIndex={0} className="view  text-fond text-sm bg-accents2 font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hover:bg-accents2-dark">
+    <tr key={animal.id} onClick={handleClick} tabIndex={0} className="view  text-fond text-sm bg-accents2 font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hover:bg-accents2-dark">
       <td className="px-2 pt-2  border-accents2-dark border-solid border-1">{animal.nom}</td>
       <td className="px-2 pt-2  border-accents2-dark border-solid border-1">{animal.accueillant.nom}</td>
     </tr>

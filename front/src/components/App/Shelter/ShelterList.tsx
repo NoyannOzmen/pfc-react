@@ -12,13 +12,9 @@ function ShelterList() {
     /* shelters.filter(({ pensionnaires }) => pensionnaires.some(({ statut }) => statut === "En refuge")) */
   )
 
-  console.log(searchedShelters)
-
   const shelterItems = searchedShelters.map((shelter) => (
     <ShelterCard key={shelter.id} shelter={shelter} />
   ))
-
-  console.log(shelterItems)
 
   const [espece, setEspece] = useState<any[]>([]);
 

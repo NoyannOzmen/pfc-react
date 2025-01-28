@@ -4,14 +4,13 @@ import { Outlet, useOutletContext } from 'react-router-dom';
 import Footer from '../components/App/Footer/Footer';
 import Header from '../components/App/Header/Header';
 
-import { IAnimal, IEspece, ITag, IAssociation, LoggedUser, RootContext } from '../@types';
+import { IAnimal, IEspece, ITag, IAssociation, RootContext } from '../@types';
 
 function Root() {
   const [animals, setAnimals] = useState<IAnimal[]>([]);
   const [species, setSpecies] = useState<IEspece[]>([]);
   const [tags, setTags] = useState<ITag[]>([]);
   const [shelters, setShelters] = useState<IAssociation[]>([]);
-  const [user] = useState<LoggedUser | null>(null);
 
   useEffect(() => {
     const fetchAnimals = async () => {
@@ -71,7 +70,7 @@ function Root() {
               species,
               shelters,
               tags,
-              user,
+              /* user, */
             } satisfies RootContext
           }
         />

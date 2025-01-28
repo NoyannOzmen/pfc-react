@@ -35,19 +35,6 @@ function ShelterResidentDetails() {
 
   const animalUrl = animal.images_animal[0].url;
 
-  useEffect(() => {
-    const script = document.createElement('script');
-  
-    script.src="../../../src/assets/utils/dashboardAssoListeAnimal.js";
-    script.async = true;
-  
-    document.body.appendChild(script);
-  
-    return () => {
-      document.body.removeChild(script);
-    }
-  }, []);
-
   const [userMessage, setUserMessage] = useState(null);
 
   async function sendFile(event: React.FormEvent<HTMLFormElement>) {
