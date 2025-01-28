@@ -12,9 +12,9 @@ const AnimalCard = ({ animal }: AnimalCardProps) => {
       <div className="bg-zoning rounded-lg shadow dark:bg-gray-800 md:flex-col">
       <div className="relative md:w-full flex justify-center items-center">
         { url ? (
-          <img className="font-body rounded-lg" src={`../../src/assets`+`${url}`} alt={`Photo de ${animal.nom}`}></img>
+          <img className="font-body rounded-lg" src={`${import.meta.env.VITE_API_URL}` + `${url}`} alt={`Photo de ${animal.nom}`}></img>
         ) : (
-          <img className="font-body rounded-lg" src="../../src/assets/images/animal_empty.webp" alt="Photo à venir" />
+          <img className="font-body rounded-lg" src="/images/animal_empty.webp" alt="Photo à venir" />
         )}
         
       </div>

@@ -4,7 +4,7 @@ function ErrorPage() {
     return (
       <main className="justify-self-stretch flex-1">
         <div className="my-12 flex items-center justify-center">
-          <img src="../src/assets/images/404.webp" className="" alt="Un lion choqué" />
+          <img src="/images/404.webp" className="" alt="Un lion choqué" />
         </div>
 
         <h2 className="font-grands text-center my-3 pt-2">Cette page n'existe pas !</h2>
@@ -12,7 +12,7 @@ function ErrorPage() {
         
         <div className="flex items-center justify-center">
           <Link to="/">
-          <img src="../src/assets/images/logo.svg" className="size-20 my-2" alt="Retour à l'accueil" />
+          <img src="/icons/logo.svg" className="size-20 my-2" alt="Retour à l'accueil" />
           </Link>
         </div>
       </main>

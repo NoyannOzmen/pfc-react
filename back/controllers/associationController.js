@@ -1,28 +1,17 @@
-/*
-import Joi from 'joi';
-import { Card, List } from '../models/index.js';
-import { hexadecimalColorSchema } from './JOI-VALIDATE-HEX-STRING.js';
-*/
-
-import { Association, Animal, Demande, Espece, Famille, Media, Tag, Utilisateur } from "../models/Models.js";
+import { Association, Animal, Demande, Espece, Media } from "../models/Models.js";
 import { Op } from "sequelize";
-import { sequelize } from "../models/sequelizeClient.js";
 
 const associationController = {
-    //* Liste des associations
     async getAll(req, res) {
-        // Récupérer toutes les associations en BDD
         const associations = await Association.findAll({
             include :  [ 'images_association', 'identifiant_association', 'pensionnaires' ]
         });
         
         const especes = await Espece.findAll();
         
-        /* // Envoyer une réponse
-        res.render("listeAssociations",{ associations, especes }); */
         res.json(associations)
     },
-    //* Liste des associations RECHERCHEES
+
     async getSearched(req,res) {
         const {
             espece,
@@ -49,13 +38,11 @@ const associationController = {
                     '$pensionnaires.espece.nom$' : (req.body.espece ) ? req.body.espece : { [Op.ne] : null },
                 }
             });
-            
-            /* return res.render("listeAssociations", { associations, especes }); */
+
             return res.json(associations);
     },
-    /* MàJ Asso */
+
     async update(req,res) {
-        /* const associationId = req.session.userId; */
         const associationId = Number(req.body.id)
         const association = await Association.findByPk(associationId);
         
@@ -63,7 +50,6 @@ const associationController = {
             return next();
         }
         
-        // Element à Update
         const { nom, responsable, rue, commune, code_postal, pays, siret, telephone, site, description } = req.body;
         
         const updatedAssociation = await association.update({
@@ -81,21 +67,14 @@ const associationController = {
         
         console.log('success')
         console.log(updatedAssociation);
-        /* res.redirect("/associations/profil") */
         res.json(updatedAssociation)
         
     },
     async uploadImage(req, res,next){
-        /* console.log("file is" + req.file) */
         let userImage = req.file.path;
-        const trim = userImage.replace("./assets", "");
-        /* console.log('path is' + trim); */
 
-        /* const assoId = req.session.userId; */
-        /* console.log("body is")
-        console.log(req.body) */
+        const trim = userImage.replace("./assets", "");
         const assoId = req.body.assoId;
-        /* console.log(assoId); */
         
         const association = await Association.findByPk(assoId, {
             include : 'images_association'
@@ -110,10 +89,7 @@ const associationController = {
             ordre : 1
         })
         
-        /* console.log('image is' + JSON.stringify(newMedia));
-        console.log(`C'est good`) */
         await newMedia.save();
-        /* res.render("profilAssociationLogo", {association}); */
         res.json(association)
     },
     async denyRequest(req,res) {
@@ -127,8 +103,6 @@ const associationController = {
         
         console.log(updatedRequest);
         await updatedRequest.save();
-        
-        /* res.redirect('/associations/profil/demandes/' + requestId) */
         res.json(updatedRequest)
     },
     async approveRequest(req,res) {
@@ -153,20 +127,16 @@ const associationController = {
         
         
         for (const demande of otherRequests) {
-            
             await demande.update({
                 statut_demande:"Refusée"
             });
-            
-            await demande.save();
-            
+            await demande.save();    
         }
         
         const animal = await Animal.findByPk(request.animal_id);
         await animal.update({famille_id:request.famille_id});
         await animal.save();
         
-        /*  res.redirect('/associations/profil/demandes/' + requestId) */
         res.json(request)
     }, 
 };

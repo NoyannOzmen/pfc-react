@@ -2,7 +2,6 @@ import bcrypt from 'bcrypt';
 import emailValidator from 'email-validator';
 
 import { Animal, Famille, Utilisateur, Association, Espece } from '../models/Models.js';
-import { Op } from 'sequelize';
 
 export const sessionController = {
     async logIn(req,res) {    
@@ -31,10 +30,8 @@ export const sessionController = {
 
             return res.status(status).json({ status, message });
         }
-        
-        //* Bcrypt compare le hash du mot de passe récupéré depuis la requète avec celui en BDD
+
         const hasMatchingPassword = await bcrypt.compare(mot_de_passe, user.mot_de_passe);
-        
         if(!hasMatchingPassword) {
             const status = 401;
             const message = 'Identifiants incorrects. Merci de ré-essayer.';
@@ -42,23 +39,14 @@ export const sessionController = {
             return res.status(status).json({ status, message });
 
         } else {  
-            //* Check si user est association OU famille en vérifiant si les sous-champs id existent.
-            //* Normalement l'include ne devrait renvoyer que l'un OU l'autre.
-            //* On ajoute ensuite en session :
-            //*     - loggedIn : true pour vérifier facilement si la session est celle d'un.e user logged in
-            //*     - role : Pour vérifier le rôle du user et personnaliser l'affichage dans les vues accès restreint
-            //*     - nom : pour afficher sur toutes les vues le nom du user
-            //*     - id : Pour faciliter les futurs appels BDD pour afficher les infos des profils etc...
             let refugeId=null;
             let familleId=null;
 
             if (user.refuge) {
-                /* refugeId = user.refuge.id; */
                 refugeId = user.id;
                 
             }
             if (user.accueillant) {
-                /* familleId = user.accueillant.id; */
                 familleId = user.id;
             }
             
@@ -82,13 +70,11 @@ export const sessionController = {
                 req.session.userId=familleId
             }
             user.mot_de_passe = null;
-            /* console.log(req.session) */
         }
         return res.json(user);
     },
     async logOut(req,res) {
         req.session.destroy();
-        /* res.redirect('/') */
     },
     async fosterSignIn(req,res) {    
         const { 
@@ -113,17 +99,13 @@ export const sessionController = {
             const message = `Cet email n'est pas valide.`;
 
             return res.status(status).json({ status, message });
-            /* req.flash('erreur', "Cet email n'est pas valide.");
-            return res.redirect('/famille/inscription'); */
         }
-        // verifier si password correspond à password confirm
+
         if (mot_de_passe !== confirmation) {
             const status = 401;
             const message = 'La confirmation du mot de passe ne correspond pas au mot de passe renseigné.';
 
             return res.status(status).json({ status, message });
-            /* req.flash('erreur', 'La confirmation du mot de passe ne correspond pas au mot de passe renseigné.');
-            return res.redirect('/famille/inscription'); */
         }
         
         if(found === null) {
@@ -152,7 +134,6 @@ export const sessionController = {
             });
             console.log(newFoster);
             await newFoster.save();
-            /* res.redirect("/") */
             const status = 200
             const message = 'Inscription Correcte';
 
@@ -163,21 +144,16 @@ export const sessionController = {
             const message = 'Inscription incorrecte';
 
             return res.status(status).json({ status, message });
-            /* req.flash('erreur', 'Inscription incorrecte');
-            return res.redirect('/famille/inscription'); */
         }
     },
     async fosterUpdate(req,res, next) {
-        /* console.log("session is")
-        console.log(req.session)
-        const familleId = req.session.userId; */
         const familleId = Number(req.body.id);
         const famille = await Famille.findByPk(familleId);
         
         if (!famille) {
             return next();
         }
-        // Element à Update
+
         const { prenom, nom, telephone, rue, commune, code_postal, pays, hebergement, terrain } = req.body;
         const updatedFamille = await famille.update({
             prenom : prenom || famille.prenom,
@@ -190,11 +166,10 @@ export const sessionController = {
             hebergement : hebergement || famille.hebergement,
             terrain : terrain || famille.terrain,
         });
-        /* console.log(updatedFamille) */
+
         res.json(updatedFamille)
     }, 
     async fosterDestroy(req, res, next) {
-        /* const familleId = req.session.userId; */
         const familleId = req.body.accueillant.id;
         const famille = await Famille.findByPk(familleId);
 
@@ -215,14 +190,12 @@ export const sessionController = {
         if (fostered) {
             const status = 401;
             const message =  'Vous accueillez actuellement un animal. Merci de contacter le refuge concerné avant de supprimer votre compte !'
-            /* return res.redirect('/famille/profil'); */
             return res.status(status).json({ status, message })
         }
         await famille.destroy();
         await user.destroy();
         req.session.destroy();
         res.status(201).json({ message : "done" })
-        /* res.redirect('/') */
     },
     async shelterSignIn(req,res) {
         const { 
@@ -253,17 +226,13 @@ export const sessionController = {
                 const message = `Cet email n'est pas valide.`;
     
                 return res.status(status).json({ status, message });
-                /* req.flash('erreur', "Cet email n'est pas valide.");
-                return res.redirect('/association/inscription'); */
             }
-            // verifier si password correspond à password confirm
+
             if (mot_de_passe !== confirmation) {
                 const status = 401;
                 const message = 'La confirmation du mot de passe ne correspond pas au mot de passe renseigné.';
     
                 return res.status(status).json({ status, message });
-                /* req.flash('erreur', 'La confirmation du mot de passe ne correspond pas au mot de passe renseigné.');
-                return res.redirect('/association/inscription'); */
             }
             
             const hashedPassword = await bcrypt.hash(mot_de_passe, 8);
@@ -291,7 +260,6 @@ export const sessionController = {
             });
             console.log(newShelter);
             await newShelter.save();
-            /* res.redirect("/") */
             const status = 200
             const message = 'Inscription Correcte';
 
@@ -302,18 +270,9 @@ export const sessionController = {
             const message = 'Inscription incorrecte';
 
             return res.status(status).json({ status, message });
-            /* req.flash('erreur', 'Inscription incorrecte');
-            return res.redirect('/association/inscription'); */
         }
     },
     async shelterDestroy(req, res, next) {
-/*         //*Vérification que l'utilisateur.ice connecté.e est bien cellui qui doit être supprimé.e
-        //* (on ne veut pas que n'importe qui puisse supprimer un compte asso)    
-        if (!(parseInt(req.session.id)===parseInt(req.params.id))){    
-            res.status=401;
-            return next(new Error('Unauthorized'))               
-        } */
-        /* const assoId = req.session.userId; */
         const assoId = Number(req.body.refuge.id);
         const asso = await Association.findByPk(assoId);
 
@@ -323,7 +282,6 @@ export const sessionController = {
         console.log(user)
 
         if (!asso || !user) {
-            // Si pas entier ou pas existant dans la BDD => 404
             return next();
         };
 
@@ -337,8 +295,6 @@ export const sessionController = {
             const status = 401;
             const message = 'Vous accueillez actuellement un animal. Merci de nous contacter afin de supprimer votre compte !';
 
-            /* req.flash('erreur', 'Vous accueillez actuellement un animal. Merci de nous contacter afin de supprimer votre compte !'); */
-            /* return res.redirect('/famille/profil'); */
             return res.status(status).json({ status, message })
         }
 
@@ -346,6 +302,5 @@ export const sessionController = {
         await user.destroy();
         req.session.destroy();
         res.status(201).json({ message : "done" })
-        /* res.redirect('/') */
     },   
 };

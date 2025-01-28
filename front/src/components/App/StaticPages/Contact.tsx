@@ -12,7 +12,7 @@ function Contact() {
 			<p>Du lundi au vendredi : 9h - 18h</p>
 		</article>
 		<article className="bg-zoning font-body mx-auto w-[60%] rounded-lg shadow dark:bg-gray-800 my-2 py-5">
-			<img className="mx-auto" src="../../src/assets/images/shelter_empty.webp" alt="Une jolie photo des locaux" />
+			<img className="mx-auto" src="/images/shelter_empty.webp" alt="Une jolie photo des locaux" />
 			<h3 className="text-2xl mb-4">Sur place ou par courrier :</h3>
 			<p>9 rue de l'Arche de Noé, 50450 LA BALEINE, France </p>
 			<p>Du lundi au vendredi : 10h - 17h30</p>

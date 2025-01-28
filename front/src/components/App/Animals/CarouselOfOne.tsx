@@ -24,9 +24,9 @@ function CarouselOfOne() {
           <div className="flex bg-fond rounded-lg shadow dark:bg-gray-800 flex-col md:flex-col mx-auto my-2 w-[75%] p-4">
             <div className="w-full md:w-full flex justify-center items-center">
             { animal.images_animal ? (
-            <img className="object-contain md:h-full rounded-lg" src={`../../src/assets`+`${animal.images_animal[0].url}`} alt={`Photo de ${animal.nom}`} />
+            <img className="object-contain md:h-full rounded-lg" src={`${import.meta.env.VITE_API_URL}` + `${animal.images_animal[0].url}`} alt={`Photo de ${animal.nom}`} />
             ) : (
-            <img className="object-contain md:h-full rounded-lg" src="../../src/assets/images/animal_empty.webp" alt="Photo à venir" />
+            <img className="object-contain md:h-full rounded-lg" src="/images/animal_empty.webp" alt="Photo à venir" />
             )}
             </div>
 
@@ -75,7 +75,7 @@ function CarouselOfOne() {
         
     <button
     className="absolute top-0 start-0 z-1 flex items-center justify-center h-full pl-2 cursor-pointer group focus:outline-none  size-10 opacity-75"
-    type="button" id="previous" aria-label="Précédent" tabIndex={0}><img src="../../../src/assets/icons/left.svg" alt="" 
+    type="button" id="previous" aria-label="Précédent" tabIndex={0}><img src="/icons/left.svg" alt="" 
     onClick={getOnePreviousPic} /></button>
     
     <div className="h-auto mx-auto rounded-lg p-4">
@@ -84,7 +84,7 @@ function CarouselOfOne() {
     
     <button
     className="absolute top-0 end-0 z-1 flex items-center justify-center h-full pr-2 cursor-pointer group focus:outline-none size-10 opacity-75"
-    type="button" id="next" aria-label="Suivant" tabIndex={0}><img src="../../../src/assets/icons/right.svg" alt="" 
+    type="button" id="next" aria-label="Suivant" tabIndex={0}><img src="/icons/right.svg" alt="" 
     onClick={getOneNextPic} /></button>
     
     </section>

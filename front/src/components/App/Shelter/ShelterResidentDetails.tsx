@@ -106,9 +106,9 @@ function ShelterResidentDetails() {
           <div className="flex p-6 pb-4">
             <div className="flex flex-col gap-2">
               { animalUrl ? (
-                <img className="w-28 rounded-lg" src={`../../../src/assets`+`${animalUrl}`} alt={`Photo de ${animal.nom}`} />
+                <img className="w-28 rounded-lg" src={`${import.meta.env.VITE_API_URL}` + `${animalUrl}`} alt={`Photo de ${animal.nom}`} />
               ) : (
-                 <img className="w-28 rounded-lg" src="../../../src/assets/images/animal_empty.webp" alt="Photo à venir" />
+                 <img className="w-28 rounded-lg" src="/images/animal_empty.webp" alt="Photo à venir" />
               )}
             </div>
                 

@@ -96,7 +96,7 @@ function ShelterUploadPage() {
             {currentLogo &&
               <div className="flex flex-col justify-center">
                 <h3 className="font-body text-2xl text-center">Votre Logo actuel</h3>
-                <img className="w-[40%] mx-auto rounded-lg" src={`../../src/assets`+`${currentLogo.url}`} alt="" />
+                <img className="w-[40%] mx-auto rounded-lg" src={`${import.meta.env.VITE_API_URL}` + `${currentLogo.url}`} alt="" />
               </div>
 
             }

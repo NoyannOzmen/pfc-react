@@ -23,7 +23,7 @@ function Header() {
     <header id="top" className="w-screen flex flex-row bg-zoning shadow-xl flex-none">
     
     <Link to="/" className="flex flex-row grow-0 p-4">
-      <img src="../../src/assets/images/logo.svg" alt="Logo de Pet Foster Connect" className="size-20" />
+      <img src="/icons/logo.svg" alt="Logo de Pet Foster Connect" className="size-20" />
       <div className="grow-0 py-4 px-2">
         <h1 className="stroke-title font-grands pt-2">Pet&nbsp;Foster<br />Connect<br /></h1>
         <p>"Plateforme&nbsp;Française d'acCueil"</p>

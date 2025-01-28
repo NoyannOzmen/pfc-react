@@ -79,9 +79,9 @@ function AnimalDetails() {
 		<div className="font-body mx-auto w-[80%] bg-zoning rounded-lg shadow dark:bg-gray-800 my-4">
 			{ animalUrl ? (
 				<img className="mx-auto my-2"
-				src={`../../src/assets`+`${animalUrl}`} alt={`Photo de ${animal.nom}`} />
+				src={`${import.meta.env.VITE_API_URL}` + `${animalUrl}`} alt={`Photo de ${animal.nom}`} />
 			) : (
-				<img className="mx-auto my-2" src="../../src/assets/images/animal_empty.webp" alt="Photo à venir" />
+				<img className="mx-auto my-2" src="/images/animal_empty.webp" alt="Photo à venir" />
 			)}
 		</div>
 		<article className="font-body mx-auto w-[80%] bg-zoning rounded-lg shadow dark:bg-gray-800 my-4">
@@ -136,9 +136,9 @@ function AnimalDetails() {
 			<div className="font-body mx-auto w-[80%] rounded-lg my-4">
  				{ shelterUrl ? (
 					<img className="mx-auto"
-					src={`../../src/assets`+`${shelterUrl}`} alt={`Logo de ${animal.refuge.nom}`}></img>
+					src={`${import.meta.env.VITE_API_URL}` + `${shelterUrl}`} alt={`Logo de ${animal.refuge.nom}`}></img>
 				) : (
-					<img className="mx-auto" src="../../src/assets/images/shelter_empty.webp" alt={`Logo de ${animal.refuge.nom} bientôt visible`} />
+					<img className="mx-auto" src="/images/shelter_empty.webp" alt={`Logo de ${animal.refuge.nom} bientôt visible`} />
 				)}
 			</div>
 

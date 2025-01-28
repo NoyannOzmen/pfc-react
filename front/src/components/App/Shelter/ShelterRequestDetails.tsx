@@ -23,6 +23,10 @@ function ShelterRequestDetails() {
   const animal = requested.find(isCurrentRequest);
   const famille = animal.demandes[0];
 
+  const [ displayedRequest, setDisplayedRequest ] = useState(
+    animal.demandes[0]
+  )
+
   const tagItems = animal.tags.map((tag :any) => (
     <p key={tag.id} className="group rounded-full block bg-accents1 text-fond text-center text-xs font-semibold py-1 px-2">
       {tag.nom}
@@ -31,6 +35,8 @@ function ShelterRequestDetails() {
       </span>
     </p>
   ))
+
+  const [userMessage, setUserMessage] = useState(null);
   
   async function acceptRequest(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -66,14 +72,14 @@ function ShelterRequestDetails() {
       }
 
       const data = await response.json();
-      console.log(data)
+      let newState = Object.assign({}, displayedRequest);
+      newState = data;
+      setDisplayedRequest(newState);
 
     } catch (error) {
       console.error(error);
     }
   }
-
-  const [userMessage, setUserMessage] = useState(null);
 
   async function denyRequest(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -95,7 +101,9 @@ function ShelterRequestDetails() {
 			}
 
       const data = await response.json();
-      console.log(data)
+      let newState = Object.assign({}, displayedRequest);
+      newState = data;
+      setDisplayedRequest(newState);
 
     } catch (error) {
       console.error(error);
@@ -143,9 +151,9 @@ function ShelterRequestDetails() {
             <div className="flex p-6 pb-4">
               <div className="flex flex-col gap-2">
               { animal.images_animal[0].url ? (
-                <img className="w-28 rounded-lg" src={`../../../src/assets`+`${animal.images_animal[0].url}`} alt={`Photo de ${animal.nom}`} />
+                <img className="w-28 rounded-lg" src={`${import.meta.env.VITE_API_URL}` + `${animal.images_animal[0].url}`} alt={`Photo de ${animal.nom}`} />
               ) : (
-                <img className="w-28 rounded-lg" src="../../../src/assets/images/animal_empty.webp" alt="Photo à venir" />
+                <img className="w-28 rounded-lg" src="/images/animal_empty.webp" alt="Photo à venir" />
               )}
                 <Link className="rounded-full mx-auto block bg-accents1 text-fond w-16 text-center text-xs font-semibold py-1 hover:underline" to={`/associations/profil/animaux/${animal.id}`} >Détails</Link>
               </div>
@@ -228,7 +236,7 @@ function ShelterRequestDetails() {
         {/* <!-- PARTIE GESTION --> */}
         <div className="w-full flex flex-row flex-wrap md:flex-nowrap justify-center gap-2 items-center">
           <h4 className="font-body font-bold text-center">Statut de la demande :</h4>
-          <p id="request-status" className="font-body text-center">{famille.Demande.statut_demande}</p>
+          <p id="request-status" className="font-body text-center">{displayedRequest ? (displayedRequest.statut_demande) : ("En Attente")}</p>
           <form className="w-[80%] md:w-[20%]" onSubmit={acceptRequest}>
             <button type="submit" className="bg-accents1 w-full m-3 py-2 px-4 text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">Accepter</button>
           </form>

@@ -6,12 +6,7 @@ import { Op } from "sequelize";
 export const animalController = {
 
     async availableAnimalsList(req,res) {
-        
-        //* On veut récupérer tout les animaux qui sont dans les refuges, en incluant les tags et les associations qui les gèrent
         const animals = await Animal.findAll({
-/*             where: {
-                statut:'En refuge'
-            }, */
             include : [
                 "espece",
                 "images_animal",
@@ -25,11 +20,6 @@ export const animalController = {
         const especes = await Espece.findAll();
         const tags = await Tag.findAll();
         
-/*         res.render('listeAnimaux', {
-            animals,
-            especes,
-            tags
-        }) */
        res.json(animals)
     },
      async getSpeciesList(req,res) {
@@ -79,24 +69,19 @@ export const animalController = {
             }
         });
         
-        /* return res.render("listeAnimaux", { animals, especes, tags }); */
         return res.json(animals)
     },
     async hostRequest(req, res, next){
-        /* const animalId = req.params.id; */
-        /* const familleId = req.session.userId; */
         const {
             familleId,
             animalId
         } = req.body
        
-        //* Si l'animal n'existe pas on sort du middleware
         const animalExists = await Animal.findByPk(animalId);
         if (!animalExists){
             next();
         }
 
-        //* S'il y a déjà une demande de la famille pour l'animal on sort du middleware
         const found = await Demande.findOne({
             where :{ 
                 [Op.and] : [
@@ -109,7 +94,6 @@ export const animalController = {
         console.log(found)
 
         if (found === null) {
-            //* On crée et sauvegarde l'instance de la demande
             const newRequest = await Demande.create({
                 famille_id : familleId,
                 animal_id : animalId,
@@ -125,29 +109,19 @@ export const animalController = {
             const message = 'Votre demande a bien été prise en compte !';
 
             return res.status(status).json({ status, message });
-
-            /* req.flash('succes', 'Votre demande a bien été prise en compte !'); */
-            /* res.redirect('/animaux/' + animalId); */
         } else {
             const status = 401;
             const message = 'Vous avez déjà effectué une demande pour cet animal !';
 
             return res.status(status).json({ status, message });
-            /* req.flash('erreur', 'Vous avez déjà effectué une demande pour cet animal !'); */
-            /* res.redirect('/animaux/' + animalId); */
         }   
     },
     async addAnimal (req,res,next) {
-        //!userId est en fait l'id du refuge ou de la famille
-        /* const assoId = req.session.userId; */
         const assoId = Number(req.body.association_id)
 
-        //* On récupère le nombre de tag en BDD
         const tagNumber = await Tag.count();
         const tagIdArray = [];
-        //* Pour récupérer les id des tag sélectionnés par l'utilisateur on boucle autant de fois que de tag en BDD
-        //* On vérifie si la propriété de req.body.tag_number existe
-        //* Si elle existe on ajoute la valeur de l'id du tag dans le tableau
+
         for (let i = 0; i < tagNumber; i++) {
 
             const hasProperty = Object.hasOwn(req.body, `tag_${i+1}`);
@@ -172,7 +146,6 @@ export const animalController = {
             next();
         }
 
-        //* On crée un nouveau profil animal ET un nouveau média (d'où le include)
         const newAnimal = await Animal.create(
             {
                 nom : nom_animal,
@@ -199,10 +172,9 @@ export const animalController = {
                 await newAnimal.addTag(tag)
             }
         }
-        /* res.redirect('/associations/profil/animaux'); */
         res.json(newAnimal)
     },
-    async uploadPhoto(req, res,next){
+    async uploadPhoto(req, res, next){
         let userImage = req.file.path;
         const trim = userImage.replace("./assets", "");
         console.log('path is' + trim);
@@ -224,10 +196,6 @@ export const animalController = {
         console.log('image is' + JSON.stringify(newMedia));
         console.log(`C'est good`)
         await newMedia.save();
-        /* console.log(req.session.animalId)
-        delete req.session.animalId
-        console.log(req.session) */
-        /* res.redirect("/associations/profil/animaux"); */
         res.json(newMedia)
     },
 }
