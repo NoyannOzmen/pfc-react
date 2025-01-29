@@ -14,13 +14,40 @@ type UserContextProviderProps = {
 
 export const RootContext = createContext<RootContextType | null>(null);
 
+const getInitialAnimalState = () => {
+  const animals = sessionStorage.getItem('animals');
+  return animals ? JSON.parse(animals) : null
+}
+
+const getInitialSpeciesState = () => {
+  const species = sessionStorage.getItem('species');
+  return species ? JSON.parse(species) : null
+}
+
+const getInitialTagState = () => {
+  const tags = sessionStorage.getItem('tags');
+  return tags ? JSON.parse(tags) : null
+}
+
+const getInitialShelterState = () => {
+  const shelters = sessionStorage.getItem('shelters');
+  return shelters ? JSON.parse(shelters) : null
+}
+
 export default function RootContextProvider({
   children,
 }: UserContextProviderProps) {
-  const [animals, setAnimals] = useState<IAnimal[]>([]);
-  const [species, setSpecies] = useState<IEspece[]>([]);
-  const [tags, setTags] = useState<ITag[]>([]);
-  const [shelters, setShelters] = useState<IAssociation[]>([]);
+  const [animals, setAnimals] = useState(getInitialAnimalState);
+  const [species, setSpecies] = useState(getInitialSpeciesState);
+  const [tags, setTags] = useState(getInitialTagState);
+  const [shelters, setShelters] = useState(getInitialShelterState);
+
+  useEffect(() => {
+    sessionStorage.setItem('animals', JSON.stringify(animals));
+    sessionStorage.setItem('species', JSON.stringify(species));
+    sessionStorage.setItem('tags', JSON.stringify(tags));
+    sessionStorage.setItem('shelters', JSON.stringify(shelters));
+  }, [animals, species, tags, shelters]);
 
   useEffect(() => {
     const fetchAnimals = async () => {
