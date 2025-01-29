@@ -1,21 +1,8 @@
 import { Link } from "react-router-dom"
 import { useUserContext } from "../../../contexts/UserContext";
-import { LoggedUser } from "../../../@types";
-/* import { useNavigate } from "react-router-dom"; */
 
-/* type HeaderLoggedProps = {
-  user: LoggedUser;
-}; */
+function HeaderLogged() {
 
-function HeaderLogged(/* {user } : HeaderLoggedProps */) {
-  /* const { setUser } = useUserContext();
-
-  const navigate = useNavigate();
-
-  const logout = () => {
-    setUser(null)
-    navigate('/')
-  } */
  const auth = useUserContext();
 
   return (

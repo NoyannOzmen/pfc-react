@@ -34,13 +34,14 @@ function ShelterSignIn() {
           }
         );
 
-        if (!response.ok) {
-          const { message } = await response.json();
-          setUserMessage(message)
-        }
+        const res = await response.json();
 
-        const data = await response.json();
-        console.log(data)
+        if (!res.ok) {
+          setUserMessage(res.message)
+        }
+        if(res) {
+          console.log(res)
+        }
       } catch (error) {
         console.error(error);
       }

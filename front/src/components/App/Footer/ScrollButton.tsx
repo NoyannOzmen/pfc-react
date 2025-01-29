@@ -1,17 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const ScrollButton = () => {
-    const [visible, setVisible] = useState(false);
 
-    const toggleVisible = () => {
-        const scrolled = document.documentElement.scrollTop;
-        if (scrolled > 150) {
-            setVisible(true);
-        } else if (scrolled <= 150) {
-            setVisible(false);
-        }
-    };
+    const [visible, setVisible] = useState(false);
 
     const scrollToTop = () => {
         window.scrollTo({
@@ -20,7 +12,18 @@ const ScrollButton = () => {
         });
     };
 
-    window.addEventListener("scroll", toggleVisible);
+    useEffect(() => {
+        const toggleVisible = () => {
+            const scrolled = document.documentElement.scrollTop;
+            if (scrolled > 150) {
+                setVisible(true);
+            } else if (scrolled <= 150) {
+                setVisible(false);
+            }
+        };
+
+        window.addEventListener("scroll", toggleVisible);
+    }, []);
 
     return (
         <div className="flex-none" onClick={scrollToTop}

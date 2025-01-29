@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FosterRoute, ShelterRoute } from "./PrivateRoute";
 import UserContextProvider from '../contexts/UserContext.tsx';
+import RootContextProvider from "../contexts/RootContext.tsx";
 
 import Root from './Root.tsx';
 import ErrorPage from './ErrorPage.tsx';
@@ -24,7 +25,6 @@ import AnimalDetails from '../components/App/Animals/AnimalDetails.tsx';
 import ShelterSignIn from '../components/App/Shelter/ShelterSignIn.tsx';
 import FosterSignIn from '../components/App/Foster/FosterSignIn.tsx';
 
-import FosterAnimalRequest from '../components/App/Foster/FosterAnimalRequest.tsx';
 import FosterProfile from '../components/App/Foster/FosterProfile.tsx';
 import FosterRequest from '../components/App/Foster/FosterRequest.tsx';
 
@@ -40,6 +40,7 @@ import ShelterUploadPage from '../components/App/Shelter/ShelterUploadPage.tsx';
 const AllRoutes = () => {
   return (
     <BrowserRouter>
+      <RootContextProvider>
       <UserContextProvider>
         <Routes>
           <Route path='/' element={<Root />}>
@@ -57,10 +58,6 @@ const AllRoutes = () => {
             {/* Animal Routes */}
             <Route path= 'animaux' element={<AnimalList />} />
             <Route path= 'animaux/:animalId' element={<AnimalDetails />} />
-            <Route element={<FosterRoute />}>
-              <Route path= 'animaux/:animalId/faire-une-demande' element={<FosterAnimalRequest />} />
-            </Route>
-            
             {/* Session Routes */}
             <Route path= 'connexion' element={<Login />} />
             {/* Foster Routes */}
@@ -85,6 +82,7 @@ const AllRoutes = () => {
           </Route>
         </Routes>
       </UserContextProvider>
+      </RootContextProvider>
     </BrowserRouter>
   );
 };

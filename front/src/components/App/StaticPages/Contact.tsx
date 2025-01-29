@@ -34,7 +34,7 @@ function Contact() {
 				</div>
 				<div className="mx-auto w-[60%] p-2">
 					<label className="text-center" htmlFor="email">Votre E-mail</label>
-					<input className="block bg-fond w-full" type="email" placeholder="jo.jo@morioh.io" name="email" id="email" required />
+					<input className="block bg-fond w-full" type="email" placeholder="jo.jo@morioh.io" name="email" id="email" autoComplete="email" required />
 				</div>
 				<div className="mx-auto w-[60%] p-2">
 					<label className="text-center" htmlFor="msg">Votre Message</label>

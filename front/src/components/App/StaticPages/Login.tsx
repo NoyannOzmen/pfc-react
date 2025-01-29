@@ -1,61 +1,17 @@
 import { useEffect, useState, useRef } from "react";
-/* import { useUserContext } from "../../../contexts/UserContext";
-import { useNavigate } from "react-router-dom"; */
 import { useUserContext } from "../../../contexts/UserContext";
 
 function Login() {
   const inputRef = useRef<HTMLInputElement>(null);
-
-  /* const isInitialMount = useRef(true);
-
-  const { setUser } = useUserContext(); */
   
   const [credentials, setCredentials] = useState({
     email: '',
     mot_de_passe: '',
   });
 
-  /* const navigate = useNavigate(); */
-
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
-
-  /* useEffect(() => {
-    async function fetchUser() {
-      setUserMessage(null)
-      try {
-        const response = await fetch
-          (`${import.meta.env.VITE_API_URL}/connexion`,
-          {
-            method: 'POST',
-            headers: { "Content-type" : "application/json" },
-            body: JSON.stringify(credentials),
-          }
-        );
-
-        if (!response.ok) {
-          const { message } = await response.json();
-          setUserMessage(message)
-        }
-
-        const data = await response.json();
-
-        setUser(data);
-        navigate('/');
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      fetchUser();
-    }
-  }, [ credentials, setUser]); */
-
-  /* const [userMessage, setUserMessage] = useState(null); */
 
   const auth = useUserContext();
 
@@ -69,14 +25,6 @@ function Login() {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
-   /*  const formData = new FormData(event.currentTarget);
-    const { email, mot_de_passe } = Object.fromEntries(formData);
-
-    setCredentials({
-      email: email as string,
-      mot_de_passe: mot_de_passe as string,
-    }); */
 
     if (credentials !== null) {
       auth.logIn(credentials)

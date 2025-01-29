@@ -72,10 +72,10 @@ export const animalController = {
         return res.json(animals)
     },
     async hostRequest(req, res, next){
-        const {
-            familleId,
-            animalId
-        } = req.body
+        const animalId = Number(req.body.animalId);
+        const familleId = Number(req.body.familleId);
+        console.log(animalId);
+        console.log(familleId)
        
         const animalExists = await Animal.findByPk(animalId);
         if (!animalExists){

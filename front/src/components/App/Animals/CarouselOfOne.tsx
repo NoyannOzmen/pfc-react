@@ -1,4 +1,5 @@
-import { useRootContext } from '../../../routes/Root';
+
+import { useRootContext } from '../../../contexts/RootContext';
 import { useParams, Link } from 'react-router-dom';
 
 function CarouselOfOne() {
@@ -11,7 +12,7 @@ function CarouselOfOne() {
   if ( animalId ) {
     const baseline = animals.find(( { id }) => Number(id) === Number(animalId));
 
-    sheltered = sheltered.filter(({ association_id }) => Number(association_id) === Number(baseline.association_id))
+    sheltered = sheltered.filter(({ association_id }) => Number(association_id) === Number(baseline?.association_id))
   }
 
   if (shelterId) {

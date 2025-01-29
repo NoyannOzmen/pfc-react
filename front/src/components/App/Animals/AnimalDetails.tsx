@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { useState } from 'react';
-import { useRootContext } from '../../../routes/Root';
+import { useRootContext } from '../../../contexts/RootContext';
 import { useUserContext } from '../../../contexts/UserContext';
 import CarouselOfThree from '../Animals/CarouselOfThree';
 import CarouselOfOne from '../Animals/CarouselOfOne';
@@ -8,7 +8,7 @@ import CarouselOfOne from '../Animals/CarouselOfOne';
 function AnimalDetails() {
 	const { animalId } = useParams();
 	const { animals } = useRootContext();
-	const { user } = useUserContext();
+	const auth = useUserContext();
 
 	const animal = animals.find(({id}) => Number(id) === Number(animalId));
 
@@ -42,7 +42,7 @@ function AnimalDetails() {
     event.preventDefault();
 		setUserMessage(null)
 
-    const userId = user?.accueillant.id;
+    const userId = auth.user?.accueillant.id;
 
     setRequestInfos({
       familleId: userId as string,
@@ -59,13 +59,15 @@ function AnimalDetails() {
 				}
 			);
 
-			if (!response.ok) {
-				const { message } = await response.json();
-				setUserMessage(message)
+			const res = await response.json();
+
+			if (!res.ok) {
+				setUserMessage(res.message)
+			}
+			if(res) {
+				console.log(res)
 			}
 
-			const data = await response.json();
-			console.log(data)
 		} catch (error) {
 			console.error(error);
 		}
@@ -113,7 +115,7 @@ function AnimalDetails() {
 			<div className="text-center w-full py-2">
 				<p className="font-body text-texte">Son petit truc en plus :<br />{animal.description}</p>
 			</div>
-				{ user && user.accueillant && (
+				{ auth.user?.accueillant && (
 				<div className="text-center w-full py-2">
 					{userMessage &&
 						<p className="font-grands font-base text-accents1 text-center">{userMessage}</p>

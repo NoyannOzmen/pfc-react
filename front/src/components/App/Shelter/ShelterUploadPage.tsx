@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useUserContext } from "../../../contexts/UserContext";
-import { useRootContext } from "../../../routes/Root";
+import { useRootContext } from '../../../contexts/RootContext';
 
 function ShelterUploadPage() {
   const [file, setFile] = useState<File | null>(null);
