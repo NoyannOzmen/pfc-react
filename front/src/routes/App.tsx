@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { FosterRoute, ShelterRoute } from "./PrivateRoute";
+import { FosterRoute, ShelterRoute } from "./PrivateRoute.tsx";
 import UserContextProvider from '../contexts/UserContext.tsx';
 import RootContextProvider from "../contexts/RootContext.tsx";
 
