@@ -35,13 +35,7 @@ function ShelterSignIn() {
         );
 
         const res = await response.json();
-
-        if (!res.ok) {
-          setUserMessage(res.message)
-        }
-        if(res) {
-          console.log(res)
-        }
+        setUserMessage(res.message)
       } catch (error) {
         console.error(error);
       }
@@ -75,8 +69,6 @@ function ShelterSignIn() {
       site: site as string,
       description: description as string
     });
-
-    console.log(shelterInfos)
   }
 
   //* API

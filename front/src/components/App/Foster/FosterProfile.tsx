@@ -234,30 +234,29 @@ function FosterProfile() {
     </div>
   </div>
 
-        {/* <!-- ICI MODALE DE SUPPRESSION DE COMPTE --> */}
-        <div id="delete-account-modal" className="hidden flex justify-center content-center fixed bg-texte/20 inset-0">
-      
-      <div className="self-center bg-zoning p-6 rounded-lg">
-        <div className="flex justify-between">
-          <h3 className="font-grands text-lg font-extrabold mb-4">Supprimer votre compte</h3>
-          <span onClick={displayModal} className="cancel material-symbols-outlined text-texte cursor-pointer">
-            close
-          </span>
-        </div>
-        <form id="delete-container" className="" onSubmit={handleDelete}>
-          <div className="mb-2">
-            <p className="block text-texte font-grands font-bold text-base">ATTENTION ! <br/> Êtes-vous sûrs et certains de vouloir supprimer votre compte ? <br /> Cette suppression est définitive !</p>
-          </div>
-          <div>
-            <input className="cursor-pointer hover:bg-accents1-dark rounded-full hover:underline bg-accents1 text-center font-grands text-fond font-semibold text-base py-1 px-4" type="submit" value="Valider" />
-            <button onClick={displayModal} className="hover:bg-accents2-dark rounded-full hover:underline bg-accents2-dark text-center font-grands text-fond font-semibold text-base py-1 px-4 cancel">Annuler</button>
-          </div>
-        </form>
+  {/* <!-- ICI MODALE DE SUPPRESSION DE COMPTE --> */}
+  <div id="delete-account-modal" className="hidden flex justify-center content-center fixed bg-texte/20 inset-0">
+
+    <div className="self-center bg-zoning p-6 rounded-lg">
+      <div className="flex justify-between">
+        <h3 className="font-grands text-lg font-extrabold mb-4">Supprimer votre compte</h3>
+        <span onClick={displayModal} className="cancel material-symbols-outlined text-texte cursor-pointer">
+          close
+        </span>
       </div>
+      <form id="delete-container" className="" onSubmit={handleDelete}>
+        <div className="mb-2">
+          <p className="block text-texte font-grands font-bold text-base">ATTENTION ! <br/> Êtes-vous sûrs et certains de vouloir supprimer votre compte ? <br /> Cette suppression est définitive !</p>
+        </div>
+        <div>
+          <input className="cursor-pointer hover:bg-accents1-dark rounded-full hover:underline bg-accents1 text-center font-grands text-fond font-semibold text-base py-1 px-4" type="submit" value="Valider" />
+          <button onClick={displayModal} className="hover:bg-accents2-dark rounded-full hover:underline bg-accents2-dark text-center font-grands text-fond font-semibold text-base py-1 px-4 cancel">Annuler</button>
+        </div>
+      </form>
     </div>
+  </div>
+
 </main>
-
-
   )
 }
 

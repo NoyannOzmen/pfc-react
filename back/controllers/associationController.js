@@ -18,7 +18,6 @@ const associationController = {
             dptSelect,
             shelterNom
         } = req.body;
-        console.log(req.body)
 
         if (req.body.dptSelectFull) {
             req.body.dptSelect = req.body.dptSelectFull
@@ -65,8 +64,6 @@ const associationController = {
             description: description || association.description
         });
         
-        console.log('success')
-        console.log(updatedAssociation);
         res.json(updatedAssociation)
         
     },
@@ -79,9 +76,6 @@ const associationController = {
         const association = await Association.findByPk(assoId, {
             include : 'images_association'
         });
-
-        
-        console.log('asso is' + JSON.stringify(association))
         
         const newMedia = await Media.create({
             association_id : association.id,
@@ -101,7 +95,6 @@ const associationController = {
             statut_demande : 'Refusée'
         });
         
-        console.log(updatedRequest);
         await updatedRequest.save();
         res.json(updatedRequest)
     },

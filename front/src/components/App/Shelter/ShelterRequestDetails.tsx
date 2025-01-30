@@ -147,6 +147,12 @@ function ShelterRequestDetails() {
       
       <section className="flex flex-wrap justify-center" id="dashboard-container">
         <h3 className="font-grands text-3xl text-center my-2 pt-5 w-full">Suivi de demande pour {animal.nom}</h3>
+
+        {userMessage &&
+          <div>
+            <p className="font-grands font-base text-accents1 text-center">{userMessage}</p>
+          </div>
+        }
         
         {/* WRAPPER */}
         <div className="flex flex-wrap p-2 justify-center md:flex-nowrap" >
