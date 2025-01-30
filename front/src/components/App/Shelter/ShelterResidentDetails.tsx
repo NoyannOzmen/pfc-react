@@ -57,13 +57,8 @@ function ShelterResidentDetails() {
           }
         );
 
-        if (!response.ok) {
-          const { message } = await response.json();
-          setUserMessage(message)
-        }
-
-        const data = await response.json();
-        console.log(data)
+        const res = await response.json();
+        setUserMessage(res.message)
       } catch (error) {
         console.error(error);
       }
@@ -98,7 +93,13 @@ function ShelterResidentDetails() {
         </ul>
       </nav>
       
-      <section id="dahboard-container" className="flex justify-center flex-wrap gap-x-6 gap-y-4 p-6">       
+      <section id="dahboard-container" className="flex justify-center flex-wrap gap-x-6 gap-y-4 p-6">
+
+      {userMessage &&
+        <div>
+          <p className="font-grands font-base text-accents1 text-center">{userMessage}</p>
+        </div>
+      }
         
         {/* <!-- ANIMAL INFO --> */}
         <div className="w-60 md:w-auto">

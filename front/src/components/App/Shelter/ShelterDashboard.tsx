@@ -194,6 +194,12 @@ function ShelterDashboard() {
       
       <section className="flex flex-wrap justify-center" id="dashboard-container">
         <h3 className="font-grands text-3xl text-center my-2 pt-5 w-full">Mon profil</h3>
+
+        {userMessage &&
+          <div>
+            <p className="font-grands font-base text-accents1 text-center">{userMessage}</p>
+          </div>
+        }
         
         <form className="flex flex-wrap content-center md:w-[60%] justify-center text-texte" onSubmit={handleSubmit}>
           

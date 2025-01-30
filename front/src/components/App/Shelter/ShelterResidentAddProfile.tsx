@@ -61,13 +61,8 @@ function ShelterResidentAddProfile() {
           }
         );
 
-        if (!response.ok) {
-          const { message } = await response.json();
-          setUserMessage(message)
-        }
-
-        const data = await response.json();
-        console.log(data)
+        const res = await response.json();
+        setUserMessage(res.message)
       } catch (error) {
         console.error(error);
       }
@@ -77,7 +72,6 @@ function ShelterResidentAddProfile() {
       isInitialMount.current = false;
     } else {
       createAnimal();
-      //! TO DO : ADD ANIMAL TO SHELTERED STATE
     }
   }, [ animalInfos, setAnimalInfos ]);
 
@@ -100,8 +94,6 @@ function ShelterResidentAddProfile() {
       description_animal: description_animal as string,
       tags_animal: tags_animal as string,
     });
-
-    console.log(animalInfos)
   }
 
   //* TAG
@@ -221,8 +213,13 @@ function ShelterResidentAddProfile() {
           </nav>
           
           <section className="flex flex-col justify-center content-center">
-            {/* <!-- Titre caché pour le mobile --> */}
             <h3 className="hidden md:inline font-grands text-3xl text-center my-2 pt-5 w-full">Créer un profil animal</h3>
+
+            {userMessage &&
+              <div>
+                <p className="font-grands font-base text-accents1 text-center">{userMessage}</p>
+              </div>
+            }
             
             <form className="grid grid-cols-1 my-6 mx-6 justify-center lg:flex-none lg:mx-2 lg:grid lg:grid-cols-3 lg:px-2 xl:grid-cols-3 xl:p-10" onSubmit={handleSubmit}>
               

@@ -32,7 +32,6 @@ function ShelterList() {
     } else {
       setEspece(espece.filter((e) => e !== value))
     }
-    console.log(espece)
   }
 
   const handleInputData = (input: any) => (e: any) => {
@@ -66,7 +65,7 @@ function ShelterList() {
       ...prevState,
       espece,
     }));
-    console.log(formData)
+
     try {
       const response = await fetch
         (`${import.meta.env.VITE_API_URL}/associations`,
@@ -83,7 +82,6 @@ function ShelterList() {
 			}
 
       const data = await response.json();
-      console.log(data);
       setSearchedShelters(data);
     } catch (error) {
       console.error(error);
@@ -357,6 +355,12 @@ function ShelterList() {
           </p>
         </section>
       </div>
+
+      {userMessage &&
+        <div>
+          <p className="font-grands font-base text-accents1 text-center">{userMessage}</p>
+        </div>
+      }
 
     { searchedShelters.length ? (
       <div className="grid grid-cols-3 gap-3 m-3">       

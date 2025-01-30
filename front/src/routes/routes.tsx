@@ -37,7 +37,7 @@ import ShelterResidentList from '../components/App/Shelter/ShelterResidentList.t
 import ShelterResidentProfileList from '../components/App/Shelter/ShelterResidentProfileList.tsx';
 import ShelterUploadPage from '../components/App/Shelter/ShelterUploadPage.tsx';
 
-const AllRoutes = () => {
+const App = () => {
   return (
     <BrowserRouter>
       <RootContextProvider>
@@ -87,4 +87,4 @@ const AllRoutes = () => {
   );
 };
 
-export default AllRoutes;
+export default App;

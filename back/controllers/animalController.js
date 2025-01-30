@@ -74,8 +74,6 @@ export const animalController = {
     async hostRequest(req, res, next){
         const animalId = Number(req.body.animalId);
         const familleId = Number(req.body.familleId);
-        console.log(animalId);
-        console.log(familleId)
        
         const animalExists = await Animal.findByPk(animalId);
         if (!animalExists){
@@ -91,8 +89,6 @@ export const animalController = {
             }
         });
 
-        console.log(found)
-
         if (found === null) {
             const newRequest = await Demande.create({
                 famille_id : familleId,
@@ -102,7 +98,6 @@ export const animalController = {
                 date_fin:'12/31/2552'
             });
 
-            console.log(newRequest);
             await newRequest.save();
 
             const status = 200;
@@ -177,15 +172,11 @@ export const animalController = {
     async uploadPhoto(req, res, next){
         let userImage = req.file.path;
         const trim = userImage.replace("./assets", "");
-        console.log('path is' + trim);
         const animalId = req.body.animalId;
-        console.log(animalId);
 
         const animal = await Animal.findByPk(animalId, {
             include : 'images_animal'
         });
-
-        console.log('asso is' + JSON.stringify(animal));
 
         const newMedia = await Media.create({
             animal_id : animal.id,
@@ -193,8 +184,6 @@ export const animalController = {
             ordre : 1
         })
 
-        console.log('image is' + JSON.stringify(newMedia));
-        console.log(`C'est good`)
         await newMedia.save();
         res.json(newMedia)
     },

@@ -4,7 +4,7 @@
 
 ## Disclaimer
 
-Ce dépôt contient le projet PetFosterConnect, converti en ReactJS.
+Ce dépôt contient une conversion en ReactJs et TypeScript du projet PetFosterConnect, tout en préservant ses fonctionnalités.
 
 ## Présentation
 

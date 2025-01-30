@@ -47,7 +47,6 @@ function AnimalList() {
     } else {
       setTag(tag.filter((e : any) => e !== value))
     }
-    console.log(tag)
   }
 
   const handleInputData = (input: any) => (e: any) => {
@@ -277,6 +276,12 @@ function AnimalList() {
           </div>
         </form>
       </div>
+
+      {userMessage &&
+        <div>
+          <p className="font-grands font-base text-accents1 text-center">{userMessage}</p>
+        </div>
+      }
 
       { sheltered.length ? (
         <div className="grid grid-flow-row-dense grid-cols-3 gap-3 m-3">

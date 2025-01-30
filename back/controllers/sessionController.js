@@ -111,13 +111,12 @@ export const sessionController = {
         if(found === null) {
 
             const hashedPassword = await bcrypt.hash(mot_de_passe, 8);
-            console.log('HASH', hashedPassword);
             
             const newUser = await Utilisateur.create({
                 email: email,
                 mot_de_passe : hashedPassword,
             })
-            console.log(newUser);
+
             await newUser.save();
             
             const newFoster = await Famille.create({
@@ -132,14 +131,12 @@ export const sessionController = {
                 pays: pays,
                 utilisateur_id: newUser.id,
             });
-            console.log(newFoster);
             await newFoster.save();
             const status = 200
             const message = 'Inscription Correcte';
 
             return res.status(status).json({ status, message });
         } else {
-            console.log(found);
             const status = 401;
             const message = 'Inscription incorrecte';
 
@@ -185,8 +182,6 @@ export const sessionController = {
             where :  { famille_id : familleId } 
         })
 
-        console.log('foster is' + fostered);
-
         if (fostered) {
             const status = 401;
             const message =  'Vous accueillez actuellement un animal. Merci de contacter le refuge concerné avant de supprimer votre compte !'
@@ -213,12 +208,8 @@ export const sessionController = {
             mot_de_passe, 
             confirmation 
         } = req.body;
-
-        console.log(req.body);
         
         const found = await Utilisateur.findOne( { where: {email: email} });
-        
-        console.log(found);
         
         if(found === null) {
             if (!emailValidator.validate(email)) {
@@ -236,13 +227,11 @@ export const sessionController = {
             }
             
             const hashedPassword = await bcrypt.hash(mot_de_passe, 8);
-            console.log('HASH', hashedPassword);
             
             const newUser = await Utilisateur.create({
                 email: email,
                 mot_de_passe : hashedPassword,
             })
-            console.log(newUser);
             await newUser.save();
             
             const newShelter = await Association.create({
@@ -258,14 +247,12 @@ export const sessionController = {
                 description: description,
                 utilisateur_id: newUser.id,
             });
-            console.log(newShelter);
             await newShelter.save();
             const status = 200
             const message = 'Inscription Correcte';
 
             return res.status(status).json({ status, message });
         } else {
-            console.log(found)
             const status = 401;
             const message = 'Inscription incorrecte';
 
@@ -279,7 +266,6 @@ export const sessionController = {
         const user = await Utilisateur.findOne({
             where : { id: asso.utilisateur_id }
         })
-        console.log(user)
 
         if (!asso || !user) {
             return next();
@@ -289,11 +275,9 @@ export const sessionController = {
             where :  { refuge_id : assoId } 
         })
 
-        console.log('foster is' + fostered);
-
         if (fostered) {
             const status = 401;
-            const message = 'Vous accueillez actuellement un animal. Merci de nous contacter afin de supprimer votre compte !';
+            const message = 'Vous accueillez actuellement un ou plusieurs animaux. Merci de nous contacter afin de supprimer votre compte !';
 
             return res.status(status).json({ status, message })
         }
