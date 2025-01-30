@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
-import { useRootContext } from "../../../routes/Root";
+import { useRootContext } from '../../../contexts/RootContext';
 import { useUserContext } from "../../../contexts/UserContext";
 
 function ShelterResidentAddProfile() {

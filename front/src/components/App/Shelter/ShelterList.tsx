@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRootContext } from '../../../routes/Root';
+import { useRootContext } from '../../../contexts/RootContext';
 import ShelterCard from "./ShelterCard";
 
 function ShelterList() {
@@ -235,7 +235,7 @@ function ShelterList() {
               <fieldset className="mx-auto p-2 my-2">
               
                 {/* <!-- Département --> */}
-                <label htmlFor="dpt-select">Département</label>
+                <label htmlFor="dpt-select-full">Département</label>
                 <select onChange={handleInputData("dptSelectFull")} tabIndex={0} className="text-xs block" id="dpt-select-full" name="dptSelectFull" defaultValue="default">
                   <option value="default" disabled hidden>--Choisissez un département--</option>
                   <option value="01">01 - Ain</option> 

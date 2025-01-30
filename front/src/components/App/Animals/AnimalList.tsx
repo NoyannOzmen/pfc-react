@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRootContext } from '../../../routes/Root';
+import { useRootContext } from '../../../contexts/RootContext';
 import AnimalCard from "./AnimalCard";
 
 
@@ -70,13 +70,10 @@ function AnimalList() {
     event.preventDefault();
     setUserMessage(null)
 
-    console.log(tag)
     tag.length && setFormData((prevState) => ({
       ...prevState,
       tag,
     }));
-
-    console.log(formData)
 
     try {
       const response = await fetch
@@ -94,7 +91,6 @@ function AnimalList() {
 			}
 
       const data = await response.json();
-      console.log(data)
       setSheltered(data);
     } catch (error) {
       console.error(error);

@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useRootContext } from "../../../routes/Root";
+import { useState } from "react";
+import { useRootContext } from '../../../contexts/RootContext';
 
 function ShelterResidentDetails() {
   const { animalId } = useParams();

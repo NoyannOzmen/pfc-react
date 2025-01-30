@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IUtilisateur } from '../@types/index';
 
@@ -19,10 +19,21 @@ type UserContextProviderProps = {
 
 export const UserContext = createContext<UserContextType | null>(null);
 
+const getInitialState = () => {
+  const user = sessionStorage.getItem("user");
+  return user ? JSON.parse(user) : null
+}
+
 export default function UserContextProvider({
   children,
 }: UserContextProviderProps) {
-  const [user, setUser] = useState<IUtilisateur | null>(null);
+/*   const [user, setUser] = useState<IUtilisateur | null>(null); */
+  const [user, setUser] = useState(getInitialState);
+
+  useEffect(() => {
+    sessionStorage.setItem("user", JSON.stringify(user))
+}, [user])
+
   const [userMessage, setUserMessage] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("site") || "");
   const navigate = useNavigate();

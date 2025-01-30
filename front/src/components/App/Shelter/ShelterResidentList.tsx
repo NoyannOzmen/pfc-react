@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useRootContext } from "../../../routes/Root";
+import { useRootContext } from '../../../contexts/RootContext';
 import { useUserContext } from "../../../contexts/UserContext";
 
 function ShelterResidentList() {

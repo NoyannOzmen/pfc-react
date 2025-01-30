@@ -58,6 +58,7 @@ export interface IAssociation {
 
 export interface IAnimal {
   id: string;
+  association_id: string;
   nom: string;
   race: string;
   couleur: string;
@@ -68,7 +69,9 @@ export interface IAnimal {
   espece: Espece;
   images_animal: Media;
   refuge: Association;
+  accueillant: Famille | null;
   demandes: Demande;
+  tags: Tag
 }
 
 export interface IDemande {

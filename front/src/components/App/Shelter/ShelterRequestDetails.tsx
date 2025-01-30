@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { useRootContext } from "../../../routes/Root";
+import { useRootContext } from '../../../contexts/RootContext';
 import { useUserContext } from "../../../contexts/UserContext";
 import { useState } from "react";
 
@@ -21,6 +21,14 @@ function ShelterRequestDetails() {
 
   const requested = animals.filter(( { demandes } ) => demandes.length )
   const animal = requested.find(isCurrentRequest);
+
+  if (!animal) {
+    throw new Response('', {
+      status: 404,
+      statusText: 'Not Found',
+    });
+  }
+
   const famille = animal.demandes[0];
 
   const [ displayedRequest, setDisplayedRequest ] = useState(

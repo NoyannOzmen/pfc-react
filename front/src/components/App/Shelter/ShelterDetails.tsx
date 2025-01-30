@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useRootContext } from '../../../routes/Root';
+import { useRootContext } from '../../../contexts/RootContext';
 import CarouselOfThree from '../Animals/CarouselOfThree';
 import CarouselOfOne from '../Animals/CarouselOfOne';
 
@@ -7,7 +7,7 @@ function ShelterDetails() {
   const { shelterId } = useParams();
 	const { shelters } = useRootContext();
 
-	const shelter = shelters.find(({ id }) => Number(id) === Number(shelterId));
+	const shelter = shelters?.find(({ id }) => Number(id) === Number(shelterId));
 
   if (!shelter) {
     throw new Response('', {

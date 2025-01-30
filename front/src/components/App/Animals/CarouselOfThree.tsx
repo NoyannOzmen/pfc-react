@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { useRootContext } from '../../../routes/Root';
+import { useRootContext } from '../../../contexts/RootContext';
 
 function CarouselOfThree() {
   const { animals } = useRootContext();
@@ -16,7 +16,7 @@ function CarouselOfThree() {
   if ( animalId ) {
     const baseline = animals.find(( { id }) => Number(id) === Number(animalId));
 
-    sheltered = sheltered.filter(({ association_id }) => Number(association_id) === Number(baseline.association_id))
+    sheltered = sheltered.filter(({ association_id }) => Number(association_id) === Number(baseline?.association_id))
   }
 
   const animalItemsThree = sheltered.map((animal, index) => (
@@ -50,10 +50,8 @@ function CarouselOfThree() {
 
   let i = 0
 
-  const carouselPics3 = document.querySelectorAll('.carousel3-img');
-
   function getThreeNextPic() {
-
+    const carouselPics3 = document.querySelectorAll('.carousel3-img');
     if (i < carouselPics3.length - 3) {
       carouselPics3[i].classList.toggle('hidden');
       carouselPics3[i+3].classList.toggle('hidden');

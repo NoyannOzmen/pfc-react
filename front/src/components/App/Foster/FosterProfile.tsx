@@ -191,7 +191,7 @@ function FosterProfile() {
             </div>
             <div className="mx-auto p-2">
               <label className="text-center w-full" htmlFor="email">Email</label>
-              <input className="block w-full" type="email" id="email" name="email" defaultValue={auth.user.email} disabled />
+              <input className="block w-full" type="email" id="email" name="email" defaultValue={auth.user.email} autoComplete="email" disabled />
             </div>
           </fieldset>
       
