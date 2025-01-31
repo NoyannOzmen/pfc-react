@@ -7,19 +7,19 @@ function CarouselOfThree() {
   const { animalId } = useParams();
   const { shelterId } = useParams();
 
-  let sheltered = animals.filter(({ statut }) => statut === "En refuge");
+  let sheltered = animals?.filter(({ statut }) => statut === "En refuge");
 
   if (shelterId) {
-    sheltered = sheltered.filter(({ association_id }) => Number(association_id) === Number(shelterId))
+    sheltered = sheltered?.filter(({ association_id }) => Number(association_id) === Number(shelterId))
   }
 
   if ( animalId ) {
-    const baseline = animals.find(( { id }) => Number(id) === Number(animalId));
+    const baseline = animals?.find(( { id }) => Number(id) === Number(animalId));
 
-    sheltered = sheltered.filter(({ association_id }) => Number(association_id) === Number(baseline?.association_id))
+    sheltered = sheltered?.filter(({ association_id }) => Number(association_id) === Number(baseline?.association_id))
   }
 
-  const animalItemsThree = sheltered.map((animal, index) => (
+  const animalItemsThree = sheltered?.map((animal, index) => (
     <div key={animal.id} className={"carousel3-img place-self-center " + (index < 3 ? "" : "hidden")}>
           <div className="flex bg-zoning rounded-lg shadow dark:bg-gray-800 flex-row md:flex-col p-4">
             <div className="w-full md:w-full flex justify-center items-center">

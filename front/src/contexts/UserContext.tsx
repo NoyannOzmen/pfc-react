@@ -35,7 +35,7 @@ export default function UserContextProvider({
 }, [user])
 
   const [userMessage, setUserMessage] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem("site") || "");
+  const [token, setToken] = useState(sessionStorage.getItem("site") || "");
   const navigate = useNavigate();
 
   async function logIn(credentials : any) {
@@ -60,7 +60,7 @@ export default function UserContextProvider({
       if (res) {
         setUser(res);
         setToken(res.token);
-        localStorage.setItem("site", res.token);
+        sessionStorage.setItem("site", res.token);
         navigate("/");
       }
     } catch (error) {
@@ -71,7 +71,7 @@ export default function UserContextProvider({
   async function logOut() : Promise<void> {
     setUser(null)
     setToken('');
-    localStorage.removeItem("site");
+    sessionStorage.removeItem("site");
     navigate('/')
   };
 

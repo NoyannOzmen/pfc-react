@@ -7,19 +7,19 @@ function CarouselOfOne() {
   const { animalId } = useParams();
   const { shelterId } = useParams();
 
-  let sheltered = animals.filter(({ statut }) => statut === "En refuge");
+  let sheltered = animals?.filter(({ statut }) => statut === "En refuge");
 
   if ( animalId ) {
-    const baseline = animals.find(( { id }) => Number(id) === Number(animalId));
+    const baseline = animals?.find(( { id }) => Number(id) === Number(animalId));
 
-    sheltered = sheltered.filter(({ association_id }) => Number(association_id) === Number(baseline?.association_id))
+    sheltered = sheltered?.filter(({ association_id }) => Number(association_id) === Number(baseline?.association_id))
   }
 
   if (shelterId) {
-    sheltered = sheltered.filter(({ association_id }) => Number(association_id) === Number(shelterId))
+    sheltered = sheltered?.filter(({ association_id }) => Number(association_id) === Number(shelterId))
   }
 
-  const animalItemsOne = sheltered.map((animal, index) => (
+  const animalItemsOne = sheltered?.map((animal, index) => (
     
     <div key={animal.id} className={"carousel-img " + (index === 0 ? "" : "hidden")}>
           <div className="flex bg-fond rounded-lg shadow dark:bg-gray-800 flex-col md:flex-col mx-auto my-2 w-[75%] p-4">
