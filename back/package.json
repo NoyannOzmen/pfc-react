@@ -1,0 +1,29 @@
+{
+  "name": "back",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "db:reset": "psql -U pfcadmin -d pfc -f ./database/1_create_tables.sql; psql -U pfcadmin -d pfc -f ./database/2_seeding_tables.sql "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "email-validator": "^2.0.4",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "joi": "^17.13.3",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.13.1",
+    "sequelize": "^6.37.5",
+    "sharp-multer": "^0.3.3"
+  }
+}

@@ -1,50 +1,69 @@
-# React + TypeScript + Vite
+# Pet Foster Connect
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<img src="./src/assets/images/logo.svg" alt="Logo de PetFosterConnect" width="300"/>
 
-Currently, two official plugins are available:
+## Disclaimer
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Ce dépôt contient une conversion en ReactJs et TypeScript du projet PetFosterConnect, tout en préservant ses fonctionnalités.
 
-## Expanding the ESLint configuration
+## Présentation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Pet Foster Connect permet de mettre en relation des familles d’accueil pour les animaux avec des associations de protection animale.
 
-- Configure the top-level `parserOptions` property like this:
+PFC permet aux gens de jouer un rôle fondamental en accueillant des animaux en attendant leur adoption définitive afin de leur offrir une meilleure vie.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+PFC a pour vocation de répondre à plusieurs besoins :
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- Les animaux aimeraient bien un toit, et les gens aiment les animaux (en général)
+- Permettre aux associations / refuges de communiquer sur les animaux nécessitant une place au chaud
+- Permettre aux familles d'accueil de se faire connaître et de se mettre en relation avec les refuges / associations
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Technologie utilisées
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Pour réaliser cette application, nous nous sommes servis de :
+
+|   **Nom**      |     **Utilité**   |
+| -------------- | ----------------- |
+| VSCode | IDE |
+| ReactJS | Front |
+| TypeScript & JSX | Langages Front |
+| Tailwind | CSS |
+| NodeJs | Back |
+| Javascript ES6 | Langage Back |
+| express | Serveur |
+| session | Session |
+| nodemon | Refresh auto |
+| cors | Protection XSS |
+| multer | Upload des images |
+| bCrypt | Chiffrement |
+| JOI | Validation |
+| PostgreSQL | Base de données |
+| sequelize | ORM |
+
+## Contributions
+
+### Réalisation
+
+- **Lead Dev & React Converter** :  Noyann Özmen
+- **Scrum Master** : Laura Martin-Wortham
+- **Git Master** : Maxime Lizere
+- **Product Owner** : Samuel Juminer
+
+## Installation
+
+Rien de plus simple :
+
+Clonez ce dépôt, et une fois sur votre machine :
+
+- *cd back*
+- *npm install*
+- *npm run db:reset*
+- *npm run dev*
+
+Dans un terminal à part :
+
+- *cd front*
+- *pnpm install*
+- *npm run dev*
+
+Et en avant Guingamp !
