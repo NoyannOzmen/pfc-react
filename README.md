@@ -40,15 +40,6 @@ Pour réaliser cette application, nous nous sommes servis de :
 | PostgreSQL | Base de données |
 | sequelize | ORM |
 
-## Contributions
-
-### Réalisation
-
-- **Lead Dev & React Converter** :  Noyann Özmen
-- **Scrum Master** : Laura Martin-Wortham
-- **Git Master** : Maxime Lizere
-- **Product Owner** : Samuel Juminer
-
 ## Installation
 
 Rien de plus simple :
