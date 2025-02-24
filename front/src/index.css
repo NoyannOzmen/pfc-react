@@ -981,7 +981,7 @@
 	}
 	
 	.bg-unai {
-		background-image: url('../images/unai.webp');
+		background-image: url('./assets/images/unai.webp');
 	}
 	
 	.bg-cover {

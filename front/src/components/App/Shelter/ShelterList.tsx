@@ -103,7 +103,8 @@ function ShelterList() {
       <div className="md:my-3 flex flex-wrap font-body w-full bg-zoning rounded-lg shadow dark:bg-gray-800 justify-around">
         <form className="text-texte justify-around" onSubmit={handleSubmit}>
           <div id="fullSearch" className="mx-2 col-span-3 items-center flex flex-wrap justify-around">
-            <h3 className="font-grands text-2xl w-full my-2 text-center">Rechercher une association</h3>
+            <h2 className="font-grands text-2xl w-full my-2 text-center">Rechercher une association</h2>
+            <label htmlFor="dpt-select-small">Par département</label>
             <select onChange={handleInputData("dptSelectSmall")} tabIndex={0} className="col-span-3 text-xs block w-[50%]" id="dpt-select-small" name="dptSelectSmall" defaultValue="default">
               <option value="default" disabled hidden>--Choisissez un département--</option>
               <option value="01">01 - Ain</option> 
