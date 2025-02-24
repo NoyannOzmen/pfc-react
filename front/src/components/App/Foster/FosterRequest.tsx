@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
 import { useRootContext } from '../../../contexts/RootContext';
+import AnimalTable from "./AnimalTable";
 
 function FosterRequest() {
   const { animals } = useRootContext();
@@ -21,32 +22,9 @@ function FosterRequest() {
     x.demandes.some((y:any) => y.Demande.famille_id === familleId)
   )
 
-  function handleClick(e: any) {
-    const fold = e.currentTarget.nextSibling;
-    fold.classList.toggle('hidden')
-
-    const content = fold.nextSibling;
-    content.classList.toggle('hidden')
-  };
-
   const animalItems = requestedAnimals.map((animal) => (
-    <>
-    <tr onClick={handleClick} key={animal.id} tabIndex={0} className="view text-fond text-sm bg-accents2 font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hover:bg-accents2-dark">
-      <td colSpan={3} scope="colgroup" className="px-2 pt-2  border-accents2-dark border-solid border-1">{animal.nom}</td>
-      <td colSpan={3} scope="colgroup" className="px-2 pt-2  border-accents2-dark border-solid border-1">Demande</td>
-    </tr>
-      <tr key={`${animal.demandes.id} header`} className="text-fond text-sm bg-accents2-light font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hidden">
-        <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Refuge</td>
-        <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Date de demande</td>
-        <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Statut</td>
-      </tr>
-      <tr key={`${animal.demandes.id} body`} className="text-sm font-body font-semibold bg bg-fond hidden">                          
-        <td colSpan={2}>{animal.refuge.nom}</td>
-        <td colSpan={2}>{animal.demandes[0].Demande.date_debut}</td>
-        <td colSpan={2}>{animal.demandes[0].Demande.statut_demande}</td>
-      </tr>
-    </>
-  ))
+    <AnimalTable key={animal.id} animal={animal} />
+  ));
 
   return(
     <main className="justify-self-stretch flex-1">
@@ -75,11 +53,15 @@ function FosterRequest() {
                 <>
                 <h4 className="w-full text-center font-grands text-2xl my-4">Demandes en cours</h4>
                   <table className="table text-center w-full">
-                      <tr key={"header"} className="border-none bg-zoning text-sm font-grands">
-                        <td colSpan={3} scope="colgroup">Nom Animal</td>
-                        <td colSpan={3} scope="colgroup">Demande</td>
-                      </tr>
-                     {animalItems}
+                      <thead key={"header"} className="border-none bg-zoning text-sm font-grands">
+                        <tr>
+                          <th colSpan={3} scope="colgroup">Nom Animal</th>
+                          <th colSpan={3} scope="colgroup">Demande</th>
+                        </tr>
+                      </thead>
+
+                        {animalItems}
+
                   </table>
                   </>
               ) : (

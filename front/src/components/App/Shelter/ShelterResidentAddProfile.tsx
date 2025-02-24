@@ -97,7 +97,7 @@ function ShelterResidentAddProfile() {
   }
 
   //* TAG
-  useEffect(() => {
+/*   useEffect(() => {
     async function createTag() {
       setUserMessage(null)
       try {
@@ -167,7 +167,7 @@ function ShelterResidentAddProfile() {
     } else {
       createTag();
     }
-  }, [ tagInfos, setTagInfos ]);
+  }, [ tagInfos, setTagInfos ]); */
 
   function handleCreateTag(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -179,6 +179,77 @@ function ShelterResidentAddProfile() {
       tag_name: tag_name as string,
       tag_description: tag_description as string
     });
+
+    async function createTag() {
+      setUserMessage(null)
+      try {
+        const response = await fetch
+          (`${import.meta.env.VITE_API_URL}/tags/create`,
+          {
+            method: 'POST',
+            headers: { "Content-type" : "application/json" },
+            body: JSON.stringify(tagInfos),
+          }
+        );
+
+        if (!response.ok) {
+          const { message } = await response.json();
+          setUserMessage(message)
+        }
+
+        const data = await response.json();
+
+    //* VIDE LES OPTIONS PRESENTES DANS LE SELECT
+    const selectTagForm = document.getElementById('tags-animal');
+    
+    if (selectTagForm) {
+    selectTagForm.innerHTML='';
+    }
+
+    //* REMPLIT LA LISTE DE CHECKBOX AVEC LA LISTE DE TAG UPDATED
+    data.forEach((tag : any) => {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('flex', 'gap-x-1.5');
+
+        const tagOption = document.createElement('input');
+        tagOption.type = 'checkbox';
+        tagOption.id=`tag_${tag.id}`;
+        tagOption.name=`tag_${tag.id}`;
+        tagOption.value=`${tag.id}`;
+        tagOption.classList.add('leading-3');
+
+        wrapper.appendChild(tagOption);
+
+        const tagLabel = document.createElement('label');
+        tagLabel.htmlFor=`tag_${tag.id}`;
+        tagLabel.classList.add('block', 'font-grands','font-semibold','text-xs','leading-3');
+        tagLabel.innerText=`${tag.nom}`
+
+        wrapper.appendChild(tagLabel);
+
+        if (selectTagForm) {
+        selectTagForm.appendChild(wrapper);
+        }
+    });
+
+    const addTagModal = document.getElementById('create-tags-modal');
+    const addTagForm = document.getElementById('create-tags-form');
+
+    if(addTagForm && addTagModal) {
+      addTagModal.classList.toggle('hidden');
+    }
+
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      createTag();
+    }
+
   }
 
   function displayModal() {

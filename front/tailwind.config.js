@@ -63,7 +63,7 @@ export default {
           'body': ['"Noto Sans"', 'sans-serif']
         },
         backgroundImage: {
-          'unai': "url('./src/assets/images/unai.webp')",
+          'unai': "url('/src/assets/images/unai.webp')",
         },
       }
     },
