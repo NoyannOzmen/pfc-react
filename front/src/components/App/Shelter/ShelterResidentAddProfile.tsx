@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { useRootContext } from '../../../contexts/RootContext';
 import { useUserContext } from "../../../contexts/UserContext";
+import { ITag } from "../../../@types";
 
 function ShelterResidentAddProfile() {
   const { species, tags } = useRootContext();
@@ -97,78 +98,6 @@ function ShelterResidentAddProfile() {
   }
 
   //* TAG
-/*   useEffect(() => {
-    async function createTag() {
-      setUserMessage(null)
-      try {
-        const response = await fetch
-          (`${import.meta.env.VITE_API_URL}/tags/create`,
-          {
-            method: 'POST',
-            headers: { "Content-type" : "application/json" },
-            body: JSON.stringify(tagInfos),
-          }
-        );
-
-        if (!response.ok) {
-          const { message } = await response.json();
-          setUserMessage(message)
-        }
-
-        const data = await response.json();
-
-    //* VIDE LES OPTIONS PRESENTES DANS LE SELECT
-    const selectTagForm = document.getElementById('tags-animal');
-    
-    if (selectTagForm) {
-    selectTagForm.innerHTML='';
-    }
-
-    //* REMPLIT LA LISTE DE CHECKBOX AVEC LA LISTE DE TAG UPDATED
-    data.forEach((tag : any) => {
-        const wrapper = document.createElement('div');
-        wrapper.classList.add('flex', 'gap-x-1.5');
-
-        const tagOption = document.createElement('input');
-        tagOption.type = 'checkbox';
-        tagOption.id=`tag_${tag.id}`;
-        tagOption.name=`tag_${tag.id}`;
-        tagOption.value=`${tag.id}`;
-        tagOption.classList.add('leading-3');
-
-        wrapper.appendChild(tagOption);
-
-        const tagLabel = document.createElement('label');
-        tagLabel.htmlFor=`tag_${tag.id}`;
-        tagLabel.classList.add('block', 'font-grands','font-semibold','text-xs','leading-3');
-        tagLabel.innerText=`${tag.nom}`
-
-        wrapper.appendChild(tagLabel);
-
-        if (selectTagForm) {
-        selectTagForm.appendChild(wrapper);
-        }
-    });
-
-    const addTagModal = document.getElementById('create-tags-modal');
-    const addTagForm = document.getElementById('create-tags-form');
-
-    if(addTagForm && addTagModal) {
-      addTagModal.classList.toggle('hidden');
-    }
-
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      createTag();
-    }
-  }, [ tagInfos, setTagInfos ]); */
-
   function handleCreateTag(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -207,7 +136,7 @@ function ShelterResidentAddProfile() {
     }
 
     //* REMPLIT LA LISTE DE CHECKBOX AVEC LA LISTE DE TAG UPDATED
-    data.forEach((tag : any) => {
+    data.forEach((tag : ITag) => {
         const wrapper = document.createElement('div');
         wrapper.classList.add('flex', 'gap-x-1.5');
 
@@ -254,7 +183,8 @@ function ShelterResidentAddProfile() {
 
   function displayModal() {
     const addTagModal = document.getElementById('create-tags-modal');
-    addTagModal && addTagModal.classList.toggle('hidden');
+    addTagModal?.classList.toggle('hidden');
+    addTagModal?.classList.toggle('flex');
   }
 
   return(
@@ -375,7 +305,7 @@ function ShelterResidentAddProfile() {
       </div>  
 
     {/* <!-- ICI MODALE DE CREATION DE TAGS --> */}
-    <div id="create-tags-modal" className="hidden flex justify-center content-center fixed bg-texte/20 inset-0">
+    <div id="create-tags-modal" className="hidden justify-center content-center fixed bg-texte/20 inset-0">
       
       <div className="self-center bg-zoning p-6 rounded-lg">
         <div className="flex justify-between">

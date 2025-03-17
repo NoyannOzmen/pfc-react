@@ -17,7 +17,7 @@ function ShelterList() {
     <ShelterCard key={shelter.id} shelter={shelter} />
   ))
 
-  const [espece, setEspece] = useState<any[]>([]);
+  const [espece, setEspece] = useState<string[]>([]);
 
   const [formData, setFormData] = useState({
     espece,
@@ -35,14 +35,9 @@ function ShelterList() {
     }
   }
 
-  const handleInputData = (input: any) => (e: any) => {
-    const { value, checked, type, files } = e.target;
-    const inputValue =
-      type === "checkbox"
-        ? checked
-        : type === "file"
-        ? Array.from(files)
-        : value;
+  const handleInputData = (input: string) => (e: React.ChangeEvent<HTMLSelectElement| HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    const inputValue = value;
     setFormData((prevState) => ({
       ...prevState,
       [input]: inputValue,
@@ -94,7 +89,8 @@ function ShelterList() {
     shortSearch && shortSearch.classList.toggle('hidden');
   
     const filters = document.getElementById('searchCriterias');
-    filters && filters.classList.toggle('hidden');
+    filters?.classList.toggle('hidden');
+    filters?.classList.toggle('grid');
   }
 
   return (
@@ -113,7 +109,7 @@ function ShelterList() {
             <input tabIndex={0} className="w-1/3 col-span-1 mx-auto my-3 py-2 px-2 bg-accents1-light text-fond transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="submit" value="Rechercher" />
           </div>
           
-          <div id="searchCriterias" className="hidden grid grid-cols-3 gap-1 mx-auto my-3 text-texte">
+          <div id="searchCriterias" className="hidden grid-cols-3 gap-1 mx-auto my-3 text-texte">
             <h3 className="col-span-3 font-grands text-3xl text-center my-2">Rechercher une association</h3>
             <div className="col-span-1 mx-auto">
               <fieldset className="mx-auto p-2 my-2">

@@ -6,12 +6,12 @@ type AnimalTableProps = {
 
 function AnimalTable({ animal }: AnimalTableProps) {
 
-  function handleClick(e: any) {
-    const fold = e.currentTarget.nextSibling;
-    fold.classList.toggle('hidden')
+  function handleClick(e: React.MouseEvent<HTMLTableRowElement>) {
+    const fold = e.currentTarget.nextElementSibling;
+    fold?.classList.toggle('hidden')
 
-    const content = fold.nextSibling;
-    content.classList.toggle('hidden')
+    const content = fold?.nextElementSibling;
+    content?.classList.toggle('hidden')
   };
 
   return(

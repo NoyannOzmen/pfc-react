@@ -72,7 +72,7 @@ function ShelterSignIn() {
   }
 
   //* API
-  async function gouvApiCall (search : any) {
+  async function gouvApiCall (search : string) {
     const BASE_URL = 'https://api-adresse.data.gouv.fr/search/?q=';
     const searchParams = search.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/[\s\W]/g, '+');
     let url = BASE_URL+searchParams+'&limit=5'
@@ -91,7 +91,7 @@ function ShelterSignIn() {
       
       addressContainer.textContent='';
       
-      adresses.features.forEach((address : any) => {
+      adresses.features.forEach((address : typeof adresses) => {
           const addressBox = document.createElement('div');
           addressBox.classList.add('text-sm', 'p-2','hover:bg-accents1', 'hover:text-fond');
           addressBox.role='listitem';
@@ -111,7 +111,7 @@ function ShelterSignIn() {
   }  
   }
 
-  function formFiller (address : any) { 
+  function formFiller (address: { properties: { name: string; city: string; postcode: string; }; }) { 
     const inputStreet = document.getElementById('rue') as HTMLInputElement;
     inputStreet.value=address.properties.name;
     const inputCity = document.getElementById('commune') as HTMLInputElement;
