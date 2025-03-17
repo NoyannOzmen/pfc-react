@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRootContext } from '../../../contexts/RootContext';
 import AnimalCard from "./AnimalCard";
-import DptSelect from './DptSelect';
+import DptSelect from '../StaticPages/DptSelect';
 
 
 function AnimalList() {
