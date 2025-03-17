@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
 import { useRootContext } from '../../../contexts/RootContext';
 import AnimalTable from "./AnimalTable";
+import { IAnimal } from "../../../@types";
 
 function FosterRequest() {
   const { animals } = useRootContext();
@@ -18,8 +19,8 @@ function FosterRequest() {
 
   const requested = animals.filter(( { demandes } ) => demandes.length )
 
-  const requestedAnimals = requested.filter((x : any) => 
-    x.demandes.some((y:any) => y.Demande.famille_id === familleId)
+  const requestedAnimals = requested.filter((x : IAnimal) => 
+    x.demandes.some((y : typeof x.demandes) => y.Demande.famille_id === familleId)
   )
 
   const animalItems = requestedAnimals.map((animal) => (

@@ -1,4 +1,4 @@
-import { IAnimal } from "../../../@types/index";
+import { IAnimal, ITag } from "../../../@types/index";
 import { Link } from "react-router-dom";
 
 type ShelterResidentTableProps = {
@@ -7,9 +7,9 @@ type ShelterResidentTableProps = {
 
 function ShelterResidentTable({ animal }: ShelterResidentTableProps) {
 
-  function handleClick(e: any) {
-    const fold = e.currentTarget.nextSibling;
-    fold.classList.toggle('hidden')
+  function handleClick(e: React.MouseEvent<HTMLTableRowElement>) {
+    const fold = e.currentTarget.nextElementSibling;
+    fold?.classList.toggle('hidden')
    };
 
   return(
@@ -71,7 +71,7 @@ function ShelterResidentTable({ animal }: ShelterResidentTableProps) {
 
                 { animal.tags &&
                   <div className="flex flex-wrap mt-4 px-6 gap-1">
-                    { animal.tags.map((tag : any) => (
+                    { animal.tags.map((tag : ITag) => (
                       <p key={`${animal.id} tag n° ${tag.id}`} className="group rounded-full block bg-accents1 text-fond text-center text-xs font-semibold py-1 px-2">
                           {tag.nom}
                           <span className="group-hover:block hidden z-10 bg-accents2-dark text-fond absolute px-2 py-2 text-xs rounded-b-xl rounded-tr-xl">

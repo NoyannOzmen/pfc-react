@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useRootContext } from '../../../contexts/RootContext';
 import AnimalCard from "./AnimalCard";
-import DptSelect from './DptSelect';
+import DptSelect from '../StaticPages/DptSelect';
+import { IAnimal } from '../../../@types';
 
 
 function AnimalList() {
@@ -13,7 +14,7 @@ function AnimalList() {
     animals.filter(({ statut }) => statut === "En refuge")
   )
 
-  let animalItems = sheltered.map((animal: any) => (
+  let animalItems = sheltered.map((animal: IAnimal) => (
     <AnimalCard key={animal.id} animal={animal} />
   ))
 
@@ -29,7 +30,7 @@ function AnimalList() {
   ))
 
   //* Search
-  const [tag, setTag] = useState<any>([]);
+  const [tag, setTag] = useState<Array<string>>([]);
 
   const [formData, setFormData] = useState({
     especeDropdownSmall : '',
@@ -46,18 +47,13 @@ function AnimalList() {
     if(checked) {
       setTag([...tag, value])
     } else {
-      setTag(tag.filter((e : any) => e !== value))
+      setTag(tag.filter((e : string) => e !== value))
     }
   }
 
-  const handleInputData = (input: any) => (e: any) => {
-    const { value, checked, type, files } = e.target;
-    const inputValue =
-      type === "checkbox"
-        ? checked
-        : type === "file"
-        ? Array.from(files)
-        : value;
+  const handleInputData = (input: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { value } = e.currentTarget;
+    const inputValue = value;
     setFormData((prevState) => ({
       ...prevState,
       [input]: inputValue,
@@ -102,7 +98,8 @@ function AnimalList() {
     shortSearch && shortSearch.classList.toggle('hidden');
   
     const filters = document.getElementById('searchCriterias');
-    filters && filters.classList.toggle('hidden');
+    filters?.classList.toggle('hidden');
+    filters?.classList.toggle('grid');
   }
 
   return (
@@ -121,7 +118,7 @@ function AnimalList() {
               <input tabIndex={0} onClick={deploySearch} id="deploy" className="w-[20%] col-span-1 my-1 py-2 px-2 bg-accents2-dark text-fond transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="button" value="Filtres" />
               <input tabIndex={0} className="w-1/3 col-span-1 mx-auto my-3 py-2 px-2 bg-accents1-light text-fond transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" type="submit" value="Rechercher" />         
           </div>
-          <div id="searchCriterias" className="hidden grid grid-cols-3 gap-1 mx-auto my-3 text-texte">
+          <div id="searchCriterias" className="hidden grid-cols-3 gap-1 mx-auto my-3 text-texte">
             <h3 className="col-span-3 font-grands text-3xl text-center my-2">Rechercher un animal</h3> 
             
             <div className="col-span-1 mx-auto">
@@ -130,7 +127,7 @@ function AnimalList() {
               {/* <!-- Choix de l'espèce --> */}
               <div className="my-2">
                 <label htmlFor="espece-dropdown-full">Espèce</label>
-                <select  onChange={handleInputData("especeDropdownFull")} tabIndex={0} className="text-xs block" id="espece-dropdown-full" name="especeDropdownFull" defaultValue="defaultFull">
+                <select onChange={handleInputData("especeDropdownFull")} tabIndex={0} className="text-xs block" id="espece-dropdown-full" name="especeDropdownFull" defaultValue="defaultFull">
                   <option value="defaultFull" disabled hidden>--Choisissez une espèce--</option>
                   {speciesItems}
                 </select>
