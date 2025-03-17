@@ -2,8 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useRootContext } from '../../../contexts/RootContext';
 import { useUserContext } from '../../../contexts/UserContext';
-import CarouselOfThree from '../Animals/CarouselOfThree';
-import CarouselOfOne from '../Animals/CarouselOfOne';
+import Carousel from '../Animals/Carousel';
 
 function AnimalDetails() {
 	const { animalId } = useParams();
@@ -154,11 +153,7 @@ function AnimalDetails() {
 
 	<section className="p-4 py-6 block">
 		<h2 className="font-grands text-3xl text-center my-2">Ils vous attendent de patte ferme !</h2>
-		{ window.innerWidth > 768 ? (
-			<CarouselOfThree />
-		) : (
-			<CarouselOfOne />
-		)}	
+			<Carousel />	
 	</section>
 
 </main>

@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useRootContext } from '../../../contexts/RootContext';
-import CarouselOfThree from '../Animals/CarouselOfThree';
-import CarouselOfOne from '../Animals/CarouselOfOne';
+import Carousel from '../Animals/Carousel';
 
 function ShelterDetails() {
   const { shelterId } = useParams();
@@ -50,9 +49,7 @@ function ShelterDetails() {
 	
   <section className="p-2 block">
     <h2 className="font-grands text-xl text-center my-2 md:md:text-2xl">Ils vous y attendent de patte ferme !</h2>
-      <CarouselOfOne />
-
-      <CarouselOfThree />
+      <Carousel />
   </section>
 </main>
 
