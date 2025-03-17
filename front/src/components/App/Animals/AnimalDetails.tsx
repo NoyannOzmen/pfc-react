@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useRootContext } from '../../../contexts/RootContext';
 import { useUserContext } from '../../../contexts/UserContext';
 import Carousel from '../Animals/Carousel';
+import { ITag } from '../../../@types';
 
 function AnimalDetails() {
 	const { animalId } = useParams();
@@ -21,7 +22,7 @@ function AnimalDetails() {
 	const animalUrl = animal.images_animal[0].url;
 	const shelterUrl = animal.refuge.images_association.url;
 
-	const tagItems = animal.tags.map((tag: any) => (
+	const tagItems = animal.tags.map((tag: ITag) => (
 		<button key={tag.id} className="group p-1 rounded-lg bg-accents1-dark text-fond text-center">
 					{tag.nom}
 					<span className="group-hover:block hidden z-10 bg-accents2-dark text-fond absolute px-2 py-2 text-xs rounded-b-xl rounded-tr-xl">

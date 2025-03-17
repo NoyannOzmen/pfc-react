@@ -15,7 +15,7 @@ function Login() {
 
   const auth = useUserContext();
 
-  const handleInput = (e : any) => {
+  const handleInput = (e : React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCredentials((prev) => ({
       ...prev,

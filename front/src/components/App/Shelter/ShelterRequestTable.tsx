@@ -7,15 +7,15 @@ type ShelterRequestTableProps = {
 
 function ShelterRequestTable({ animal }: ShelterRequestTableProps) {
 
-  function handleClick(e: any) {
-    const fold = e.currentTarget.nextSibling;
-    fold.classList.toggle('hidden')
+  function handleClick(e: React.MouseEvent<HTMLTableRowElement>) {
+    const fold = e.currentTarget.nextElementSibling;
+    fold?.classList.toggle('hidden')
   
-    let content = fold.nextSibling;
+    let content = fold?.nextElementSibling;
 
     while(content && !content.classList.contains('font-grands')) {
       content.classList.toggle('hidden');
-      content = content.nextSibling;
+      content = content.nextElementSibling;
     }
    };
 
@@ -30,7 +30,7 @@ function ShelterRequestTable({ animal }: ShelterRequestTableProps) {
           <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Date de demande</td>
           <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Statut</td>
         </tr>
-        { animal.demandes.map((demande : any, index : any) => (
+        { animal.demandes.map((demande : typeof animal.demandes, index : number) => (
         <tr key={`${animal.id} request n° ${demande.id}`} className={"fold text-sm font-body font-semibold hidden " + (index % 2 > 0 ? 'text-fond bg-accents2-light' : 'bg bg-fond')}>
           
             <td colSpan={2}>{demande.nom}</td>

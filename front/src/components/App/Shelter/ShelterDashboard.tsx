@@ -109,11 +109,11 @@ function ShelterDashboard() {
     });
   }
 
-  function allowEdit(e: any) {
-    const field = e.target.closest('fieldset')
-    const inputs = field.querySelectorAll('input')
+  function allowEdit(e: React.MouseEvent<HTMLSpanElement>) {
+    const field = e.currentTarget.closest('fieldset')
+    const inputs = field?.querySelectorAll('input')
     const validate = document.getElementById("validateBtn");
-    const area = field.querySelector('textarea')
+    const area = field?.querySelector('textarea')
   
   if (validate && validate.classList.contains('hidden')) {
     validate.classList.toggle('hidden')
@@ -125,7 +125,7 @@ function ShelterDashboard() {
     area.classList.add('bg-fond')
   }
   
-  inputs.forEach((input : any) => {
+  inputs?.forEach((input : HTMLInputElement) => {
     input.disabled = false;
     input.required = true
     input.classList.add('bg-fond')
@@ -166,7 +166,8 @@ function ShelterDashboard() {
 
   function displayModal() {
     const addTagModal = document.getElementById('delete-account-modal');
-    addTagModal && addTagModal.classList.toggle('hidden');
+    addTagModal?.classList.toggle('hidden');
+    addTagModal?.classList.toggle('flex');
   }
 
   return(
@@ -282,7 +283,7 @@ function ShelterDashboard() {
   </div>
 
       {/* <!-- ICI MODALE DE SUPPRESSION DE COMPTE --> */}
-      <div id="delete-account-modal" className="hidden flex justify-center content-center fixed bg-texte/20 inset-0">
+      <div id="delete-account-modal" className="hidden justify-center content-center fixed bg-texte/20 inset-0">
       
       <div className="self-center bg-zoning p-6 rounded-lg">
         <div className="flex justify-between">
