@@ -4,7 +4,6 @@ import AnimalCard from "./AnimalCard";
 import DptSelect from '../StaticPages/DptSelect';
 import { IAnimal } from '../../../@types';
 
-
 function AnimalList() {
   const { animals } = useRootContext();
   const { species } = useRootContext();
