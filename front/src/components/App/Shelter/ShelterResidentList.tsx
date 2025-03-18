@@ -120,7 +120,7 @@ function ShelterResidentList() {
       allStatutCheckbox!.checked=false
   }
   
-  const animalCards =  document.querySelectorAll('.animal_card') as NodeListOf<HTMLElement>;;
+  const animalCards =  document.querySelectorAll('.animal_card') as NodeListOf<HTMLElement>;
   animalCards.forEach(animalCard => {
       animalCard.classList.add('hidden');
   });

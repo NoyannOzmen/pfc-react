@@ -9,7 +9,7 @@ type UserContextType = {
   /* setToken: React.Dispatch<React.SetStateAction<string | null>>; */
   userMessage: string | null;
   /* setUserMessage : React.Dispatch<React.SetStateAction<string | null>>; */
-  logIn : (credentials : React.FormEvent) => Promise<void>;
+  logIn : (credentials: { email: string; mot_de_passe : string}) => Promise<void>;
   logOut(): Promise<void>;
 };
 
@@ -38,7 +38,7 @@ export default function UserContextProvider({
   const [token, setToken] = useState(sessionStorage.getItem("site") || "");
   const navigate = useNavigate();
 
-  async function logIn(credentials : React.FormEvent) {
+  async function logIn(credentials: { email: string; mot_de_passe : string}) {
 
     setUserMessage(null)
     try {
