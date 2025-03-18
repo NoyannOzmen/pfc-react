@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FosterRoute, ShelterRoute } from "./PrivateRoute.tsx";
 import UserContextProvider from '../contexts/UserContext.tsx';
 import RootContextProvider from "../contexts/RootContext.tsx";
-import { Root,ErrorPage,HomePage,APropos,Contact,Faq,InfosLegales,Rgpd,DevenirFamille,Plan,Login,ShelterDetails,ShelterList,AnimalList,AnimalDetails,ShelterSignIn,FosterSignIn,FosterProfile,FosterRequest,ShelterDashboard,ShelterRequestDetails,ShelterRequestList,ShelterResidentAddProfile,ShelterResidentList,ShelterResidentDetails,ShelterResidentProfileList,ShelterUploadPage} from "./pages";
+import { Root,ErrorPage,HomePage,APropos,Contact,Faq,InfosLegales,Rgpd,DevenirFamille,Plan,Login,ShelterDetails,ShelterList,AnimalList,AnimalDetails,Register,ShelterSignIn,FosterSignIn,FosterProfile,FosterRequest,ShelterDashboard,ShelterRequestDetails,ShelterRequestList,ShelterResidentAddProfile,ShelterResidentList,ShelterResidentDetails,ShelterResidentProfileList,ShelterUploadPage} from "./pages";
 
 const App = () => {
   return (
@@ -27,6 +27,7 @@ const App = () => {
             <Route path= 'animaux/:animalId' element={<AnimalDetails />} />
             {/* Session Routes */}
             <Route path= 'connexion' element={<Login />} />
+            <Route path='inscription' element={<Register />} />
             {/* Foster Routes */}
             <Route path='famille/inscription' element={<FosterSignIn />} />
             <Route element={<FosterRoute />}>

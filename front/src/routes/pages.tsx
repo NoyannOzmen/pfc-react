@@ -17,6 +17,7 @@ import ShelterList from '../components/App/Shelter/ShelterList.tsx';
 import AnimalList from '../components/App/Animals/AnimalList.tsx';
 import AnimalDetails from '../components/App/Animals/AnimalDetails.tsx';
 
+import Register from '../components/App/StaticPages/Register.tsx';
 import ShelterSignIn from '../components/App/Shelter/ShelterSignIn.tsx';
 import FosterSignIn from '../components/App/Foster/FosterSignIn.tsx';
 
@@ -48,6 +49,7 @@ export {
   ShelterList,
   AnimalList,
   AnimalDetails,
+  Register,
   ShelterSignIn,
   FosterSignIn,
   FosterProfile,
