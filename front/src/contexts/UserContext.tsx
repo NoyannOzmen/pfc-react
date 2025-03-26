@@ -57,10 +57,11 @@ export default function UserContextProvider({
         setUserMessage(res.message)
         navigate("/connexion")
       }
+
       if (res) {
-        setUser(res);
-        setToken(res.token);
-        sessionStorage.setItem("site", res.token);
+        res.user ? setUser(res.user) : setUser(res);
+        setToken(res.access_token);
+        sessionStorage.setItem("site", res.access_token);
         navigate("/");
       }
     } catch (error) {

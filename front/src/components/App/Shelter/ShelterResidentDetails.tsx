@@ -37,6 +37,7 @@ function ShelterResidentDetails() {
   const animalUrl = animal.images_animal[0].url;
 
   const [userMessage, setUserMessage] = useState(null);
+  const token = sessionStorage.getItem("site");
 
   async function sendFile(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -54,6 +55,9 @@ function ShelterResidentDetails() {
           {
             method: 'POST',
             /* headers: { "Content-type" : "multipart/form-data" }, */
+            headers: {
+              "Authorization": `Bearer ${token}`
+            },
             body: formData
           }
         );
@@ -204,11 +208,13 @@ function ShelterResidentDetails() {
             <div className="px-4">
               <h3 className="font-body font-bold mb-4">Historique des demandes d'accueil</h3>
               
-              <table className="mb-3 rounded-b-lg rounded-lg border-separate "> 
+              <table className="mb-3 rounded-b-lg rounded-lg border-separate ">
                 <thead className=" text-fond text-sm bg-accents2 font-grands font-semibold p-3 border-accents2-dark border-solid border-1">
-                  <th className="px-2 pt-2  border-accents2-light border-solid border-1 text-center">Famille</th>
-                  <th className="px-2 pt-2  border-accents2-light border-solid border-1 text-center">Date de demande</th>
-                  <th className="px-2 pt-2  border-accents2-light border-solid border-1 text-center">Statut</th>
+                  <tr>
+                    <th className="px-2 pt-2  border-accents2-light border-solid border-1 text-center">Famille</th>
+                    <th className="px-2 pt-2  border-accents2-light border-solid border-1 text-center">Date de demande</th>
+                    <th className="px-2 pt-2  border-accents2-light border-solid border-1 text-center">Statut</th>
+                  </tr>
                 </thead>
                 <tbody className="rounded-lg border-separate ">
                   {requestItems}

@@ -16,6 +16,9 @@ function ShelterDashboard() {
 
   const shelter = user.refuge;
 
+  const [userMessage, setUserMessage] = useState(null);
+  const token = sessionStorage.getItem("site");
+
   const [updatedInfos, setUpdatedInfos ] = useState({
     id: '',
     nom: '',
@@ -44,7 +47,10 @@ function ShelterDashboard() {
           (`${import.meta.env.VITE_API_URL}/associations/profil`,
           {
             method: 'POST',
-            headers: { "Content-type" : "application/json" },
+            headers: { 
+              "Content-type" : "application/json",
+              "Authorization": `Bearer ${token}`
+            },
             body: JSON.stringify(updatedInfos),
           }
         );
@@ -135,8 +141,6 @@ function ShelterDashboard() {
   })
   }
 
-  const [userMessage, setUserMessage] = useState(null);
-
   async function handleDelete(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setUserMessage(null)
@@ -146,7 +150,10 @@ function ShelterDashboard() {
         (`${import.meta.env.VITE_API_URL}/association/profil/delete`,
         {
           method: 'POST',
-          headers: { "Content-type" : "application/json" },
+          headers: { 
+            "Content-type" : "application/json",
+            "Authorization": `Bearer ${token}`
+          },
           body: JSON.stringify(user)
         }
       );

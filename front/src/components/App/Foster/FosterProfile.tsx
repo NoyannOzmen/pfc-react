@@ -29,6 +29,7 @@ function FosterProfile() {
   })
 
   const [userMessage, setUserMessage] = useState(null);
+  const token = sessionStorage.getItem("site");
 
   useEffect(() => {
     async function fetchUser() {
@@ -37,7 +38,10 @@ function FosterProfile() {
           (`${import.meta.env.VITE_API_URL}/famille/profil`,
           {
             method: 'POST',
-            headers: { "Content-type" : "application/json" },
+            headers: { 
+              "Content-type" : "application/json",
+              "Authorization": `Bearer ${token}`
+            },
             body: JSON.stringify(updatedInfos),
           }
         );
@@ -128,7 +132,10 @@ function FosterProfile() {
         (`${import.meta.env.VITE_API_URL}/famille/profil/delete`,
         {
           method: 'POST',
-          headers: { "Content-type" : "application/json" },
+          headers: { 
+            "Content-type" : "application/json",
+            "Authorization": `Bearer ${token}`
+          },
           body: JSON.stringify(auth.user)
         }
       );

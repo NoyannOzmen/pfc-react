@@ -18,6 +18,7 @@ function ShelterUploadPage() {
   const shelter = shelters.find(({id}) => Number(id) === Number(user.refuge.id));
 
   const [userMessage, setUserMessage] = useState(null);
+  const token = sessionStorage.getItem("site");
 
   async function sendFile(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -35,6 +36,9 @@ function ShelterUploadPage() {
           {
             method: 'POST',
             /* headers: { "Content-type" : "multipart/form-data" }, */
+            headers: { 
+              "Authorization": `Bearer ${token}`
+            },
             body: formData
           }
         );

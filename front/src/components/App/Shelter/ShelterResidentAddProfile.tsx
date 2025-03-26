@@ -47,6 +47,7 @@ function ShelterResidentAddProfile() {
   ))
 
   const [userMessage, setUserMessage] = useState(null);
+  const token = sessionStorage.getItem("site");
 
   //* ANIMAL
   useEffect(() => {
@@ -57,7 +58,10 @@ function ShelterResidentAddProfile() {
           (`${import.meta.env.VITE_API_URL}/animaux/nouveau-profil`,
           {
             method: 'POST',
-            headers: { "Content-type" : "application/json" },
+            headers: {
+              "Content-type" : "application/json",
+              "Authorization": `Bearer ${token}`
+            },
             body: JSON.stringify(animalInfos),
           }
         );
@@ -116,7 +120,10 @@ function ShelterResidentAddProfile() {
           (`${import.meta.env.VITE_API_URL}/tags/create`,
           {
             method: 'POST',
-            headers: { "Content-type" : "application/json" },
+            headers: {
+              "Content-type" : "application/json",
+              "Authorization": `Bearer ${token}`
+            },
             body: JSON.stringify(tagInfos),
           }
         );
