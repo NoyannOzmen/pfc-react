@@ -17,13 +17,10 @@ function ShelterRequestDetails() {
   }
 
   const requested = animals.filter(( { demandes } ) => demandes.length)
-  console.log(requested)
-
+  
   const animal = requested.find((x : IAnimal) => 
     x.demandes.some((y:typeof x.demandes) => y.Demande.id === Number(demandeId))
   )
-
-  console.log(animal)
 
   if (!animal) {
     throw new Response('', {
