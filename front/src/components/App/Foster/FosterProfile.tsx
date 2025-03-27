@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useUserContext } from "../../../contexts/UserContext";
 
 function FosterProfile() {
-  const isInitialMount = useRef(true);
-
   const auth = useUserContext();
 
   if (!auth.user) {
@@ -31,59 +29,7 @@ function FosterProfile() {
   const [userMessage, setUserMessage] = useState(null);
   const token = sessionStorage.getItem("site");
 
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const response = await fetch
-          (`${import.meta.env.VITE_API_URL}/famille/profil`,
-          {
-            method: 'POST',
-            headers: { 
-              "Content-type" : "application/json",
-              "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(updatedInfos),
-          }
-        );
-
-        if (!response.ok) {
-          switch (response.status) {
-            case 401: {
-              const { message } = await response.json();
-              throw new Error(message);
-            }
-
-            case 404:
-              throw new Error("La page demandée n'existe pas.");
-
-            case 500:
-              throw new Error(
-                'Une erreur est survenue, merci de ré-essayer ultérieurement.'
-              );
-
-            default:
-              throw new Error(`HTTP ${response.status}`);
-          }
-        }
-
-        const data = await response.json();
-
-        const newState = Object.assign({}, auth.user?.accueillant);
-        newState.accueillant = data;
-        auth.setUser(newState);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      fetchUser();
-    }
-  }, [ updatedInfos ]);
-
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
@@ -102,6 +48,48 @@ function FosterProfile() {
       commune: commune as string,
       code_postal: code_postal as string
     });
+
+    try {
+      const response = await fetch
+        (`${import.meta.env.VITE_API_URL}/famille/profil`,
+        {
+          method: 'POST',
+          headers: { 
+            "Content-type" : "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify(updatedInfos),
+        }
+      );
+
+      if (!response.ok) {
+        switch (response.status) {
+          case 401: {
+            const { message } = await response.json();
+            throw new Error(message);
+          }
+
+          case 404:
+            throw new Error("La page demandée n'existe pas.");
+
+          case 500:
+            throw new Error(
+              'Une erreur est survenue, merci de ré-essayer ultérieurement.'
+            );
+
+          default:
+            throw new Error(`HTTP ${response.status}`);
+        }
+      }
+
+      const data = await response.json();
+
+      const newState = Object.assign({}, auth.user?.accueillant);
+      newState.accueillant = data;
+      auth.setUser(newState);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   function allowEdit(e: React.MouseEvent<HTMLLegendElement>) {
