@@ -37,6 +37,7 @@ function AnimalDetails() {
 	})
 
 	const [userMessage, setUserMessage] = useState(null);
+	const token = sessionStorage.getItem("site");
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -54,7 +55,10 @@ function AnimalDetails() {
 				(`${import.meta.env.VITE_API_URL}/animaux/${animalId}/faire-une-demande`,
 				{
 					method: 'POST',
-					headers: { "Content-type" : "application/json" },
+          headers: { 
+            "Content-type" : "application/json",
+            "Authorization": `Bearer ${token}`
+          },
 					body: JSON.stringify(requestInfos),
 				}
 			);

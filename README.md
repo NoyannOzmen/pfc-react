@@ -18,7 +18,7 @@ PFC a pour vocation de répondre à plusieurs besoins :
 - Permettre aux associations / refuges de communiquer sur les animaux nécessitant une place au chaud
 - Permettre aux familles d'accueil de se faire connaître et de se mettre en relation avec les refuges / associations
 
-## Technologie utilisées
+## Technologies utilisées
 
 Pour réaliser cette application, nous nous sommes servis de :
 

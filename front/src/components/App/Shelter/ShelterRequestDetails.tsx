@@ -16,12 +16,11 @@ function ShelterRequestDetails() {
     });
   }
 
-  function isCurrentRequest(animal : IAnimal, index : number ) {
-    return Number(animal.demandes[index].id) === Number(demandeId);
-  }
-
-  const requested = animals.filter(( { demandes } ) => demandes.length )
-  const animal = requested.find(isCurrentRequest);
+  const requested = animals.filter(( { demandes } ) => demandes.length)
+  
+  const animal = requested.find((x : IAnimal) => 
+    x.demandes.some((y:typeof x.demandes) => y.Demande.id === Number(demandeId))
+  )
 
   if (!animal) {
     throw new Response('', {
@@ -33,7 +32,7 @@ function ShelterRequestDetails() {
   const famille = animal.demandes[0];
 
   const [ displayedRequest, setDisplayedRequest ] = useState(
-    animal.demandes[0]
+    animal.demandes[0].Demande
   )
 
   const tagItems = animal.tags.map((tag :ITag) => (
@@ -46,6 +45,7 @@ function ShelterRequestDetails() {
   ))
 
   const [userMessage, setUserMessage] = useState(null);
+  const token = sessionStorage.getItem("site");
   
   async function acceptRequest(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -55,7 +55,10 @@ function ShelterRequestDetails() {
         (`${import.meta.env.VITE_API_URL}/associations/profil/demandes/${demandeId}/accept`,
         {
           method: 'POST',
-          headers: { "Content-type" : "application/json" },
+          headers: { 
+            "Content-type" : "application/json",
+            "Authorization": `Bearer ${token}`
+          },
           body: '',
         }
       );
@@ -99,7 +102,10 @@ function ShelterRequestDetails() {
         (`${import.meta.env.VITE_API_URL}/associations/profil/demandes/${demandeId}/deny`,
         {
           method: 'POST',
-          headers: { "Content-type" : "application/json" },
+          headers: { 
+            "Content-type" : "application/json",
+            "Authorization": `Bearer ${token}`
+          },
           body: '',
         }
       );
