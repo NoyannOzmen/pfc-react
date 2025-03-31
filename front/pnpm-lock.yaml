@@ -41,9 +41,6 @@ importers:
       pg:
         specifier: ^8.14.1
         version: 8.14.1
-      postcss:
-        specifier: ^8.5.3
-        version: 8.5.3
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -90,6 +87,12 @@ importers:
       globals:
         specifier: ^15.15.0
         version: 15.15.0
+      nth-check:
+        specifier: ^2.1.1
+        version: 2.1.1
+      postcss:
+        specifier: ^8.5.3
+        version: 8.5.3
       typescript:
         specifier: ~5.6.3
         version: 5.6.3
@@ -9351,7 +9354,7 @@ snapshots:
       boolbase: 1.0.0
       css-what: 3.4.2
       domutils: 1.7.0
-      nth-check: 1.0.2
+      nth-check: ">=2.0.1"
 
   css-select@4.3.0:
     dependencies:
@@ -12643,7 +12646,7 @@ snapshots:
       adjust-sourcemap-loader: 4.0.0
       convert-source-map: 1.9.0
       loader-utils: 2.0.4
-      postcss: 7.0.39
+      postcss: ">=8.4.31"
       source-map: 0.6.1
 
   resolve.exports@1.1.1: {}
