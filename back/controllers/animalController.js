@@ -65,7 +65,7 @@ export const animalController = {
                 sexe : (req.body.sexe) ? (req.body.sexe) : { [Op.ne]: null },
                 '$refuge.code_postal$' : (req.body.dptSelect) ? { [Op.startsWith] : req.body.dptSelect } : { [Op.ne] : null },
                 age : (req.body.minAge && req.body.maxAge ) ? { [Op.between]:  [req.body.minAge, req.body.maxAge] } : { [Op.ne] : null },
-                '$tags.nom$' : (req.body.tag.length) ? { [Op.not] : req.body.tag } : { [Op.or] : [ { [Op.ne] : null }, { [Op.is] : null } ] },
+                '$tags.nom$' : (req.body.tag) ? { [Op.not] : req.body.tag } : { [Op.or] : [ { [Op.ne] : null }, { [Op.is] : null } ] },
             }
         });
         
