@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import emailValidator from 'email-validator';
+import jwt from 'jsonwebtoken';
 
 import { Animal, Famille, Utilisateur, Association, Espece } from '../models/Models.js';
 
@@ -23,55 +24,14 @@ export const sessionController = {
             },
             include : ['refuge','accueillant']
         })
-        
-        if (!user) {
-            const status = 401;
-            const message = 'Identifiants incorrects. Merci de ré-essayer.';
 
-            return res.status(status).json({ status, message });
+        if (user && await bcrypt.compare(mot_de_passe, user.mot_de_passe)) {
+            user.mot_de_passe = '';
+            const payload = { sub: user.id, email: user.email, shelter: user.refuge?.id, foster: user.accueillant?.id  };
+            const access_token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1800s' })
+        return res.status(200).json({ user, access_token})
         }
-
-        const hasMatchingPassword = await bcrypt.compare(mot_de_passe, user.mot_de_passe);
-        if(!hasMatchingPassword) {
-            const status = 401;
-            const message = 'Identifiants incorrects. Merci de ré-essayer.';
-
-            return res.status(status).json({ status, message });
-
-        } else {  
-            let refugeId=null;
-            let familleId=null;
-
-            if (user.refuge) {
-                refugeId = user.id;
-                
-            }
-            if (user.accueillant) {
-                familleId = user.id;
-            }
-            
-            if (refugeId != null) {
-                user.loggedIn=true;
-                req.session.loggedIn=true;
-                user.role='association';
-                req.session.role='association';
-                user.nom=user.refuge.nom;
-                user.userId=refugeId;
-                req.session.userId=refugeId;
-            }
-            if (familleId != null ) {
-                user.loggedIn=true;
-                req.session.loggedIn=true;
-                user.role='famille';
-                req.session.role='famille';
-                user.nom=user.accueillant.nom;
-                user.prenom=user.accueillant.prenom;
-                user.userId=familleId;
-                req.session.userId=familleId
-            }
-            user.mot_de_passe = null;
-        }
-        return res.json(user);
+        return res.status(401).json({ message : 'Identifiants incorrects. Merci de ré-essayer.'});
     },
     async logOut(req,res) {
         req.session.destroy();

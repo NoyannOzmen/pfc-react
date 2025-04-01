@@ -1,6 +1,6 @@
 /* A middleware for import session info to all views */
 
-export const userMiddleware = (req, res, next) => {
+/* export const userMiddleware = (req, res, next) => {
 
     if (!req.session.loggedIn) {
         res.locals.loggedIn = false;
@@ -13,4 +13,4 @@ export const userMiddleware = (req, res, next) => {
     }
 
     next();
-};
+}; */

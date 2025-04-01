@@ -21,12 +21,12 @@ animalRouter.get('/tags', catchErrors(animalController.getTagsList));
 animalRouter.post('/animaux', catchErrors(animalController.getSearched));
 
 //* Route de demande d'accueil d'un animal par un.e user
-animalRouter.post('/animaux/:id(\\d+)/faire-une-demande',/* [auth,isRole.famille], */ catchErrors(animalController.hostRequest));
+animalRouter.post('/animaux/:id(\\d+)/faire-une-demande',[auth,isRole.famille], catchErrors(animalController.hostRequest));
 
 //* Ajouter un animal à l'asssociation
-animalRouter.post('/animaux/nouveau-profil', /* [auth,isRole.association], */ catchErrors(animalController.addAnimal));
+animalRouter.post('/animaux/nouveau-profil', [auth,isRole.association], catchErrors(animalController.addAnimal));
 
 //* Ajouter une image à un animal
-animalRouter.post("/upload/photo", /* [auth,isRole.association], */ upload, catchErrors(animalController.uploadPhoto));
+animalRouter.post("/upload/photo", [auth,isRole.association], upload, catchErrors(animalController.uploadPhoto));
 
 export { animalRouter };

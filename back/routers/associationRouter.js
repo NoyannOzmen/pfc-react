@@ -15,17 +15,17 @@ associationRouter.post('/associations', catchErrors(associationController.getSea
 
 //* DASHBOARD
 //Mise à jour des informations depuis le compte association
-associationRouter.post('/associations/profil', /* [auth, isRole.association], */ catchErrors(associationController.update));
+associationRouter.post('/associations/profil', [auth, isRole.association], catchErrors(associationController.update));
 
 //Ajout d'un logo
-associationRouter.post("/upload/logo", /* [auth, isRole.association], */ upload, catchErrors(associationController.uploadImage));
+associationRouter.post("/upload/logo", [auth, isRole.association], upload, catchErrors(associationController.uploadImage));
 
 //* ROUTES AUTHENTIFIEES
 //Valider une demande d'accueil
-associationRouter.post('/associations/profil/demandes/:id(\\d+)/accept', /* [auth, isRole.association], */ catchErrors(associationController.approveRequest));
+associationRouter.post('/associations/profil/demandes/:id(\\d+)/accept', [auth, isRole.association], catchErrors(associationController.approveRequest));
 
 //Refuser une demande d'accueil
-associationRouter.post('/associations/profil/demandes/:id(\\d+)/deny', /* [auth, isRole.association], */ catchErrors(associationController.denyRequest));
+associationRouter.post('/associations/profil/demandes/:id(\\d+)/deny', [auth, isRole.association], catchErrors(associationController.denyRequest));
 
 
 export { associationRouter };

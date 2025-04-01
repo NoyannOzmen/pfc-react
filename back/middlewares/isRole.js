@@ -3,24 +3,23 @@
 export const isRole = {
     
     association(req,res,next){
-        
-        if (req.session.role==='association'){
+        if (req.user.shelter) {
             return next();
         }
-    const error = new Error("Accès non autorisé");
-    res.status(401).render("403");
-    error.status = 401;
-    next(error);
+
+        const error = new Error("Accès non autorisé");
+        res.status(403).render("403");
+        error.status = 403;
+        next(error);
     },
 
     famille(req,res,next){
-        
-        if (req.session.role==='famille'){
+        if (req.user.foster) {
             return next();
         }
-    const error = new Error("Accès non autorisé");
-    res.status(401).render("403");
-    error.status = 401;
-    next(error);
-    }
+        const error = new Error("Accès non autorisé");
+        res.status(403).render("403");
+        error.status = 403;
+        next(error);
+        }
 }
