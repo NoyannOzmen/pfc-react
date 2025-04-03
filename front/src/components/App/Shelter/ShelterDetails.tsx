@@ -42,7 +42,7 @@ function ShelterDetails() {
        <div className="w-full px-2 py-4 gap-2 text-xs flex flex-col">
         <p className="font-body text-texte text-center md:text-base">Adresse : {shelter.rue},&nbsp;{shelter.code_postal},&nbsp;{shelter.commune},&nbsp;{shelter.pays}</p>
         <p className="font-body text-texte text-center md:text-base">Téléphone : {shelter.telephone}</p>
-        <p className="font-body text-texte text-center md:text-base">E-mail : {shelter.identifiant_association.email}</p>
+        { shelter.site && <p className="font-body text-texte text-center md:text-base">E-mail : {shelter.site}</p>}
       </div>
     </article>
   </section>

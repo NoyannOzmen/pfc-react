@@ -240,7 +240,7 @@ function ShelterRequestDetails() {
               </div> */}
               <div className="mb-2">
                 <p className="text-sm italic leading-4">Adresse</p>
-                <p className="text-base font-semibold leading-3">{famille.rue}</p>
+                <p className="text-base font-semibold leading-4">{famille.rue}</p>
                 <p className="text-base font-semibold ">{famille.code_postal} {famille.commune }</p>
               </div>
               <div className="mb-2">

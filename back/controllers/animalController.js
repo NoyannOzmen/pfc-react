@@ -11,8 +11,8 @@ export const animalController = {
                 "espece",
                 "images_animal",
                 "demandes",
-                { model : Association, as : "refuge", include: ["images_association", "identifiant_association"]},
-                { model : Famille, as : "accueillant", include: ["identifiant_famille"]},
+                { model : Association, as : "refuge", include: ["images_association"/* , "identifiant_association" */]},
+                { model : Famille, as : "accueillant"/* , include: ["identifiant_famille"] */},
                 { model : Tag, as : "tags" },
             ]
         })
