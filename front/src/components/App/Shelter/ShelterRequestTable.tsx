@@ -23,7 +23,7 @@ function ShelterRequestTable({ animal }: ShelterRequestTableProps) {
     <tbody>
       <tr onClick={handleClick} tabIndex={0} className="view text-fond text-sm bg-accents2 font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hover:bg-accents2-dark">
         <td colSpan={4} scope="colgroup" className="px-2 pt-2 border-accents2-dark border-solid border-1">{animal.nom}</td>
-        <td colSpan={2} scope="colgroup" className="px-2 pt-2 border-accents2-dark border-solid border-1">Nombre</td>
+        <td colSpan={2} scope="colgroup" className="px-2 pt-2 border-accents2-dark border-solid border-1">{animal.demandes.length}</td>
       </tr>
         <tr className="fold text-fond text-sm bg-accents2-light font-grands font-semibold p-3 border-accents2-dark border-solid border-1 hidden">
           <td colSpan={2} className="px-2 pt-2  border-accents2-light border-solid border-1">Famille</td>
