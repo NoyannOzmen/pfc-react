@@ -43,6 +43,7 @@ function ShelterDetails() {
         <p className="font-body text-texte text-center md:text-base">Adresse : {shelter.rue},&nbsp;{shelter.code_postal},&nbsp;{shelter.commune},&nbsp;{shelter.pays}</p>
         <p className="font-body text-texte text-center md:text-base">Téléphone : {shelter.telephone}</p>
         { shelter.site && <p className="font-body text-texte text-center md:text-base">E-mail : {shelter.site}</p>}
+        { shelter.description && <p className="font-body text-texte">{shelter.description}</p> }
       </div>
     </article>
   </section>

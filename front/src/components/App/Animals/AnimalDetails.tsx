@@ -145,7 +145,7 @@ function AnimalDetails() {
 				<p className="font-body text-texte">Adresse : {animal.refuge.rue},<br />{animal.refuge.code_postal},&nbsp;{animal.refuge.commune},&nbsp;{animal.refuge.pays}</p>
 				<p className="font-body text-texte">Téléphone : {animal.refuge.telephone}</p>
 				{ animal.refuge.site && <p className="font-body text-texte">E-mail : {animal.refuge.site}</p> }
-				{ animal.refuge.description && <p className="hidden md:block font-body text-texte">{animal.refuge.description}</p> }
+				{ animal.refuge.description && <p className="font-body text-texte">{animal.refuge.description}</p> }
 			</div>
 				
 			<div className="text-center w-full py-2">
