@@ -292,7 +292,7 @@ function ShelterResidentAddProfile() {
                   </fieldset>
                     
                   <div className="flex justify-center">
-                    <button onClick={displayModal} type="button" id="create-tag" className="self-center hover:bg-accents1-dark rounded-full hover:underline bg-accents1 text-center font-grands text-fond font-semibold text-base py-0.5 px-4">Créer un tag</button>
+                    <button onClick={displayModal} type="button" id="create-tag" className="self-center hover:bg-accents1-dark rounded-full hover:underline bg-accents1-light text-center font-grands text-fond font-semibold text-base py-0.5 px-4">Créer un tag</button>
                   </div>
                 </div>
                   
@@ -302,7 +302,7 @@ function ShelterResidentAddProfile() {
               
               <fieldset className="flex flex-wrap justify-center w-full lg:col-start-2 lg:columns-2">
                 <div className="">
-                  <input type="submit" value="Envoyer" className="hover:bg-accents1-dark rounded-full hover:underline bg-accents1 text-center font-grands text-fond font-semibold text-base py-1 px-4" />
+                  <input type="submit" value="Créer le profil" className="hover:bg-accents1-dark rounded-full hover:underline bg-accents1 text-center font-grands text-fond font-semibold text-xl py-2 px-6" />
                 </div>
               </fieldset>
                     
