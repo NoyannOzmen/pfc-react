@@ -98,10 +98,12 @@ function ShelterResidentTable({ animal }: ShelterResidentTableProps) {
                   <p className="text-sm italic leading-3">Téléphone</p>
                   <p className="text-base font-semibold">{animal.accueillant.telephone}</p>
                 </div>
+                {/* 
                 <div className="mb-2">
                   <p className="text-sm italic leading-3">e-mail</p>
                   <p className="text-base font-semibold">{animal.accueillant.identifiant_famille.email}</p>
                 </div>
+                */}
                 <div className="mb-2">
                   <p className="text-sm italic leading-4">Adresse</p>
                   <p className="text-base font-semibold leading-3">{animal.accueillant.rue}</p>
