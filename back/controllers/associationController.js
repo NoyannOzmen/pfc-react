@@ -32,7 +32,7 @@ const associationController = {
                 'images_association',
                 { model : Animal, as : "pensionnaires", include : { model : Espece, as : "espece" } }],
                 where : {
-                    nom : (req.body.nom) ? (req.body.shelterNom) : { [Op.ne]: null },
+                    nom : (req.body.shelterNom) ? { [Op.like]: `%${req.body.shelterNom}%` } : { [Op.ne]: null },
                     code_postal : (req.body.dptSelect) ? { [Op.startsWith] : req.body.dptSelect } : { [Op.ne] : null },
                     '$pensionnaires.espece.nom$' : (req.body.espece.length) ? { [Op.in] : req.body.espece } : { [Op.ne] : null },
                 }
