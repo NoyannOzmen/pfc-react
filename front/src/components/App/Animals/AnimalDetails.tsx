@@ -89,7 +89,7 @@ function AnimalDetails() {
 			</div>
 
 			
-			<div className="text-center w-full py-2">
+			<div className="text-center w-full flex justify-center gap-2 py-2">
 				{tagItems}
 			</div>
 			
@@ -154,7 +154,7 @@ function AnimalDetails() {
 		</article>
 	</section>
 	
-	{/* Carousels */ }
+	{/* Carousel */ }
 
 	<section className="p-4 py-6 block">
 		<h2 className="font-grands text-3xl text-center my-2">Ils vous attendent de patte ferme !</h2>
