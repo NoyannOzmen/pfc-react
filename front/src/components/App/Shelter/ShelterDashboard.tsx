@@ -1,19 +1,19 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useUserContext } from "../../../contexts/UserContext";
 
 function ShelterDashboard() {
 
-  const { user, setUser } = useUserContext();
+  const auth = useUserContext();
 
-   if (!user) {
+   if (!auth.user) {
     throw new Response('', {
       status: 404,
       statusText: 'Not Found',
     });
   }
 
-  const shelter = user.refuge;
+  const shelter = auth.user.refuge;
 
   const [userMessage, setUserMessage] = useState(null);
   const token = sessionStorage.getItem("site");
@@ -32,20 +32,13 @@ function ShelterDashboard() {
     description: ''
   })
 
-  const navigate = useNavigate();
-
-  const logout = () => {
-    setUser(null)
-    navigate('/')
-  }
-
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
     const { nom, responsable, rue, commune, code_postal, pays, siret, telephone, site, description } = Object.fromEntries(formData);
 
-    const userId = user?.refuge.id;
+    const userId = auth.user?.refuge.id;
 
     setUpdatedInfos({
       id: userId as string,
@@ -96,9 +89,9 @@ function ShelterDashboard() {
 
       const data = await response.json();
 
-      const newState = Object.assign({}, user?.refuge);
+      const newState = Object.assign({}, auth.user?.refuge);
       newState.refuge = data;
-      setUser(newState);
+      auth.setUser(newState);
     } catch (error) {
       console.error(error);
     }
@@ -143,7 +136,7 @@ function ShelterDashboard() {
             "Content-type" : "application/json",
             "Authorization": `Bearer ${token}`
           },
-          body: JSON.stringify(user)
+          body: JSON.stringify(auth.user)
         }
       );
 
@@ -153,7 +146,7 @@ function ShelterDashboard() {
 			}
 
       displayModal();
-      logout();
+      auth.logOut();
 
     } catch (error) {
       console.error(error);

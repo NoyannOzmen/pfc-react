@@ -4,8 +4,7 @@ import ShelterCard from "./ShelterCard";
 import DptSelect from '../StaticPages/DptSelect';
 
 function ShelterList() {
-  const { shelters } = useRootContext();
-  const { species } = useRootContext();
+  const { shelters, species } = useRootContext();
 
   const [ searchedShelters, setSearchedShelters ] = useState(
     shelters
@@ -95,7 +94,6 @@ function ShelterList() {
 
   return (
     <main className="justify-self-stretch flex-1">
-      
       {/* <!-- Menu de recherche --> */}
       <div className="md:my-3 flex flex-wrap font-body w-full bg-zoning rounded-lg shadow dark:bg-gray-800 justify-around">
         <form className="text-texte justify-around" onSubmit={handleSubmit}>
@@ -158,14 +156,13 @@ function ShelterList() {
         </div>
       }
 
-    { searchedShelters.length ? (
-      <div className="grid grid-cols-3 gap-3 m-3">       
-        {shelterItems}
-      </div>
-    ) : (
-      <h3 className="font-grands text-2xl w-full my-2 text-center">Aucun refuge ne correspond à votre recherche</h3>
-    )}
-      
+      { searchedShelters.length ? (
+        <div className="grid grid-cols-3 gap-3 m-3">       
+          {shelterItems}
+        </div>
+      ) : (
+        <h3 className="font-grands text-2xl w-full my-2 text-center">Aucun refuge ne correspond à votre recherche</h3>
+      )}
     </main>
   )
 };

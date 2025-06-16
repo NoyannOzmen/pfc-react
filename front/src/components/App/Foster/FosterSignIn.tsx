@@ -1,8 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
+import GouvApi from "../StaticPages/GouvApi";
 
 function FosterSignIn() {
-  const isInitialMount = useRef(true);
-
   const [fosterInfos, setFosterInfos ] = useState({
     prenom : '',
     nom: '',
@@ -20,35 +19,9 @@ function FosterSignIn() {
 
   const [userMessage, setUserMessage] = useState(null);
 
-  useEffect(() => {
-    async function fetchUser() {
-      setUserMessage(null)
-      try {
-        const response = await fetch
-          (`${import.meta.env.VITE_API_URL}/famille/inscription`,
-          {
-            method: 'POST',
-            headers: { "Content-type" : "application/json" },
-            body: JSON.stringify(fosterInfos),
-          }
-        );
-
-        const res = await response.json();
-        setUserMessage(res.message)
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      fetchUser();
-    }
-  }, [ fosterInfos ]);
-
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setUserMessage(null)
 
     const formData = new FormData(event.currentTarget);
     const { prenom, nom, email, mot_de_passe, confirmation, hebergement, terrain, rue, commune, code_postal, pays, telephone } = Object.fromEntries(formData);
@@ -67,56 +40,23 @@ function FosterSignIn() {
       pays: pays as string,
       telephone: telephone as string
     });
-  }
 
-    //* API
-    async function gouvApiCall (search: string) {
-      const BASE_URL = 'https://api-adresse.data.gouv.fr/search/?q=';
-      const searchParams = search.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/[\s\W]/g, '+');
-      let url = BASE_URL+searchParams+'&limit=5'
-      
-      const res = await fetch(url);
-      const foundAddresses = res.json(); 
-      return foundAddresses
+    try {
+      const response = await fetch
+        (`${import.meta.env.VITE_API_URL}/famille/inscription`,
+        {
+          method: 'POST',
+          headers: { "Content-type" : "application/json" },
+          body: JSON.stringify(fosterInfos),
+        }
+      );
+
+      const res = await response.json();
+      setUserMessage(res.message)
+    } catch (error) {
+      console.error(error);
     }
-  
-    async function handleKeyStroke() {
-      const inputApi = document.getElementById('api-gouv') as HTMLInputElement;
-      const addressContainer=document.getElementById('address-container') as HTMLDivElement;
-  
-      if(inputApi.value.length>3) {
-        const adresses = await gouvApiCall(inputApi.value);
-        
-        addressContainer.textContent='';
-        
-        adresses.features.forEach((address : typeof adresses) => {
-            const addressBox = document.createElement('div');
-            addressBox.classList.add('text-sm', 'p-2','hover:bg-accents1', 'hover:text-fond');
-            addressBox.role='listitem';
-            
-            addressBox.addEventListener('click', ()=> {
-                
-                formFiller(address);
-                addressContainer.textContent='';
-                
-            })
-            const addressText = document.createElement('p');
-            addressText.innerText=`${address.properties.label}`;
-            
-            addressBox.appendChild(addressText);
-            addressContainer.appendChild(addressBox);
-        });        
-    }  
-    }
-  
-    function formFiller (address: { properties: { name: string; city: string; postcode: string; }; }) { 
-      const inputStreet = document.getElementById('rue') as HTMLInputElement;
-      inputStreet.value=address.properties.name;
-      const inputCity = document.getElementById('commune') as HTMLInputElement;
-      inputCity.value = address.properties.city;
-      const inputZipCode = document.getElementById('code_postal') as HTMLInputElement;
-      inputZipCode.value=address.properties.postcode;    
-    }
+  }
 
   return (
     <main className="justify-self-stretch flex-1">
@@ -147,7 +87,6 @@ function FosterSignIn() {
           <input className="block bg-fond w-full" type="email" id="email" name="email" placeholder="chacripan@domain-expansion.io" autoComplete="email" required />
         </div>
         <div className="mx-auto p-2">
-          {/* <!-- telephone --> */}
           <label className="text-center w-full" htmlFor="telephone">N° telephone</label>
           <input className="block bg-fond w-full" type="tel" id="telephone" name="telephone" pattern="^(0|\+33 )[1-9]([\-. ]?[0-9]{2} ){3}([\-. ]?[0-9]{2})|([0-9]{8})$" placeholder="01 23 45 67 89" />
         </div>
@@ -158,12 +97,7 @@ function FosterSignIn() {
         <legend className="font-bold text-lg font-grands text-center">Votre capacité d'hébergement</legend>
         
         {/* <!-- API Adresse --> */}
-        <div id="api-container" className="mx-auto p-2 relative mb-3">
-          <label className="text-center w-full" htmlFor="api-gouv">Adresse&nbsp;<span className="italic font-semibold">(Remplissage Automatique)</span></label>
-          <input onKeyDown={handleKeyStroke} className="block bg-fond w-full" type="text" id="api-gouv" name="api_gouv" placeholder="Entrez votre adresse" />
-          <div id="address-container" className=" bg-accents2-light absolute w-5/6 divide-y divide-text border-solid border-texte rounded-lg z-10" >
-          </div>
-        </div>
+        <GouvApi />
         
         {/* <!-- Hébergement --> */}
         <div className="mx-auto p-2">

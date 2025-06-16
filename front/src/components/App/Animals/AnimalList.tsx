@@ -5,9 +5,7 @@ import DptSelect from '../StaticPages/DptSelect';
 import { IAnimal } from '../../../@types';
 
 function AnimalList() {
-  const { animals } = useRootContext();
-  const { species } = useRootContext();
-  const { tags } = useRootContext();
+  const { animals, species, tags } = useRootContext();
 
   const [ sheltered, setSheltered ] = useState(
     animals.filter(({ statut }) => statut === "En refuge")
@@ -23,9 +21,9 @@ function AnimalList() {
 
   const tagItems = tags.map((tag) => (
     <div key={tag.id} >
-    <label htmlFor={`${tag.nom}`}>{tag.nom}</label>
-    <input onChange={handleCheck} type="checkbox" name="tag" id={tag.nom} value={tag.nom} />
-  </div>
+      <label htmlFor={`${tag.nom}`}>{tag.nom}</label>
+      <input onChange={handleCheck} type="checkbox" name="tag" id={tag.nom} value={tag.nom} />
+    </div>
   ))
 
   //* Search
@@ -103,7 +101,6 @@ function AnimalList() {
 
   return (
     <main className="justify-self-stretch flex-1">
-  
       {/* <!-- Menu de recherche --> */}
       <div className="md:my-3 flex flex-wrap font-body w-full bg-zoning rounded-lg shadow dark:bg-gray-800 justify-around">
         <form className="text-texte justify-around" onSubmit={handleSubmit}>
@@ -187,7 +184,7 @@ function AnimalList() {
       ) : (
         <h3 className="font-grands text-2xl w-full my-2 text-center">Aucun animal ne correspond à votre recherche</h3>
       )}
-
+      
     </main>
   )
 }

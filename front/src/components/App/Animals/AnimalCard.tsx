@@ -8,8 +8,8 @@ type AnimalCardProps = {
 const AnimalCard = ({ animal }: AnimalCardProps) => {
   const url = animal.images_animal[0].url;
 
-    return (
-      <div className="bg-zoning rounded-lg shadow dark:bg-gray-800 md:flex-col">
+  return (
+    <div className="bg-zoning rounded-lg shadow dark:bg-gray-800 md:flex-col">
       <div className="relative md:w-full flex justify-center items-center">
         { url ? (
           <img className="font-body rounded-lg" src={`${import.meta.env.VITE_API_URL}` + `${url}`} alt={`Photo de ${animal.nom}`}></img>
@@ -31,7 +31,7 @@ const AnimalCard = ({ animal }: AnimalCardProps) => {
         </div>
       </div>
     </div>
-    )
+  )
 }
 
 export default AnimalCard;

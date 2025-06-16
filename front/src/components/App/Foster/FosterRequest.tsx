@@ -6,16 +6,16 @@ import { IAnimal } from "../../../@types";
 
 function FosterRequest() {
   const { animals } = useRootContext();
-  const { user } = useUserContext();
+  const auth = useUserContext();
 
-  if (!user) {
+  if (!auth.user) {
     throw new Response('', {
       status: 404,
       statusText: 'Not Found',
     });
   }
 
-  const familleId = user?.accueillant.id
+  const familleId = auth.user.accueillant.id
 
   const requested = animals.filter(( { demandes } ) => demandes.length )
 
