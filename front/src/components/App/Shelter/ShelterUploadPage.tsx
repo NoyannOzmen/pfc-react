@@ -5,17 +5,17 @@ import { useRootContext } from '../../../contexts/RootContext';
 
 function ShelterUploadPage() {
   const [file, setFile] = useState<File | null>(null);
-  const { user } = useUserContext();
+  const auth = useUserContext();
   const { shelters } = useRootContext();
 
-  if (!user) {
+  if (!auth.user) {
     throw new Response('', {
       status: 404,
       statusText: 'Not Found',
     });
   }
 
-  const shelter = shelters.find(({id}) => Number(id) === Number(user.refuge.id));
+  const shelter = shelters.find(({id}) => Number(id) === Number(auth.user?.refuge.id));
 
   const [userMessage, setUserMessage] = useState(null);
   const token = sessionStorage.getItem("site");
@@ -25,7 +25,7 @@ function ShelterUploadPage() {
     setUserMessage(null)
     
     if (file) {
-      const assoId = JSON.stringify(user?.refuge.id)
+      const assoId = JSON.stringify(auth.user?.refuge.id)
       const formData = new FormData();
       formData.append("assoId", assoId);
       formData.append("file", file);
@@ -111,7 +111,7 @@ function ShelterUploadPage() {
             }
           </div>
         </div>
-  </main>
+    </main>
   )
 }
 

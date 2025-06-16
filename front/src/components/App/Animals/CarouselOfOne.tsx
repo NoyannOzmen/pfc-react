@@ -4,8 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 
 function CarouselOfOne() {
   const { animals } = useRootContext();
-  const { animalId } = useParams();
-  const { shelterId } = useParams();
+  const { animalId, shelterId } = useParams();
 
   let sheltered = animals?.filter(({ statut }) => statut === "En refuge");
 

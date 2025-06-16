@@ -6,12 +6,10 @@ import { ITag } from "../../../@types";
 
 function ShelterResidentAddProfile() {
   const { species, tags } = useRootContext();
-
+  const auth = useUserContext();
   const isInitialMount = useRef(true);
 
-  const { user } = useUserContext();
-
-  if (!user) {
+  if (!auth.user) {
    throw new Response('', {
      status: 404,
      statusText: 'Not Found',
@@ -86,7 +84,7 @@ function ShelterResidentAddProfile() {
     const formData = new FormData(event.currentTarget);
     const { nom_animal, sexe_animal, age_animal, espece_animal, race_animal, couleur_animal, description_animal, tags_animal } = Object.fromEntries(formData);
 
-    const userId = user?.refuge.id;
+    const userId = auth.user?.refuge.id;
 
     setAnimalInfos({
       association_id: userId as string,
@@ -311,36 +309,35 @@ function ShelterResidentAddProfile() {
         </div>          
       </div>  
 
-    {/* <!-- ICI MODALE DE CREATION DE TAGS --> */}
-    <div id="create-tags-modal" className="hidden justify-center content-center fixed bg-texte/20 inset-0">
-      
-      <div className="self-center bg-zoning p-6 rounded-lg">
-        <div className="flex justify-between">
-          <h3 className="font-grands text-lg font-extrabold mb-4">Ajouter un tag</h3>
-          <span onClick={displayModal} className="cancel material-symbols-outlined text-texte cursor-pointer">
-            close
-          </span>
+      {/* <!-- ICI MODALE DE CREATION DE TAGS --> */}
+      <div id="create-tags-modal" className="hidden justify-center content-center fixed bg-texte/20 inset-0">
+        
+        <div className="self-center bg-zoning p-6 rounded-lg">
+          <div className="flex justify-between">
+            <h3 className="font-grands text-lg font-extrabold mb-4">Ajouter un tag</h3>
+            <span onClick={displayModal} className="cancel material-symbols-outlined text-texte cursor-pointer">
+              close
+            </span>
+          </div>
+          <form id="create-tags-form" className="" onSubmit={handleCreateTag}>
+            
+            <div className="mb-2">
+              <label htmlFor="tag-name" className="block text-texte font-grands font-bold text-base ">Nom du Tag</label>
+              <input className="w-56 rounded-md h-8 px-2 py-1 text-texte bg-fond " type="text" name="tag_name" id="tag-name" required />
+            </div>
+            
+            <div className="mb-4 ">
+              <label htmlFor="tag-description" className="block text-texte font-grands font-bold text-base ">Description</label>
+              <textarea className="w-56 rounded-md px-2 py-1 text-texte bg-fond" name="tag_description" id="tag-description" rows={3} required></textarea>
+            </div>
+            
+            <div>
+              <input className="cursor-pointer hover:bg-accents1-dark rounded-full hover:underline bg-accents1 text-center font-grands text-fond font-semibold text-base py-1 px-4" type="submit" value="Valider" />
+              <button onClick={displayModal} className="hover:bg-accents2-dark rounded-full hover:underline bg-accents2-dark text-center font-grands text-fond font-semibold text-base py-1 px-4 cancel">Annuler</button>
+            </div>
+          </form>
         </div>
-        <form id="create-tags-form" className="" onSubmit={handleCreateTag}>
-          
-          <div className="mb-2">
-            <label htmlFor="tag-name" className="block text-texte font-grands font-bold text-base ">Nom du Tag</label>
-            <input className="w-56 rounded-md h-8 px-2 py-1 text-texte bg-fond " type="text" name="tag_name" id="tag-name" required />
-          </div>
-          
-          <div className="mb-4 ">
-            <label htmlFor="tag-description" className="block text-texte font-grands font-bold text-base ">Description</label>
-            <textarea className="w-56 rounded-md px-2 py-1 text-texte bg-fond" name="tag_description" id="tag-description" rows={3} required></textarea>
-          </div>
-          
-          <div>
-            <input className="cursor-pointer hover:bg-accents1-dark rounded-full hover:underline bg-accents1 text-center font-grands text-fond font-semibold text-base py-1 px-4" type="submit" value="Valider" />
-            <button onClick={displayModal} className="hover:bg-accents2-dark rounded-full hover:underline bg-accents2-dark text-center font-grands text-fond font-semibold text-base py-1 px-4 cancel">Annuler</button>
-          </div>
-        </form>
       </div>
-    </div>
-
     </main>
   )
 }

@@ -5,16 +5,16 @@ import ShelterResidentTable from "./ShelterResidentTable";
 
 function ShelterResidentProfileList() {
   const { animals } = useRootContext();
-  const { user } = useUserContext();
+  const auth = useUserContext();
 
-  if (!user) {
+  if (!auth.user) {
     throw new Response('', {
       status: 404,
       statusText: 'Not Found',
     });
   }
 
-  const fostered = animals.filter(({ association_id, statut }) => Number(association_id) === Number(user.id) && statut === "Accueilli");
+  const fostered = animals.filter(({ association_id, statut }) => Number(association_id) === Number(auth.user?.id) && statut === "Accueilli");
 
   const fosteredItems = fostered.map((animal) => (
     <ShelterResidentTable key={animal.id} animal={animal} />

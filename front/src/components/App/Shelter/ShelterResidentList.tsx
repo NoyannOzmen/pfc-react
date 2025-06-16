@@ -3,18 +3,17 @@ import { useRootContext } from '../../../contexts/RootContext';
 import { useUserContext } from "../../../contexts/UserContext";
 
 function ShelterResidentList() {
-  const { animals } = useRootContext();
-  const { species } = useRootContext();
-  const { user } = useUserContext();
+  const { animals, species } = useRootContext();
+  const auth = useUserContext();
 
-  if (!user) {
+  if (!auth.user) {
     throw new Response('', {
       status: 404,
       statusText: 'Not Found',
     });
   }
 
-  const sheltered = animals.filter(({ association_id }) => Number(association_id) === Number(user.id));
+  const sheltered = animals.filter(({ association_id }) => Number(association_id) === Number(auth.user?.id));
 
   const shelteredItems = sheltered.map((animal) => (
     <Link key={animal.id} data-animalid={animal.id} data-nom={animal.nom} data-espece={animal.espece.id} data-statut={animal.statut} className="animal_card animal_card--visible flex flex-col justify-between content-center relative bg-fond rounded-xl w-36 h-36 shrink-0 md:size-60" to={`/associations/profil/animaux/${animal.id}`}>

@@ -4,8 +4,7 @@ import { useRootContext } from '../../../contexts/RootContext';
 function CarouselOfThree() {
   const { animals } = useRootContext();
 
-  const { animalId } = useParams();
-  const { shelterId } = useParams();
+  const { animalId, shelterId } = useParams();
 
   let sheltered = animals?.filter(({ statut }) => statut === "En refuge");
 
