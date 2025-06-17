@@ -18,6 +18,10 @@ function Header() {
     navMenu?.classList.remove("active");
   }
 
+  const isCurrentPage = ({ isActive }: { isActive: boolean }): string => {
+    return `${isActive ? "text-accents1-light" : ""}`;
+  };
+
   return (
   <>
     <header id="top" className="w-screen flex flex-row bg-zoning shadow-xl flex-none">
@@ -77,19 +81,19 @@ function Header() {
       <nav className="flex flex-auto grow-1  place-self-center md:place-self-end pb-4 pr-8 text-m md:text-base xl:text-xl text-center lg:text-left">
         <ul className="flex flex-auto flex-col md:flex-row md:place-content-end md:gap-5 pl-4 gap-2">
               <li className="hover:text-accents1-light place-self-start item-link">
-                <NavLink end tabIndex={0} to="/animaux" className={({ isActive }) => { return isActive ? "text-accents1-light" : ""}}>Nos Animaux</NavLink>
+                <NavLink end tabIndex={0} to="/animaux" className={isCurrentPage}>Nos Animaux</NavLink>
               </li>
               <li className="hover:text-accents1-light place-self-start item-link">
-                <NavLink end tabIndex={0} to="/associations" className={({ isActive }) => { return isActive ? "text-accents1-light" : ""}}>Nos Partenaires</NavLink>
+                <NavLink end tabIndex={0} to="/associations" className={isCurrentPage}>Nos Partenaires</NavLink>
               </li>
               <li className="hover:text-accents1-light place-self-start item-link">
-                <NavLink end tabIndex={0} to="/a-propos" className={({ isActive }) => { return isActive ? "text-accents1-light" : ""}}>Qui sommes&#x2011;nous&nbsp;?</NavLink>
+                <NavLink end tabIndex={0} to="/a-propos" className={isCurrentPage}>Qui sommes&#x2011;nous&nbsp;?</NavLink>
               </li>
               <li className="hover:text-accents1-light place-self-start item-link">
-                <NavLink end tabIndex={0} to="/faq" className={({ isActive }) => { return isActive ? "text-accents1-light" : ""}}>Foire aux Questions</NavLink>
+                <NavLink end tabIndex={0} to="/faq" className={isCurrentPage}>Foire aux Questions</NavLink>
               </li>
               <li className="hover:text-accents1-light place-self-start item-link">
-                <NavLink end tabIndex={0} to="/devenir-famille-d-accueil" className={({ isActive }) => { return isActive ? "text-accents1-light" : ""}}>Devenez Famille&nbsp;d'accueil</NavLink>
+                <NavLink end tabIndex={0} to="/devenir-famille-d-accueil" className={isCurrentPage}>Devenez Famille&nbsp;d'accueil</NavLink>
               </li>
         </ul>
       </nav>
