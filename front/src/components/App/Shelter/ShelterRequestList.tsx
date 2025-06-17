@@ -2,6 +2,7 @@ import { useUserContext } from "../../../contexts/UserContext";
 import { useRootContext } from '../../../contexts/RootContext';
 import ShelterRequestTable from "./ShelterRequestTable";
 import DashNav from "./DashNav";
+import { Link } from "react-router-dom";
 
 function ShelterRequestList() {
   const { animals } = useRootContext();
@@ -28,7 +29,9 @@ function ShelterRequestList() {
 
         <div className="flex flex-col bg-zoning rounded-lg">
           <nav className="rounded-lg h-9">
-            <ul className="rounded-t-lg flex h-9 content-center bg-accents2 justify-stretch font-semibold text-fond text-sm md:justify-start pl-2"></ul>
+            <ul className="rounded-t-lg flex h-9 content-center bg-accents2 justify-stretch font-semibold text-fond text-sm md:justify-start pl-2 pt-2">
+              <li><Link className="dashsubbtn-active flex flex-col justify-center content-center" to="/associations/profil/demandes"></Link></li>
+            </ul>
           </nav>
 
           <section className="flex flex-wrap justify-center" id="dashboard-container">

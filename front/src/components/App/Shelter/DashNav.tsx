@@ -6,6 +6,8 @@ function DashNav() {
     return `dashbtn ${isActive ? "dashbtn-active" : ""}`;
   };
 
+  //!TODO : Fix stuck active + Fix inactivation on sub-tab navigation
+
   return (
     <nav className="flex flex-wrap justify-center md:justify-start">
       <ul className="flex flex-wrap-reverse gap-x-2 mx-3 justify-center font-semibold md:justify-start md:ml-10 text-xl">

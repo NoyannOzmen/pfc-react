@@ -137,7 +137,7 @@ function ShelterRequestDetails() {
           
           <nav className="rounded-lg h-9">
             <ul className="rounded-t-lg flex h-9 content-center bg-accents2 justify-stretch font-semibold text-fond text-sm md:justify-start pl-2 pt-2">
-              <li><Link className="flex flex-col justify-center content-center" to="/associations/profil/demandes">
+              <li><Link className="dashsubbtn-active flex flex-col justify-center content-center" to="/associations/profil/demandes">
                 <span className="material-symbols-outlined shrink">
                   arrow_back
                 </span>
