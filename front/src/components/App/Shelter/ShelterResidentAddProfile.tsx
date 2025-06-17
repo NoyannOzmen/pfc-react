@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useRootContext } from '../../../contexts/RootContext';
 import { useUserContext } from "../../../contexts/UserContext";
 import { ITag } from "../../../@types";
@@ -48,38 +48,9 @@ function ShelterResidentAddProfile() {
   const token = sessionStorage.getItem("site");
 
   //* ANIMAL
-  useEffect(() => {
-    async function createAnimal() {
-      setUserMessage(null)
-      try {
-        const response = await fetch
-          (`${import.meta.env.VITE_API_URL}/animaux/nouveau-profil`,
-          {
-            method: 'POST',
-            headers: {
-              "Content-type" : "application/json",
-              "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(animalInfos),
-          }
-        );
-
-        const res = await response.json();
-        setUserMessage(res.message)
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      createAnimal();
-    }
-  }, [ animalInfos, setAnimalInfos ]);
-
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setUserMessage(null)
 
     const formData = new FormData(event.currentTarget);
     const { nom_animal, sexe_animal, age_animal, espece_animal, race_animal, couleur_animal, description_animal, tags_animal } = Object.fromEntries(formData);
@@ -97,6 +68,25 @@ function ShelterResidentAddProfile() {
       description_animal: description_animal as string,
       tags_animal: tags_animal as string,
     });
+
+    try {
+      const response = await fetch
+        (`${import.meta.env.VITE_API_URL}/animaux/nouveau-profil`,
+        {
+          method: 'POST',
+          headers: {
+            "Content-type" : "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify(animalInfos),
+        }
+      );
+
+      const res = await response.json();
+      setUserMessage(res.message)
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   //* TAG
