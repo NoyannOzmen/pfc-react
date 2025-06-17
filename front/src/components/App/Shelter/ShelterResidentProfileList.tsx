@@ -22,9 +22,9 @@ function ShelterResidentProfileList() {
   ))
 
   return(
-  <main className="justify-self-stretch flex-1">
+  <main className="pb-44">
     <h2 className="font-grands text-3xl text-center my-2 pt-5">Mon espace association</h2>
-    <div className="flex flex-col content-center justify-center mx-auto mb-4 w-[80%]">
+    <div className="flex flex-col content-center justify-center mx-auto mb-12 w-[80%]">
       <DashNav />
       <div className="flex flex-col bg-zoning rounded-lg">
         <ResidentSubNav />

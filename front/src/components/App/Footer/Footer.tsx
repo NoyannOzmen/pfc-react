@@ -25,7 +25,7 @@ function Footer() {
           </ul>
         </nav>
       </div>
-      <div className="flex flex-col place-content-evenly text-xs lg:text-sm h-8 lg:h-16">
+      <div className="flex flex-col place-content-evenly text-xs lg:text-sm h-16">
         <p className="text-center italic">Copyright &copy; Pet Foster Connect 2024<br />Tous droits réservés </p>
       </div>
     </footer>

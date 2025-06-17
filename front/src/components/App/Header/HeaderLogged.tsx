@@ -14,7 +14,7 @@ function HeaderLogged() {
         {auth.user?.accueillant &&
           <Link to="/famille/profil">Bonjour : {auth.user.accueillant.prenom ? `${auth.user.accueillant.prenom}` : `${auth.user.accueillant.nom}`}</Link>}
       </li>
-      <li className="border-2 border-accents2-dark mr-0 max-[767px]:border-b-fond  md:border-r-fond px-4 pr-6 max-[767px]:pb-2 place-self-center md:place-self-start">
+      <li className="border-2 border-accents2-dark max-[767px]:border-b-fond  md:border-r-fond px-4 pr-6 max-[767px]:pb-2 place-self-center md:place-self-start">
         {auth.user?.accueillant &&
         <Link tabIndex={0} className="hover:text-accents1-light" to="/famille/profil">Mon profil</Link>
         }
