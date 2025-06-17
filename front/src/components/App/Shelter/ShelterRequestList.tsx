@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
 import { useRootContext } from '../../../contexts/RootContext';
 import ShelterRequestTable from "./ShelterRequestTable";
+import DashNav from "./DashNav";
+import { Link } from "react-router-dom";
 
 function ShelterRequestList() {
   const { animals } = useRootContext();
@@ -24,18 +25,13 @@ function ShelterRequestList() {
     <main className="justify-self-stretch flex-1">
       <h2 className="font-grands text-3xl text-center my-2 pt-5">Mon espace association</h2>
       <div className="flex flex-col content-center justify-center mx-auto mb-4 w-[80%]"> 
-        <nav className="flex flex-wrap justify-center md:justify-start">
-          <ul className="flex flex-wrap-reverse gap-x-2 mx-3 justify-center font-semibold md:justify-start md:ml-10 text-xl">
-            <li><Link to="/associations/profil" tabIndex={0}><button id="dashbtn-1" className="dashbtn" tabIndex={-1}>Profil</button></Link></li>
-            <li><Link to="/associations/profil/demandes" tabIndex={0}><button id="dashbtn-2" className="dashbtn dashbtn-active" tabIndex={-1}>Demandes</button></Link></li>
-            <li><Link to="/associations/profil/animaux" tabIndex={0}><button id="dashbtn-3" className="dashbtn" tabIndex={-1}>Animaux</button></Link></li>
-          </ul>
-          <div className="mx-2 grow w-[90%] h-2 bg-accents1-dark rounded-t-lg"></div>
-        </nav>
+        <DashNav />
 
         <div className="flex flex-col bg-zoning rounded-lg">
           <nav className="rounded-lg h-9">
-            <ul className="rounded-t-lg flex h-9 content-center bg-accents2 justify-stretch font-semibold text-fond text-sm md:justify-start pl-2"></ul>
+            <ul className="rounded-t-lg flex h-9 content-center bg-accents2 justify-stretch font-semibold text-fond text-sm md:justify-start pl-2 pt-2">
+              <li><Link className="dashsubbtn-active flex flex-col justify-center content-center" to="/associations/profil/demandes"></Link></li>
+            </ul>
           </nav>
 
           <section className="flex flex-wrap justify-center" id="dashboard-container">

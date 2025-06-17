@@ -33,10 +33,10 @@ function Login() {
   }
 
   return (
-    <main className="justify-self-stretch flex-1">
+    <main className="pb-96">
       <h2 className="font-grands text-3xl text-center my-2 pt-10">Connexion</h2>
 
-      <section className="pt-10">
+      <section className="m-6 pt-10">
         <div className="font-body mx-auto w-[80%] md:w-[60%] bg-zoning rounded-lg shadow dark:bg-gray-800">
 
           <form className="flex flex-col flex-wrap justify-around text-texte" onSubmit={handleSubmit}>

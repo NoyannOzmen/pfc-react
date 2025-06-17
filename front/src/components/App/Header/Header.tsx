@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import HeaderNav from './HeaderNav';
 
 function Header() {
@@ -17,6 +17,10 @@ function Header() {
     hamburger?.classList.remove("active");
     navMenu?.classList.remove("active");
   }
+
+  const isCurrentPage = ({ isActive }: { isActive: boolean }): string => {
+    return `${isActive ? "text-accents1-light" : ""}`;
+  };
 
   return (
   <>
@@ -74,22 +78,22 @@ function Header() {
       </div>
           
       {/* Menu Navigation */}
-      <nav className="flex flex-auto grow-1  place-self-center md:place-self-end pb-4 pr-4 text-m md:text-base xl:text-xl">
+      <nav className="flex flex-auto grow-1  place-self-center md:place-self-end pb-4 pr-8 text-m md:text-base xl:text-xl text-center lg:text-left">
         <ul className="flex flex-auto flex-col md:flex-row md:place-content-end md:gap-5 pl-4 gap-2">
               <li className="hover:text-accents1-light place-self-start item-link">
-                <Link tabIndex={0} to="/animaux">Nos Animaux</Link>
+                <NavLink end tabIndex={0} to="/animaux" className={isCurrentPage}>Nos Animaux</NavLink>
               </li>
               <li className="hover:text-accents1-light place-self-start item-link">
-                <Link tabIndex={0} to="/associations">Nos Partenaires</Link>
+                <NavLink end tabIndex={0} to="/associations" className={isCurrentPage}>Nos Partenaires</NavLink>
               </li>
               <li className="hover:text-accents1-light place-self-start item-link">
-                <Link tabIndex={0} to="/a-propos">Qui sommes&#x2011;nous&nbsp;?</Link>
+                <NavLink end tabIndex={0} to="/a-propos" className={isCurrentPage}>Qui sommes&#x2011;nous&nbsp;?</NavLink>
               </li>
               <li className="hover:text-accents1-light place-self-start item-link">
-                <Link tabIndex={0} to="/faq">Foire aux Questions</Link>
+                <NavLink end tabIndex={0} to="/faq" className={isCurrentPage}>Foire aux Questions</NavLink>
               </li>
               <li className="hover:text-accents1-light place-self-start item-link">
-                <Link tabIndex={0} to="/devenir-famille-d-accueil">Devenez Famille&nbsp;d'accueil</Link>
+                <NavLink end tabIndex={0} to="/devenir-famille-d-accueil" className={isCurrentPage}>Devenez Famille&nbsp;d'accueil</NavLink>
               </li>
         </ul>
       </nav>

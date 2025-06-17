@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 
 function Register() {
   return (
-    <main className="justify-self-stretch flex-1">
+    <main className="pb-72">
       <h2 className="font-grands text-3xl text-center my-2 pt-10">Inscription</h2>
 
-      <section className="pt-10">
+      <section className="m-6 pt-10">
         <div className="font-body mx-auto w-[80%] md:w-[60%] bg-zoning rounded-lg shadow dark:bg-gray-800">
 
           <div className="flex flex-col flex-wrap justify-around text-texte">

@@ -71,7 +71,7 @@ function AnimalDetails() {
   }
 
   return (
-    <main className="flex flex-wrap flex-col md:flex-row justify-self-stretch flex-1 w-full place-content-evenly 2xl:w-1/2 2xl:self-center">
+    <main className="flex flex-wrap flex-col md:flex-row justify-self-stretch flex-1 w-[90%] place-content-evenly 2xl:self-center">
 			<section className="flex flex-col m-4 flex-1 max-[767px]:mx-4 md:ml-6 place-content-evenly">
 				<h2 className="font-grands text-2xl md:text-3xl text-center w-full my-6">{animal.nom}</h2>
 
@@ -148,7 +148,7 @@ function AnimalDetails() {
 						{ animal.refuge.description && <p className="font-body text-texte">{animal.refuge.description}</p> }
 					</div>
 						
-					<div className="text-center w-full py-2">
+					<div className="text-center w-full py-2 my-4">
 						<Link className="w-[60%] mx-auto my-3 py-2 px-4 bg-accents1-light text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" to={`/associations/${animal.refuge.id}`}>En savoir plus</Link>
 					</div>
 				</article>
