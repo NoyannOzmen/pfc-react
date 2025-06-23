@@ -21,10 +21,10 @@ const App = () => {
             <Route path= 'Plan' element={<Plan />} />
             {/* Shelter Routes */}
             <Route path= 'associations' element={<ShelterList />} />
-            <Route path= 'associations/:shelterId' element={<ShelterDetails />} />
+            <Route path= 'associations/:slug' element={<ShelterDetails />} />
             {/* Animal Routes */}
             <Route path= 'animaux' element={<AnimalList />} />
-            <Route path= 'animaux/:animalId' element={<AnimalDetails />} />
+            <Route path= 'animaux/:slug' element={<AnimalDetails />} />
             {/* Session Routes */}
             <Route path= 'connexion' element={<Login />} />
             <Route path='inscription' element={<Register />} />

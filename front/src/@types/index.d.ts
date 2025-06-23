@@ -52,6 +52,7 @@ export interface IAssociation {
   telephone: string;
   site: string | null;
   description: string | null;
+  slug: string;
   images_association: Media;
   identifiant_association: Utilisateur
 }
@@ -67,6 +68,7 @@ export interface IAnimal {
   description: string;
   statut: string;
   espece: Espece;
+  slug: string;
   images_animal: Media;
   refuge: Association;
   accueillant: Famille | null;

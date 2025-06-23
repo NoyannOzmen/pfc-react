@@ -6,7 +6,7 @@ type AnimalCardProps = {
 }
 
 const AnimalCard = ({ animal }: AnimalCardProps) => {
-  const url = animal.images_animal[0].url;
+  const url = (animal.images_animal.length) ? animal.images_animal[0].url : null;
 
   return (
     <div className="bg-zoning rounded-lg shadow dark:bg-gray-800 md:flex-col">
@@ -27,7 +27,7 @@ const AnimalCard = ({ animal }: AnimalCardProps) => {
           <p className="flex-none w-full mt-2 text-xs md:text-xl font-medium text-gray-500 dark:text-gray-300">Localisation : {animal.refuge.code_postal}</p>
         </div>
         <div className="flex text-sm font-medium justify-center">
-          <Link className="my-2 bg-accents1-light text-fond w-[90%] transition ease-in duration-200 text-center text-xs md:text-2xl font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" to={`/animaux/${animal.id}`}>Découvrir</Link>
+          <Link className="my-2 bg-accents1-light text-fond w-[90%] transition ease-in duration-200 text-center text-xs md:text-2xl font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" to={`/animaux/${animal.slug}`}>Découvrir</Link>
         </div>
       </div>
     </div>

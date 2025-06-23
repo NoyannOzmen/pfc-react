@@ -3,10 +3,10 @@ import { useRootContext } from '../../../contexts/RootContext';
 import Carousel from '../Animals/Carousel';
 
 function ShelterDetails() {
-  const { shelterId } = useParams();
+  const params = useParams();
 	const { shelters } = useRootContext();
 
-	const shelter = shelters?.find(({ id }) => Number(id) === Number(shelterId));
+	const shelter = shelters?.find((s) => s.slug === params.slug);
 
   if (!shelter) {
     throw new Response('', {
@@ -15,7 +15,7 @@ function ShelterDetails() {
     });
   }
   
-  const shelterUrl = shelter.images_association[0].url;
+  const shelterUrl = (shelter.images_association.length) ? shelter.images_association[0].url : null;
 
   return (
     <main className="justify-self-stretch flex-1">

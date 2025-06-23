@@ -20,7 +20,7 @@ function ShelterResidentList() {
   const shelteredItems = sheltered.map((animal) => (
     <Link key={animal.id} data-animalid={animal.id} data-nom={animal.nom} data-espece={animal.espece.id} data-statut={animal.statut} className="animal_card animal_card--visible flex flex-col justify-between content-center relative bg-fond rounded-xl w-36 h-36 shrink-0 md:size-60" to={`/associations/profil/animaux/${animal.id}`}>
     
-    { animal.images_animal[0].url ? (
+    { animal.images_animal.length > 0 ? (
       <img className="rounded-t-xl" src={`${import.meta.env.VITE_API_URL}` + `${animal.images_animal[0].url}`} alt={`Photo de ${animal.nom}`} />
     ) : (
       <img className="rounded-t-xl" src="/images/animal_empty.webp" alt="Photo à venir" />

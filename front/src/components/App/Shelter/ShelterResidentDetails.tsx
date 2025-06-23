@@ -36,7 +36,7 @@ function ShelterResidentDetails() {
   </tr>
   ))
 
-  const animalUrl = animal.images_animal[0].url;
+  const animalUrl = (animal.images_animal.length) ? animal.images_animal[0].url : null;
 
   const [userMessage, setUserMessage] = useState(null);
   const token = sessionStorage.getItem("site");

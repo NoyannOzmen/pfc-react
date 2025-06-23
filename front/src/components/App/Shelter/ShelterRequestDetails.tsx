@@ -23,6 +23,8 @@ function ShelterRequestDetails() {
     x.demandes.some((y:typeof x.demandes) => y.Demande.id === Number(demandeId))
   )
 
+
+
   if (!animal) {
     throw new Response('', {
       status: 404,
@@ -164,7 +166,7 @@ function ShelterRequestDetails() {
                 
                 <div className="flex p-6 pb-4">
                   <div className="flex flex-col gap-2">
-                  { animal.images_animal[0].url ? (
+                  { animal.images_animal.length > 0 ? (
                     <img className="w-28 rounded-lg" src={`${import.meta.env.VITE_API_URL}` + `${animal.images_animal[0].url}`} alt={`Photo de ${animal.nom}`} />
                   ) : (
                     <img className="w-28 rounded-lg" src="/images/animal_empty.webp" alt="Photo à venir" />

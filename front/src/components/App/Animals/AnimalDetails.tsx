@@ -6,11 +6,11 @@ import Carousel from '../Animals/Carousel';
 import { ITag } from '../../../@types';
 
 function AnimalDetails() {
-	const { animalId } = useParams();
+	const params = useParams();
 	const { animals } = useRootContext();
 	const auth = useUserContext();
 
-	const animal = animals.find(({id}) => Number(id) === Number(animalId));
+	const animal = animals.find((a) => a.slug === params.slug);
 
 	if (!animal) {
     throw new Response('', {
@@ -19,8 +19,8 @@ function AnimalDetails() {
     });
   }
 
-	const animalUrl = animal.images_animal[0].url;
-	const shelterUrl = animal.refuge.images_association.url;
+	const animalUrl = (animal.images_animal.length) ? animal.images_animal[0].url : null;
+	const shelterUrl = (animal.refuge.images_association.length) ? animal.refuge.images_association[0].url : null;
 
 	const tagItems = animal.tags.map((tag: ITag) => (
 		<button key={tag.id} className="group p-1 rounded-lg bg-accents1-dark text-fond text-center">
@@ -47,12 +47,12 @@ function AnimalDetails() {
 
     setRequestInfos({
       familleId: userId as string,
-      animalId: animalId as string,
+      animalId: animal!.id as string,
     });
 
 		try {
 			const response = await fetch
-				(`${import.meta.env.VITE_API_URL}/animaux/${animalId}/faire-une-demande`,
+				(`${import.meta.env.VITE_API_URL}/animaux/${animal!.id}/faire-une-demande`,
 				{
 					method: 'POST',
           headers: { 
@@ -149,14 +149,14 @@ function AnimalDetails() {
 					</div>
 						
 					<div className="text-center w-full py-2 my-4">
-						<Link className="w-[60%] mx-auto my-3 py-2 px-4 bg-accents1-light text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" to={`/associations/${animal.refuge.id}`}>En savoir plus</Link>
+						<Link className="w-[60%] mx-auto my-3 py-2 px-4 bg-accents1-light text-fond transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" to={`/associations/${animal.refuge.slug}`}>En savoir plus</Link>
 					</div>
 				</article>
 			</section>
 			
 			{/* Carousel */ }
 			<section className="p-4 py-6 block">
-				<h2 className="font-grands text-3xl text-center my-2">Ils vous attendent de patte ferme !</h2>
+				<h2 className="font-grands text-3xl text-center my-2">Ils vous attendent aussi chez {animal.refuge.nom} !</h2>
 					<Carousel />	
 			</section>
 </main>
