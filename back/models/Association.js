@@ -45,6 +45,10 @@ Association.init(
       type: DataTypes.TEXT,
       allowNull : true
     },
+    slug: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    }
   },
   {
     sequelize: sequelize,

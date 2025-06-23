@@ -34,6 +34,10 @@ Animal.init(
       type: DataTypes.ENUM,
       values: ['En refuge', 'Accueilli', 'Adopté'],
       allowNull: false,
+    },
+    slug: {
+      type: DataTypes.TEXT,
+      allowNull: false,
     }
   },
   {

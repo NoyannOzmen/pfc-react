@@ -152,14 +152,23 @@ export const animalController = {
                 statut:'En refuge',
                 association_id:assoId,
                 espece_id:espece_animal,
+                slug: ''
             });
+        
+        //* Slugification of the animal species, its name, and ID
+        const species = await Espece.findByPk(espece_animal);
+        const preSlug = `${species.nom}-${newAnimal.nom}-${newAnimal.id}`;
+        const slug = preSlug.toLowerCase();
 
+        newAnimal.slug = slug;
+        /*
         const newMedia = await Media.create(
             {
                 animal_id : newAnimal.id,
                 url: "/images/animal_empty.webp",
                 ordre: 1
-            })
+            }) 
+        */
 
         if (tagIdArray) {
             for (const tagId of tagIdArray) {
@@ -167,6 +176,10 @@ export const animalController = {
                 await newAnimal.addTag(tag)
             }
         }
+
+        /* await newMedia.save(); */
+        await newAnimal.save();
+
         res.json(newAnimal)
     },
     async uploadPhoto(req, res, next){

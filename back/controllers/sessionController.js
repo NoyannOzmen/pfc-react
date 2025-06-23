@@ -3,6 +3,7 @@ import emailValidator from 'email-validator';
 import jwt from 'jsonwebtoken';
 
 import { Animal, Famille, Utilisateur, Association, Espece } from '../models/Models.js';
+import { Media } from '../models/Media.js';
 
 export const sessionController = {
     async logIn(req,res) {    
@@ -206,8 +207,38 @@ export const sessionController = {
                 site: site,
                 description: description,
                 utilisateur_id: newUser.id,
+                slug: ''
             });
+
+            /* const newMedia = await Media.create(
+                {
+                    animal_id : newAnimal.id,
+                    url: "/images/animal_empty.webp",
+                    ordre: 1
+                })
+
+            await newMedia.save(); */
+
+            //* Slugification of the shelter's zipcode, its name, and Id
+            const shelterDpt = newShelter.code_postal.slice(0,2);
+
+            function slugify(str) {
+                return String(str)
+                    .normalize('NFKD')                  // split accented characters into their base characters and diacritical marks
+                    .replace(/[\u0300-\u036f]/g, '')    // remove all the accents, which happen to be all in the \u03xx UNICODE block.
+                    .trim()                             // trim leading or trailing whitespace
+                    .toLowerCase()                      // convert to lowercase
+                    .replace(/[^a-z0-9 -]/g, '')        // remove non-alphanumeric characters
+                    .replace(/\s+/g, '-')               // replace spaces with hyphens
+                    .replace(/-+/g, '-');               // remove consecutive hyphens
+                };
+
+            const shelterNom = slugify(newShelter.nom);
+            const slug = `${shelterDpt}-${shelterNom}-${newShelter.id}`
+            newShelter.slug = slug;
+
             await newShelter.save();
+
             const status = 200
             const message = 'Inscription Correcte';
 
