@@ -21,8 +21,8 @@ function AnimalList() {
 
   const tagItems = tags.map((tag) => (
     <div key={tag.id} >
+      <input onChange={handleCheck} type="checkbox" name="tag" id={tag.nom} value={tag.nom} className="mr-4"/>
       <label htmlFor={`${tag.nom}`}>{tag.nom}</label>
-      <input onChange={handleCheck} type="checkbox" name="tag" id={tag.nom} value={tag.nom} />
     </div>
   ))
 

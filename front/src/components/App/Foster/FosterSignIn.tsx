@@ -87,34 +87,28 @@ function FosterSignIn() {
           <input className="block bg-fond w-full" type="email" id="email" name="email" placeholder="chacripan@domain-expansion.io" autoComplete="email" required />
         </div>
         <div className="mx-auto p-2">
-          <label className="text-center w-full" htmlFor="telephone">N° telephone</label>
-          <input className="block bg-fond w-full" type="tel" id="telephone" name="telephone" pattern="^(0|\+33 )[1-9]([\-. ]?[0-9]{2} ){3}([\-. ]?[0-9]{2})|([0-9]{8})$" placeholder="01 23 45 67 89" />
+          <label className="text-center w-full" htmlFor="telephone">N° téléphone</label>
+          <input className="block bg-fond w-full" type="tel" id="telephone" name="telephone" pattern="^(0|\+33 )[1-9]([\-. ]?[0-9]{2} ){3}([\-. ]?[0-9]{2})|([0-9]{8})$" placeholder="01 23 45 67 89" required />
         </div>
       </fieldset>
       
       <fieldset className="font-body rounded-lg shadow dark:bg-gray-800 my-2 py-5">
         
         <legend className="font-bold text-lg font-grands text-center">Votre capacité d'hébergement</legend>
-        
         {/* <!-- API Adresse --> */}
         <GouvApi />
-        
         {/* <!-- Hébergement --> */}
         <div className="mx-auto p-2">
           <label className="text-center w-full" htmlFor="hebergement">Type d'hébergement</label>
           <input className="block bg-fond w-full" type="text" id="hebergement" name="hebergement" placeholder="Maison" required />
         </div>
-        {/* <!-- Adresse --> */}
+        {/* <!-- Terrain --> */}
         <div className="mx-auto p-2">
-          
-          {/* <!-- Terrain --> */}
           <label className="text-center w-full" htmlFor="terrain">Type de terrain</label>
           <input className="block bg-fond w-full" type="text" id="terrain" name="terrain" placeholder="Jardin de 100m²" />
         </div>
+        {/* <!-- Adresse --> */}
         <div className="mx-auto p-2">
-          
-          {/* <!-- Adresse --> */}
-          
           <label className="text-center w-full" htmlFor="rue">Rue</label>
           <input className="block bg-fond w-full" type="text" id="rue" name="rue" placeholder="45, rue de la Boustifaille" required />
         </div>

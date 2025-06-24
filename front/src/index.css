@@ -1906,8 +1906,16 @@
 		background-color: #536140;
 	}
 	
+	/* Required fields indicator */
+	label:has(+ input:required):after {
+  content: ' *';
+  color: red;
+	}
 	
-
+	label:has(+ textarea:required):after {
+  content: ' *';
+  color: red;
+	}
 
 }
 

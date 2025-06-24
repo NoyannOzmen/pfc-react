@@ -45,8 +45,8 @@ function ShelterList() {
 
   const speciesItems = species.map((espece) => (
     <div key={espece.id}>
+    <input onChange={handleCheck} type="checkbox" name="espece" id={espece.nom} value={espece.nom} className="mr-4"/>
     <label htmlFor={`${espece.nom}`}>{espece.nom}</label>
-    <input onChange={handleCheck} type="checkbox" name="espece" id={espece.nom} value={espece.nom}/>
   </div>
   ))
 
