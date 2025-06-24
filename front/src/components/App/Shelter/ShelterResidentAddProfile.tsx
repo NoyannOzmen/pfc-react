@@ -1,14 +1,15 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useRootContext } from '../../../contexts/RootContext';
 import { useUserContext } from "../../../contexts/UserContext";
 import { ITag } from "../../../@types";
 import DashNav from "./DashNav";
 import ResidentSubNav from "./ResidentSubNav";
+import { useNavigate } from "react-router-dom";
 
 function ShelterResidentAddProfile() {
   const { species, tags } = useRootContext();
   const auth = useUserContext();
-  const isInitialMount = useRef(true);
+  const navigate = useNavigate();
 
   if (!auth.user) {
    throw new Response('', {
@@ -16,23 +17,6 @@ function ShelterResidentAddProfile() {
      statusText: 'Not Found',
    });
  }
-
-  const [animalInfos, setAnimalInfos ] = useState({
-    association_id: '',
-    nom_animal: '',
-    sexe_animal: '',
-    age_animal: '',
-    espece_animal: '',
-    race_animal: '',
-    couleur_animal: '',
-    description_animal: '',
-    tags_animal: '',
-  })
-
-  const [ tagInfos, setTagInfos ] = useState({
-    tag_name: '',
-    tag_description: ''
-  })
 
   const speciesItems = species.map((espece) => (
     <option key={`Espece ${espece.id}`} value={espece.id} >{espece.nom}</option>
@@ -54,21 +38,8 @@ function ShelterResidentAddProfile() {
     setUserMessage(null)
 
     const formData = new FormData(event.currentTarget);
-    const { nom_animal, sexe_animal, age_animal, espece_animal, race_animal, couleur_animal, description_animal, tags_animal } = Object.fromEntries(formData);
-
-    const userId = auth.user?.refuge.id;
-
-    setAnimalInfos({
-      association_id: userId as string,
-      nom_animal: nom_animal as string,
-      sexe_animal: sexe_animal as string,
-      age_animal: age_animal as string,
-      espece_animal: espece_animal as string,
-      race_animal: race_animal as string,
-      couleur_animal: couleur_animal as string,
-      description_animal: description_animal as string,
-      tags_animal: tags_animal as string,
-    });
+    formData.append('association_id', auth.user?.refuge.id);
+    const newAnimal = Object.fromEntries(formData)
 
     try {
       const response = await fetch
@@ -79,103 +50,93 @@ function ShelterResidentAddProfile() {
             "Content-type" : "application/json",
             "Authorization": `Bearer ${token}`
           },
-          body: JSON.stringify(animalInfos),
+          body: JSON.stringify(newAnimal),
         }
       );
 
       const res = await response.json();
-      setUserMessage(res.message)
+
+      if (!res.ok) {
+        setUserMessage(res.message)
+      }
+      navigate('/associations/profil/animaux')
     } catch (error) {
       console.error(error);
     }
   }
 
   //* TAG
-  function handleCreateTag(event: React.FormEvent<HTMLFormElement>) {
+  async function handleCreateTag(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setUserMessage(null)
 
     const formData = new FormData(event.currentTarget);
-    const { tag_name, tag_description } = Object.fromEntries(formData);
+    const newTag = Object.fromEntries(formData);
 
-    setTagInfos({
-      tag_name: tag_name as string,
-      tag_description: tag_description as string
-    });
-
-    async function createTag() {
-      setUserMessage(null)
-      try {
-        const response = await fetch
-          (`${import.meta.env.VITE_API_URL}/tags/create`,
-          {
-            method: 'POST',
-            headers: {
-              "Content-type" : "application/json",
-              "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(tagInfos),
-          }
-        );
-
-        if (!response.ok) {
-          const { message } = await response.json();
-          setUserMessage(message)
+    try {
+      const response = await fetch
+        (`${import.meta.env.VITE_API_URL}/tags/create`,
+        {
+          method: 'POST',
+          headers: {
+            "Content-type" : "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify(newTag),
         }
+      );
 
-        const data = await response.json();
-
-    //* Clears <select> options
-    const selectTagForm = document.getElementById('tags-animal');
-    
-    if (selectTagForm) {
-    selectTagForm.innerHTML='';
-    }
-
-    //* Fill <select> back with updated tag options
-    data.forEach((tag : ITag) => {
-        const wrapper = document.createElement('div');
-        wrapper.classList.add('flex', 'gap-x-1.5');
-
-        const tagOption = document.createElement('input');
-        tagOption.type = 'checkbox';
-        tagOption.id=`tag_${tag.id}`;
-        tagOption.name=`tag_${tag.id}`;
-        tagOption.value=`${tag.id}`;
-        tagOption.classList.add('leading-3');
-
-        wrapper.appendChild(tagOption);
-
-        const tagLabel = document.createElement('label');
-        tagLabel.htmlFor=`tag_${tag.id}`;
-        tagLabel.classList.add('block', 'font-grands','font-semibold','text-xs','leading-3');
-        tagLabel.innerText=`${tag.nom}`
-
-        wrapper.appendChild(tagLabel);
-
-        if (selectTagForm) {
-        selectTagForm.appendChild(wrapper);
-        }
-    });
-
-    const addTagModal = document.getElementById('create-tags-modal');
-    const addTagForm = document.getElementById('create-tags-form');
-
-    if(addTagForm && addTagModal) {
-      addTagModal.classList.toggle('hidden');
-    }
-
-      } catch (error) {
-        console.error(error);
+      if (!response.ok) {
+        const { message } = await response.json();
+        setUserMessage(message)
       }
-    }
 
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      createTag();
-    }
+      const data = await response.json();
 
+      //* Clears <select> options
+      const selectTagForm = document.getElementById('tags-animal');
+      
+      if (selectTagForm) {
+      selectTagForm.innerHTML='';
+      }
+
+      //* Fill <select> back with updated tag options
+      data.forEach((tag : ITag) => {
+          const wrapper = document.createElement('div');
+          wrapper.classList.add('flex', 'gap-x-1.5');
+
+          const tagOption = document.createElement('input');
+          tagOption.type = 'checkbox';
+          tagOption.id=`tag_${tag.id}`;
+          tagOption.name=`tag_${tag.id}`;
+          tagOption.value=`${tag.id}`;
+          tagOption.classList.add('leading-3');
+
+          wrapper.appendChild(tagOption);
+
+          const tagLabel = document.createElement('label');
+          tagLabel.htmlFor=`tag_${tag.id}`;
+          tagLabel.classList.add('block', 'font-grands','font-semibold','text-xs','leading-3');
+          tagLabel.innerText=`${tag.nom}`
+
+          wrapper.appendChild(tagLabel);
+
+          if (selectTagForm) {
+          selectTagForm.appendChild(wrapper);
+          }
+      });
+
+      const addTagModal = document.getElementById('create-tags-modal');
+      const addTagForm = document.getElementById('create-tags-form');
+
+      if(addTagForm && addTagModal) {
+        addTagModal.classList.toggle('hidden');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
+
 
   function displayModal() {
     const addTagModal = document.getElementById('create-tags-modal');

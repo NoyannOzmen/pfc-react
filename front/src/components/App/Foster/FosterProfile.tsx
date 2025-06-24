@@ -230,7 +230,7 @@ function FosterProfile() {
         </div>
       </div>
 
-      {/* <!-- MODAL START --> */}
+      {/* MODAL START */}
       <div id="delete-account-modal" className="hidden justify-center content-center fixed bg-texte/20 inset-0">
 
         <div className="self-center bg-zoning p-6 rounded-lg">

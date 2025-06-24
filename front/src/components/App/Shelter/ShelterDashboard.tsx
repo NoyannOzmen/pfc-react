@@ -180,62 +180,52 @@ function ShelterDashboard() {
               
               <fieldset className="shrink font-body rounded-lg shadow dark:bg-gray-800 my-2 py-5">
                 <legend className="text-center">Mon organisme&nbsp;<span tabIndex={0} className="material-symbols-outlined" onClick={allowEdit}>edit</span></legend>
-                
-                {/* Name */}
+
                 <div className="mx-auto p-2">
                   <label className="text-center" htmlFor="nom">Nom</label>
                   <input className="block w-full" type="text" id="nom" name="nom" defaultValue={shelter.nom} disabled />
                 </div>
 
-                {/* Owner */}
                 <div className="mx-auto p-2">
                   <label className="text-center" htmlFor="responsable">Président</label>
                   <input className="block w-full" type="text" id="responsable" name="responsable" defaultValue={shelter.responsable} disabled />
                 </div>
 
-                {/* Street */}
                 <div className="mx-auto p-2">  
                   <label className="text-center" htmlFor="rue">Rue</label>
                   <input className="block w-full" type="text" id="rue" name="rue" defaultValue={ shelter.rue} disabled />
                 </div>
 
-                {/* City */}
                 <div className="mx-auto p-2">  
                   <label className="text-center" htmlFor="commune">Commune</label>
                   <input className="block w-full" type="text" id="commune" name="commune" defaultValue={shelter.commune} disabled />
                 </div>
 
-                {/* Zipcode */}
                 <div className="mx-auto p-2">   
                   <label className="text-center" htmlFor="code_postal">Code Postal</label>
                   <input className="block w-full" type="text" id="code_postal" name="code_postal" pattern="^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$" defaultValue={shelter.code_postal} disabled />
                 </div>
 
-                {/* Country */}
                 <div className="mx-auto p-2">  
                   <label className="text-center" htmlFor="pays">Pays</label>
                   <input className="block w-full" type="text" id="pays" name="pays" defaultValue={shelter.pays} disabled />
                 </div>
 
-                {/* Phone # */}
                 <div className="mx-auto p-2">  
                   <label className="text-center" htmlFor="telephone">N° Téléphone</label>
                   <input className="block w-full" type="tel" id="telephone" name="telephone" pattern="^(0|\+33 )[1-9]([\-. ]?[0-9]{2} ){3}([\-. ]?[0-9]{2})|([0-9]{8})$" defaultValue={shelter.telephone} disabled />
                 </div>
 
-                {/* SIRET */}
                 <div className="mx-auto p-2">  
                   <label className="text-center" htmlFor="siret">N° SIRET</label>
                   <input className="block w-full" type="text" id="siret" name="siret" pattern="^(\d{14}|((\d{3}[ ]\d{3}[ ]\d{3})|\d{9})[ ]\d{5})$" defaultValue={shelter.siret} disabled />
                 </div>
 
-                {/* Website */}
                 <div className="mx-auto p-2 flex flex-wrap">  
                   <label className="w-full" htmlFor="site">Site Web</label>
                   <input className="block w-full" type="url" name="site" id="site" defaultValue={shelter.site == null ? '' : shelter.site }  pattern="https://.*"  disabled />
                 </div>
-      
-                {/* Description */}
+
                 <div className="flex flex-wrap mx-auto p-2">
                   <label className="place-items-start pr-1 w-full" htmlFor="description">Description</label>
                   <textarea rows={5} className="w-full" name="description" id="description" defaultValue={shelter.description == null ? '' : shelter.description} disabled />

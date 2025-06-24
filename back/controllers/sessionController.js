@@ -94,7 +94,7 @@ export const sessionController = {
             });
             await newFoster.save();
             const status = 200
-            const message = 'Inscription Correcte';
+            const message = 'Inscription validée ! Merci de vous connecter à présent !';
 
             return res.status(status).json({ status, message });
         } else {
@@ -220,7 +220,7 @@ export const sessionController = {
             await newShelter.save();
 
             const status = 200
-            const message = 'Inscription Correcte';
+            const message = 'Inscription validée ! Merci de vous connecter à présent !';
 
             return res.status(status).json({ status, message });
         } else {
