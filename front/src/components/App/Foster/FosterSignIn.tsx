@@ -49,11 +49,11 @@ function FosterSignIn() {
         <legend className="font-bold text-lg font-grands text-center">Vos informations</legend>
         <div className="mx-auto p-2">        
           <label className="text-center w-full" htmlFor="prenom">Prénom</label>
-          <input className="block bg-fond w-full" type="text" id="prenom" name="prenom" placeholder="Charlotte" required />
+          <input className="block bg-fond w-full" type="text" id="prenom" name="prenom" placeholder="Charlotte" pattern="^[a-zA-Z](?:[ '.\-a-zA-Z]*[a-zA-Z])?$" required />
         </div>
         <div className="mx-auto p-2">
           <label className="text-center w-full" htmlFor="nom">Nom</label>
-          <input className="block bg-fond w-full" type="text" id="nom" name="nom" placeholder="Cripan" required />
+          <input className="block bg-fond w-full" type="text" id="nom" name="nom" placeholder="Cripan" pattern="^[a-zA-Z](?:[ '.\-a-zA-Z]*[a-zA-Z])?$" required />
         </div>
         <div className="mx-auto p-2">
           <label className="text-center w-full" htmlFor="email">Email</label>
@@ -61,7 +61,7 @@ function FosterSignIn() {
         </div>
         <div className="mx-auto p-2">
           <label className="text-center w-full" htmlFor="telephone">N° téléphone</label>
-          <input className="block bg-fond w-full" type="tel" id="telephone" name="telephone" pattern="^(0|\+33 )[1-9]([\-. ]?[0-9]{2} ){3}([\-. ]?[0-9]{2})|([0-9]{8})$" placeholder="01 23 45 67 89" required />
+          <input className="block bg-fond w-full" type="tel" id="telephone" name="telephone" placeholder="01 23 45 67 89" pattern="^(0|\+33 )[1-9]([\-. ]?[0-9]{2} ){3}([\-. ]?[0-9]{2})|([0-9]{8})$" required />
         </div>
       </fieldset>
       
@@ -73,12 +73,12 @@ function FosterSignIn() {
 
         <div className="mx-auto p-2">
           <label className="text-center w-full" htmlFor="hebergement">Type d'hébergement</label>
-          <input className="block bg-fond w-full" type="text" id="hebergement" name="hebergement" placeholder="Maison" required />
+          <input className="block bg-fond w-full" type="text" id="hebergement" name="hebergement" placeholder="Maison" pattern="^[a-zA-Z](?:[ '.\-a-zA-Z]*[a-zA-Z])?$" required />
         </div>
 
         <div className="mx-auto p-2">
           <label className="text-center w-full" htmlFor="terrain">Type de terrain</label>
-          <input className="block bg-fond w-full" type="text" id="terrain" name="terrain" placeholder="Jardin de 100m²" />
+          <input className="block bg-fond w-full" type="text" id="terrain" name="terrain" placeholder="Jardin de 100m²" pattern="^[a-zA-Z](?:[ '.\-a-zA-Z]*[a-zA-Z])?$"/>
         </div>
 
         <div className="mx-auto p-2">
@@ -88,17 +88,17 @@ function FosterSignIn() {
 
         <div className="mx-auto p-2">
           <label className="text-center w-full" htmlFor="commune">Ville</label>
-          <input className="block bg-fond w-full" type="text" id="commune" name="commune" placeholder="Paris" required />
+          <input className="block bg-fond w-full" type="text" id="commune" name="commune" placeholder="Paris" pattern="^[a-zA-Z](?:[ '.\-a-zA-Z]*[a-zA-Z])?$" required/>
         </div> 
 
         <div className="mx-auto p-2">
           <label className="text-center w-full" htmlFor="code_postal">Code Postal</label>
-          <input className="block bg-fond w-full border-" type="text" id="code_postal" name="code_postal" pattern="^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$" placeholder="75020" required />
+          <input className="block bg-fond w-full border-" type="text" id="code_postal" name="code_postal" placeholder="75020" pattern="^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$" required />
         </div>  
 
         <div className="mx-auto p-2">
           <label className="text-center w-full" htmlFor="pays">Pays</label>
-          <input className="block bg-fond w-full" type="text" id="pays" name="pays" placeholder="France" required />
+          <input className="block bg-fond w-full" type="text" id="pays" name="pays" placeholder="France" pattern="^[a-zA-Z](?:[ '.\-a-zA-Z]*[a-zA-Z])?$" required/>
         </div>
       </fieldset>
       

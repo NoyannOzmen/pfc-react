@@ -50,12 +50,12 @@ function ShelterSignIn() {
             
             <div className="mx-auto p-2">  
               <label className="text-center w-full" htmlFor="nom">Nom</label>
-              <input className="block bg-fond w-full" type="text" id="nom" name="nom" placeholder="PetSmart" required />
+              <input className="block bg-fond w-full" type="text" id="nom" name="nom" placeholder="PetSmart" pattern="^[a-zA-Z](?:[ '.\-a-zA-Z]*[a-zA-Z])?$" required />
             </div>
             
             <div className="mx-auto p-2"> 
               <label className="text-center w-full" htmlFor="responsable">Président</label>
-              <input className="block bg-fond w-full" type="text" id="responsable" name="responsable" placeholder="D. Recteur" required />
+              <input className="block bg-fond w-full" type="text" id="responsable" name="responsable" placeholder="D. Recteur" pattern="^[a-zA-Z](?:[ '.\-a-zA-Z]*[a-zA-Z])?$" required />
             </div>
             
             <GouvApi />
@@ -67,17 +67,17 @@ function ShelterSignIn() {
             
             <div className="mx-auto p-2">  
               <label className="text-center w-full" htmlFor="commune">Ville</label>
-              <input className="block bg-fond w-full" type="text" id="commune" name="commune" placeholder="Paris" required />
+              <input className="block bg-fond w-full" type="text" id="commune" name="commune" placeholder="Paris" pattern="^[a-zA-Z](?:[ '.\-a-zA-Z]*[a-zA-Z])?$" required />
             </div>
             
             <div className="mx-auto p-2">  
               <label className="text-center w-full" htmlFor="code_postal">Code Postal</label>
-              <input className="block bg-fond w-full" type="text" id="code_postal" name="code_postal" pattern="^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$" placeholder="75020" required />
+              <input className="block bg-fond w-full" type="text" id="code_postal" name="code_postal" placeholder="75020" pattern="^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$" required />
             </div>
             
             <div className="mx-auto p-2">  
               <label className="text-center w-full" htmlFor="pays">Pays</label>
-              <input className="block bg-fond w-full" type="text" id="pays" name="pays" placeholder="France" required />
+              <input className="block bg-fond w-full" type="text" id="pays" name="pays" placeholder="France" pattern="^[a-zA-Z](?:[ '.\-a-zA-Z]*[a-zA-Z])?$" required />
             </div>
 
             <div className="mx-auto p-2"> 
