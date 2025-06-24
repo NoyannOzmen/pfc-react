@@ -8,25 +8,25 @@ import { upload } from "../middlewares/upload.js";
 
 const animalRouter = Router();
 
-//* Rendu de la page avec tout les animaux disponibles
+//* All animals
 animalRouter.get('/animaux', catchErrors(animalController.availableAnimalsList));
 
-//* Test pour les especes
+//* All species
 animalRouter.get('/especes', catchErrors(animalController.getSpeciesList));
 
-//* Test pour les tags
+//* All tags
 animalRouter.get('/tags', catchErrors(animalController.getTagsList));
 
-//* Rendu de la page avec les animaux correspondant à la recherche
+//* Search results
 animalRouter.post('/animaux', catchErrors(animalController.getSearched));
 
-//* Route de demande d'accueil d'un animal par un.e user
+//* New foster request
 animalRouter.post('/animaux/:id(\\d+)/faire-une-demande',[auth,isRole.famille], catchErrors(animalController.hostRequest));
 
-//* Ajouter un animal à l'asssociation
+//* New animal profile
 animalRouter.post('/animaux/nouveau-profil', [auth,isRole.association], catchErrors(animalController.addAnimal));
 
-//* Ajouter une image à un animal
+//* Animal image upload
 animalRouter.post("/upload/photo", [auth,isRole.association], upload, catchErrors(animalController.uploadPhoto));
 
 export { animalRouter };

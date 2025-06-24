@@ -101,7 +101,7 @@ function AnimalList() {
 
   return (
     <main className="justify-self-stretch flex-1">
-      {/* <!-- Menu de recherche --> */}
+      {/* Searchbar */}
       <div className="md:my-3 flex flex-wrap font-body w-full bg-zoning rounded-lg shadow dark:bg-gray-800 justify-around">
         <form className="text-texte justify-around" onSubmit={handleSubmit}>
           <div id="fullSearch" className="mx-2 col-span-3 items-center flex flex-wrap justify-around">
@@ -120,7 +120,7 @@ function AnimalList() {
             <div className="col-span-1 mx-auto">
               <h4>Caractéristiques</h4>
               
-              {/* <!-- Choix de l'espèce --> */}
+              {/* Species Selection */}
               <div className="my-2">
                 <label htmlFor="espece-dropdown-full">Espèce</label>
                 <select onChange={handleInputData("especeDropdownFull")} tabIndex={0} className="text-xs block" id="espece-dropdown-full" name="especeDropdownFull" defaultValue="defaultFull">
@@ -129,7 +129,7 @@ function AnimalList() {
                 </select>
               </div>
                 
-              {/* <!-- Sexe --> */}
+              {/* Sex */}
               <div className="my-2">
                 <fieldset id="sexe">
                   <legend>Sexe</legend>
@@ -139,7 +139,7 @@ function AnimalList() {
                 </fieldset>
               </div>
               
-              {/* <!-- Selection Age --> */}
+              {/* Age Selection */}
               <div className="my-2">
                 <p>Age :</p>
                 <label htmlFor="age-min">De&nbsp;</label>
@@ -150,15 +150,15 @@ function AnimalList() {
               </div>
             </div>
               
-            {/* <!-- Sélection Tags --> */}
+            {/* Tag Selection */}
             <div className="col-span-1">
               <p>Exclure si :</p>
               {tagItems}
             </div>
-              
+
+            {/* Département */}
             <div className="col-span-1">   
               <div className="my-2">
-                {/* <!-- Département --> */}
                 <label htmlFor="dpt-select">Département</label>
                 <select onChange={handleInputData("dptSelect")} tabIndex={0} className="text-xs block" id="dpt-select" name="dptSelect" defaultValue="default">
                   <DptSelect />

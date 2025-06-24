@@ -7,24 +7,24 @@ import { upload } from "../middlewares/upload.js";
 
 const associationRouter = Router();
 
-//Affichage de la liste complète des associations
+//* All shelters
 associationRouter.get('/associations', catchErrors(associationController.getAll));
 
-//Affichage des résultats d'une recherche association
+//* Search results
 associationRouter.post('/associations', catchErrors(associationController.getSearched));
 
 //* DASHBOARD
-//Mise à jour des informations depuis le compte association
+//* Update infos
 associationRouter.post('/associations/profil', [auth, isRole.association], catchErrors(associationController.update));
 
-//Ajout d'un logo
+//* Shelter logo upload
 associationRouter.post("/upload/logo", [auth, isRole.association], upload, catchErrors(associationController.uploadImage));
 
-//* ROUTES AUTHENTIFIEES
-//Valider une demande d'accueil
+//* AUTH ROUTES
+//* Accept current request
 associationRouter.post('/associations/profil/demandes/:id(\\d+)/accept', [auth, isRole.association], catchErrors(associationController.approveRequest));
 
-//Refuser une demande d'accueil
+//* Deny current request
 associationRouter.post('/associations/profil/demandes/:id(\\d+)/deny', [auth, isRole.association], catchErrors(associationController.denyRequest));
 
 

@@ -27,6 +27,7 @@ CREATE TABLE "association" (
   "telephone"        TEXT NOT NULL,
   "site"             TEXT,
   "description"      TEXT,
+  "slug"             TEXT NOT NULL,
   "utilisateur_id"   INT UNIQUE NOT NULL REFERENCES "utilisateur"("id")
 );
 
@@ -58,6 +59,7 @@ CREATE TABLE "animal" (
   "sexe"             sexe NOT NULL,
   "description"      TEXT NOT NULL,
   "statut"           statut NOT NULL,
+  "slug"           TEXT NOT NULL,
   "association_id"   INT NOT NULL REFERENCES "association"("id"),
   "famille_id"       INT REFERENCES "famille"("id"),
   "espece_id"        INT NOT NULL REFERENCES "espece"("id")

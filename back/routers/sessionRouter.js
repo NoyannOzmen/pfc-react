@@ -6,21 +6,21 @@ import { isRole } from "../middlewares/isRole.js";
 
 const sessionRouter = Router();
 
-/* routes connexion */
+//* LogIn
 sessionRouter.post('/connexion', catchErrors(sessionController.logIn));
 
 //* FAMILLE
-/* Inscription famille d'accueil */
+//* Foster signin
 sessionRouter.post('/famille/inscription', catchErrors(sessionController.fosterSignIn));
-/* Update des informations */
+//* Update foster infos
 sessionRouter.post('/famille/profil', [auth, isRole.famille], catchErrors(sessionController.fosterUpdate));
-/* Suppression du compte */
+// Account deletion
 sessionRouter.post('/famille/profil/delete', [auth, isRole.famille], catchErrors(sessionController.fosterDestroy));
 
 //* ASSOCIATION
-/* Inscription association */
+//* Shelter signin
 sessionRouter.post('/association/inscription', catchErrors(sessionController.shelterSignIn));
-/* Suppression du compte */
+//* Account deletion
 sessionRouter.post('/association/profil/delete', [auth, isRole.association], catchErrors(sessionController.shelterDestroy));
 
 export { sessionRouter };

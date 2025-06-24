@@ -27,12 +27,12 @@ const getInitialState = () => {
 export default function UserContextProvider({
   children,
 }: UserContextProviderProps) {
-/*   const [user, setUser] = useState<IUtilisateur | null>(null); */
+
   const [user, setUser] = useState(getInitialState);
 
   useEffect(() => {
     sessionStorage.setItem("user", JSON.stringify(user))
-}, [user])
+  }, [user])
 
   const [userMessage, setUserMessage] = useState(null);
   const [token, setToken] = useState(sessionStorage.getItem("site") || "");

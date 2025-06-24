@@ -28,13 +28,13 @@ const App = () => {
             {/* Session Routes */}
             <Route path= 'connexion' element={<Login />} />
             <Route path='inscription' element={<Register />} />
-            {/* Foster Routes */}
+            {/* Logged Foster Routes */}
             <Route path='famille/inscription' element={<FosterSignIn />} />
             <Route element={<FosterRoute />}>
               <Route path='famille/profil' element={<FosterProfile />} />
               <Route path= 'famille/profil/demandes' element={<FosterRequest />} />
             </Route>
-            {/* Shelter Routes */}
+            {/* Logged Shelter Routes */}
             <Route path= 'association/inscription' element={<ShelterSignIn />} />
             <Route element={<ShelterRoute />}>
               <Route path= 'associations/profil' element={<ShelterDashboard />} />

@@ -56,7 +56,6 @@ function ShelterResidentDetails() {
           (`${import.meta.env.VITE_API_URL}/upload/photo`,
           {
             method: 'POST',
-            /* headers: { "Content-type" : "multipart/form-data" }, */
             headers: {
               "Authorization": `Bearer ${token}`
             },
@@ -88,7 +87,7 @@ function ShelterResidentDetails() {
             </div>
           }
             
-            {/* <!-- ANIMAL INFO --> */}
+            {/* ANIMAL */}
             <div className="w-60 md:w-auto">
               <h3 className="hidden md:inline font-grands text-3xl text-center my-2 pt-5 w-full">Fiche de suivi d'un animal</h3>
               <div className="flex p-6 pb-4">
@@ -150,7 +149,7 @@ function ShelterResidentDetails() {
               </div>     
             </div>
                   
-            {/* CURRENT FOSTER INFOS  */}
+            {/* CURRENT FOSTER INFOS */}
             {animal.accueillant && ( 
               <div className="w-60 md:w-auto">
                 <h3 className="font-body font-bold mb-4">Famille d'accueil</h3>
@@ -164,12 +163,6 @@ function ShelterResidentDetails() {
                     <p className="text-sm italic leading-3">Téléphone</p>
                     <p className="text-sm font-semibold">{animal.accueillant.telephone}</p>
                   </div>
-                  {/* 
-                  <div className="mb-2">
-                    <p className="text-sm italic leading-3">e-mail</p>
-                    <p className="text-sm font-semibold">{animal.accueillant.identifiant_famille.email}</p>
-                  </div> 
-                  */}
                   <div className="mb-2">
                     <p className="text-sm italic leading-4">Adresse</p>
                     <p className="text-sm font-semibold leading-3">{animal.accueillant.rue}</p>

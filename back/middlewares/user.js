@@ -1,4 +1,4 @@
-/* A middleware for import session info to all views */
+/* Imports session info to all views */
 
 /* export const userMiddleware = (req, res, next) => {
 

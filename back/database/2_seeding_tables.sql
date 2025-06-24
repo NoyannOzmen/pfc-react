@@ -12,20 +12,12 @@ VALUES
   ( 7, 'zeb@manege.com', '$2b$08$q2UqhQfdPDHL7C7bZCpNd.sq9PoQ5A0rDGjBQ6yaxCPgB.W1ozy2W')
 ;
 
-/*( 1, 'b.campbell@pet-smart.fr', 'boomstick'),
-  ( 2, 'j.lopez@mail.io', 'saintesmaries'),
-  ( 3, 'j.venchi@maimail.io', 'califourchon'),
-  ( 4, 'c.pagrav@proton.fr', 'bubulle'),
-  ( 5, 'llm@wanadoux.fr', 'pecheur'),
-  ( 6, 'cha@perlipop.et', 'chachacha'),
-  ( 7, 'zeb@manege.com', 'tournicoton')*/
-
 INSERT INTO "association"
-  ("id", "nom", "responsable", "rue", "commune", "code_postal", "pays", "siret", "telephone", "utilisateur_id")
+  ("id", "nom", "responsable", "rue", "commune", "code_postal", "pays", "siret", "telephone", "slug", "utilisateur_id")
 VALUES
-  ( 1, 'PetSmart', 'B. Campbell', '38 rue des pinèdes', 'Paris', '75020', 'France', '732 829 320 00074', '01 45 49 36 17', 1),
-  ( 2, 'SPB', 'J. Venchi', '60, place du capitole', 'Toulouse', '31000', 'France', '735 654 140 00072', '02 14 18 39 45', 3),
-  ( 3, 'L''arche de Chloé', 'C. Pagrav', '145 avenue Eblé', 'Limoges', '87000', 'France', '722 344 180 00070', '01 59 64 14 15', 4)
+  ( 1, 'PetSmart', 'B. Campbell', '38 rue des pinèdes', 'Paris', '75020', 'France', '732 829 320 00074', '01 45 49 36 17', '75-pet-smart-1', 1),
+  ( 2, 'SPB', 'J. Venchi', '60, place du capitole', 'Toulouse', '31000', 'France', '735 654 140 00072', '02 14 18 39 45', '31-spb-2', 3),
+  ( 3, 'L''arche de Chloé', 'C. Pagrav', '145 avenue Eblé', 'Limoges', '87000', 'France', '722 344 180 00070', '01 59 64 14 15', '87-l-arche-de-chloe-3', 4)
 ;
 
 INSERT INTO "famille"
@@ -53,26 +45,26 @@ VALUES
 ;
 
 INSERT INTO "animal"
-  ("id", "nom", "race", "couleur", "age", "sexe", "description", "statut", "association_id", "espece_id")
+  ("id", "nom", "race", "couleur", "age", "sexe", "description", "statut", "slug", "association_id", "espece_id")
 VALUES
-  (2, 'Choupette', 'Siamois', 'Blanc',20,'Femelle','une petit choupette','En refuge',1,1),
-  (3, 'Léon', 'Bengal', 'Tigré',4,'Mâle','le professionnel','En refuge',1,1),
-  (4, 'Boubou', 'Ragdoll', 'Crème',8,'Mâle','une boule de poils pleine de vie','En refuge',1,1),
-  (5, 'Pipou', 'Perruche', 'Bleu', 3,'Femelle','adore Earth, Wind & Fire','En refuge',1,7),
-  (6, 'Snoop', 'Chihuahua', 'Jaunâtre', 20,'Mâle','un chien très calme','En refuge',1,2),
-  (7, 'Capy','','Marron',5,'Inconnu','Cool Raoul','En refuge',1,4),
-  (8, 'Fun-Guy', 'Bolet', 'Blanc Gris',340,'Inconnu','Il porte des lunettes de soleil','En refuge',1,5),
-  (9, 'Médor', 'Jack-russell', 'blanc et noir',4,'Mâle','Un ptit chien','Adopté',2,2),
-  (10, 'Médou', 'Bichon frisé', 'blanc',1,'Mâle','Un jeune chien','Adopté',3,2),
-  (11, 'Philippe', 'Corgi', 'Orange', 1,'Mâle','Un tout p''tit chien','Adopté',2,2)
+  (2, 'Choupette', 'Siamois', 'Blanc',20,'Femelle','une petit choupette','En refuge','chat-choupette-2',1,1),
+  (3, 'Léon', 'Bengal', 'Tigré',4,'Mâle','le professionnel','En refuge','chat-leon-3',1,1),
+  (4, 'Boubou', 'Ragdoll', 'Crème',8,'Mâle','une boule de poils pleine de vie','En refuge','chat-boubou-4',1,1),
+  (5, 'Pipou', 'Perruche', 'Bleu', 3,'Femelle','adore Earth, Wind & Fire','En refuge','oiseau-pipou-5',1,7),
+  (6, 'Snoop', 'Chihuahua', 'Jaunâtre', 20,'Mâle','un chien très calme','En refuge','chien-snoop-6',1,2),
+  (7, 'Capy','','Marron',5,'Inconnu','Cool Raoul','En refuge','capybare-capy-7',1,4),
+  (8, 'Fun-Guy', 'Bolet', 'Blanc Gris',340,'Inconnu','Il porte des lunettes de soleil','En refuge','champignon-fun-guy-8',1,5),
+  (9, 'Médor', 'Jack-russell', 'blanc et noir',4,'Mâle','Un ptit chien','Adopté','chien-medor-9',2,2),
+  (10, 'Médou', 'Bichon frisé', 'blanc',1,'Mâle','Un jeune chien','Adopté','chien-medou-10',3,2),
+  (11, 'Philippe', 'Corgi', 'Orange', 1,'Mâle','Un tout p''tit chien','Adopté','chien-philippe-11',2,2)
 ;
 
 INSERT INTO "animal"
-  ("id", "nom", "race", "couleur", "age", "sexe", "description", "statut", "association_id", "espece_id","famille_id")
+  ("id", "nom", "race", "couleur", "age", "sexe", "description", "statut", "slug", "association_id", "espece_id","famille_id")
   VALUES
-  (1, 'Hades', 'Angora', 'Noir', 4, 'Mâle', 'Un bon gros chat', 'Accueilli', 1, 1, 1),
-  (12, 'Ivan', 'Chat', 'Orange', 7, 'Mâle', 'C''est probablement un chat', 'Accueilli', 1, 1, 2),
-  (13, 'Princesse', 'Européen', 'Calico', 11, 'Femelle', 'Un peu craintive', 'Accueilli', 1, 1, 1)
+  (1, 'Hades', 'Angora', 'Noir', 4, 'Mâle', 'Un bon gros chat', 'Accueilli', 'chat-hades-1', 1, 1, 1),
+  (12, 'Ivan', 'Chat', 'Orange', 7, 'Mâle', 'C''est probablement un chat', 'Accueilli', 'chat-ivan-12', 1, 1, 2),
+  (13, 'Princesse', 'Européen', 'Calico', 11, 'Femelle', 'Un peu craintive', 'Accueilli', 'chat-princesse-13', 1, 1, 1)
 ;
 
 INSERT INTO "demande"

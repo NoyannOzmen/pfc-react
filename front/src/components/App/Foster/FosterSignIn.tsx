@@ -95,34 +95,34 @@ function FosterSignIn() {
       <fieldset className="font-body rounded-lg shadow dark:bg-gray-800 my-2 py-5">
         
         <legend className="font-bold text-lg font-grands text-center">Votre capacité d'hébergement</legend>
-        {/* <!-- API Adresse --> */}
+        {/* API Address */}
         <GouvApi />
-        {/* <!-- Hébergement --> */}
+        {/* Lodging Type */}
         <div className="mx-auto p-2">
           <label className="text-center w-full" htmlFor="hebergement">Type d'hébergement</label>
           <input className="block bg-fond w-full" type="text" id="hebergement" name="hebergement" placeholder="Maison" required />
         </div>
-        {/* <!-- Terrain --> */}
+        {/* Terrain */}
         <div className="mx-auto p-2">
           <label className="text-center w-full" htmlFor="terrain">Type de terrain</label>
           <input className="block bg-fond w-full" type="text" id="terrain" name="terrain" placeholder="Jardin de 100m²" />
         </div>
-        {/* <!-- Adresse --> */}
+        {/* Street */}
         <div className="mx-auto p-2">
           <label className="text-center w-full" htmlFor="rue">Rue</label>
           <input className="block bg-fond w-full" type="text" id="rue" name="rue" placeholder="45, rue de la Boustifaille" required />
         </div>
-        {/* <!-- Ville --> */}
+        {/* City */}
         <div className="mx-auto p-2">
           <label className="text-center w-full" htmlFor="commune">Ville</label>
           <input className="block bg-fond w-full" type="text" id="commune" name="commune" placeholder="Paris" required />
         </div> 
-        {/* <!-- Code Postal --> */}
+        {/* Zipcode */}
         <div className="mx-auto p-2">
           <label className="text-center w-full" htmlFor="code_postal">Code Postal</label>
           <input className="block bg-fond w-full border-" type="text" id="code_postal" name="code_postal" pattern="^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$" placeholder="75020" required />
         </div>  
-        {/* <!-- Pays --> */}
+        {/* Country */}
         <div className="mx-auto p-2">
           <label className="text-center w-full" htmlFor="pays">Pays</label>
           <input className="block bg-fond w-full" type="text" id="pays" name="pays" placeholder="France" required />

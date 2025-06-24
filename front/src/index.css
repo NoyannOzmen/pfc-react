@@ -166,7 +166,7 @@
 		font-weight: bolder;
 	}
 	
-	/*Button to Top*/
+	/*Back to top button*/
 	
 	.to-top {
 		position: fixed;
@@ -174,8 +174,6 @@
 		right: 1vh;
 		z-index: 1;
 	}
-	
-	/*To top button text*/
 	
 	.to-top-text {
 		visibility: hidden;
@@ -285,15 +283,11 @@
 		text-decoration: underline;
 	}
 	
-	/* CLASSE A APPLIQUER AU BOUTON ACTIF DU MENU PRINCIPAL*/
-	
 	.dashbtn-active{
 		border-color: #B83700;
 		background-color: #DD4302;
 		color: #fffbe4;
 	}
-	
-	/* CLASSE A APPLIQUER AU BOUTON ACTIF DU SOUS MENU */
 	
 	.dashsubbtn-active{
 		background-color: #536140;
@@ -1893,15 +1887,13 @@
 	.dashbtn:hover{
 		text-decoration: underline;
 	}
-	
-	/* CLASSE A APPLIQUER AU BOUTON ACTIF DU MENU PRINCIPAL*/
+
 	.dashbtn-active{
 		border-color: #B83700;
 		background-color: #DD4302;
 		color: #fffbe4;
 	}
-	
-	/* CLASSE A APPLIQUER AU BOUTON ACTIF DU SOUS MENU */
+
 	.dashsubbtn-active{
 		background-color: #536140;
 	}

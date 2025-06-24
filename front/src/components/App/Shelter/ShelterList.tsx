@@ -94,7 +94,7 @@ function ShelterList() {
 
   return (
     <main className="justify-self-stretch flex-1">
-      {/* <!-- Menu de recherche --> */}
+      {/* Searchbar */}
       <div className="md:my-3 flex flex-wrap font-body w-full bg-zoning rounded-lg shadow dark:bg-gray-800 justify-around">
         <form className="text-texte justify-around" onSubmit={handleSubmit}>
           <div id="fullSearch" className="mx-2 col-span-3 items-center flex flex-wrap justify-around">
@@ -111,12 +111,13 @@ function ShelterList() {
             <h3 className="col-span-3 font-grands text-3xl text-center my-2">Rechercher une association</h3>
             <div className="col-span-1 mx-auto">
               <fieldset className="mx-auto p-2 my-2">
-                {/* <!-- Nom du refuge --> */}
+                {/* Shelter Name */}
                 <label htmlFor="shelter-nom">Nom du refuge</label>
                 <input onChange={handleInputData("shelterNom")} className="text-xs block" type="text" id="shelter-nom" name="shelterNom" placeholder="--Entrez un nom--" />
               </fieldset>
             </div>
             
+            {/* Species Selection */}
             <div className="col-span-1">
               <fieldset className="mx-auto p-2 my-2">
                 <legend>Animaux</legend>
@@ -126,8 +127,7 @@ function ShelterList() {
               
             <div className="col-span-1">
               <fieldset className="mx-auto p-2 my-2">
-              
-                {/* <!-- Département --> */}
+                {/* Département */}
                 <label htmlFor="dpt-select-full">Département</label>
                 <select onChange={handleInputData("dptSelectFull")} tabIndex={0} className="text-xs block" id="dpt-select-full" name="dptSelectFull" defaultValue="default">
                   <DptSelect />

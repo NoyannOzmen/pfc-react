@@ -8,7 +8,7 @@ import { Media } from './Media.js';
 import { Tag } from './Tag.js';
 import { Utilisateur } from './Utilisateur.js';
 
-/* Relations One-to-One : Association <-> Utilisateur <-> Famille */
+//* One-to-One : Association <-> Utilisateur <-> Famille
 
 Utilisateur.hasOne(Association, {
   foreignKey : 'utilisateur_id',
@@ -30,7 +30,7 @@ Famille.belongsTo(Utilisateur, {
   as: 'identifiant_famille',
 });
 
-/* Relation One-to-Many : Animal <-> Media */
+//* One-to-Many : Animal <-> Media
 
 Animal.hasMany(Media, {
   foreignKey: 'animal_id',
@@ -42,7 +42,7 @@ Media.belongsTo(Animal, {
   as: 'animal'
 });
 
-/* Relation One-to-Many : Animal <-> Media */
+//* One-to-Many : Animal <-> Media
 
 Association.hasMany(Media, {
   foreignKey: 'association_id',
@@ -55,7 +55,7 @@ Media.belongsTo(Association, {
 });
 
 
-/* Relation One-to-Many : Association <-> Animal */
+//* One-to-Many : Association <-> Animal
 
 Association.hasMany(Animal, {
   foreignKey: 'association_id',
@@ -67,7 +67,7 @@ Animal.belongsTo(Association, {
   as: 'refuge'
 });
 
-/* Relation One-to-Many : Espèce <-> Animal */
+//* One-to-Many : Espèce <-> Animal
 
 Espece.hasMany(Animal, {
   foreignKey: 'espece_id',
@@ -79,7 +79,7 @@ Animal.belongsTo(Espece, {
   as: 'espece'
 });
 
-/* Relation One-to-Many : Famille <-> Animal */
+//* One-to-Many : Famille <-> Animal
 
 Famille.hasMany(Animal, {
   foreignKey: 'famille_id',
@@ -92,7 +92,7 @@ Animal.belongsTo(Famille, {
 });
 
 
-/* Relation Many-to-Many : Tag <-> Animal */
+//*  Many-to-Many : Tag <-> Animal
 
 Tag.belongsToMany(Animal, {
   foreignKey: 'tag_id',
@@ -108,7 +108,7 @@ Animal.belongsToMany(Tag, {
   as: "tags"
 });
 
-/* Relation Many-to-Many : Animal <-> Famille */
+//* Many-to-Many : Animal <-> Famille
 
 Animal.belongsToMany(Famille, {
   foreignKey: 'animal_id',

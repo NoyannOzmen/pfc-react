@@ -4,7 +4,7 @@ import { Op } from "sequelize";
 const associationController = {
     async getAll(req, res) {
         const associations = await Association.findAll({
-            include :  [ 'images_association', 'pensionnaires'/* , 'identifiant_association' */ ]
+            include :  [ 'images_association', 'pensionnaires']
         });
         
         const especes = await Espece.findAll();

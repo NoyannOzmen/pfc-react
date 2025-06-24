@@ -77,70 +77,70 @@ function ShelterSignIn() {
               </div>
             }
             
-            {/* <!-- Nom --> */}
+            {/* Name */}
             <div className="mx-auto p-2">  
               <label className="text-center w-full" htmlFor="nom">Nom</label>
               <input className="block bg-fond w-full" type="text" id="nom" name="nom" placeholder="PetSmart" required />
             </div>
             
-            {/* <!-- Président --> */}
+            {/* Owner */}
             <div className="mx-auto p-2"> 
               <label className="text-center w-full" htmlFor="responsable">Président</label>
               <input className="block bg-fond w-full" type="text" id="responsable" name="responsable" placeholder="D. Recteur" required />
             </div>
             
-            {/* <!-- API Adresse --> */}
+            {/* API Address */}
             <GouvApi />
             
-            {/* <!-- Adresse --> */}
+            {/* Street */}
             <div className="mx-auto p-2"> 
               <label className="text-center w-full" htmlFor="rue">Rue</label>
               <input className="block bg-fond w-full" type="text" id="rue" name="rue" placeholder="45, rue de la Boustifaille" required />
             </div>
             
-            {/* <!-- Ville --> */}
+            {/* City */}
             <div className="mx-auto p-2">  
               <label className="text-center w-full" htmlFor="commune">Ville</label>
               <input className="block bg-fond w-full" type="text" id="commune" name="commune" placeholder="Paris" required />
             </div>
             
-            {/* <!-- Code Postal --> */}
+            {/* Zipcode */}
             <div className="mx-auto p-2">  
               <label className="text-center w-full" htmlFor="code_postal">Code Postal</label>
               <input className="block bg-fond w-full" type="text" id="code_postal" name="code_postal" pattern="^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$" placeholder="75020" required />
             </div>
             
-            {/* <!-- Pays --> */}
+            {/* Country */}
             <div className="mx-auto p-2">  
               <label className="text-center w-full" htmlFor="pays">Pays</label>
               <input className="block bg-fond w-full" type="text" id="pays" name="pays" placeholder="France" required />
             </div>
 
-            {/* <!-- telephone --> */}
+            {/* Phone # */}
             <div className="mx-auto p-2"> 
               <label className="text-center w-full" htmlFor="telephone">N° téléphone</label>
               <input className="block bg-fond w-full" type="tel" id="telephone" name="telephone" pattern="^(0|\+33 )[1-9]([\-. ]?[0-9]{2} ){3}([\-. ]?[0-9]{2})|([0-9]{8})$" placeholder="01 23 45 67 89" required />
             </div>
 
-            {/* <!-- N° SIRET --> */}
+            {/* SIRET */}
             <div className="mx-auto p-2">
               <label className="text-center w-full" htmlFor="siret">N° SIRET</label>
               <input className="block bg-fond w-full" type="text" id="siret" name="siret" pattern="^(\d{14}|((\d{3}[ ]\d{3}[ ]\d{3})|\d{9})[ ]\d{5})$" placeholder="732829320 00074" required />
             </div>
 
-            {/* <!-- Email --> */}
+            {/* User Email */}
             <div className="mx-auto p-2">
               <label className="text-center w-full" htmlFor="email">Email</label>
               <input className="block bg-fond w-full" type="email" id="email" name="email" placeholder="chacripan@domain-expansion.io" autoComplete="email" required />
             </div>
 
-            {/* <!-- Site Web --> */}
+            {/* Website  */}
             <div className="mx-auto p-2">
               <label className="text-center w-full" htmlFor="site">Site Web</label>
               <input className="block bg-fond w-full" type="url" name="site" id="site" placeholder="https://exemple.com" size={40}/>
             </div>
 
-            {/* <!-- Description --> */}
+            {/* Description */}
             <div className="mx-auto p-2">
                 <label className="text-center w-full" htmlFor="description">Description</label>
                 <textarea className="block bg-fond w-full" rows={5} cols={33} id="description" name="description"

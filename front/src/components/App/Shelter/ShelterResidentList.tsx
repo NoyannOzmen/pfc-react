@@ -52,7 +52,6 @@ function ShelterResidentList() {
 
   function filterCards (searchFlag : boolean, animalCards : NodeListOf<HTMLElement>) {
     
-    //* On initialise et remplit un tableau avec les valeurs qui doivent être filtrées 
     const speciesFilter: string[] = [];
     const speciesCheckboxes = document.querySelectorAll('.species-checkbox') as NodeListOf<HTMLInputElement>;
     if (speciesCheckboxes) {
@@ -146,12 +145,11 @@ function ShelterResidentList() {
         <div className="flex flex-col bg-zoning rounded-lg relative">
           <ResidentSubNav />
           <section id="dahboard-container" className="flex flex-col justify-center content-center">        
-            
-            {/* <!-- Titre caché pour le mobile --> */}
+
             <h3 className="text-center hidden md:inline font-grands text-4xl font-extrabold mt-4">Animaux</h3>
 
-            {/* <!-- FONCTION RECHERCHE et TRI --> */}
-            <form autoComplete="off" className="my-4 px-4 flex flex-wrap gap-3 justify-center md:w-1/4 md:absolute md:top-0 md:right-5 md:my-2 md:p-0 md:pr-4 md:justify-end z-10" onSubmit={handleSubmit} /* action="" */>
+            {/* Filter & Search */}
+            <form autoComplete="off" className="my-4 px-4 flex flex-wrap gap-3 justify-center md:w-1/4 md:absolute md:top-0 md:right-5 md:my-2 md:p-0 md:pr-4 md:justify-end z-10" onSubmit={handleSubmit}>
 
               <div key={"shelteredSearch"} className=" flex gap-x-1.5 text-center h-5">
                 <label className="hidden">Recherche</label>

@@ -1,4 +1,4 @@
-//* Middlewares à passer pour authentifier les routes association/famille
+//* Verifies if current role matches current routes authorizations
 
 export const isRole = {
     

@@ -1,3 +1,4 @@
+import { slugify } from "../middlewares/slug.js";
 import { Famille } from "../models/Famille.js";
 import { Animal, Association, Demande, Espece, Media, Tag } from "../models/Models.js";
 import { Op } from "sequelize";
@@ -11,8 +12,8 @@ export const animalController = {
                 "espece",
                 "images_animal",
                 "demandes",
-                { model : Association, as : "refuge", include: ["images_association"/* , "identifiant_association" */]},
-                { model : Famille, as : "accueillant"/* , include: ["identifiant_famille"] */},
+                { model : Association, as : "refuge", include: ["images_association"]},
+                { model : Famille, as : "accueillant"},
                 { model : Tag, as : "tags" },
             ]
         })
@@ -65,7 +66,7 @@ export const animalController = {
                 sexe : (req.body.sexe) ? (req.body.sexe) : { [Op.ne]: null },
                 '$refuge.code_postal$' : (req.body.dptSelect) ? { [Op.startsWith] : req.body.dptSelect } : { [Op.ne] : null },
                 age : ( req.body.minAge ) ? { [Op.gte]: req.body.minAge } : ( req.body.maxAge ) ? { [Op.lte]: req.body.maxAge } : {[Op.ne]: null },
-                '$tags.nom$' : (req.body.tag.length) ? { [Op.or] : [ { [Op.not] : req.body.tag }, /* { [Op.notLike]: { [Op.any]: req.body.tag } }, */ { [Op.is]: null } ] } : { [Op.or] : [ { [Op.ne] : null }, { [Op.is] : null } ] },
+                '$tags.nom$' : (req.body.tag.length) ? { [Op.or] : [ { [Op.not] : req.body.tag }, { [Op.is]: null } ] } : { [Op.or] : [ { [Op.ne] : null }, { [Op.is] : null } ] },
             }
         });
         
@@ -157,18 +158,12 @@ export const animalController = {
         
         //* Slugification of the animal species, its name, and ID
         const species = await Espece.findByPk(espece_animal);
-        const preSlug = `${species.nom}-${newAnimal.nom}-${newAnimal.id}`;
+
+        const sluggedName = slugify(newAnimal.nom);
+        const preSlug = `${species.nom}-${sluggedName}-${newAnimal.id}`;
         const slug = preSlug.toLowerCase();
 
         newAnimal.slug = slug;
-        /*
-        const newMedia = await Media.create(
-            {
-                animal_id : newAnimal.id,
-                url: "/images/animal_empty.webp",
-                ordre: 1
-            }) 
-        */
 
         if (tagIdArray) {
             for (const tagId of tagIdArray) {
@@ -177,7 +172,6 @@ export const animalController = {
             }
         }
 
-        /* await newMedia.save(); */
         await newAnimal.save();
 
         res.json(newAnimal)

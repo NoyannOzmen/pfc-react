@@ -155,8 +155,7 @@ function ShelterRequestDetails() {
                 <p className="font-grands font-base text-accents1 text-center">{userMessage}</p>
               </div>
             }
-            
-            {/* WRAPPER */}
+
             <div className="flex flex-wrap p-2 justify-center md:flex-nowrap" >
               
               {/* ANIMAL */}
@@ -228,10 +227,6 @@ function ShelterRequestDetails() {
                     <p className="text-sm italic leading-3">Téléphone</p>
                     <p className="text-base font-semibold">{famille.telephone}</p>
                   </div>
-                  {/* <div className="mb-2">
-                    <p className="text-sm italic leading-3">e-mail</p>
-                    <p className="text-base font-semibold">{famille.identifiant_famille.email}</p>
-                  </div> */}
                   <div className="mb-2">
                     <p className="text-sm italic leading-4">Adresse</p>
                     <p className="text-base font-semibold leading-4">{famille.rue}</p>
@@ -249,7 +244,7 @@ function ShelterRequestDetails() {
               </div> 
             </div>
             
-            {/* <!-- PARTIE GESTION --> */}
+            {/* Request Management */}
             <div className="w-full flex flex-row flex-wrap md:flex-nowrap justify-center gap-2 items-center">
               <h4 className="font-body font-bold text-center">Statut de la demande :</h4>
               <p id="request-status" className="font-body text-center">{displayedRequest ? (displayedRequest.statut_demande) : ("En Attente")}</p>

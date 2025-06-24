@@ -124,14 +124,14 @@ function ShelterResidentAddProfile() {
 
         const data = await response.json();
 
-    //* VIDE LES OPTIONS PRESENTES DANS LE SELECT
+    //* Clears <select> options
     const selectTagForm = document.getElementById('tags-animal');
     
     if (selectTagForm) {
     selectTagForm.innerHTML='';
     }
 
-    //* REMPLIT LA LISTE DE CHECKBOX AVEC LA LISTE DE TAG UPDATED
+    //* Fill <select> back with updated tag options
     data.forEach((tag : ITag) => {
         const wrapper = document.createElement('div');
         wrapper.classList.add('flex', 'gap-x-1.5');
@@ -281,7 +281,7 @@ function ShelterResidentAddProfile() {
         </div>          
       </div>  
 
-      {/* <!-- ICI MODALE DE CREATION DE TAGS --> */}
+      {/* MODAL START */}
       <div id="create-tags-modal" className="hidden justify-center content-center fixed bg-texte/20 inset-0">
         
         <div className="self-center bg-zoning p-6 rounded-lg">

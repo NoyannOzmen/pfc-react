@@ -1,5 +1,4 @@
-//* Le middleware auth vérifie l'existence d'un JSON WebToken 
-//* Si c'est le cas on appelle le middleware suivant
+//* Checks presence of JSON WebToken
 import jwt from 'jsonwebtoken';
 
 export function auth(req,res,next) {

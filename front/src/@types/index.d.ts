@@ -90,14 +90,11 @@ export interface RootContext {
   tags: Tag[];
   species: Espece[];
   shelters: Association[];
-  /* user: LoggedUser | null; */
 }
 
 export interface LoggedUser {
   id: string;
   email: string;
-  /* role: string; */
   accueillant: Famille | null;
   refuge : Association | null;
-  /* accessToken: string; */
 }

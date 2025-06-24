@@ -36,7 +36,6 @@ function ShelterUploadPage() {
           (`${import.meta.env.VITE_API_URL}/upload/logo`,
           {
             method: 'POST',
-            /* headers: { "Content-type" : "multipart/form-data" }, */
             headers: { 
               "Authorization": `Bearer ${token}`
             },
