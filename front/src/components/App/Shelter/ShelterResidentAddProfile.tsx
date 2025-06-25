@@ -171,7 +171,8 @@ function ShelterResidentAddProfile() {
                 
                 <div className="mb-2 w-[90%]">
                   <label htmlFor="sexe_animal" className="block w-full font-grands font-bold text-base ">Sexe</label>
-                  <select name="sexe_animal" id="sexe_animal" className="custom-select w-full rounded-md h-8 px-2 py-1 text-texte bg-fond ">
+                  <select name="sexe_animal" id="sexe_animal" className="custom-select w-full rounded-md h-8 px-2 py-1 text-texte bg-fond" required>
+                    <option selected disabled value="">Choisissez</option>
                     <option value="Inconnu">Inconnu</option>
                     <option value="Mâle">Mâle</option>
                     <option value="Femelle">Femelle</option>
@@ -190,8 +191,8 @@ function ShelterResidentAddProfile() {
                 
                 <div className="mb-2 w-[90%] md:shrink md:grow-0 self-start">
                   <label htmlFor="espece_animal" className="block w-full font-grands font-bold text-base ">Espèce</label>
-                  <select name="espece_animal" id="espece_animal" className="custom-select w-full rounded-md h-8 px-2 py-1 text-texte bg-fond ">
-                    <option value="">Choisissez</option>
+                  <select name="espece_animal" id="espece_animal" className="custom-select w-full rounded-md h-8 px-2 py-1 text-texte bg-fond" required>
+                    <option selected disabled value="">Choisissez</option>
                       {speciesItems}
                   </select>
                 </div>
