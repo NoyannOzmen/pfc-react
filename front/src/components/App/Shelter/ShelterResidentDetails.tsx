@@ -49,7 +49,7 @@ function ShelterResidentDetails() {
       const pictureId = JSON.stringify(animal?.id);
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("animalId", pictureId)
+      formData.append("animal_id", pictureId)
 
       try {
         const response = await fetch

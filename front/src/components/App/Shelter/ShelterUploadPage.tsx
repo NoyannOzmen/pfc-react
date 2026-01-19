@@ -28,7 +28,7 @@ function ShelterUploadPage() {
     if (file) {
       const assoId = JSON.stringify(auth.user?.refuge.id)
       const formData = new FormData();
-      formData.append("assoId", assoId);
+      formData.append("asso_id", assoId);
       formData.append("file", file);
 
       try {

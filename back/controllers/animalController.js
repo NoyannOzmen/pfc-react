@@ -171,8 +171,8 @@ export const animalController = {
     },
     async uploadPhoto(req, res, next){
         let userImage = req.file.path;
-        const trim = userImage.replace("./assets", "");
-        const animalId = req.body.animalId;
+        const trim = userImage.replace("./public", "");
+        const animalId = req.body.animal_id;
 
         const animal = await Animal.findByPk(animalId, {
             include : 'images_animal'
