@@ -22,10 +22,10 @@ associationRouter.post("/upload/logo", [auth, isRole.association], upload, catch
 
 //* ROUTES AUTHENTIFIEES
 //Valider une demande d'accueil
-associationRouter.post('/associations/profil/demandes/:id(\\d+)/accept', [auth, isRole.association], catchErrors(associationController.approveRequest));
+associationRouter.post('/associations/profil/demandes/:id/accept', [auth, isRole.association], catchErrors(associationController.approveRequest));
 
 //Refuser une demande d'accueil
-associationRouter.post('/associations/profil/demandes/:id(\\d+)/deny', [auth, isRole.association], catchErrors(associationController.denyRequest));
+associationRouter.post('/associations/profil/demandes/:id/deny', [auth, isRole.association], catchErrors(associationController.denyRequest));
 
 
 export { associationRouter };
