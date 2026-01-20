@@ -49,7 +49,7 @@ function ShelterList() {
     event?.preventDefault();
     filtered = available;
 
-    if (dptSelectSmall) {
+    if (dptSelectSmall.value !== "default") {
       let filtered = shelters.filter((shelter) =>
         shelter?.code_postal.toLowerCase().startsWith(dptSelectSmall.value.toLowerCase()),
       );
@@ -74,7 +74,7 @@ function ShelterList() {
         shelter.nom.toLowerCase().includes(shelterNom.value.toLowerCase())
     )} else { filtered = filtered }
 
-    if(animalSelect.length > 0) {
+    if(espece.length > 0) {
       let filteringArray : any = [];
 
       filtered.forEach((shelter) =>
@@ -106,7 +106,7 @@ function ShelterList() {
     filters?.classList.toggle('grid');
   }
 
-    function resetSearch() {
+  function resetSearch() {
     shelterNom.value = '';
     dptSelectFull.value = "default";
     dptSelectSmall.value = "default";

@@ -62,7 +62,7 @@ function AnimalList() {
     event?.preventDefault();
     filtered = available;
 
-    if (especeDropdownSmall) {
+    if (especeDropdownSmall.value !== "defaultSmall") {
       let filtered = available.filter((animal) =>
         animal?.espece.nom.toLowerCase().includes(especeDropdownSmall.value.toLowerCase()),
       );
