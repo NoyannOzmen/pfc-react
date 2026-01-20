@@ -18,7 +18,7 @@ animalRouter.get('/especes', catchErrors(animalController.getSpeciesList));
 animalRouter.get('/tags', catchErrors(animalController.getTagsList));
 
 //* Rendu de la page avec les animaux correspondant à la recherche
-animalRouter.post('/animaux', catchErrors(animalController.getSearched));
+/* animalRouter.post('/animaux', catchErrors(animalController.getSearched)); */
 
 //* Route de demande d'accueil d'un animal par un.e user
 animalRouter.post('/animaux/:id/faire-une-demande',[auth,isRole.famille], catchErrors(animalController.hostRequest));

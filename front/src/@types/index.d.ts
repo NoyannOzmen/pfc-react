@@ -53,7 +53,8 @@ export interface IAssociation {
   site: string | null;
   description: string | null;
   images_association: Media;
-  identifiant_association: Utilisateur
+  identifiant_association: Utilisateur;
+  pensionnaires: Animal[];
 }
 
 export interface IAnimal {
