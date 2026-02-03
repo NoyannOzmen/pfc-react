@@ -12,13 +12,13 @@ Tag.init(
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
-    }
+    },
   },
   {
     sequelize: sequelize,
     timestamps: false,
-    tableName: 'tag'
-  }
+    tableName: 'tag',
+  },
 );
 
 export { Tag };

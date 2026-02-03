@@ -6,12 +6,12 @@ class Media extends Model {}
 Media.init(
   {
     animal_id: {
-      type : DataTypes.INTEGER,
-      allowNull : true,
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
     association_id: {
-      type : DataTypes.INTEGER,
-      allowNull : true,
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
     url: {
       type: DataTypes.TEXT,
@@ -20,13 +20,13 @@ Media.init(
     ordre: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    }
+    },
   },
   {
     sequelize: sequelize,
     timestamps: false,
-    tableName: 'media'
-  }
+    tableName: 'media',
+  },
 );
 
 export { Media };

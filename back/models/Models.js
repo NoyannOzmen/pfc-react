@@ -11,18 +11,18 @@ import { Utilisateur } from './Utilisateur.js';
 /* Relations One-to-One : Association <-> Utilisateur <-> Famille */
 
 Utilisateur.hasOne(Association, {
-  foreignKey : 'utilisateur_id',
-  as: 'refuge'
+  foreignKey: 'utilisateur_id',
+  as: 'refuge',
 });
 
 Association.belongsTo(Utilisateur, {
   foreignKey: 'utilisateur_id',
   as: 'identifiant_association',
-})
+});
 
 Utilisateur.hasOne(Famille, {
   foreignKey: 'utilisateur_id',
-  as: 'accueillant'
+  as: 'accueillant',
 });
 
 Famille.belongsTo(Utilisateur, {
@@ -34,63 +34,61 @@ Famille.belongsTo(Utilisateur, {
 
 Animal.hasMany(Media, {
   foreignKey: 'animal_id',
-  as : 'images_animal'
+  as: 'images_animal',
 });
 
 Media.belongsTo(Animal, {
   foreignKey: 'animal_id',
-  as: 'animal'
+  as: 'animal',
 });
 
 /* Relation One-to-Many : Animal <-> Media */
 
 Association.hasMany(Media, {
   foreignKey: 'association_id',
-  as : 'images_association'
+  as: 'images_association',
 });
 
 Media.belongsTo(Association, {
   foreignKey: 'association_id',
-  as: 'association'
+  as: 'association',
 });
-
 
 /* Relation One-to-Many : Association <-> Animal */
 
 Association.hasMany(Animal, {
   foreignKey: 'association_id',
-  as : 'pensionnaires'
+  as: 'pensionnaires',
 });
 
 Animal.belongsTo(Association, {
   foreignKey: 'association_id',
-  as: 'refuge'
+  as: 'refuge',
 });
 
 /* Relation One-to-Many : Espèce <-> Animal */
 
 Espece.hasMany(Animal, {
   foreignKey: 'espece_id',
-  as : 'representants'
+  as: 'representants',
 });
 
 Animal.belongsTo(Espece, {
   foreignKey: 'espece_id',
-  as: 'espece'
+  as: 'espece',
 });
 
 /* Relation One-to-Many : Famille <-> Animal */
 
 Famille.hasMany(Animal, {
   foreignKey: 'famille_id',
-  as : 'animaux'
+  as: 'animaux',
 });
 
 Animal.belongsTo(Famille, {
   foreignKey: 'famille_id',
-  as: 'accueillant'
+  as: 'accueillant',
 });
-
 
 /* Relation Many-to-Many : Tag <-> Animal */
 
@@ -98,14 +96,14 @@ Tag.belongsToMany(Animal, {
   foreignKey: 'tag_id',
   otherKey: 'animal_id',
   through: Animal_Tag,
-  as: "animaux_taggés"
+  as: 'animaux_taggés',
 });
 
 Animal.belongsToMany(Tag, {
   foreignKey: 'animal_id',
   otherKey: 'tag_id',
-  through : Animal_Tag,
-  as: "tags"
+  through: Animal_Tag,
+  as: 'tags',
 });
 
 /* Relation Many-to-Many : Animal <-> Famille */
@@ -113,16 +111,15 @@ Animal.belongsToMany(Tag, {
 Animal.belongsToMany(Famille, {
   foreignKey: 'animal_id',
   otherKey: 'famille_id',
-  through : Demande,
-  as: "demandes"
+  through: Demande,
+  as: 'demandes',
 });
 
 Famille.belongsToMany(Animal, {
   foreignKey: 'famille_id',
   otherKey: 'animal_id',
   through: Demande,
-  as: "potentiel_accueillant"
+  as: 'potentiel_accueillant',
 });
 
-
-export { Animal, Animal_Tag, Association, Demande, Espece, Famille, Media, Tag, Utilisateur }
+export { Animal, Animal_Tag, Association, Demande, Espece, Famille, Media, Tag, Utilisateur };

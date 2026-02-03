@@ -1,8 +1,8 @@
 import { useRootContext } from '../../../contexts/RootContext';
-import { useUserContext } from "../../../contexts/UserContext";
-import ShelterResidentTable from "./ShelterResidentTable";
-import DashNav from "./DashNav";
-import ResidentSubNav from "./ResidentSubNav";
+import { useUserContext } from '../../../contexts/UserContext';
+import ShelterResidentTable from './ShelterResidentTable';
+import DashNav from './DashNav';
+import ResidentSubNav from './ResidentSubNav';
 
 function ShelterResidentProfileList() {
   const { animals } = useRootContext();
@@ -15,39 +15,44 @@ function ShelterResidentProfileList() {
     });
   }
 
-  const fostered = animals.filter(({ association_id, statut }) => Number(association_id) === Number(auth.user?.id) && statut === "Accueilli");
+  const fostered = animals.filter(
+    ({ association_id, statut }) =>
+      Number(association_id) === Number(auth.user?.id) && statut === 'Accueilli'
+  );
 
-  const fosteredItems = fostered.map((animal) => (
+  const fosteredItems = fostered.map(animal => (
     <ShelterResidentTable key={animal.id} animal={animal} />
-  ))
+  ));
 
-  return(
-  <main className="pb-44">
-    <h2 className="font-grands text-3xl text-center my-2 pt-5">Mon espace association</h2>
-    <div className="flex flex-col content-center justify-center mx-auto mb-12 w-[80%]">
-      <DashNav />
-      <div className="flex flex-col bg-zoning rounded-lg">
-        <ResidentSubNav />
-        <section className="flex flex-wrap justify-center" id="dashboard-container">
-          <h3 className="hidden md:inline font-grands text-3xl text-center my-2 pt-5 w-full">Suivi des animaux accueillis</h3>
-          
-          <div className="w-full mx-4 my-6">
-            <table className="text-left w-full">
-              <thead>
-                <tr className="border-none bg-zoning text-sm font-grands">
-                  <th>Nom Animal</th>
-                  <th>Famille d'Accueil</th>
-                </tr>
-              </thead>
+  return (
+    <main className="pb-44">
+      <h2 className="font-grands text-3xl text-center my-2 pt-5">Mon espace association</h2>
+      <div className="flex flex-col content-center justify-center mx-auto mb-12 w-[80%]">
+        <DashNav />
+        <div className="flex flex-col bg-zoning rounded-lg">
+          <ResidentSubNav />
+          <section className="flex flex-wrap justify-center" id="dashboard-container">
+            <h3 className="hidden md:inline font-grands text-3xl text-center my-2 pt-5 w-full">
+              Suivi des animaux accueillis
+            </h3>
 
-                {fosteredItems}   
-            </table>
-          </div>             
-        </section>
+            <div className="w-full mx-4 my-6">
+              <table className="text-left w-full">
+                <thead>
+                  <tr className="border-none bg-zoning text-sm font-grands">
+                    <th>Nom Animal</th>
+                    <th>Famille d'Accueil</th>
+                  </tr>
+                </thead>
+
+                {fosteredItems}
+              </table>
+            </div>
+          </section>
+        </div>
       </div>
-    </div> 
-  </main>  
-  )
+    </main>
+  );
 }
 
 export default ShelterResidentProfileList;

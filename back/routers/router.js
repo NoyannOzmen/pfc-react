@@ -1,4 +1,4 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import { animalRouter } from './animalRouter.js';
 import { associationRouter } from './associationRouter.js';
 import { sessionRouter } from './sessionRouter.js';

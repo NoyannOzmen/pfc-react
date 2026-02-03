@@ -9,22 +9,22 @@ import { router } from './routers/router.js';
 import { errorHandler, notFound } from './middlewares/errorHandlers.js';
 
 app.use(
-    cors({
-      origin: process.env.ALLOWED_DOMAINS.split(" ")
-    })
-  );
+  cors({
+    origin: process.env.ALLOWED_DOMAINS.split(' '),
+  }),
+);
 
 app.use(express.static('public'));
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(
-    session({
-        saveUninitialized: true,
-        resave: true,
-        secret: process.env.SESSION_SECRET,
-        cookie: { maxAge: 1200000 }
-    })
+  session({
+    saveUninitialized: true,
+    resave: true,
+    secret: process.env.SESSION_SECRET,
+    cookie: { maxAge: 1200000 },
+  }),
 );
 
 app.use(router);
@@ -34,5 +34,6 @@ app.use(errorHandler);
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log(`Lancement réussi à l'adresse : http://localhost:${port}`);
-})
+  // eslint-disable-next-line no-console
+  console.log(`Lancement réussi à l'adresse : http://localhost:${port}`);
+});

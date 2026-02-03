@@ -37,20 +37,20 @@ Association.init(
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    site : {
+    site: {
       type: DataTypes.TEXT,
-      allowNull : true
+      allowNull: true,
     },
-    description : {
+    description: {
       type: DataTypes.TEXT,
-      allowNull : true
+      allowNull: true,
     },
   },
   {
     sequelize: sequelize,
     timestamps: false,
-    tableName: 'association'
-  }
+    tableName: 'association',
+  },
 );
 
 export { Association };

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "db:reset": "psql -U pfcadmin -d pfc -f ./database/1_create_tables.sql; psql -U pfcadmin -d pfc -f ./database/2_seeding_tables.sql "
+    "db:reset": "psql -U pfcadmin -d pfc -f ./database/1_create_tables.sql; psql -U pfcadmin -d pfc -f ./database/2_seeding_tables.sql",
+    "lint": "eslint . --fix"
   },
   "keywords": [],
   "author": "",
@@ -26,5 +27,13 @@
     "pg": "^8.13.1",
     "sequelize": "^6.37.5",
     "sharp-multer": "^0.3.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "globals": "^17.1.0",
+    "prettier": "3.8.1"
   }
 }

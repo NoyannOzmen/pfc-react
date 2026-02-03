@@ -9,7 +9,7 @@ type UserContextType = {
   /* setToken: React.Dispatch<React.SetStateAction<string | null>>; */
   userMessage: string | null;
   /* setUserMessage : React.Dispatch<React.SetStateAction<string | null>>; */
-  logIn : (credentials: { email: string; mot_de_passe : string}) => Promise<void>;
+  logIn: (credentials: { email: string; mot_de_passe: string }) => Promise<void>;
   logOut(): Promise<void>;
 };
 
@@ -20,73 +20,71 @@ type UserContextProviderProps = {
 export const UserContext = createContext<UserContextType | null>(null);
 
 const getInitialState = () => {
-  const user = sessionStorage.getItem("user");
-  return user ? JSON.parse(user) : null
-}
+  const user = sessionStorage.getItem('user');
+  return user ? JSON.parse(user) : null;
+};
 
-export default function UserContextProvider({
-  children,
-}: UserContextProviderProps) {
-/*   const [user, setUser] = useState<IUtilisateur | null>(null); */
+export default function UserContextProvider({ children }: UserContextProviderProps) {
+  /*   const [user, setUser] = useState<IUtilisateur | null>(null); */
   const [user, setUser] = useState(getInitialState);
 
   useEffect(() => {
-    sessionStorage.setItem("user", JSON.stringify(user))
-}, [user])
+    sessionStorage.setItem('user', JSON.stringify(user));
+  }, [user]);
 
   const [userMessage, setUserMessage] = useState(null);
-  const [token, setToken] = useState(sessionStorage.getItem("site") || "");
+  const [token, setToken] = useState(sessionStorage.getItem('site') || '');
   const navigate = useNavigate();
 
-  async function logIn(credentials: { email: string; mot_de_passe : string}) {
-
-    setUserMessage(null)
+  async function logIn(credentials: { email: string; mot_de_passe: string }) {
+    setUserMessage(null);
     try {
-      const response = await fetch
-        (`${import.meta.env.VITE_API_URL}/connexion`,
-        {
-          method: 'POST',
-          headers: { "Content-type" : "application/json" },
-          body: JSON.stringify(credentials),
-        }
-      );
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/connexion`, {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(credentials),
+      });
 
       const res = await response.json();
 
       if (!res.ok) {
-        setUserMessage(res.message)
-        navigate("/connexion")
+        setUserMessage(res.message);
+        navigate('/connexion');
       }
 
       if (res) {
-        res.user ? setUser(res.user) : setUser(res);
+        if (res.user) {
+          setUser(res.user);
+        } else {
+          setUser(res);
+        }
         setToken(res.access_token);
-        sessionStorage.setItem("site", res.access_token);
-        navigate("/");
+        sessionStorage.setItem('site', res.access_token);
+        navigate('/');
       }
     } catch (error) {
       console.error(error);
     }
   }
 
-  async function logOut() : Promise<void> {
-    setUser(null)
+  async function logOut(): Promise<void> {
+    setUser(null);
     setToken('');
-    sessionStorage.removeItem("site");
-    navigate('/')
-  };
+    sessionStorage.removeItem('site');
+    navigate('/');
+  }
 
   return (
-    <UserContext.Provider value={{ user, setUser, token, userMessage, logIn, logOut}}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ user, setUser, token, userMessage, logIn, logOut }}>
+      {children}
+    </UserContext.Provider>
   );
 }
 export function useUserContext() {
   const context = useContext(UserContext);
 
   if (!context) {
-    throw new Error(
-      'useUserContext doit être utilisé dans UserContextProvider'
-    );
+    throw new Error('useUserContext doit être utilisé dans UserContextProvider');
   }
 
   return context;

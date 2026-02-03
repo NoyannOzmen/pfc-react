@@ -8,13 +8,13 @@ Espece.init(
     nom: {
       type: DataTypes.TEXT,
       allowNull: false,
-    }
+    },
   },
   {
     sequelize: sequelize,
     timestamps: false,
-    tableName: 'espece'
-  }
+    tableName: 'espece',
+  },
 );
 
 export { Espece };
