@@ -13,7 +13,7 @@ import Login from '../components/App/StaticPages/Login.tsx';
 
 import ShelterDetails from '../components/App/Shelter/ShelterDetails.tsx';
 import ShelterList from '../components/App/Shelter/ShelterList.tsx';
- 
+
 import AnimalList from '../components/App/Animals/AnimalList.tsx';
 import AnimalDetails from '../components/App/Animals/AnimalDetails.tsx';
 
@@ -61,5 +61,5 @@ export {
   ShelterResidentList,
   ShelterResidentDetails,
   ShelterResidentProfileList,
-  ShelterUploadPage
-}
+  ShelterUploadPage,
+};

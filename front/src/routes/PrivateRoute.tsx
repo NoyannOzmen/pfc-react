@@ -1,5 +1,5 @@
-import { Navigate, Outlet } from "react-router-dom";
-import { useUserContext } from "../contexts/UserContext";
+import { Navigate, Outlet } from 'react-router-dom';
+import { useUserContext } from '../contexts/UserContext';
 
 export const ShelterRoute = () => {
   const auth = useUserContext();
@@ -13,4 +13,4 @@ export const FosterRoute = () => {
   const accueillant = auth.user?.accueillant;
   if (!auth.user || !accueillant) return <Navigate to="/" />;
   return <Outlet />;
-}
+};

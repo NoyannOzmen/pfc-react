@@ -1,8 +1,8 @@
-import { Router } from "express";
-import { sessionController } from "../controllers/sessionController.js";
-import { catchErrors } from "../middlewares/catchErrors.js";
-import { auth } from "../middlewares/auth.js";
-import { isRole } from "../middlewares/isRole.js";
+import { Router } from 'express';
+import { sessionController } from '../controllers/sessionController.js';
+import { catchErrors } from '../middlewares/catchErrors.js';
+import { auth } from '../middlewares/auth.js';
+import { isRole } from '../middlewares/isRole.js';
 
 const sessionRouter = Router();
 

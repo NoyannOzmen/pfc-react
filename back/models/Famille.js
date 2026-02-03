@@ -5,9 +5,9 @@ class Famille extends Model {}
 
 Famille.init(
   {
-    prenom : {
+    prenom: {
       type: DataTypes.TEXT,
-      allowNull : true
+      allowNull: true,
     },
     nom: {
       type: DataTypes.TEXT,
@@ -37,16 +37,16 @@ Famille.init(
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    terrain : {
+    terrain: {
       type: DataTypes.TEXT,
-      allowNull : true
+      allowNull: true,
     },
   },
   {
     sequelize: sequelize,
     timestamps: false,
-    tableName: 'famille'
-  }
+    tableName: 'famille',
+  },
 );
 
 export { Famille };

@@ -26,6 +26,7 @@
   "include": [
     "vite.config.ts",
     ".eslintrc.cjs", // on inclut la configuration d'ESLint
-    "src"
-, "../back/models"  ],
+    "src",
+    "../back/models"
+  ]
 }

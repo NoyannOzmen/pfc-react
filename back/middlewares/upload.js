@@ -2,25 +2,24 @@ import path from 'path';
 import multer from 'multer';
 import SharpMulter from 'sharp-multer';
 
-const storage = 
-  SharpMulter ({
-    destination:(req, file, callback) =>callback(null, "./public/uploads"),
-    imageOptions:{
-    fileFormat: "webp",
+const storage = SharpMulter({
+  destination: (req, file, callback) => callback(null, './public/uploads'),
+  imageOptions: {
+    fileFormat: 'webp',
     quality: 70,
-    resize: { width: 450, height: 300, },
-      }
+    resize: { width: 450, height: 300 },
+  },
 });
 
 const upload = multer({
   storage: storage,
-  limits : { fileSize : 5000000 },
-  fileFilter: function(req, file, cb) {
+  limits: { fileSize: 5000000 },
+  fileFilter: function (req, file, cb) {
     checkFileType(file, cb);
-  }
- }).single('file');
+  },
+}).single('file');
 
- function checkFileType(file, cb) {
+function checkFileType(file, cb) {
   const filetypes = /jpeg|jpg|png|gif|webp/;
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
   const mimetype = filetypes.test(file.mimetype);

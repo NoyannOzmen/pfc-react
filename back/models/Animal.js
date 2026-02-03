@@ -34,13 +34,13 @@ Animal.init(
       type: DataTypes.ENUM,
       values: ['En refuge', 'Accueilli', 'Adopté'],
       allowNull: false,
-    }
+    },
   },
   {
     sequelize: sequelize,
     timestamps: false,
-    tableName: 'animal'
-  }
+    tableName: 'animal',
+  },
 );
 
 export { Animal };

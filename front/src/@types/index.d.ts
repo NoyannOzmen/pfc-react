@@ -1,15 +1,15 @@
-import { Utilisateur } from "./Utilisateur";
+import { Utilisateur } from './Utilisateur';
 
 export interface IMedia {
   id: string;
   url: string;
-  ordre: string
+  ordre: string;
 }
 
 export interface ITag {
   id: string;
   nom: string;
-  description: string
+  description: string;
 }
 
 export interface IUtilisateur {
@@ -18,7 +18,7 @@ export interface IUtilisateur {
   mot_de_passe: string;
   role: string;
   accueillant: Famille | null;
-  refuge : Association | null;
+  refuge: Association | null;
 }
 
 export interface IFamille {
@@ -32,7 +32,7 @@ export interface IFamille {
   pays: string;
   hebergement: string;
   terrain: string | null;
-  identifiant_famille : Utilisateur;
+  identifiant_famille: Utilisateur;
 }
 
 export interface IEspece {
@@ -53,7 +53,8 @@ export interface IAssociation {
   site: string | null;
   description: string | null;
   images_association: Media;
-  identifiant_association: Utilisateur
+  identifiant_association: Utilisateur;
+  pensionnaires: Animal[];
 }
 
 export interface IAnimal {
@@ -71,7 +72,7 @@ export interface IAnimal {
   refuge: Association;
   accueillant: Famille | null;
   demandes: Demande;
-  tags: Tag
+  tags: Tag;
 }
 
 export interface IDemande {
@@ -79,8 +80,8 @@ export interface IDemande {
   famille: Famille;
   animal: Animal;
   statut_demande: string;
-  date_debut : string;
-  date_fin: string
+  date_debut: string;
+  date_fin: string;
 }
 
 export interface RootContext {
@@ -96,6 +97,6 @@ export interface LoggedUser {
   email: string;
   /* role: string; */
   accueillant: Famille | null;
-  refuge : Association | null;
+  refuge: Association | null;
   /* accessToken: string; */
 }

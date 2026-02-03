@@ -12,13 +12,13 @@ Utilisateur.init(
     mot_de_passe: {
       type: DataTypes.TEXT,
       allowNull: false,
-    }
+    },
   },
   {
     sequelize: sequelize,
     timestamps: false,
-    tableName: 'utilisateur'
-  }
+    tableName: 'utilisateur',
+  },
 );
 
 export { Utilisateur };
