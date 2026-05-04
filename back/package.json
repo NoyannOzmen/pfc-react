@@ -34,5 +34,10 @@
     "eslint-plugin-prettier": "^5.5.5",
     "globals": "^17.1.0",
     "prettier": "3.8.1"
+  },
+  "overrides": {
+    "sequelize" : {
+      "uuid": ">=14.0.0"
+    }
   }
 }
