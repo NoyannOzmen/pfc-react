@@ -36,7 +36,10 @@
     "prettier": "3.8.1"
   },
   "overrides": {
-    "sequelize" : {
+    "express": {
+      "qs": ">=6.16.1"
+    },
+    "sequelize": {
       "uuid": ">=14.0.0"
     },
     "sharp": ">=0.35.3"
